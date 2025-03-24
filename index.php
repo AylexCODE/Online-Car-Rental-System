@@ -1,3 +1,12 @@
+<?php
+    $conn = "";
+    try{
+        $conn = mysqli_connect("localhost", "root", "", "car_rental");
+        //echo "Success";
+    }catch(mysqli_sql_exception){
+         echo "Error Tagak Pre!";
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
