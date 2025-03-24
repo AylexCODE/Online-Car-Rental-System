@@ -53,7 +53,8 @@
         }
 
         .success {
-            animation: timeOut 5s linear;
+            opacity: 0;
+            animation: 2s timeOut linear;
         }
 
         @keyframes timeOut {
