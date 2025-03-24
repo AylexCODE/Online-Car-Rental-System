@@ -1,5 +1,23 @@
 <?php
-    include("../database/db_conn.php");
+    require("../database/db_conn.php");
+
+    if(isset($_POST["login"])){
+        $contact = filter_input(INPUT_POST, "contact", FILTER_SANITIZE_SPECIAL_CHARS);
+        $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
+
+        $query = "SELECT * FROM users WHERE Email = '$contact' OR PhoneNumber = '$password'";
+        $execQuery = mysqli_query($conn, $query);
+
+        if(mysqli_num_rows($execQuery) != 0){
+            $rows = mysqli_fetch_assoc($execQuery);
+
+            if($row["Password"] == $password){
+                header("location: ./home/index.php");
+            }
+        }else{
+            echo "No Account/s Found!";
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -18,13 +36,13 @@
 <body>
     <form method="post">
         <p>Email or Phone</p>
-        <input type="text">
+        <input type="text" name="contact">
 
         <p>Password</p>
-        <input type="password">
+        <input type="password" name="password">
 
         <br>
-        <button type="submit">Login</button>
+        <button type="submit" name="login">Login</button>
 
         <p>Don't have an account?</p>
         <a href="./signup.php">Signup</a>
