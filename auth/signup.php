@@ -18,6 +18,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+    </style>
     <title>Car Rental</title>
 </head>
 <body>
@@ -49,6 +55,9 @@
 
         <br>
         <button type="submit" name="login">Submit</button>
+
+        <p>Already have an account?</p>
+        <a href="./login.php">login</a>
     </form>
 </body>
 <script type="text/javascript">
@@ -57,7 +66,7 @@
     function checkPass(){
         const pass = document.getElementById("password").value;
         const cPass = document.getElementById("cPass").value;
-        
+
         if(pass != cPass){
             passwordError.innerHTML = "Password Does Not Match";
         }else{
