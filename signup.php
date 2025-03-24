@@ -52,20 +52,10 @@
             color: black;
         }
 
-        .success {
-            animation: timeOut 5s linear;
-        }
-
-        @keyframes timeOut {
-            0% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
+        span {
+            display: flex;
+            flex-direction: row;
+            font-size: 12px;
         }
     </style>
     <meta charset="UTF-8">
@@ -74,21 +64,24 @@
     <title>Car Rental System</title>
 </head>
 <body>
-    <form action="./dashBoard.php">
-        <h2>Login</h2>
+    <form method="post">
+        <h2>Signup</h2>
 
         <p>Username</p>
         <input type="text" style="margin-bottom: 10px;" required>
 
         <p>Password</p>
         <input type="password" style="margin-bottom: 10px;" required>
-        <button>Login</button>
-        <a href="./signup.php">Sign up</a>
+        <button type="submit" name="signup">Signup</button>
         <?php
-            if(isset($_GET["success"])){
-                echo "<p class='success'>Signup Successfully!<p>";
+            if(isset($_POST["signup"])){
+                header("location: ./index.php?success");
             }
         ?>
+        <span>
+            <p>Already have an account?&nbsp;</p>
+            <a href="./index.php">Click here</a>
+        </span>
     </form>
 </body>
 </html>
