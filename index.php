@@ -7,5 +7,12 @@
     <title>Car Rental System</title>
 </head>
 <body>
+    <h2>Login</h2>
+
+    <p>Username</p>
+    <input type="text">
+
+    <p>Password</p>
+    <input type="password">
 </body>
 </html>
