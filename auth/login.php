@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     require("../database/db_conn.php");
 
     if(isset($_POST["login"])){
@@ -11,11 +13,17 @@
         if(mysqli_num_rows($execQuery) != 0){
             $rows = mysqli_fetch_assoc($execQuery);
 
-            if($row["Password"] == $password){
-                header("location: ./home/index.php");
+            $_SESSION["TempEmail"] = $rows["Email"];
+            if(password_verify($password, $rows["Password"])){
+                header("location: ../home/index.php");
+                session_unset($_SESSION["TempEmail"]);
+            }else{
+                header("location: ./login.php?authfailed");
             }
         }else{
-            echo "No Account/s Found!";
+            header("location: ./login.php?accountnotfound");
+            session_unset();
+            session_destroy();
         }
     }
 ?>
@@ -36,7 +44,7 @@
 <body>
     <form method="post">
         <p>Email or Phone</p>
-        <input type="text" name="contact">
+        <input type="text" name="contact" value="<?php if(isset($_SESSION["TempEmail"])) echo $_SESSION["TempEmail"]; ?>">
 
         <p>Password</p>
         <input type="password" name="password">

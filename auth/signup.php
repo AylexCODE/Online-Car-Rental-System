@@ -1,15 +1,30 @@
 <?php
     include("../database/db_conn.php");
 
-    if(isset($_POST["login"])){
+    if(isset($_POST["signup"])){
         $fName = filter_input(INPUT_POST, "FirstName", FILTER_SANITIZE_SPECIAL_CHARS);
         $lName = filter_input(INPUT_POST, "LastName", FILTER_SANITIZE_SPECIAL_CHARS);
-        $doB = $_POST["DoB"];
         $phoneNumber = $_POST["PhoneNumber"];
-        $email = filter_input(INPUT_POST, "Email", FILTER_SANITIZE_SPECIAL_CHARS);
+        $email = strtolower(filter_input(INPUT_POST, "Email", FILTER_SANITIZE_SPECIAL_CHARS));
+
+        // $checkAccount = mysqli_query($conn, "SELECT * FROM users WHERE Name = '$fName $lname' OR PhoneNumber = '$phoneNumber' OR Email = '$email';");
+
+        $doB = $_POST["DoB"];
         $dLicense = filter_input(INPUT_POST, "DriversLicense", FILTER_SANITIZE_SPECIAL_CHARS);
         $password = filter_input(INPUT_POST, "Password", FILTER_SANITIZE_SPECIAL_CHARS);
-        $cPassword = filter_input(INPUT_POST, "ConfirmPassword", FILTER_SANITIZE_SPECIAL_CHARS);
+        
+        $hashPassword = password_hash($password, PASSWORD_DEFAULT);
+        // if(mysqli_num_rows($checkAccount) != 0){
+        //     header("location: ./signup.php?accountexist");
+        // }else{
+            $query = "INSERT INTO users (Name, PhoneNumber, Email, DoB, DriversLicense, Role, Password, DateCreated) VALUES ('$fName $lName', '$phoneNumber', '$email', '$doB', '$dLicense', 'Customer', '$hashPassword', NOW());";
+            try{
+                header("location: ./login.php?noerror");
+                mysqli_query($conn, $query);
+            }catch(mysqli_sql_exception){
+                header("location: ./signup.php?accountexist");
+            }
+        // }
     }
 ?>
 
@@ -88,7 +103,6 @@
                 event.preventDefault();
             }
         }
-        console.log(requirementsMeet)
     }
 
     function checkPass(){
