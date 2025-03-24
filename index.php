@@ -71,7 +71,7 @@
     </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="#" type="image/x-icon">
+    <link rel="icon" href="./Home/images/icon.png" type="image/x-icon">
     <title>Car Rental System</title>
 </head>
 <body>
