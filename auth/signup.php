@@ -4,10 +4,10 @@
     if(isset($_POST["login"])){
         $fName = filter_input(INPUT_POST, "FirstName", FILTER_SANITIZE_SPECIAL_CHARS);
         $lName = filter_input(INPUT_POST, "LastName", FILTER_SANITIZE_SPECIAL_CHARS);
-        $doB = filter_input(INPUT_POST, "DoB");
+        $doB = $_POST["DoB"];
+        $phoneNumber = $_POST["PhoneNumber"];
         $email = filter_input(INPUT_POST, "Email", FILTER_SANITIZE_SPECIAL_CHARS);
-        $phoneNumber = filter_input(INPUT_POST, "PhoneNumber", FILTER_SANITIZE_SPECIAL_CHARS);
-        $dLicense = filter_input(INPUT_POST, "DriversLicense", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $dLicense = filter_input(INPUT_POST, "DriversLicense", FILTER_SANITIZE_SPECIAL_CHARS);
         $password = filter_input(INPUT_POST, "Password", FILTER_SANITIZE_SPECIAL_CHARS);
         $cPassword = filter_input(INPUT_POST, "ConfirmPassword", FILTER_SANITIZE_SPECIAL_CHARS);
     }
@@ -27,33 +27,34 @@
     <title>Car Rental</title>
 </head>
 <body>
-    <form method="post">
+    <form method="post" onsubmit="checkForm(event)">
         <p>First Name</p>
-        <input type="text" name="FirstName">
+        <input type="text" name="FirstName" id="firstname">
 
         <p>Last Name</p>
-        <input type="text" name="LastName">
+        <input type="text" name="LastName" id="lastname">
 
         <p>Date of Birth</p>
-        <input type="date" name="DoB">
+        <input type="date" name="DoB" id="dob">
 
         <p>Email</p>
-        <input type="email" name="Email">
+        <input type="email" name="Email" id="email">
 
         <p>Phone Number</p>
-        <input type="number" name="PhoneNumber">
+        <input type="number" name="PhoneNumber" id="phonenumber">
 
         <p>Drivers License</p>
-        <input type="text" name="DriversLicense">
+        <input type="text" name="DriversLicense" id="dLicense">
 
         <p>Password</p>
-        <input type="password" name="Password" id="password" onchange="checkPass()">
+        <input type="password" name="Password" id="password">
 
         <p>Confirm Password</p>
-        <input type="password" name="ConfirmPassword" id="cPass" onchange="checkPass()">
-        <p id="passErrorMsg"></p>
-
+        <input type="password" name="ConfirmPassword" id="cPass">
+        
         <br>
+        <br>
+        <p id="errorMsg"></p>
         <button type="submit" name="login">Submit</button>
 
         <p>Already have an account?</p>
@@ -61,17 +62,41 @@
     </form>
 </body>
 <script type="text/javascript">
-    const passwordError = document.getElementById("passErrorMsg");
-    
-    function checkPass(){
-        const pass = document.getElementById("password").value;
-        const cPass = document.getElementById("cPass").value;
+    const name = document.getElementById("firstname");
+    const lname = document.getElementById("lastname");
+    const dob = document.getElementById("dob");
+    const email = document.getElementById("email");
+    const phoneNo = document.getElementById("phonenumber");
+    const dLicense = document.getElementById("dLicense");
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("cPass");
+    const errorMsg = document.getElementById("errorMsg");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.com+$/;
 
-        if(pass != cPass){
-            passwordError.innerHTML = "Password Does Not Match";
+    function checkForm(event){
+        event.preventDefault();
+
+        if(name.value == "" || lname.value == "" || dob.value == "" || email.value == "" || phoneNo.value == "" || dLicense.value == "" || password.value == "" || confirmPassword.value == ""){
+            errorMsg.innerHTML = "Fill all fields!";
         }else{
-            passwordError.innerHTML = "";
+            clearErrorMsg();
         }
     }
+
+    function checkPass(){
+        if((password.value != confirmPassword.value) && (confirmPassword.value != "" && password.value != "")){
+            errorMsg.innerHTML = "Password Does Not Match";
+        }else{
+            clearErrorMsg();
+        }
+    }
+
+    function clearErrorMsg(){
+        errorMsg.innerHTML = "";
+    }
+
+    password.oninput = (event) => { checkPass() }
+    confirmPassword.oninput = (event) => { checkPass() }
+    email.oninput = (event) => { if(!emailRegex.test(email.value)){errorMsg.innerHTML="Invalid Email!"}else{clearErrorMsg()} }
 </script>
 </html>

@@ -5,7 +5,7 @@
         $contact = filter_input(INPUT_POST, "contact", FILTER_SANITIZE_SPECIAL_CHARS);
         $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
 
-        $query = "SELECT * FROM users WHERE Email = '$contact' OR PhoneNumber = '$password'";
+        $query = "SELECT * FROM users WHERE Email = '$contact' OR PhoneNumber = '$contact'";
         $execQuery = mysqli_query($conn, $query);
 
         if(mysqli_num_rows($execQuery) != 0){
