@@ -27,10 +27,23 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            border: 2px solid black;
+            border-radius: 20px;
+            padding: 50px;
         }
 
         p{
             align-self: start;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        button {
+            font-weight: 700;
+            padding-block: 2px;
+            padding-inline: 15px;
         }
     </style>
     <meta charset="UTF-8">
@@ -39,14 +52,14 @@
     <title>Car Rental System</title>
 </head>
 <body>
-    <form>
+    <form action="./dashBoard.php">
         <h2>Login</h2>
 
         <p>Username</p>
-        <input type="text">
+        <input type="text" style="margin-bottom: 10px;" required>
 
         <p>Password</p>
-        <input type="password">
+        <input type="password" style="margin-bottom: 10px;" required>
         <button>Login</button>
     </form>
 </body>
