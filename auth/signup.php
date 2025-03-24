@@ -44,7 +44,7 @@
         <input type="number" name="PhoneNumber" id="phonenumber">
 
         <p>Drivers License</p>
-        <input type="text" name="DriversLicense" id="dLicense">
+        <input type="text" name="DriversLicense" id="dLicense" maxlength="13">
 
         <p>Password</p>
         <input type="password" name="Password" id="password">
@@ -55,7 +55,7 @@
         <br>
         <br>
         <p id="errorMsg"></p>
-        <button type="submit" name="login">Submit</button>
+        <button type="submit" name="signup">Submit</button>
 
         <p>Already have an account?</p>
         <a href="./login.php">login</a>
@@ -71,23 +71,48 @@
     const password = document.getElementById("password");
     const confirmPassword = document.getElementById("cPass");
     const errorMsg = document.getElementById("errorMsg");
-    const emailRegex = /^[^\s@]+@[^\s@]+\.com+$/;
+    const emailRegex = /^[^\s@]+@[e|g|E|G]+mail+\.com+$/;
+    const dLicenseRegex = /^[a-zA-Z0-9]{3}\-[a-zA-Z0-9]{2}\-[a-zA-Z0-9]{6}$/;
+    let requirementsMeet = false;
 
     function checkForm(event){
-        event.preventDefault();
-
         if(name.value == "" || lname.value == "" || dob.value == "" || email.value == "" || phoneNo.value == "" || dLicense.value == "" || password.value == "" || confirmPassword.value == ""){
             errorMsg.innerHTML = "Fill all fields!";
+            event.preventDefault();
         }else{
+            requirementsMeet = true;
             clearErrorMsg();
+            checkRequired();
+            checkPass();
+            if(!requirementsMeet){
+                event.preventDefault();
+            }
         }
+        console.log(requirementsMeet)
     }
 
     function checkPass(){
         if((password.value != confirmPassword.value) && (confirmPassword.value != "" && password.value != "")){
             errorMsg.innerHTML = "Password Does Not Match";
+            requirementsMeet = false;
         }else{
             clearErrorMsg();
+        }
+    }
+
+    function checkRequired(){
+        if(!emailRegex.test(email.value) && email.value != ""){
+            errorMsg.innerHTML="Invalid Email!";
+            requirementsMeet = false;
+        }else if(phoneNo.value.length < 11 && phoneNo.value != ""){
+            errorMsg.innerHTML="Invalid Phone Number!";
+            requirementsMeet = false;
+        }else if(!dLicenseRegex.test(dLicense.value) && dLicense.value != ""){
+            errorMsg.innerHTML="Invalid Driver's License!";
+            requirementsMeet = false;
+        }else{
+            clearErrorMsg();
+            checkPass();
         }
     }
 
@@ -97,8 +122,8 @@
 
     password.oninput = (event) => { checkPass() }
     confirmPassword.oninput = (event) => { checkPass() }
-    email.oninput = (event) => { if(!emailRegex.test(email.value) && email.value != ""){errorMsg.innerHTML="Invalid Email!"}else{clearErrorMsg()} }
-    phoneNo.oninput = (event) => { if(phoneNo.value.length < 11 && phoneNo.value != ""){errorMsg.innerHTML="Invalid Phone Number!"}else{clearErrorMsg(); phoneNo.value = phoneNo.value.slice(0, 11) } }
-    dLicense.oninput = (event) => { console.log("EEEE") }
+    email.oninput = (event) => { checkRequired(); if(!emailRegex.test(email.value) && email.value != ""){errorMsg.innerHTML="Invalid Email!"} }
+    phoneNo.oninput = (event) => { checkRequired(); if(phoneNo.value.length < 11 && phoneNo.value != ""){errorMsg.innerHTML="Invalid Phone Number!"}else{phoneNo.value = phoneNo.value.slice(0, 11)} }
+    dLicense.oninput = (event) => { checkRequired(); if(!dLicenseRegex.test(dLicense.value) && dLicense.value != ""){errorMsg.innerHTML="Invalid Driver's License!"} }
 </script>
 </html>
