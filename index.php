@@ -10,18 +10,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            height: 100vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        p{
+            align-self: start;
+        }
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="#" type="image/x-icon">
     <title>Car Rental System</title>
 </head>
 <body>
-    <h2>Login</h2>
+    <form>
+        <h2>Login</h2>
 
-    <p>Username</p>
-    <input type="text">
+        <p>Username</p>
+        <input type="text">
 
-    <p>Password</p>
-    <input type="password">
+        <p>Password</p>
+        <input type="password">
+        <button>Login</button>
+    </form>
 </body>
 </html>
