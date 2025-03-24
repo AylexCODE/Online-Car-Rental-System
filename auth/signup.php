@@ -97,6 +97,8 @@
 
     password.oninput = (event) => { checkPass() }
     confirmPassword.oninput = (event) => { checkPass() }
-    email.oninput = (event) => { if(!emailRegex.test(email.value)){errorMsg.innerHTML="Invalid Email!"}else{clearErrorMsg()} }
+    email.oninput = (event) => { if(!emailRegex.test(email.value) && email.value != ""){errorMsg.innerHTML="Invalid Email!"}else{clearErrorMsg()} }
+    phoneNo.oninput = (event) => { if(phoneNo.value.length < 11 && phoneNo.value != ""){errorMsg.innerHTML="Invalid Phone Number!"}else{clearErrorMsg(); phoneNo.value = phoneNo.value.slice(0, 11) } }
+
 </script>
 </html>
