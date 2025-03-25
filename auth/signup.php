@@ -77,7 +77,7 @@
     </form>
 </body>
 <script type="text/javascript">
-    const name = document.getElementById("firstname");
+    const fname = document.getElementById("firstname");
     const lname = document.getElementById("lastname");
     const dob = document.getElementById("dob");
     const email = document.getElementById("email");
@@ -86,12 +86,13 @@
     const password = document.getElementById("password");
     const confirmPassword = document.getElementById("cPass");
     const errorMsg = document.getElementById("errorMsg");
+
     const emailRegex = /^[^\s@]+@[e|g|E|G]+mail+\.com+$/;
     const dLicenseRegex = /^[a-zA-Z0-9]{3}\-[a-zA-Z0-9]{2}\-[a-zA-Z0-9]{6}$/;
     let requirementsMeet = false;
 
     function checkForm(event){
-        if(name.value == "" || lname.value == "" || dob.value == "" || email.value == "" || phoneNo.value == "" || dLicense.value == "" || password.value == "" || confirmPassword.value == ""){
+        if(fname.value == "" || lname.value == "" || dob.value == "" || email.value == "" || phoneNo.value == "" || dLicense.value == "" || password.value == "" || confirmPassword.value == ""){
             errorMsg.innerHTML = "Fill all fields!";
             event.preventDefault();
         }else{
