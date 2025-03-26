@@ -15,15 +15,18 @@
 
             $_SESSION["TempEmail"] = $rows["Email"];
             if(password_verify($password, $rows["Password"])){
+                unset($_SESSION["TempEmail"]);
+                $_SESSION["email"] = $rows["Email"];
+                $_SESSION["role"] = $rows["Role"];
+                
                 header("location: ../home/index.php");
-                session_unset($_SESSION["TempEmail"]);
             }else{
                 header("location: ./login.php?authfailed");
             }
         }else{
-            header("location: ./login.php?accountnotfound");
             session_unset();
             session_destroy();
+            header("location: ./login.php?accountnotfound");
         }
     }
 ?>
