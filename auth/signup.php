@@ -1,5 +1,6 @@
 <?php
-    include("../database/db_conn.php");
+    require("../database/db_conn.php");
+    include_once("./style.php");
 
     if(isset($_POST["signup"])){
         $fName = filter_input(INPUT_POST, "FirstName", FILTER_SANITIZE_SPECIAL_CHARS);
@@ -33,53 +34,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style type="text/css">
-        *{
-            margin: 0;
-            padding: 0;
-        }
-    </style>
     <title>Car Rental</title>
 </head>
 <body>
     <form method="post" onsubmit="checkForm(event)">
-        <p>First Name</p>
-        <input type="text" name="FirstName" id="firstname">
-
-        <p>Last Name</p>
-        <input type="text" name="LastName" id="lastname">
-
-        <p>Date of Birth</p>
-        <input type="date" name="DoB" id="dob">
-
-        <p>Email</p>
-        <input type="email" name="Email" id="email">
-
-        <p>Phone Number</p>
-        <input type="number" name="PhoneNumber" id="phonenumber">
-
-        <p>Drivers License</p>
-        <input type="text" name="DriversLicense" id="dLicense" maxlength="13">
-
-        <p>Password</p>
-        <input type="password" name="Password" id="password">
-
-        <p>Confirm Password</p>
-        <input type="password" name="ConfirmPassword" id="cPass">
+        <section class="firstStep show">
+            <span class="fullName">
+                <input type="text" name="FirstName" id="firstname" placeholder=" " spellcheck="false">
+                <input type="text" name="LastName" id="lastname" placeholder=" " spellcheck="false">
+                
+                <label for="firstname">First Name</label>
+                <label for="lastname">Last Name</label>
+            </span>
+            <input type="email" name="Email" id="email" placeholder=" ">
+            <label for="email">Email</label>
+            
+            <input type="number" name="PhoneNumber" id="phonenumber" placeholder=" ">
+            <label for="phonenumber">Phone Number</label>
+        </section>
+        <section class="secondStep">
+            <input type="date" name="DoB" id="doB" class="dob">
+            <label for="dob">Date of Birth</label>
+            
+            <input type="text" name="DriversLicense" id="dLicense" maxlength="13" placeholder=" ">
+            <label for="dLicense">Drivers License</label>
+    
+            <input type="password" name="Password" id="password" placeholder=" ">
+            <label for="password">Password</label>
+        </section>
         
-        <br>
-        <br>
-        <p id="errorMsg"></p>
-        <button type="submit" name="signup">Submit</button>
-
-        <p>Already have an account?</p>
-        <a href="./login.php">login</a>
+        <section class="lastStep">
+            <input type="text" id="conName" disabled></input>
+            <label for="conName">Name</label>
+            
+            <input id="conEmail"></input>
+            <label for="conEmail">Email</label>
+            
+            <input id="conPhoneNum"></input>
+            <label for="conDLicense">Phone Number</label>
+            
+            <input id="conDoB"></input>
+            <label for="conDoB">Date of Birth</label>
+            
+            <input id="conDLicense"></input>
+            <label for="conDLicense">Driver's License</label>
+            
+            <input type="password" name="ConfirmPassword" id="cPass" placeholder=" ">
+            <label for="cPass">Confirm Password</label>
+        </section>
+        
+        <!--<p id="errorMsg"></p>-->
+        <section class="navigation">
+            <div class="previousButton" onclick="setStep('subtract')">Previous</div>
+            <div class="nextButton" onclick="setStep('add')">Next</div>
+            <!--<button type="submit" name="signup">Submit</button>-->
+        </section>
     </form>
+    <div class="loginButton">
+        <p>Already have an account?&nbsp;</p>
+        <a href="./login.php">login</a>
+    </div>
 </body>
 <script type="text/javascript">
+    const firstStep = document.querySelector(".firstStep");
+    const secondStep = document.querySelector(".secondStep");
+    const lastStep = document.querySelector(".lastStep");
+    const allSteps = [firstStep, secondStep, lastStep];
+    
     const fname = document.getElementById("firstname");
     const lname = document.getElementById("lastname");
-    const dob = document.getElementById("dob");
+    const dob = document.querySelector(".dob");
     const email = document.getElementById("email");
     const phoneNo = document.getElementById("phonenumber");
     const dLicense = document.getElementById("dLicense");
@@ -89,8 +113,46 @@
 
     const emailRegex = /^[^\s@]+@[e|g|E|G]+mail+\.com+$/;
     const dLicenseRegex = /^[a-zA-Z0-9]{3}\-[a-zA-Z0-9]{2}\-[a-zA-Z0-9]{6}$/;
+    
     let requirementsMeet = false;
-
+    let steps = 1;
+    
+    function setStep(step){
+        switch(step){
+            case "add":
+                if(steps < 3) steps++;
+                break;
+            case "subtract":
+                if(steps > 1) steps--;
+                break;
+        }
+        
+        if(steps == 3) setConfirmation();
+        setShowingForms();
+    }
+    
+    function setShowingForms(){
+        let index = 1;
+        allSteps.forEach((element)=>{
+            if(index == steps){
+                element.classList.add("show");
+            }else{
+                element.classList.remove("show");
+            }
+            index++;
+        });
+    }
+    
+    function setConfirmation(){
+        document.getElementById("conName").value = fname.value +" " +lname.value;
+        document.getElementById("conEmail").value = email.value;
+        document.getElementById("conPhoneNum").value = phoneNo.value;
+        document.getElementById("conDoB").value = dob.value;
+        document.getElementById("conDLicense").value = dLicense.value;
+    }
+    
+    dob.onchange = (event) => { if(dob.value != ""){dob.classList.add("dobNotEmpty")}else{dob.classList.remove("dobNotEmpty")} }
+    /*
     function checkForm(event){
         if(fname.value == "" || lname.value == "" || dob.value == "" || email.value == "" || phoneNo.value == "" || dLicense.value == "" || password.value == "" || confirmPassword.value == ""){
             errorMsg.innerHTML = "Fill all fields!";
@@ -100,6 +162,7 @@
             clearErrorMsg();
             checkRequired();
             checkPass();
+            checkDriveAge();
             if(!requirementsMeet){
                 event.preventDefault();
             }
@@ -116,7 +179,7 @@
     }
 
     function checkRequired(){
-        if(!emailRegex.test(email.value) && email.value != ""){
+        if(!emailRegex.test(email.value) && email.value != "" && email.value.length > 9){
             errorMsg.innerHTML="Invalid Email!";
             requirementsMeet = false;
         }else if(phoneNo.value.length < 11 && phoneNo.value != ""){
@@ -134,11 +197,22 @@
     function clearErrorMsg(){
         errorMsg.innerHTML = "";
     }
+    
+    function checkDriveAge(){
+      let ageYear = (dob.value).split("-");
+      const currentDate = new Date();
+      
+      ageYear = new Date((parseInt(ageYear[0])+18) +"-" +ageYear[1] +"-" +ageYear[2]);
+      if(ageYear > currentDate){
+        requirementsMeet = false;
+      }
+    }
 
     password.oninput = (event) => { checkPass() }
     confirmPassword.oninput = (event) => { checkPass() }
-    email.oninput = (event) => { checkRequired(); if(!emailRegex.test(email.value) && email.value != ""){errorMsg.innerHTML="Invalid Email!"} }
+    email.oninput = (event) => { checkRequired(); if(!emailRegex.test(email.value) && email.value != "" && email.value.length > 9){errorMsg.innerHTML="Invalid Email!"} }
     phoneNo.oninput = (event) => { checkRequired(); if(phoneNo.value.length < 11 && phoneNo.value != ""){errorMsg.innerHTML="Invalid Phone Number!"}else{phoneNo.value = phoneNo.value.slice(0, 11)} }
     dLicense.oninput = (event) => { checkRequired(); if(!dLicenseRegex.test(dLicense.value) && dLicense.value != ""){errorMsg.innerHTML="Invalid Driver's License!"} }
+    */
 </script>
 </html>
