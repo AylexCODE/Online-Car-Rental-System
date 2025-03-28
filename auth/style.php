@@ -23,10 +23,23 @@
     
     form {
         width: 325px;
+        height: 283px;
         border: 2px solid black;
         border-radius: 12px;
         padding-block: 30px;
         padding-inline: 25px;
+        /*transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);*/
+        transition: all 0.2s ease;
+        overflow: hidden;
+    }
+    
+    .stepsWrapper {
+        position: relative;
+        height: 190px;
+        right: 0px;
+        display: flex;
+        flex-direction: row;
+        transition: all 0.2s ease;
     }
     
     label {
@@ -48,19 +61,19 @@
         font-size: 16px;
     }
     
-    input:not(#firstname, #lastname, #doB):focus + label, input:not(:placeholder-shown, #dob) + label, #firstname:focus ~ label:nth-child(3), #firstname:not(:placeholder-shown) ~ label:nth-child(3), #lastname:focus ~ label:nth-child(4), #lastname:not(:placeholder-shown) ~ label:nth-child(4){
+    input:not(#firstname, #lastname, #doB):focus + label, input:not(:placeholder-shown, #dob, #firstname, #lastname) + label, #firstname:focus ~ label:nth-child(3), #firstname:not(:placeholder-shown) ~ label:nth-child(3), #lastname:focus ~ label:nth-child(4), #lastname:not(:placeholder-shown) ~ label:nth-child(4){
         font-size: 12px;
         transform: translate(5.9px, -38px);
     }
     
     input:not(:placeholder-shown, .dob), .dobNotEmpty{
-        border-bottom: 1px solid green;
-        border-right: 1px solid green;
+        border-bottom: 2px solid green;
+        border-right: 2px solid green;
     }
     
     input:focus{
-        border-bottom: 1px solid purple;
-        border-right: 1px solid purple;
+        border-bottom: 2px solid purple;
+        border-right: 2px solid purple;
     }
     
     .fullName {
@@ -79,7 +92,6 @@
     }
     
     #doB {
-        width: 100%;
         background-color: transparent;
         padding-inline: 0px;
         padding-bottom: 2px;
@@ -96,8 +108,10 @@
     }
     
     .firstStep, .secondStep, .lastStep {
-        display: none;
+        display: flex;
         flex-direction: column;
+        margin-right: 50px;
+        animation: slideLeft 1s;
     }
     
     .lastStep > input:not(:nth-last-child(2)), .lastStep > label:not(:last-child) {
@@ -127,6 +141,8 @@
         background-color: white;
         color: black;
         font-weight: normal;
+        opacity: 0;
+        transition: all 0.2s ease;
     }
     
     .loginButton {
@@ -143,5 +159,28 @@
     
     .show {
         display: flex;
+        animation: slideRight 1s;
+    }
+
+    @keyframes slideRight {
+        0%{
+            opacity: 0;
+            transform: translateX(30px);
+        }
+        100%{
+            opacity: 1;
+            transform: translateX(0px);
+        }
+    }
+    
+    @keyframes slideLeft {
+        0%{
+            opacity: 0;
+            transform: translateX(-30px);
+        }
+        100%{
+            opacity: 1;
+            transform: translateX(0px);
+        }
     }
 </style>
