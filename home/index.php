@@ -19,22 +19,38 @@
     <title>Car Rental</title>
 </head>
 <body>
-    <div class="navOffset"></div>
-    <nav>
-        <span>
-            <h3>Quick Ride</h3>
-            <p>09218912891</p>
-            <button>Home</button>
-            <button>About</button>
-            <button>Contact</button>
-        </span>
-        <span>
-            <p>Inquire About Reservation</p>
-            <a href="../auth/login.php">Sign In</a>
-            <a href="../auth/signup.php">Sign Up</a>
-        </span>
-    </nav>
-  <?php
+<?php
+    if(isset($_SESSION["email"])){
+        if($_SESSION["role"] == "Customer"){
+            echo "<nav>
+                    <span>
+                        <h3>Quick Ride</h3>
+                        <p>09218912891</p>
+                        <button>Home</button>
+                        <button>About</button>
+                        <button>Contact</button>
+                    </span>
+                    <span>
+                        <a href='../auth/logout.php'>logout</a>
+                    </span>";
+        }
+    }else{
+        echo "<nav>
+                <span>
+                    <h3>Quick Ride</h3>
+                    <button>Home</button>
+                    <button>About</button>
+                    <button>Contact</button>
+                </span>
+                <span>
+                    <a href='../auth/login.php'>Sign In</a>
+                    <a href='../auth/signup.php'>Sign Up</a>
+                </span>
+            </nav>";
+
+        echo "<div class=''>";
+    }
+
     if(isset($_SESSION["email"])){
         if($_SESSION["role"] == "Admin"){
             echo "<button>Dashboard</button><br>
@@ -44,7 +60,7 @@
                   <button>Bookings</button><br>
                   <button>Users</button><br>
                   <button>Tickets</button>";
-        }elseif($_SESSION["role"] == "Customer"){
+        }else{
             echo "
             <section class='rentStatusWrapper'>
                 <div class='userRentStatus'>
@@ -113,8 +129,8 @@
             // }
         }
     }else{
-      echo "Wakay account preeee!";
+
     }
-  ?>
+?>
 </body>
 </html>
