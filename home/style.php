@@ -27,14 +27,18 @@
         top: 0px;
         height: 40px;
         width: 100%;
-        background-color: #316C40;
+        background-color: #031A0970;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
-        color: #FDFFF6;
+        backdrop-filter: blur(2px);
         z-index: 99;
     }
 
-    
+    .guestBG {
+        width: 100%;
+        height: 100px;
+        background-image: url("./images/backgrounds/homeBG.jpg");
+    }
 </style>
