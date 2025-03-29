@@ -35,64 +35,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <style>
-        /* Styling for buttons */
-        button[type="submit"], .previousButton, .nextButton {
-            background-color: #4CAF50; /* Green background */
-            color: white;              /* White text */
-            padding: 10px 20px;        /* Padding around the text */
-            border: none;              /* Remove the default border */
-            border-radius: 5px;        /* Rounded corners */
-            cursor: pointer;           /* Pointer cursor on hover */
-            font-size: 16px;           /* Adjust font size */
-            transition: background-color 0.3s ease; /* Smooth transition for hover */
-        }
-
-        /* Hover effect for buttons */
-        button[type="submit"]:hover, .previousButton:hover, .nextButton:hover {
-            background-color: #45a049; /* Darker green */
-        }
-
-        /* Hover effect for Previous Button */
-        .previousButton {
-            background-color: #f44336; /* Red background for Previous button */
-        }
-
-        .previousButton:hover {
-            background-color: #d32f2f; /* Darker red when hovered */
-        }
-
-        /* Hover effect for Next Button */
-        .nextButton {
-            background-color: #2196F3; /* Blue background for Next button */
-        }
-
-        .nextButton:hover {
-            background-color: #1976D2; /* Darker blue when hovered */
-        }
-
-        /* Styling for disabled button */
-        button[disabled] {
-            background-color: #cccccc; /* Gray background for disabled button */
-            cursor: not-allowed;       /* Disabled cursor */
-        }
-        input[type="number"]::-webkit-outer-spin-button,
-        input[type="number"]::-webkit-inner-spin-button {
+        input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
             -webkit-appearance: none;
             margin: 0;
         }
 
         input[type="number"] {
             -moz-appearance: textfield;
+            appearance: textfield;
         }
 
 
-    input[type="date"]::-webkit-calendar-picker-indicator {
-        display: none; /* Hides the calendar icon */
-    }
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            position: relative;
+            bottom: 6px;
+            right: 6px;
+            filter: invert();
+        }
 
-    
+        input[type="date"] + label {
+            font-size: 12px;
+            transform: translate(5.9px, -38px);
+        }
     </style>
     <title>Car Rental</title>
 </head>
@@ -120,7 +85,7 @@
             <h4>Personal Info</h4>
             <input type="date" name="DoB" id="doB" class="dob" style="width: 275px;">
             <label for="dob">Date of Birth</label>
-            
+
             <input type="text" name="DriversLicense" id="dLicense" maxlength="13" placeholder=" " style="width: 275px;">
             <label for="dLicense">Drivers License</label>
     
@@ -154,7 +119,7 @@
         <div class="progress">
             <span class="progressBar"></span>
         </div>
-        <p id="errorMsg"><?php if($_GET["error"] == "accountexist"){echo "Account Already Exist";} ?></p>
+        <p id="errorMsg"><?php if(isset($_GET["error"])){ if($_GET["error"] == "accountexist"){echo "Account Already Exist";} }?></p>
         <section class="navigation">
             <div class="previousButton" onclick="confirmStep('subtract')">Previous</div>
             <button type="submit" name="signup" class="nextButton" onclick="confirmStep('add')">Next</buttonu>

@@ -2,6 +2,7 @@
     @font-face{
       font-family: space-grotesk-regular;
       url: ("../fonts/SpaceGrotesk-Regular.otf");
+      src: url("../fonts/SpaceGrotesk-Regular.otf");
     }
     * {
         margin: 0;
@@ -21,6 +22,7 @@
         align-items: center;
         background-image: url("../home/images/backgrounds/signupBG.jpg");
         background-size: cover;
+        background-position: center;
     }
     
     body > h2 {
@@ -97,12 +99,12 @@
         box-shadow: inset 0 0 20px 20px #FDFFF615;
     }
     
-    input:not(#firstname, #lastname, #doB):focus + label, input:not(:placeholder-shown, #dob, #firstname, #lastname) + label, #firstname:focus ~ label:nth-child(3), #firstname:not(:placeholder-shown) ~ label:nth-child(3), #lastname:focus ~ label:nth-child(4), #lastname:not(:placeholder-shown) ~ label:nth-child(4){
+    input:not(#firstname, #lastname):focus + label, input:not(:placeholder-shown, #dob, #firstname, #lastname) + label, #firstname:focus ~ label:nth-child(3), #firstname:not(:placeholder-shown) ~ label:nth-child(3), #lastname:focus ~ label:nth-child(4), #lastname:not(:placeholder-shown) ~ label:nth-child(4){
         font-size: 12px;
         transform: translate(5.9px, -38px);
     }
     
-    input:not(:placeholder-shown, .dob), .dobNotEmpty{
+    input:not(:placeholder-shown), .dobNotEmpty{
         border-bottom: 2px solid #031A09;
         border-right: 2px solid #031A09;
     }
