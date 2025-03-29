@@ -35,6 +35,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        /* Styling for buttons */
+        button[type="submit"], .previousButton, .nextButton {
+            background-color: #4CAF50; /* Green background */
+            color: white;              /* White text */
+            padding: 10px 20px;        /* Padding around the text */
+            border: none;              /* Remove the default border */
+            border-radius: 5px;        /* Rounded corners */
+            cursor: pointer;           /* Pointer cursor on hover */
+            font-size: 16px;           /* Adjust font size */
+            transition: background-color 0.3s ease; /* Smooth transition for hover */
+        }
+
+        /* Hover effect for buttons */
+        button[type="submit"]:hover, .previousButton:hover, .nextButton:hover {
+            background-color: #45a049; /* Darker green */
+        }
+
+        /* Hover effect for Previous Button */
+        .previousButton {
+            background-color: #f44336; /* Red background for Previous button */
+        }
+
+        .previousButton:hover {
+            background-color: #d32f2f; /* Darker red when hovered */
+        }
+
+        /* Hover effect for Next Button */
+        .nextButton {
+            background-color: #2196F3; /* Blue background for Next button */
+        }
+
+        .nextButton:hover {
+            background-color: #1976D2; /* Darker blue when hovered */
+        }
+
+        /* Styling for disabled button */
+        button[disabled] {
+            background-color: #cccccc; /* Gray background for disabled button */
+            cursor: not-allowed;       /* Disabled cursor */
+        }
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+        display: none; /* Hides the calendar icon */
+    }
+
+    
+    </style>
     <title>Car Rental</title>
 </head>
 <body>
@@ -79,6 +138,7 @@
             
             <input id="conPhoneNum" disabled></input>
             <label for="conPhoneNum">Phone Number</label>
+            
             
             <input id="conDoB" disabled></input>
             <label for="conDoB">Date of Birth</label>
