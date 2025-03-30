@@ -296,4 +296,62 @@
         border: 1px solid white;
         border-radius: 5px;
     }
+
+    /* Admin */
+    .adminNav {
+        flex-direction: column;
+        width: 20%;
+        height: 100%;
+        justify-content: space-around;
+    }
+
+    .adminNav > span {
+        width: 50%;
+        text-transform: uppercase;
+    }
+
+    .adminNav > span > button {
+        text-transform: uppercase;
+    }
+
+    .adminNav > span:nth-child(2){
+        flex-direction: column;
+        gap: 25px;
+        align-items: start;
+        margin-bottom: 20%;
+        z-index: 99;
+    }
+
+    .adminNav > span:nth-child(2) > button.active {
+        transform: translateX(5px);
+    }
+
+    .adminNav > span:nth-child(2) > button {
+        display: flex;
+        align-items: center;
+        transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .adminNav > span:nth-child(2) > button > img,  .adminNav > span:nth-child(3) > a > img {
+        margin-right: 5px;
+    }
+
+    .adminNav > span:nth-child(3) > a {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: #E2F87B;
+        color: #000000;
+        font-weight: 700;
+        padding-inline: 10px;
+        padding-block: 2.5px;
+        border-radius: 5px;
+    }
+
+    .adminNavIndicator {
+        position: fixed;
+        border: 1px solid #E2F87B;
+        border-radius: 5px;
+        transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    }
 </style>
