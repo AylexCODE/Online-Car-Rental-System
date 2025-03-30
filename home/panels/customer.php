@@ -1,27 +1,31 @@
 <?php
     echo "<section class='rentStatusWrapper guestBG'>
-            <div class='userRentStatus'>
-                <span class='pickupLocation'>
-                    <p>Pick Location</p>
-                    <p>8912 Balilihan, Cebu</p>
-                </span>
-                <span class='pickupTime'>
-                    <p>Pickup Time</p>
-                    <p>09:00pm</p>
-                </span>
-                <span class='pickupDate'>
-                    <p>Pickup Date</p>
-                    <p>Jun 19, 2022</p>
-                </span>
-                <span class='returnDate'>
-                    <p>Return Date</p>
-                    <p>July 19, 2022</p>
-                </span>
-                <span class='returnTime'>
-                    <p>Return Date</p>
-                    <p>Jun 19, 2022</p>
-                </span>
-            </div>
+            <span style='background-image: url( &#x27;./images/backgrounds/homeBG.jpg &#x27;); background-repeat: no-repeat; background-size: cover; background-position: top;'>
+                <div class='userRentStatus'>
+                    <span>
+                        <span class='pickupLocation'>
+                            <p>Pick Location</p>
+                            <p>8912 Balilihan, Cebu</p>
+                        </span>
+                        <span class='pickupTime'>
+                            <p>Pickup Time</p>
+                            <p>09:00pm</p>
+                        </span>
+                        <span class='pickupDate'>
+                            <p>Pickup Date</p>
+                            <p>Jun 19, 2022</p>
+                        </span>
+                        <span class='returnDate'>
+                            <p>Return Date</p>
+                            <p>July 19, 2022</p>
+                        </span>
+                        <span class='returnTime'>
+                            <p>Return Date</p>
+                            <p>Jun 19, 2022</p>
+                        </span>
+                    </span>
+                </div>
+            </span>
         </section>
         ";
 

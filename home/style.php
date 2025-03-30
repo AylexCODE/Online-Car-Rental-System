@@ -166,7 +166,55 @@
     .rentStatusWrapper {
         width: 100%;
         height: 320px;
-        background-color: red;
+        background-color: #316C40;
+        border-radius: 0px 0px;
+        background-color: #FDFFF6;
+    }
+
+    .rentStatusWrapper > span {
+        width: 100dvw;
+        height: 100dvh;
+        transform: translateY(20%);
+        display: block;
+        animation: guestBGScroll linear;
+        animation-timeline: scroll(root);
+        animation-range-start: contain;
+        animation-range-end: 250px;
+    }
+
+    .rentStatusWrapper > span > div {
+        color: #FDFFF6;
+        display: grid;
+        place-items: center;
+        transform: translateY(150px);
+    }
+    
+    .userRentStatus > span {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        background-color: #316C4090;
+        border: 1px solid #E2F87B;
+        border-radius: 5px;
+        gap: 5px;
+        width: 85%;
+        padding-inline: 20px;
+        padding-block: 10px;
+    }
+
+    .pickupLocation, .pickupTime, .pickupDate, .returnDate, .returnTime {
+        text-shadow: 2px 2px #031A09;
+        overflow-x: scroll;
+    }
+
+    .pickupLocation > p:first-child, .pickupTime > p:first-child, .pickupDate > p:first-child, .returnDate > p:first-child, .returnTime > p:first-child {
+        font-size: 14px;
+        position: sticky;
+        opacity: .8;
+        top: 0px;
+        left: 0px;
     }
 
     .carsWrapper {

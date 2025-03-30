@@ -27,7 +27,7 @@
                     <span>
                         <h3>Quick Ride</h3>
                         <button onclick='setActiveBtn(1)' id='homeBtn' class='active'>Home</button>
-                        <button onclick='setActiveBtn(2)' id='bookingBtn'>My Booking</button>
+                        <button onclick='setActiveBtn(2)' id='bookingBtn'>My Bookings</button>
                         <button onclick='setActiveBtn(3)' id='aboutBtn'>About</button>
                         <button onclick='setActiveBtn(4)' id='contactBtn'>Contact</button>
                     </span>
