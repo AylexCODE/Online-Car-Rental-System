@@ -27,13 +27,25 @@
                     <span>
                         <h3>Quick Ride</h3>
                         <button onclick='setActiveBtn(1)' id='homeBtn' class='active'>Home</button>
-                        <button onclick='setActiveBtn(2)' id='aboutBtn'>About</button>
-                        <button onclick='setActiveBtn(3)' id='contactBtn'>Contact</button>
+                        <button onclick='setActiveBtn(2)' id='bookingBtn'>My Booking</button>
+                        <button onclick='setActiveBtn(3)' id='aboutBtn'>About</button>
+                        <button onclick='setActiveBtn(4)' id='contactBtn'>Contact</button>
                     </span>
-                    <span>
+                    <span class='logout'>
                         <a href='../auth/logout.php'>logout</a>
                     </span>
                 </nav>";
+            echo "<div class='homePage active'>";
+            include_once("./panels/customer.php");
+            include_once("./components/carSelection.php");
+            echo "<span class='carsDisplay'>";
+            include_once("./components/cars.php");
+            echo "</span>
+                </section>";
+            echo "</div>";
+
+            include_once("./panels/aboutUs.php");
+            include_once("./panels/contactUs.php");
         }
     }else{
         echo "<span class='navIndicator'></span>";
@@ -55,62 +67,21 @@
                         <p>Fast & Affordable</p>
                     </span>
                 </div>";
-        echo "<section class='carsWrapper'>
-                <span class='carFilter'>
-                    <span>
-                        <p>Filter by</p>
-                        <input list='transmissionFilter' onfocus='this.value = &#x27;&#x27;' onchange='this.blur();' placeholder='Transmission'>
-                        <datalist id='transmissionFilter'>
-                            <option>Manual</option>
-                            <option>Auto</option>
-                        </datalist>
-                        <input list='brandsFilter' onfocus='this.value = &#x27;&#x27;' onchange='this.blur();' placeholder='Brands'>
-                        <datalist id='brandsFilter'>
-                            <option>Toyota</option>
-                            <option>Ferrari</option>
-                        </datalist>
-                        <input list='fuelTypeFilter' onfocus='this.value = &#x27;&#x27;' onchange='this.blur();' placeholder='Fuel Type'>
-                        <datalist id='fuelTypeFilter'>
-                            <option>Petrolium</option>
-                            <option>Diesel</option>
-                        </datalist>
-                        <input list='modelFilter' onfocus='this.value = &#x27;&#x27;' onchange='this.blur();' placeholder='Model'>
-                        <datalist id='modelFilter'>
-                            <option>GTR 40</option>
-                            <option>Supra MK4</option>
-                        </datalist>
-                        <button>Clear All Filter</button>
-                    </span>
-                    <span>
-                        <p>Sort by</p>
-                        <select>
-                            <option>Alphabet</option>
-                            <option>Newest</option>
-                            <option>Oldest</option>
-                        </select>
-                    </span>
-                </span>
-                <span class='carsDisplay'>";
+        include_once("./components/carSelection.php");
+        echo "<span class='carsDisplay'>";
         include_once("./components/cars.php");
         echo " </span>
             </section>
             </div>";
-        
-        echo "<div class='aboutPage'>
-        </div>";
 
-        echo "<div class='contactPage'>
-        </div>";
+        include_once("./panels/aboutUs.php");
+        include_once("./panels/contactUs.php");
     }
 
     if(isset($_SESSION["email"])){
         if($_SESSION["role"] == "Admin"){
             include_once("./panels/admin.php");
-        }else{
-            include_once("./panels/customer.php");
         }
-    }else{
-
     }
 ?>
 </body>
@@ -135,32 +106,69 @@
         contactBtn.classList.remove("active");
 
         activeNav = index;
-        switch(index){
-            case 1:
-                homeBtn.classList.add("active");
-                navIndicator.style.left = homeBtn.offsetLeft-4 +"px";
-                navIndicator.style.width = homeBtn.clientWidth+8 +"px";
-                homePage.classList.add("active");
-                break;
-            case 2:
-                aboutBtn.classList.add("active");
-                navIndicator.style.left = aboutBtn.offsetLeft-4 +"px";
-                navIndicator.style.width = aboutBtn.clientWidth+8 +"px";
-                aboutBtn.classList.add("active");
-                break;
-            case 3:
-                contactBtn.classList.add("active");
-                navIndicator.style.left = contactBtn.offsetLeft-4 +"px";
-                navIndicator.style.width = contactBtn.clientWidth+8 +"px";
-                contactBtn.classList.add("active");
-                break;
+        if(document.getElementById("bookingBtn")){
+            switch(index){
+                case 1:
+                    homeBtn.classList.add("active");
+                    navIndicator.style.left = homeBtn.offsetLeft-4 +"px";
+                    navIndicator.style.width = homeBtn.clientWidth+8 +"px";
+                    homePage.classList.add("active");
+                    break;
+                case 2:
+                    document.getElementById("bookingBtn").classList.add("active");
+                    navIndicator.style.left = document.getElementById("bookingBtn").offsetLeft-4 +"px";
+                    navIndicator.style.width = document.getElementById("bookingBtn").clientWidth+8 +"px";
+                    document.getElementById("myBooking").classList.add("active");
+                    break;
+                case 3:
+                    aboutBtn.classList.add("active");
+                    navIndicator.style.left = aboutBtn.offsetLeft-4 +"px";
+                    navIndicator.style.width = aboutBtn.clientWidth+8 +"px";
+                    aboutBtn.classList.add("active");
+                    break;
+                case 4:
+                    contactBtn.classList.add("active");
+                    navIndicator.style.left = contactBtn.offsetLeft-4 +"px";
+                    navIndicator.style.width = contactBtn.clientWidth+8 +"px";
+                    contactBtn.classList.add("active");
+                    break;
+            }
+        }else{
+            switch(index){
+                case 1:
+                    homeBtn.classList.add("active");
+                    navIndicator.style.left = homeBtn.offsetLeft-4 +"px";
+                    navIndicator.style.width = homeBtn.clientWidth+8 +"px";
+                    homePage.classList.add("active");
+                    break;
+                case 2:
+                    aboutBtn.classList.add("active");
+                    navIndicator.style.left = aboutBtn.offsetLeft-4 +"px";
+                    navIndicator.style.width = aboutBtn.clientWidth+8 +"px";
+                    aboutBtn.classList.add("active");
+                    break;
+                case 3:
+                    contactBtn.classList.add("active");
+                    navIndicator.style.left = contactBtn.offsetLeft-4 +"px";
+                    navIndicator.style.width = contactBtn.clientWidth+8 +"px";
+                    contactBtn.classList.add("active");
+                    break;
+            }
         }
     }
 
-    document.querySelector(".guestBG").addEventListener("mouseenter", ()=>{ window.scrollTo({ top: 0, behavior: 'smooth' }) });
+    function clearAllFilter(){
+        document.getElementById("tFilter").value = "";
+        document.getElementById("bFilter").value = "";
+        document.getElementById("fuelFilter").value = "";
+        document.getElementById("mFilter").value = "";
+    }
+
     document.querySelector(".carsWrapper").addEventListener("mouseenter", ()=>{ window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth'}) });
+    document.querySelector(".scrollCars").addEventListener("scroll", ()=>{ window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth'}) });
 
     window.onload = () => {
+        if(document.querySelector(".guestBG"))document.querySelector(".guestBG").addEventListener("mouseenter", ()=>{ window.scrollTo({ top: 0, behavior: 'smooth' }) });
         navIndicator.style.left = homeBtn.offsetLeft-4 +"px";
         navIndicator.style.width = homeBtn.clientWidth+8 +"px";
     }

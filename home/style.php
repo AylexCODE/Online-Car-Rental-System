@@ -75,7 +75,7 @@
         justify-content: right;
     }
 
-    .authGuest > a {
+    .authGuest > a, .logout > a {
         border: 1px solid #FDFFF6;
         background-color: #FDFFF620;
         border-radius: 8px;
@@ -95,6 +95,11 @@
         text-decoration: none;
         background-color: transparent;
         border: none;
+    }
+
+    .logout {
+        display: block;
+        text-align: right;
     }
 
     .homePage.active, .aboutPage.active, .contactPage.active {
@@ -158,6 +163,12 @@
         }
     }
 
+    .rentStatusWrapper {
+        width: 100%;
+        height: 320px;
+        background-color: red;
+    }
+
     .carsWrapper {
         height: 75%;
         width: 100%;
@@ -216,16 +227,13 @@
         height: 100%;
         overflow: hidden;
     }
-
+    
     .carsDisplay > span {
         width: 100%;
         height: 100%;
         margin-top: 2.5px;
-        padding-bottom: 5px;
+        padding-bottom: 25px;
         overflow-y: scroll;
-    }
-
-    .carsDisplay > span {
         display: flex;
         flex-direction: row;
         justify-content: center;

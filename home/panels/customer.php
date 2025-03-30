@@ -1,5 +1,5 @@
 <?php
-    echo "<section class='rentStatusWrapper'>
+    echo "<section class='rentStatusWrapper guestBG'>
             <div class='userRentStatus'>
                 <span class='pickupLocation'>
                     <p>Pick Location</p>
@@ -22,31 +22,6 @@
                     <p>Jun 19, 2022</p>
                 </span>
             </div>
-        </section>
-        <section class='carsDisplay'>
-            <div class='carsFilter'>
-                <span>
-                    <select>
-                        <option>Transmission</option>
-                    </select>
-                    <select>
-                        <option>Brands</option>
-                    </select>
-                    <select>
-                        <option>Fuel Type</option>
-                    </select>
-                    <select>
-                        <option>Model</option>
-                    </select>
-                    <button>Clear All Filter</button>
-                </span>
-                <span>
-                    <select>
-                        <option>Sort by</option>
-                    </select>
-                </span>
-            </div>
-            <h3>260 Vehicles Found</h3>
         </section>
         ";
 
