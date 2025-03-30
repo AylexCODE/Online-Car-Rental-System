@@ -100,7 +100,7 @@
     .guestBG {
         width: 100%;
         height: 65%;
-        border-radius: 15px;
+        border-radius: 0px 0px 15px 15px;
         overflow: hidden;
         position: sticky;
         top: -40%;
@@ -158,16 +158,18 @@
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        flex-wrap: wrap;
+        gap: 5px;
     }
 
     .carFilter > span > p {
         font-size: 12px;
         opacity: .8;
-        margin-bottom: 3px;
+        margin-bottom: .5px;
     }
 
     .carFilter > span > input, .carFilter > span > button, .carFilter > span > select {
-        border: 2px solid #091A0970;
+        border: 1px solid #E2F87B;
         background-color: #316C40;
         color: #FDFFF6;
         text-align: center;
@@ -175,6 +177,7 @@
         padding-left: 15px;
         padding-block: 5px;
         border-radius: 5px;
+        margin-block: 2.5px;
     }
 
     .carFilter > span > button, .carFilter > span > select {

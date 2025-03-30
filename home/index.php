@@ -89,6 +89,9 @@
                             <option>Oldest</option>
                     </span>
                 </span>
+                <span class='carsDisplay'>";
+        include_once("./components/cars.php");
+        echo " </span>
             </section>";
 
         echo "</div>";
