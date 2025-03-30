@@ -107,6 +107,7 @@
 
         activeNav = index;
         if(document.getElementById("bookingBtn")){
+            document.getElementById("bookingBtn").classList.remove("active");
             switch(index){
                 case 1:
                     homeBtn.classList.add("active");
