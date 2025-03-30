@@ -97,6 +97,23 @@
         border: none;
     }
 
+    .homePage.active, .aboutPage.active, .contactPage.active {
+        display: block;
+    }
+
+    @keyframes fade {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    .homePage, .aboutPage, .contactPage {
+        display: none;
+    }
+
     .guestBG {
         width: 100%;
         height: 65%;
@@ -191,5 +208,36 @@
 
     .carFilter > span > input::placeholder {
         color: #FDFFF6;
+    }
+
+    .carsDisplay {
+        width: 85%;
+        margin-top: 5px;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .carsDisplay > span {
+        width: 100%;
+        height: 100%;
+        margin-top: 2.5px;
+        padding-bottom: 5px;
+        overflow-y: scroll;
+    }
+
+    .carsDisplay > span {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .car {
+        display: block;
+        height: 300px;
+        width: 280px;
+        border: 1px solid white;
+        border-radius: 5px;
     }
 </style>

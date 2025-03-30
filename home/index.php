@@ -49,7 +49,7 @@
                     <a href='../auth/signup.php'>Sign Up</a>
                 </span>
             </nav>";
-        echo "<div class='homeWrapper'>
+        echo "<div class='homePage active'>
                 <div class='guestBG'>
                     <span>
                         <p>Fast & Affordable</p>
@@ -77,7 +77,7 @@
                         <input list='modelFilter' onfocus='this.value = &#x27;&#x27;' onchange='this.blur();' placeholder='Model'>
                         <datalist id='modelFilter'>
                             <option>GTR 40</option>
-                            <option>Ford</option>
+                            <option>Supra MK4</option>
                         </datalist>
                         <button>Clear All Filter</button>
                     </span>
@@ -87,14 +87,20 @@
                             <option>Alphabet</option>
                             <option>Newest</option>
                             <option>Oldest</option>
+                        </select>
                     </span>
                 </span>
                 <span class='carsDisplay'>";
         include_once("./components/cars.php");
         echo " </span>
-            </section>";
+            </section>
+            </div>";
+        
+        echo "<div class='aboutPage'>
+        </div>";
 
-        echo "</div>";
+        echo "<div class='contactPage'>
+        </div>";
     }
 
     if(isset($_SESSION["email"])){
@@ -116,8 +122,15 @@
     const guestBg = document.querySelector(".guestBG");
     let activeNav = 1;
 
+    const homePage = document.querySelector(".homePage");
+    const aboutPage = document.querySelector(".aboutPage");
+    const contactPage = document.querySelector(".contactPage");
+
     function setActiveBtn(index){
         homeBtn.classList.remove("active");
+        aboutBtn.classList.remove("active");
+        contactBtn.classList.remove("active");
+        homePage.classList.remove("active");
         aboutBtn.classList.remove("active");
         contactBtn.classList.remove("active");
 
@@ -127,19 +140,25 @@
                 homeBtn.classList.add("active");
                 navIndicator.style.left = homeBtn.offsetLeft-4 +"px";
                 navIndicator.style.width = homeBtn.clientWidth+8 +"px";
+                homePage.classList.add("active");
                 break;
             case 2:
                 aboutBtn.classList.add("active");
                 navIndicator.style.left = aboutBtn.offsetLeft-4 +"px";
                 navIndicator.style.width = aboutBtn.clientWidth+8 +"px";
+                aboutBtn.classList.add("active");
                 break;
             case 3:
                 contactBtn.classList.add("active");
                 navIndicator.style.left = contactBtn.offsetLeft-4 +"px";
                 navIndicator.style.width = contactBtn.clientWidth+8 +"px";
+                contactBtn.classList.add("active");
                 break;
         }
     }
+
+    document.querySelector(".guestBG").addEventListener("mouseenter", ()=>{ window.scrollTo({ top: 0, behavior: 'smooth' }) });
+    document.querySelector(".carsWrapper").addEventListener("mouseenter", ()=>{ window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth'}) });
 
     window.onload = () => {
         navIndicator.style.left = homeBtn.offsetLeft-4 +"px";
