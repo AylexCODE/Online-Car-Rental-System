@@ -356,4 +356,23 @@
         border-radius: 5px;
         transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     }
+
+    .adminBody {
+        display: flex;
+        flex-direction: row;
+        height: 100%;
+        width: 100%;
+    }
+
+    .adminDisplayOffset {
+        display: block;
+        width: 20%;
+        min-width: 200px;
+        height: 100%;
+    }
+
+    .adminDisplay {
+        height: 100%;
+        width: 80%;
+    }
 </style>

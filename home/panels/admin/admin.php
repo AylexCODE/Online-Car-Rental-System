@@ -16,4 +16,12 @@
             <a href='../auth/logout.php'><img src='./images/icons/logout-icon.svg' height='16px' width='16px'>Log out</a>
         </span>";
     echo "</nav>";
+    echo "<div class='adminBody'>
+        <span class='adminDisplayOffset'></span>";
+    echo "<section class='adminDisplay'>";
+
+    include_once("./panels/admin/vehicles.php");
+    
+    echo "</section>
+        </div>";
 ?>
