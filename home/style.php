@@ -411,6 +411,7 @@
         color: #FDFFF6;
         /* s */
         display: flex;
+        gap: 10px;
         flex-direction: column;
     }
 
@@ -435,7 +436,6 @@
 
     .vehicleStatistics > span > span {
         width: fit-content;
-        margin-top: 10px;
         padding: 15px 20px;
         background-color: #316C40;
         border-radius: 5px;
@@ -463,6 +463,41 @@
         font-size: 14px;
         color: #FDFFF6;
         margin-top: 5px;
+    }
+
+    .vehicleStatistics > span:nth-child(3){
+        padding-inline: 20px;
+        background-color: #316C40;
+        border-radius: 5px;
+        height: 68dvh;
+        overflow: auto;
+    }
+    
+    .recentVehicleActivity {
+        width: 100%;
+        color: #FDFFF6;
+    }
+
+    .vehicleStatistics > span:nth-child(3) > p {
+        padding-top: 25px;
+        position: sticky;
+        top: 2px;
+        background-color: #316C40;
+    }
+
+    .recentVehicleActivity th{
+        position: sticky;
+        top: 46px;
+        text-align: left;
+        padding-top: 20px;
+        padding-bottom: 10px;
+        font-weight: normal;
+        border-bottom: 1px solid #FDFFF690;
+        background-color: #316C40;
+    }
+
+    .recentVehicleActivity td{
+        padding-block: 10px;
     }
 
     .vehicleManagement {
