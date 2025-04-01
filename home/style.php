@@ -302,6 +302,7 @@
     .adminNav {
         flex-direction: column;
         width: 20%;
+        min-width: 200px;
         height: 100%;
         justify-content: space-around;
     }

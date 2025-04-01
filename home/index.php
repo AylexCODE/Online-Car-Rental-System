@@ -167,9 +167,6 @@
         document.getElementById("mFilter").value = "";
     }
 
-    document.querySelector(".carsWrapper").addEventListener("mouseenter", ()=>{ window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth'}) });
-    document.querySelector(".scrollCars").addEventListener("scroll", ()=>{ window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth'}) });
-
     function setActiveBtnAdmin(index){
         overviewBtn.classList.remove("active");
         vehiclesBtn.classList.remove("active");
@@ -215,6 +212,8 @@
 
     window.onload = () => {
         if(document.querySelector(".guestBG")){
+            document.querySelector(".carsWrapper").addEventListener("mouseenter", ()=>{ window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth'}) });
+            document.querySelector(".scrollCars").addEventListener("scroll", ()=>{ window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth'}) });
             document.querySelector(".guestBG").addEventListener("mouseenter", ()=>{ window.scrollTo({ top: 0, behavior: 'smooth' }) });
             navIndicator.style.left = homeBtn.offsetLeft-4 +"px";
             navIndicator.style.width = homeBtn.clientWidth+8 +"px";
@@ -238,7 +237,8 @@
     }
 
     window.onresize = () => {
-        setActiveBtn(activeNav);
+        if(document.querySelector(".guestBG")) setActiveBtn(activeNav);
+        if(document.querySelector(".adminNav")) { adminNavIndicator.style.left = overviewBtn.offsetLeft-5 +"px";  adminNavIndicator.style.top = overviewBtn.offsetTop-5 +"px"; }
     }
 </script>
 </html>
