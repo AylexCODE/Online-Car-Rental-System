@@ -175,6 +175,8 @@
         ticketsBtn.classList.remove("active");
         logsBtn.classList.remove("active");
 
+        document.querySelector('.moreVehicleSettings').classList.remove('open');
+
         switch(index){
             case 1:
                 adminNavIndicator.style.top = overviewBtn.offsetTop-5 +"px";
@@ -182,6 +184,7 @@
                 adminNavIndicator.style.width = overviewBtn.offsetWidth+20 +"px";
                 break;
             case 2:
+                document.querySelector('.moreVehicleSettings').classList.add('open');
                 adminNavIndicator.style.top = vehiclesBtn.offsetTop-5 +"px";
                 vehiclesBtn.classList.add("active");
                 adminNavIndicator.style.width = vehiclesBtn.offsetWidth+20 +"px";

@@ -318,7 +318,7 @@
 
     .adminNav > span:nth-child(2){
         flex-direction: column;
-        gap: 25px;
+        gap: 10px;
         align-items: start;
         margin-bottom: 20%;
         z-index: 99;
@@ -348,6 +348,34 @@
         padding-inline: 10px;
         padding-block: 2.5px;
         border-radius: 5px;
+    }
+
+    .adminNav > span > .moreVehicleSettings {
+        height: 0px;
+        visibility: hidden;
+        overflow: hidden;
+        margin-left: -10px;
+        opacity: 0;
+    }
+    
+    .adminNav > span > .moreVehicleSettings.open {
+        visibility: visible;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        height: fit-content;
+        margin-left: 0px;
+        opacity: 1;
+        transition: all 1s;
+    }
+
+    .adminNav > span > .moreVehicleSettings > button {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: #FDFFF6;
+        font-size: 14px;
+        margin-left: 10px;
     }
 
     .adminNavIndicator {
