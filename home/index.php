@@ -36,7 +36,7 @@
                     </span>
                 </nav>";
             echo "<div class='homePage active'>";
-            include_once("./panels/user/customer.php");
+            include_once("./panels/customer/customer.php");
             include_once("./components/carSelection.php");
             echo "<span class='carsDisplay'>";
             include_once("./components/cars.php");
@@ -44,8 +44,8 @@
                 </section>";
             echo "</div>";
 
-            include_once("./panels/user/aboutUs.php");
-            include_once("./panels/user/contactUs.php");
+            include_once("./panels/customer/aboutUs.php");
+            include_once("./panels/customer/contactUs.php");
         }
     }else{
         echo "<span class='navIndicator'></span>";
@@ -74,8 +74,8 @@
             </section>
             </div>";
 
-        include_once("./panels/user/aboutUs.php");
-        include_once("./panels/user/contactUs.php");
+        include_once("./panels/customer/aboutUs.php");
+        include_once("./panels/customer/contactUs.php");
     }
 
     if(isset($_SESSION["email"])){

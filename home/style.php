@@ -126,6 +126,7 @@
         overflow: hidden;
         position: sticky;
         top: -40%;
+        z-index: 10;
     }
 
     .guestBG > span {
