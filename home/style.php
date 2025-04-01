@@ -350,11 +350,19 @@
         border-radius: 5px;
     }
 
+    .adminNavIndicator {
+        position: fixed;
+        border: 1px solid #E2F87B;
+        border-radius: 5px;
+        transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+    
     .adminNav > span > .moreVehicleSettings {
-        height: 0px;
         visibility: hidden;
-        overflow: hidden;
+        height: 0px;
         margin-left: -10px;
+        overflow: hidden;
+        gap: 5px;
         opacity: 0;
     }
     
@@ -362,27 +370,20 @@
         visibility: visible;
         display: flex;
         flex-direction: column;
-        gap: 5px;
         height: fit-content;
+        align-items: flex-start;
         margin-left: 0px;
         opacity: 1;
-        transition: all 1s;
+        transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
     .adminNav > span > .moreVehicleSettings > button {
         background-color: transparent;
         border: none;
-        outline: none;
+        text-transform: capitalize;
         color: #FDFFF6;
         font-size: 14px;
         margin-left: 10px;
-    }
-
-    .adminNavIndicator {
-        position: fixed;
-        border: 1px solid #E2F87B;
-        border-radius: 5px;
-        transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
     .adminBody {
@@ -402,5 +403,73 @@
     .adminDisplay {
         height: 100%;
         width: 80%;
+        padding: 15px 25px;
+    }
+
+    .vehicleStatistics {
+        /* display: none; */
+        color: #FDFFF6;
+        /* s */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .vehicleStatistics.active {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .vehicleStatistics > h4 {
+        font-size: 24px;
+        width: 100%;
+        padding-bottom: 10px;
+        margin-bottom: 5px;
+        border-bottom: 1px solid #FDFFF690;
+    }
+
+    .vehicleStatistics > span:nth-child(2){
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .vehicleStatistics > span > span {
+        width: fit-content;
+        margin-top: 10px;
+        padding: 15px 20px;
+        background-color: #316C40;
+        border-radius: 5px;
+    }
+
+    .vehicleStatistics > span > span > p:nth-child(1){
+        font-size: 16px;
+        border-bottom: 1px solid #FDFFF690;
+        padding-bottom: 5px;
+        opacity: 0.8;
+        text-align: center;
+    }
+
+    .vehicleStatistics > span > span > p:nth-child(2){
+        font-size: 20px;
+        padding-top: 5px;
+        text-align: center;
+    }
+
+    .vehicleStatistics > span > span > button {
+        background-color: transparent;
+        outline: none;
+        border: none;
+        opacity: 0.6;
+        font-size: 14px;
+        color: #FDFFF6;
+        margin-top: 5px;
+    }
+
+    .vehicleManagement {
+        display: none;
+    }
+
+    .vehicleManagement.active {
+        display: flex;
     }
 </style>

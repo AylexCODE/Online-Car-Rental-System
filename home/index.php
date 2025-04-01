@@ -98,6 +98,7 @@
     const contactPage = document.querySelector(".contactPage");
 
     let overviewBtn, vehiclesBtn, bookingsBtn, usersBtn, ticketsBtn, logsBtn, adminNavIndicator;
+    let moreVehicleSettings, vehicleStatistics, vehicleManagement;
 
     function setActiveBtn(index){
         homeBtn.classList.remove("active");
@@ -175,7 +176,7 @@
         ticketsBtn.classList.remove("active");
         logsBtn.classList.remove("active");
 
-        document.querySelector('.moreVehicleSettings').classList.remove('open');
+        moreVehicleSettings.classList.remove('open');
 
         switch(index){
             case 1:
@@ -184,7 +185,8 @@
                 adminNavIndicator.style.width = overviewBtn.offsetWidth+20 +"px";
                 break;
             case 2:
-                document.querySelector('.moreVehicleSettings').classList.add('open');
+                moreVehicleSettings.classList.add('open');
+
                 adminNavIndicator.style.top = vehiclesBtn.offsetTop-5 +"px";
                 vehiclesBtn.classList.add("active");
                 adminNavIndicator.style.width = vehiclesBtn.offsetWidth+20 +"px";
@@ -212,6 +214,20 @@
         }
     }
 
+    function setActiveAdminSettings(name){
+        vehicleStatistics.classList.remove("active");
+        vehicleManagement.classList.remove("active");
+
+        switch(name){
+            case "vehicleStatistics":
+                vehicleStatistics.classList.add("active");
+                break;
+            case "vehicleManagement":
+                vehicleManagement.classList.add("active");
+                break;
+        }
+    }
+
 
     window.onload = () => {
         if(document.querySelector(".guestBG")){
@@ -231,6 +247,10 @@
             ticketsBtn = document.getElementById('ticketsBtn');
             logsBtn = document.getElementById('logsBtn');
             adminNavIndicator = document.querySelector('.adminNavIndicator');
+
+            moreVehicleSettings = document.querySelector('.moreVehicleSettings');
+            vehicleStatistics = document.querySelector('.vehicleStatistics');
+            vehicleManagement = document.querySelector('.vehicleManagement');
 
             adminNavIndicator.style.height = overviewBtn.offsetHeight+10 +"px";
             adminNavIndicator.style.width = overviewBtn.offsetWidth+20 +"px";

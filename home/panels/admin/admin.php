@@ -10,18 +10,18 @@
 
             <button onclick='setActiveBtnAdmin(2)' id='vehiclesBtn'><img src='./images/icons/car-icon.svg' height='16px' width='16px'>Vehicles</button>
             <span class='moreVehicleSettings'>
-                <button>Vehicle Statistics</button>
-                <button>Manage Vehicles</button>
+                <button onclick='setActiveAdminSettings(&#x27;vehicleStatistics&#x27;)'>Vehicle Statistics</button>
+                <button onclick='setActiveAdminSettings(&#x27;vehicleManagement&#x27;)'>Vehicle Management</button>
             </span>
             <button onclick='setActiveBtnAdmin(3)' id='bookingsBtn'><img src='./images/icons/booking-icon.svg' height='16px' width='16px'>Bookings</button>
             <span></span>
-            
+
             <button onclick='setActiveBtnAdmin(4)' id='usersBtn'><img src='./images/icons/user-icon.svg' height='16px' width='16px'>Users</button>
             <span></span>
-            
+
             <button onclick='setActiveBtnAdmin(5)' id='ticketsBtn'><img src='./images/icons/ticket-icon.svg' height='16px' width='16px'>Tickets</button>
             <span></span>
-            
+
             <button onclick='setActiveBtnAdmin(6)' id='logsBtn'><img src='./images/icons/logs-icon.svg' height='16px' width='16px'>Logs</button>
         </span>
         <span>
@@ -32,7 +32,8 @@
         <span class='adminDisplayOffset'></span>";
     echo "<section class='adminDisplay'>";
 
-    include_once("./panels/admin/vehicles.php");
+    include_once("./panels/admin/vehicleStatistics.php");
+    include_once("./panels/admin/vehicleManagement.php");
 
     echo "</section>
         </div>";
