@@ -406,21 +406,17 @@
         padding: 15px 25px;
     }
 
-    .vehicleStatistics {
-        /* display: none; */
+    .vehicleStatistics, .vehicleManagement {
+        display: none;
         color: #FDFFF6;
-        /* s */
+    }
+    .vehicleStatistics.active, .vehicleManagement.active {
         display: flex;
         gap: 10px;
         flex-direction: column;
     }
 
-    .vehicleStatistics.active {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .vehicleStatistics > h4 {
+    .vehicleStatistics > h4, .vehicleManagement > h4 {
         font-size: 24px;
         width: 100%;
         padding-bottom: 10px;
@@ -500,11 +496,107 @@
         padding-block: 10px;
     }
 
-    .vehicleManagement {
-        display: none;
+    .vehicleManagement > span:nth-child(2){
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        width: 100%;
+        height: 85vh;
+    }
+    
+    .vehicleManagement > span:nth-child(2) > span:nth-child(1) {
+        height: 100%;
+        width: 20%;
+        background-color: #316C40;
+        border-radius: 5px;
     }
 
-    .vehicleManagement.active {
+    .vehicleManagement > span:nth-child(2) > span:nth-child(2) {
         display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 80%;
+        gap: 10px;
+    }
+
+    .vehicleManagement > span:nth-child(2) > span:nth-child(2) > span:nth-child(1) {
+        display: flex;
+        flex-direction: row;
+        justify-content: left;
+        align-items: center;
+        background-color: #316C40;
+        border-radius: 5px;
+        height: 18%;
+        width: 100%;
+        padding-inline: 4%;
+        gap: 3%;
+    }
+
+    .vehicleManagement > span:nth-child(2) > span:nth-child(2) > span:nth-child(1) > button {
+        border: none;
+        outline: none;
+        background-color: #E2F87B;
+        color: #031A09;
+        padding-inline: 5%;
+        padding-block: 15px;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+    .vehicleManagement > span:nth-child(2) > span:nth-child(2) > span:nth-child(2) {
+        display: block;
+        background-color: #316C40;
+        border-radius: 5px;
+        height: 82%;
+        width: 100%;
+        padding: 10px 20px;
+    }
+
+    .vehicleManagement > span:nth-child(2) > span:nth-child(2) > span:nth-child(2) > .scrollCars {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        height: 92%;
+        width: 100%;
+        overflow-y: scroll;
+        margin-top: 5px;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .vehicleManagement > span:nth-child(2) > span:nth-child(2) > span:nth-child(2) > .scrollCars > .car {
+        height: 200px;
+        width: 180px;
+    }
+
+    #addCars {
+        border: 1px solid #E2F87B;
+        border-radius: 5px;
+        position: absolute;
+        top: 50%;
+        left: 58%;
+        transform: translate(-50%, -50%);
+    }
+    
+    #addCars, #addCars > span > input, #addCars > span > span > input, #addCars > span > span > select {
+        background-color: transparent;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #E2F87B;
+        color: #FDFFF6;
+    }
+
+    #addCars > span > select * {
+        background-color: #031A09;
+    }
+
+    #addCars > span { 
+        display: flex;
+        flex-direction: column;
+        background-color: #316C40;
+        padding: 15px 25px;
+        border: 2px solid #E2F87B;
+        border-radius: 5px;
+        color: #FDFFF6;
     }
 </style>

@@ -177,6 +177,7 @@
         logsBtn.classList.remove("active");
 
         moreVehicleSettings.classList.remove('open');
+        vehicleStatistics.classList.remove("active");
 
         switch(index){
             case 1:
@@ -186,6 +187,7 @@
                 break;
             case 2:
                 moreVehicleSettings.classList.add('open');
+                vehicleStatistics.classList.add("active");
 
                 adminNavIndicator.style.top = vehiclesBtn.offsetTop-5 +"px";
                 vehiclesBtn.classList.add("active");
