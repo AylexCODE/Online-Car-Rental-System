@@ -1,6 +1,5 @@
 <?php
-    $queryGetBrands = "SELECT * FROM brands";
-    $execQueryGetBrands = mysqli_query($conn,$queryGetBrands); 
+    $queryGetBrands = "SELECT * FROM brands ORDER BY BrandName";
 
     echo "<div class='vehicleManagement active'>
             <h4>Vehicle Management</h4>
@@ -29,7 +28,8 @@
                         </span>
                         <span>
                             <select id='brand' name='carBrand'>
-                            <option value='None' selected disabled></option>";       
+                            <option value='None' selected disabled></option>";
+                            $execQueryGetBrands = mysqli_query($conn, $queryGetBrands);   
                             if(mysqli_num_rows($execQueryGetBrands) != 0){
                                 while($rows = mysqli_fetch_assoc($execQueryGetBrands)){
                                     echo "<option value='" . $rows["BrandID"] . "'>" . $rows["BrandName"] . "</option>";
@@ -71,7 +71,8 @@
                     <label for='newBrand'>New Brand</label>
                     <span class='addBrandsList'>
                         <p>Brands List</p>
-                        <span>";       
+                        <span>";
+                        $execQueryGetBrands = mysqli_query($conn, $queryGetBrands); 
                         if(mysqli_num_rows($execQueryGetBrands) != 0){
                             while($rows = mysqli_fetch_assoc($execQueryGetBrands)){
                                 echo "<p>" . $rows["BrandName"] . "</p>";
