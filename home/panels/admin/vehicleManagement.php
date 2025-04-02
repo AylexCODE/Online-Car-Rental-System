@@ -6,8 +6,8 @@
                 </span>
                 <span>
                     <span>
-                        <button popovertarget='addCars'>Add Vehicle</button>
-                        <button>Add Brands</button>
+                        <button popovertarget='addCars' onclick='document.querySelector(&#x27;.addCarsDisabler&#x27;).style.display = &#x27;block&#x27;'>Add Vehicle</button>
+                        <button popovertarget='addBrands'onclick='document.querySelector(&#x27;.addBrandsDisabler&#x27;).style.display = &#x27;block&#x27;' >Add Brands</button>
                         <button>Add Location</button>
                     </span>
                     <span>";
@@ -15,8 +15,9 @@
     echo "</span>
                 </span>
             </span>
+            <span class='addCarsDisabler' style='position: fixed; top: 0px; left: 0px; background-color: #031A09; height: 100dvh; width: 100dvw; display: none; z-index: 999; opacity: 0.8;' onclick='document.querySelector(&#x27;.addCarsDisabler&#x27;).style.display = &#x27;none&#x27;'></span>
             <div popover id='addCars'>
-                <button popovertarget='addCars' popovertargetaction='hide' class='exitButton'>&#215;</button>
+                <button popovertarget='addCars' popovertargetaction='hide' class='exitButton' onclick='document.querySelector(&#x27;.addCarsDisabler&#x27;).style.display = &#x27;none&#x27;'>&#215;</button>
                 <form method='post' enctype='multipart/form-data' class='addCarsForm'>
                     <span>
                         <span>
@@ -24,23 +25,59 @@
                             <label for='model'>Model</label>
                         </span>
                         <span>
-                            <select name='carBrand'>
+                            <select id='brand' name='carBrand'>
+                                <option value='None' selected disabled></option>
                                 <option value='1'>Toyota</option>
                                 <option value='2'>Ferrari</option>
                                 <option value='3'>Ford</option>
                             </select>
-                            <label for='label'>Brand</label>
+                            <label for='brand'>Brand</label>
                         </span>
                     </span>
 
-                    <input type='text' name='carTransmission' required>
-                    <label>Transmission</label>
+                    <select id='transmission' name='carTransmission'>
+                        <option value='None' selected disabled></option>
+                        <option value='Manual'>Manual</option>
+                        <option value='Automatic'>Automatic</option>
+                        <option value='Continuously Variable'>Continuously Variable</option>
+                        <option value='Semi-Automatic'>Semi-Automatic</option>
+                        <option value='Dual Clutch'>Dual Clutch</option>
+                    </select>
+                    <label for='transmission'>Transmission</label>
 
-                    <input type='text' name='carFuelType' required>
-                    <label>Fuel Type</label>
+                    <select id='fueltype' name='carFuelType'>
+                        <option value='None' selected disabled></option>
+                        <option value='Gasoline'>Gasoline</option>
+                        <option value='Diesel'>Diesel</option>
+                        <option value='Electric'>Electric</option>
+                    </select>
+                    <label for='fueltype'>Fuel Type</label>
 
                     <input type='file' name='file'>
                     <button type='submit' name='submitCar'>Add Car</button>
+                </form>
+            </div>
+
+            <span class='addBrandsDisabler' style='position: fixed; top: 0px; left: 0px; background-color: #031A09; height: 100dvh; width: 100dvw; display: none; z-index: 999; opacity: 0.8;' onclick='document.querySelector(&#x27;.addBrandsDisabler&#x27;).style.display = &#x27;none&#x27;'></span>
+            <div popover id='addBrands'>
+                <button popovertarget='addBrands' popovertargetaction='hide' class='exitButton' onclick='document.querySelector(&#x27;.addBrandsDisabler&#x27;).style.display = &#x27;none&#x27;'>&#215;</button>
+                <form method='post' class='addBrandsForm'>
+                    <input type='text' id='brand' required>
+                    <label for='brand'>New Brand</label>
+                    <span class='addBrandsList'>
+                        <p>Brands List</p>
+                        <span>
+                            <p>Toyota</p>
+                            <p>Toyota</p>
+                            <p>Toyota</p>
+                            <p>Toyota</p>
+                            <p>Toyota</p>
+                            <p>Toyota</p>
+                            <p>Toyota</p>
+                            <p>Toyota</p>
+                        </span>
+                    </span>
+                    <button type='submit' name='submitCar'>Add Brand</button>
                 </form>
             </div>
         </div>";

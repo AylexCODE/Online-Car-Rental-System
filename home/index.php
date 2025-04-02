@@ -230,6 +230,14 @@
         }
     }
 
+    function setBackgroundDisabler(name){
+        document.querySelector(".addCarsDisabler").style.display = "none";
+        switch(name){
+            case "addCars":
+                document.querySelector(".addCarsDisabler").style.display = "block";
+                break;
+        }
+    }
 
     window.onload = () => {
         if(document.querySelector(".guestBG")){

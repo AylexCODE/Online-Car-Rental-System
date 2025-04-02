@@ -569,7 +569,7 @@
         width: 180px;
     }
 
-    #addCars {
+    #addCars, #addBrands {
         border: 1px solid #E2F87B;
         border-radius: 5px;
         position: absolute;
@@ -591,7 +591,7 @@
         background-color: red;
     } */
     
-    #addCars, #addCars > form > input, #addCars > form > span > span > input, #addCars > form > span > span > select {
+    #addCars, #addCars > form > input, #addCars > form > span > span > input, #addCars > form > span > span > select, .addCarsForm > select, #addBrands > form > input  {
         background-color: transparent;
         outline: none;
         border: none;
@@ -601,11 +601,11 @@
         padding-inline: 2px;
     }
 
-    #addCars > form > span > span > select * {
+    #addCars > form > span > span > select *, .addCarsForm > input, .addCarsForm > select  * {
         background-color: #031A09;
     }
 
-    #addCars > form { 
+    #addCars > form, #addBrands > form { 
         display: flex;
         flex-direction: column;
         background-color: #316C40;
@@ -616,8 +616,12 @@
         color: #FDFFF6;
     }
 
-    .addCarsForm > span > span:nth-child(2) > select, .addCarsForm > span > span > input { 
+    .addCarsForm > span > span:nth-child(2) > select, .addCarsForm > span > span > input, .addCarsForm > input, .addCarsForm > select, #addBrands > form > input  { 
         height: 35px;
+    }
+
+    #addCars > form > input:not([type="file"]), #addCars > form > span > span > input, #addBrands > form > input {
+        padding-inline: 7px;
     }
 
     .addCarsForm > span { 
@@ -637,26 +641,54 @@
         opacity: 0.8;
     }
 
-    .addCarsForm > label { 
+    .addCarsForm > label, .addBrandsForm > label { 
         transform: translateY(-48px);
         font-size: 14px;
         opacity: 0.8;
     }
+
     .addCarsForm > input {
-        height: 35px;
+        padding-left: 10px;
     }
 
-    .addCarsForm > input[type="file"] {
-        height: 35px;
-        width: 293px;
-    }
-
-    .addCarsForm > button {
+    .addCarsForm > button, .addBrandsForm > button {
         background-color: #E2F87B;
         border: none;
         outline: none;
         padding: 5px 15px;
         border-radius: 5px;
+        color: #031A09;
+    }
+
+    .addBrandsList {
+        border: 1px solid #E2F87B;
+        padding: 10px 15px;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .addBrandsList > p:first-child {
+        border-bottom: 1px solid #E2F87B90;
+        text-align: center;
+        width: 100%;
+        padding-bottom: 5px;
+    }
+
+    .addBrandsList > span {
+        height: 137.5px;
+        overflow-y: scroll;
+        border-bottom: 1px solid #E2F87B90;
+    }
+
+    .addBrandsList > span > p {
+        padding: 5px;
+        background-color: #316C40;
+        margin: 0px;
+    }
+
+    .addBrandsList > span > p:nth-child(odd) {
+        background-color: #38814a;
     }
 
     .exitButton {
