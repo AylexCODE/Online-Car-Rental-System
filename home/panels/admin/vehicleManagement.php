@@ -9,8 +9,8 @@
                 <span>
                     <span>
                         <button popovertarget='addCars' onclick='document.querySelector(&#x27;.addCarsDisabler&#x27;).style.display = &#x27;block&#x27;'>Add Vehicle</button>
-                        <button popovertarget='addBrands' id='popAddBrands' onclick='document.querySelector(&#x27;.addBrandsDisabler&#x27;).style.display = &#x27;block&#x27;'>Add Brands</button>
-                        <button>Add Location</button>
+                        <button popovertarget='addBrands' onclick='document.querySelector(&#x27;.addBrandsDisabler&#x27;).style.display = &#x27;block&#x27;'>Add Brands</button>
+                        <button popovertarget='addLocations' onclick='document.querySelector(&#x27;.addLocationsDisabler&#x27;).style.display = &#x27;block&#x27;'>Add Location</button>
                     </span>
                     <span>";
     include_once("./components/cars.php");
@@ -95,6 +95,24 @@
         }
     }
     echo "</form>
+            </div>
+
+            <span class='addLocationsDisabler' style='position: fixed; top: 0px; left: 0px; background-color: #031A09; height: 100dvh; width: 100dvw; display: none; z-index: 999; opacity: 0.8;' onclick='document.querySelector(&#x27;.addLocationsDisabler&#x27;).style.display = &#x27;none&#x27;'></span>
+            <div popover id='addLocations'>
+                <button popovertarget='addLocations' popovertargetaction='hide' class='exitButton' onclick='document.querySelector(&#x27;.addLocationsDisabler&#x27;).style.display = &#x27;none&#x27;'>&#215;</button>
+                <form class='addLocationsForm' method='post'>
+                    <input type='text' id='newLocation' name='newLocation' required>
+                    <label for='newLocation'>New Location</label>
+                    <span class='addLocationsList'>
+                        <p>Locations List</p>
+                        <span>
+                            <p>Yo</p>
+                            <p>Eheyyy</p>
+                            <p>Eyyyyyy</p>
+                        </span>
+                    </span>
+                    <button type='submit' name='submitBrand'>Add Brand</button>
+                </form>
             </div>
         </div>";
 

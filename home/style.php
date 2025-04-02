@@ -569,7 +569,7 @@
         width: 180px;
     }
 
-    #addCars, #addBrands {
+    #addCars, #addBrands, #addLocations {
         border: 1px solid #E2F87B;
         border-radius: 5px;
         position: absolute;
@@ -591,13 +591,13 @@
         background-color: red;
     } */
     
-    #addCars, #addCars > form > input, #addCars > form > span > span > input, #addCars > form > span > span > select, .addCarsForm > select, #addBrands > form > input  {
+    #addCars, #addCars > form > input, #addCars > form > span > span > input, #addCars > form > span > span > select, .addCarsForm > select, #addBrands > form > input,  #addLocations > form > input  {
         background-color: transparent;
         outline: none;
         border: none;
         border-bottom: 1px solid #E2F87B;
         color: #FDFFF6;
-        padding-top: 5px;
+        padding-top: 10px;
         padding-inline: 2px;
     }
 
@@ -605,7 +605,7 @@
         background-color: #031A09;
     }
 
-    #addCars > form, #addBrands > form { 
+    #addCars > form, #addBrands > form, #addLocations > form { 
         display: flex;
         flex-direction: column;
         background-color: #316C40;
@@ -616,11 +616,11 @@
         color: #FDFFF6;
     }
 
-    .addCarsForm > span > span:nth-child(2) > select, .addCarsForm > span > span > input, .addCarsForm > input, .addCarsForm > select, #addBrands > form > input  { 
+    .addCarsForm > span > span:nth-child(2) > select, .addCarsForm > span > span > input, .addCarsForm > input, .addCarsForm > select, #addBrands > form > input, #addLocations > form > input  { 
         height: 35px;
     }
 
-    #addCars > form > input:not([type="file"]), #addCars > form > span > span > input, #addBrands > form > input {
+    #addCars > form > input:not([type="file"]), #addCars > form > span > span > input, #addBrands > form > input, #addLocations > form > input {
         padding-inline: 7px;
     }
 
@@ -641,17 +641,17 @@
         opacity: 0.8;
     }
 
-    .addCarsForm > label, .addBrandsForm > label { 
+    .addCarsForm > label, .addBrandsForm > label, .addLocationsForm > label { 
         transform: translateY(-48px);
         font-size: 14px;
         opacity: 0.8;
     }
 
-    .addCarsForm > input {
+    .addCarsForm > input, .addLocationsForm > input {
         padding-left: 10px;
     }
 
-    .addCarsForm > button, .addBrandsForm > button {
+    .addCarsForm > button, .addBrandsForm > button, .addLocationsForm > button {
         background-color: #E2F87B;
         border: none;
         outline: none;
@@ -660,7 +660,7 @@
         color: #031A09;
     }
 
-    .addBrandsList {
+    .addBrandsList, .addLocationsList {
         border: 1px solid #E2F87B;
         padding: 10px 15px;
         border-radius: 5px;
@@ -668,26 +668,26 @@
         flex-direction: column;
     }
 
-    .addBrandsList > p:first-child {
+    .addBrandsList > p:first-child, .addLocationsList > p:first-child {
         border-bottom: 1px solid #E2F87B90;
         text-align: center;
         width: 100%;
         padding-bottom: 5px;
     }
 
-    .addBrandsList > span {
+    .addBrandsList > span, .addLocationsList > span {
         height: 137.5px;
         overflow-y: scroll;
         border-bottom: 1px solid #E2F87B90;
     }
 
-    .addBrandsList > span > p {
+    .addBrandsList > span > p, .addLocationsList > span > p {
         padding: 5px;
         background-color: #316C40;
         margin: 0px;
     }
 
-    .addBrandsList > span > p:nth-child(odd) {
+    .addBrandsList > span > p:nth-child(odd), .addLocationsList > span > p:nth-child(odd) {
         background-color: #38814a;
     }
 
