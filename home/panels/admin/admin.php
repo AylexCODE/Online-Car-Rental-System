@@ -1,7 +1,7 @@
 <?php
     echo "<nav class='adminNav'>";
     echo "<span>
-            <h3>Lugi Pre</h3>
+            <h3>Quick Ride</h3>
         </span>
         <span>
             <span class='adminNavIndicator'></span>

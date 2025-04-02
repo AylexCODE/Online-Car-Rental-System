@@ -577,26 +577,96 @@
         left: 58%;
         transform: translate(-50%, -50%);
     }
+
+    /* #addCars > button {
+        background-color: transparent;
+        border: none;
+        outline: none;
+        color: #FDFFF6;
+        position: absolute;
+        right: 12.5px;
+        top: 10px;
+        font-size: 24px;
+        color: #E2F87B;
+        background-color: red;
+    } */
     
-    #addCars, #addCars > span > input, #addCars > span > span > input, #addCars > span > span > select {
+    #addCars, #addCars > form > input, #addCars > form > span > span > input, #addCars > form > span > span > select {
         background-color: transparent;
         outline: none;
         border: none;
         border-bottom: 1px solid #E2F87B;
         color: #FDFFF6;
+        padding-top: 5px;
+        padding-inline: 2px;
     }
 
-    #addCars > span > select * {
+    #addCars > form > span > span > select * {
         background-color: #031A09;
     }
 
-    #addCars > span { 
+    #addCars > form { 
         display: flex;
         flex-direction: column;
         background-color: #316C40;
-        padding: 15px 25px;
+        padding: 35px 30px;
+        gap: 5px;
         border: 2px solid #E2F87B;
         border-radius: 5px;
         color: #FDFFF6;
+    }
+
+    .addCarsForm > span > span:nth-child(2) > select, .addCarsForm > span > span > input { 
+        height: 35px;
+    }
+
+    .addCarsForm > span { 
+        display: flex;
+        flex-direction: row;
+        column-gap: 10px;
+    }
+
+    .addCarsForm > span > span { 
+        display: flex;
+        flex-direction: column;
+    }
+
+    .addCarsForm > span > span > label {
+        transform: translateY(-46px);
+        font-size: 14px;
+        opacity: 0.8;
+    }
+
+    .addCarsForm > label { 
+        transform: translateY(-48px);
+        font-size: 14px;
+        opacity: 0.8;
+    }
+    .addCarsForm > input {
+        height: 35px;
+    }
+
+    .addCarsForm > input[type="file"] {
+        height: 35px;
+        width: 293px;
+    }
+
+    .addCarsForm > button {
+        background-color: #E2F87B;
+        border: none;
+        outline: none;
+        padding: 5px 15px;
+        border-radius: 5px;
+    }
+
+    .exitButton {
+        position: absolute;
+        top: 10px;
+        right: 12.5px;
+        font-size: 24px;
+        color: #E2F87B;
+        border: none;
+        outline: none;
+        background-color: transparent;
     }
 </style>
