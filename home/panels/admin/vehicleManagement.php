@@ -7,7 +7,7 @@
                 <span>
                     <span>
                         <button popovertarget='addCars' onclick='document.querySelector(&#x27;.addCarsDisabler&#x27;).style.display = &#x27;block&#x27;'>Add Vehicle</button>
-                        <button popovertarget='addBrands'onclick='document.querySelector(&#x27;.addBrandsDisabler&#x27;).style.display = &#x27;block&#x27;' >Add Brands</button>
+                        <button popovertarget='addBrands' id='popAddBrands' onclick='document.querySelector(&#x27;.addBrandsDisabler&#x27;).style.display = &#x27;block&#x27;'>Add Brands</button>
                         <button>Add Location</button>
                     </span>
                     <span>";
@@ -62,8 +62,8 @@
             <div popover id='addBrands'>
                 <button popovertarget='addBrands' popovertargetaction='hide' class='exitButton' onclick='document.querySelector(&#x27;.addBrandsDisabler&#x27;).style.display = &#x27;none&#x27;'>&#215;</button>
                 <form method='post' class='addBrandsForm'>
-                    <input type='text' id='brand' required>
-                    <label for='brand'>New Brand</label>
+                    <input type='text' id='newBrand' name='newBrand' required>
+                    <label for='newBrand'>New Brand</label>
                     <span class='addBrandsList'>
                         <p>Brands List</p>
                         <span>
@@ -77,8 +77,21 @@
                             <p>Toyota</p>
                         </span>
                     </span>
-                    <button type='submit' name='submitCar'>Add Brand</button>
-                </form>
+                    <button type='submit' name='submitBrand'>Add Brand</button>";
+    if(isset($_POST["submitBrand"])){
+        $brand = filter_input(INPUT_POST, "newBrand", FILTER_SANITIZE_SPECIAL_CHARS);
+        
+        $query = "INSERT INTO brands VALUES (null, '$brand')";
+        
+        try{
+            mysqli_query($conn, $query);
+        }catch(mysqli_sql_exception){
+            echo "<p class='addBrandsError'>Error Pre</p>";
+        }finally{
+            echo "<script type='text/javascript'> document.getElementById('addBrands').showPopover(); document.querySelector('.addBrandsDisabler').style.display ='block'; </script>";
+        }
+    }
+    echo "</form>
             </div>
         </div>";
 

@@ -691,6 +691,14 @@
         background-color: #38814a;
     }
 
+    .addBrandsError {
+        position: absolute;
+        bottom: 10px;
+        width: 77%;
+        text-align: center;
+        color: #F77;
+    }
+
     .exitButton {
         position: absolute;
         top: 10px;
