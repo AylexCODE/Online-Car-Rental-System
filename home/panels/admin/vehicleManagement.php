@@ -1,4 +1,7 @@
 <?php
+    $queryGetBrands = "SELECT * FROM brands";
+    $execQueryGetBrands = mysqli_query($conn,$queryGetBrands); 
+
     echo "<div class='vehicleManagement active'>
             <h4>Vehicle Management</h4>
             <span>
@@ -26,11 +29,13 @@
                         </span>
                         <span>
                             <select id='brand' name='carBrand'>
-                                <option value='None' selected disabled></option>
-                                <option value='1'>Toyota</option>
-                                <option value='2'>Ferrari</option>
-                                <option value='3'>Ford</option>
-                            </select>
+                            <option value='None' selected disabled></option>";       
+                            if(mysqli_num_rows($execQueryGetBrands) != 0){
+                                while($rows = mysqli_fetch_assoc($execQueryGetBrands)){
+                                    echo "<option value='" . $rows["BrandID"] . "'>" . $rows["BrandName"] . "</option>";
+                                }
+                            }
+    echo "</select>
                             <label for='brand'>Brand</label>
                         </span>
                     </span>
@@ -66,16 +71,13 @@
                     <label for='newBrand'>New Brand</label>
                     <span class='addBrandsList'>
                         <p>Brands List</p>
-                        <span>
-                            <p>Toyota</p>
-                            <p>Toyota</p>
-                            <p>Toyota</p>
-                            <p>Toyota</p>
-                            <p>Toyota</p>
-                            <p>Toyota</p>
-                            <p>Toyota</p>
-                            <p>Toyota</p>
-                        </span>
+                        <span>";       
+                        if(mysqli_num_rows($execQueryGetBrands) != 0){
+                            while($rows = mysqli_fetch_assoc($execQueryGetBrands)){
+                                echo "<p>" . $rows["BrandName"] . "</p>";
+                            }
+                        }
+    echo "</span>
                     </span>
                     <button type='submit' name='submitBrand'>Add Brand</button>";
     if(isset($_POST["submitBrand"])){
