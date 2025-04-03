@@ -83,13 +83,13 @@
                     <button type='submit' name='submitBrand'>Add Brand</button>";
     if(isset($_POST["submitBrand"])){
         $brand = filter_input(INPUT_POST, "newBrand", FILTER_SANITIZE_SPECIAL_CHARS);
-        
+
         $query = "INSERT INTO brands VALUES (null, '$brand')";
-        
+        error_reporting(E_ALL);
         try{
             mysqli_query($conn, $query);
-        }catch(mysqli_sql_exception){
-            echo "<p class='addBrandsError'>Error Pre</p>";
+        }catch(mysqli_sql_exception $e){
+            echo "<p class='addBrandsError'>Brands Exist</p>";
         }finally{
             echo "<script type='text/javascript'> document.getElementById('addBrands').showPopover(); document.querySelector('.addBrandsDisabler').style.display ='block'; </script>";
         }
