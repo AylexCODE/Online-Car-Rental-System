@@ -88,7 +88,7 @@
                 <span>
                     <p id='deleteMsg'p>Are you sure to delete this?</p>
                     <p id='deleteName'>Toyota</p>
-                    <button popovertarget='deleteConfirmation' popovertargetaction='hide' class='confirmDelete' onclick='deleteAction(&#x27;delete&#x27;, this.title, this.id)'>Confirm</button>
+                    <button popovertarget='deleteConfirmation' popovertargetaction='hide' class='confirmDelete' onclick='deleteAction(&#x27;delete&#x27;, this.id, this.title)'>Confirm</button>
                 </span>
             </div>
         </div>";

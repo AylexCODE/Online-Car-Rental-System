@@ -297,32 +297,6 @@
         getBrands();
     }
 
-    async function addLocation(){
-        const newLocation = document.getElementById("newLocation").value;
-        
-        await $.ajax({
-            type: "post",
-            url: "./queries/location/addLocation.php",
-            data: { address: newLocation },
-            success: function(res){
-                $(".msg").html(res);
-                if(!res.includes("error")){
-                    $("#newLocation").val("");
-                }
-            },
-            error: function(err){
-                $(".msg").html("Error Pre");
-            }
-        });
-
-        getLocations();
-    }
-
-    $(document).ready(function(){
-        getBrands();
-        getLocations();
-    })
-
     function getBrands(){
         const defaultOption = "<option value='None' selected disabled></option>";
         $.ajax({
@@ -349,11 +323,15 @@
         });
     }
 
-    async function deleteBrands(brandName){
+    async function editBrands(brandID, brandName){
+
+    }
+
+    async function deleteBrands(brandID){
         await $.ajax({
             type: "post",
             url: "./queries/brand/deleteBrand.php",
-            data: { brand: brandName },
+            data: { id: brandID },
             success: function(res){
                 $(".msg").html(res);
             },
@@ -363,6 +341,27 @@
         });
 
         getBrands();
+    }
+
+    async function addLocation(){
+        const newLocation = document.getElementById("newLocation").value;
+        
+        await $.ajax({
+            type: "post",
+            url: "./queries/location/addLocation.php",
+            data: { address: newLocation },
+            success: function(res){
+                $(".msg").html(res);
+                if(!res.includes("error")){
+                    $("#newLocation").val("");
+                }
+            },
+            error: function(err){
+                $(".msg").html("Error Pre");
+            }
+        });
+
+        getLocations();
     }
 
     function getLocations(){
@@ -378,14 +377,13 @@
         });
     }
 
-    async function deleteLocations(locationAddress){
+    async function deleteLocations(locationID){
         await $.ajax({
             type: "post",
             url: "./queries/location/deleteLocation.php",
-            data: { location: locationAddress },
+            data: { id: locationID },
             success: function(res){
                 $(".msg").html(res);
-                console.log(res)
             },
             error: function(){
                 $(".msg").html("Error Pre");
@@ -395,22 +393,22 @@
         getLocations();
     }
 
-    function deleteConfirmation(type, name){
+    function deleteConfirmation(type, name, id){
         document.getElementById("deleteName").innerHTML = `[ ${name} ]`;
-        document.querySelector(".confirmDelete").id = name;
+        document.querySelector(".confirmDelete").title = id;
 
         switch(type){
             case "brands":
                 document.getElementById("deleteMsg").innerHTML = "Are you sure to delete this brand?";
                 
                 document.querySelector(".exitConfirmation").id = "brands";
-                document.querySelector(".confirmDelete").title = "brands";
+                document.querySelector(".confirmDelete").id = "brands";
                 break;
             case "locations":
                 document.getElementById("deleteMsg").innerHTML = "Are you sure to delete this Location?";
 
                 document.querySelector(".exitConfirmation").id = "locations";
-                document.querySelector(".confirmDelete").title = "locations";
+                document.querySelector(".confirmDelete").id = "locations";
                 break;
         }
 
@@ -429,5 +427,10 @@
                 break;
         }
     }
+
+    $(document).ready(function(){
+        getBrands();
+        getLocations();
+    });
 </script>
 </html>

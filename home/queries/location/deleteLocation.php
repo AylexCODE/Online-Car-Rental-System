@@ -2,10 +2,9 @@
     require_once("../../../database/db_conn.php");
 
     if(isset($_POST)){
-        $address = $_POST["location"];
+        $locationID = $_POST["id"];
 
-        $deleteQuery = "DELETE FROM locations WHERE Address = '$address'";
-        echo $address;
+        $deleteQuery = "DELETE FROM locations WHERE LocationID = '$locationID'";
         try{
             mysqli_query($conn, $deleteQuery);
             echo "<span class='success'>Location Deleted</span>";

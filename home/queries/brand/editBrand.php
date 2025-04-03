@@ -1,0 +1,16 @@
+<?php
+    require_once("../../../database/db_conn.php");
+
+    if(isset($_POST)){
+        $brandID = $_POST["brandID"];
+        $brand = $_POST["brand"];
+
+        $editQuery = "UPDATE Brands SET BrandName = '$brand' WHERE BrandID = '$brandID'";
+        try{
+            mysqli_query($conn, $editQuery);
+            echo "<span class='success'>Brand Edited</span>";
+        }catch(mysqli_sql_exception){
+            echo "<span class='error'>Error Pre</span>";
+        }
+    }
+?>

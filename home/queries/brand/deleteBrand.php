@@ -2,9 +2,9 @@
     require_once("../../../database/db_conn.php");
 
     if(isset($_POST)){
-        $brand = $_POST["brand"];
+        $brandID = $_POST["id"];
 
-        $deleteQuery = "DELETE FROM brands WHERE BrandName = '$brand'";
+        $deleteQuery = "DELETE FROM brands WHERE BrandID = '$brandID'";
         try{
             mysqli_query($conn, $deleteQuery);
             echo "<span class='success'>Brand Deleted</span>";
