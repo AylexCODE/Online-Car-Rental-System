@@ -1,5 +1,5 @@
 <?php
-    include("../../database/db_conn.php");
+    require_once("../../../database/db_conn.php");
 
     $queryGetLocations = "SELECT * FROM Locations ORDER BY Address";
     

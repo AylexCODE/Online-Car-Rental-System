@@ -1,6 +1,6 @@
 <?php
-    include("../../database/db_conn.php");
-    
+    require_once("../../../database/db_conn.php");
+
     $queryGetBrands = "SELECT * FROM brands ORDER BY BrandName";
     
     if(isset($_GET)){
@@ -9,11 +9,11 @@
             
             if(mysqli_num_rows($execQueryGetBrands) != 0){
                 while($rows = mysqli_fetch_assoc($execQueryGetBrands)){
-                    echo "<p>" . $rows["BrandName"] . "</p>";
+                    echo "<option value='" . $rows["BrandID"] . "'>" . $rows["BrandName"] . "</option>";
                 }
             }
         }catch(mysqli_sql_exception){
             echo "<span class='error'>Error1 Pre</span>";
-        }
+         }
     }
 ?>

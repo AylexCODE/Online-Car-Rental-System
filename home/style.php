@@ -686,6 +686,14 @@
         padding: 5px;
         background-color: #316C40;
         margin: 0px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .addBrandsList > span > p > img {
+        margin-left: 10px;
     }
 
     .addBrandsList > span > p:nth-child(odd), .addLocationsList > span > p:nth-child(odd) {

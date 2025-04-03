@@ -82,7 +82,6 @@
                     <div class='submitBtn' onclick='addLocation()'>Add Location</div>
                 </form>
             </div>
-            <p class='msg'>H</p>
         </div>";
 
     if(isset($_POST["submitCar"])){

@@ -281,7 +281,7 @@
 
         await $.ajax({
             type: "post",
-            url: "./queries/addBrand.php",
+            url: "./queries/brand/addBrand.php",
             data: { brand: newBrand },
             success: function(res){
                 $(".msg").html(res);
@@ -302,7 +302,7 @@
         
         await $.ajax({
             type: "post",
-            url: "./queries/addLocation.php",
+            url: "./queries/location/addLocation.php",
             data: { address: newLocation },
             success: function(res){
                 $(".msg").html(res);
@@ -327,7 +327,7 @@
         const defaultOption = "<option value='None' selected disabled></option>";
         $.ajax({
             type: "get",
-            url: "./queries/getBrands.php",
+            url: "./queries/brand/getBrands.php",
             success: function(res){
                 $("#brand").html(defaultOption + res);
             },
@@ -339,7 +339,7 @@
 
         $.ajax({
             type: "get",
-            url: "./queries/getBrandsList.php",
+            url: "./queries/brand/getBrandsList.php",
             success: function(res){
                 $(".brandsList").html(res);
             },
@@ -349,10 +349,24 @@
         });
     }
 
+    function deleteBrands(brandName){
+        $.ajax({
+            type: "post",
+            url: "./queries/brand/deleteBrand.php",
+            data: { brand: brandName },
+            success: function(res){
+                $(".msg").html(res);
+            },
+            error: function(){
+                $(".msg").html("Error Pre");
+            }
+        });
+    }
+
     function getLocations(){
         $.ajax({
             type: "get",
-            url: "./queries/getLocationsList.php",
+            url: "./queries/location/getLocationsList.php",
             success: function(res){
                 $(".locationsList").html(res);
             },
