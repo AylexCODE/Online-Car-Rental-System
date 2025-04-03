@@ -80,21 +80,8 @@
                         }
     echo "</span>
                     </span>
-                    <button type='submit' name='submitBrand'>Add Brand</button>";
-    if(isset($_POST["submitBrand"])){
-        $brand = filter_input(INPUT_POST, "newBrand", FILTER_SANITIZE_SPECIAL_CHARS);
-
-        $query = "INSERT INTO brands VALUES (null, '$brand')";
-        error_reporting(E_ALL);
-        try{
-            mysqli_query($conn, $query);
-        }catch(mysqli_sql_exception $e){
-            echo "<p class='addBrandsError'>Brands Exist</p>";
-        }finally{
-            echo "<script type='text/javascript'> document.getElementById('addBrands').showPopover(); document.querySelector('.addBrandsDisabler').style.display ='block'; </script>";
-        }
-    }
-    echo "</form>
+                    <div name='submitBrand' class='submitBtn' onclick='addBrand()'>Add Brand</div>
+                </form>
             </div>
 
             <span class='addLocationsDisabler' style='position: fixed; top: 0px; left: 0px; background-color: #031A09; height: 100dvh; width: 100dvw; display: none; z-index: 999; opacity: 0.8;' onclick='document.querySelector(&#x27;.addLocationsDisabler&#x27;).style.display = &#x27;none&#x27;'></span>
@@ -114,6 +101,7 @@
                     <button type='submit' name='submitBrand'>Add Brand</button>
                 </form>
             </div>
+            <p class='msg'>H</p>
         </div>";
 
     if(isset($_POST["submitCar"])){

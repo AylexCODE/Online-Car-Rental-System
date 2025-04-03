@@ -10,6 +10,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./vendor/jquery-3.7.1.min.js"></script>
     <style type="text/css">
         *{
             margin: 0;
@@ -272,6 +273,26 @@
     window.onresize = () => {
         if(document.querySelector(".guestBG")) setActiveBtn(activeNav);
         if(document.querySelector(".adminNav")) { adminNavIndicator.style.left = overviewBtn.offsetLeft-5 +"px";  adminNavIndicator.style.top = overviewBtn.offsetTop-5 +"px"; }
+    }
+</script>
+<script type="text/javascript">
+    function addBrand(){
+        const newBrand = document.getElementById("newBrand").value;
+
+        $.ajax({
+            type: "post",
+            url: "./queries/addBrand.php",
+            data: { brand: newBrand },
+            success: function(res){
+                $(".msg").html(res);
+                if(!res.includes("error")){
+                    $("#newBrand").val("");
+                }
+            },
+            error: function(err){
+                $(".msg").html("Error Pre");
+            }
+        });
     }
 </script>
 </html>

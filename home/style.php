@@ -651,13 +651,14 @@
         padding-left: 10px;
     }
 
-    .addCarsForm > button, .addBrandsForm > button, .addLocationsForm > button {
+    .addCarsForm > .submitBtn, .addBrandsForm > .submitBtn, .addLocationsForm > .submitBtn {
         background-color: #E2F87B;
         border: none;
         outline: none;
         padding: 5px 15px;
         border-radius: 5px;
         color: #031A09;
+        text-align: center;
     }
 
     .addBrandsList, .addLocationsList {
@@ -708,5 +709,50 @@
         border: none;
         outline: none;
         background-color: transparent;
+    }
+
+    .msg {
+        position: absolute;
+        top: -100px;
+        left: 58%;
+        z-index: 999;
+        transform: translate(-50%, -50%);
+    }
+    
+    .msg > .error, .msg > .success {
+        position: relative;
+        color: rgb(255, 100, 100);
+        right: 2.5%;
+        top: 50px;
+        text-wrap: nowrap;
+        border: 2px solid #F77;
+        padding: 5px 10px;
+        background-color: #38814a;
+        font-weight: bold;
+        border-radius: 5px;
+        animation: msgSlideDown 5s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .msg > .success  {
+        color: #E2F87B;
+        border: 2px solid #E2F87B;
+    }
+
+    @keyframes msgSlideDown {
+        0%{
+            opacity: 0;
+        }
+        30%{
+            opacity: 1;
+            top: 150px;
+        }
+        70%{
+            opacity: 1;
+            top: 150px;
+        }
+        100%{
+            opacity: 0;
+            top: 0px;
+        }
     }
 </style>
