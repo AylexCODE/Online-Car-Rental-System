@@ -324,7 +324,19 @@
     }
 
     async function editBrands(brandID, brandName){
-        console.log(brandID, brandName);
+        await $.ajax({
+            type: "post",
+            url: "./queries/brand/editBrand.php",
+            data: { brandID: brandID, newBrand: brandName },
+            success: function(res){
+                $(".msg").html(res);
+            },
+            error: function(){
+                $(".msg").html("Error Pre");
+            }
+        });
+
+        getBrands();
     }
 
     async function deleteBrands(brandID){
@@ -394,12 +406,27 @@
     }
 
     function editPane(type, name, id){
+        document.querySelector(".submitEditPane").title = id;
+
         switch(type){
             case "brands":
+                document.getElementById("editMsg").innerHTML = `Editing Brand [ ${name} ]`;
+
+                document.querySelector(".exitEditPane").id = "brands";
+                document.querySelector(".submitEditPane").id = "brands";
                 break;
         }
 
         document.getElementById("editPane").showPopover();
+    }
+
+    function editAction(type, id, action){
+        switch(type){
+            case "brands":
+                document.getElementById("addBrands").showPopover();
+                if(action == "edit") editBrands(id, $("#editBrandField").val());
+                break;
+        }
     }
 
     function deleteConfirmation(type, name, id){

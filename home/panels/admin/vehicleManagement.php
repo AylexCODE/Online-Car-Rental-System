@@ -84,10 +84,12 @@
             </div>
 
             <div popover id='editPane'>
-                <button popovertarget='editPane' popovertargetaction='hide' class='exitEditPane'>&#215;</button>
+                <button popovertarget='editPane' popovertargetaction='hide' class='exitEditPane' onclick='confirmEditPane(this.id, this.title, &#x27;cancel&#x27;)'>&#215;</button>
                 <span>
-                    <p id='editMsg'p>Edit</p>
-                    <button popovertarget='editPane' popovertargetaction='hide' class='submitEditPane'>Confirm</button>
+                    <p id='editMsg'>Edit</p>
+                    <input type='text' id='editBrandField'>
+                    <label for='editBrandField'>New Brand</label>
+                    <button popovertarget='editPane' popovertargetaction='hide' class='submitEditPane' onclick='editAction(this.id, this.title, &#x27;edit&#x27;)'>Confirm</button>
                 </span>
             </div>
             <div popover id='deleteConfirmation'>
