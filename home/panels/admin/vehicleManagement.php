@@ -83,6 +83,13 @@
                 </form>
             </div>
 
+            <div popover id='editPane'>
+                <button popovertarget='editPane' popovertargetaction='hide' class='exitEditPane'>&#215;</button>
+                <span>
+                    <p id='editMsg'p>Edit</p>
+                    <button popovertarget='editPane' popovertargetaction='hide' class='submitEditPane'>Confirm</button>
+                </span>
+            </div>
             <div popover id='deleteConfirmation'>
                 <button popovertarget='deleteConfirmation' popovertargetaction='hide' class='exitConfirmation' onclick='deleteAction(&#x27;cancel&#x27;, this.id)'>&#215;</button>
                 <span>

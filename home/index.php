@@ -324,7 +324,7 @@
     }
 
     async function editBrands(brandID, brandName){
-
+        console.log(brandID, brandName);
     }
 
     async function deleteBrands(brandID){
@@ -391,6 +391,15 @@
         });
 
         getLocations();
+    }
+
+    function editPane(type, name, id){
+        switch(type){
+            case "brands":
+                break;
+        }
+
+        document.getElementById("editPane").showPopover();
     }
 
     function deleteConfirmation(type, name, id){

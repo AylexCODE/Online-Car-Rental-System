@@ -3,7 +3,7 @@
 
     if(isset($_POST)){
         $brandID = $_POST["brandID"];
-        $brand = $_POST["brand"];
+        $newBrand = $_POST["newBrand"];
 
         $editQuery = "UPDATE Brands SET BrandName = '$brand' WHERE BrandID = '$brandID'";
         try{
