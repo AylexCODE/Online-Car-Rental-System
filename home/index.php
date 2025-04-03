@@ -349,8 +349,8 @@
         });
     }
 
-    function deleteBrands(brandName){
-        $.ajax({
+    async function deleteBrands(brandName){
+        await $.ajax({
             type: "post",
             url: "./queries/brand/deleteBrand.php",
             data: { brand: brandName },
@@ -361,6 +361,8 @@
                 $(".msg").html("Error Pre");
             }
         });
+
+        getBrands();
     }
 
     function getLocations(){
@@ -374,6 +376,31 @@
                 $(".msg").html("Error Pre");
             }
         });
+    }
+
+    function deleteConfirmation(type, name){
+        switch(type){
+            case "brands":
+                document.getElementById("deleteConfirmation").showPopover();
+
+                document.getElementById("deleteMsg").innerHTML = "Are you sure to delete this brand?";
+                document.getElementById("deleteName").innerHTML = `[ ${name} ]`;
+
+                document.querySelector(".exitConfirmation").id = "brands";
+                document.querySelector(".confirmDelete").title = "brands";
+                document.querySelector(".confirmDelete").id = name;
+                break;
+        }
+    }
+
+    function deleteAction(...data){
+        console.log(data)
+        switch(data[1]){
+            case "brands":
+                document.getElementById("addBrands").showPopover();
+                if(data[0] == "delete") deleteBrands(data[2]);
+                break;
+        }
     }
 </script>
 </html>

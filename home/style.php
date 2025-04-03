@@ -651,7 +651,7 @@
         padding-left: 10px;
     }
 
-    .addCarsForm > .submitBtn, .addBrandsForm > .submitBtn, .addLocationsForm > .submitBtn {
+    .addCarsForm > .submitBtn, .addBrandsForm > .submitBtn, .addLocationsForm > .submitBtn, .confirmDelete {
         background-color: #E2F87B;
         border: none;
         outline: none;
@@ -708,7 +708,7 @@
         color: #F77;
     }
 
-    .exitButton {
+    .exitButton, .exitConfirmation {
         position: absolute;
         top: 10px;
         right: 12.5px;
@@ -717,6 +717,35 @@
         border: none;
         outline: none;
         background-color: transparent;
+    }
+
+    #deleteConfirmation {
+        border: 1px solid #E2F87B;
+        border-radius: 5px;
+        position: absolute;
+        top: 50%;
+        left: 58%;
+        transform: translate(-50%, -50%);
+        background-color: #316C40;
+    }
+    
+    #deleteConfirmation > span {
+        display: flex;
+        padding: 40px 30px;
+        color: #FDFFF6;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #deleteConfirmation > span > p:first-child {
+        border-bottom: 2px solid #FDFFF6;
+        padding-bottom: 3px;
+        margin-bottom: 5px;
+    }
+
+    #deleteConfirmation > span > p:nth-child(2) {
+        padding-bottom: 3px;
+        margin-bottom: 10px;
     }
 
     .msg {

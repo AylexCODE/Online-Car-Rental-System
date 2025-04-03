@@ -82,6 +82,15 @@
                     <div class='submitBtn' onclick='addLocation()'>Add Location</div>
                 </form>
             </div>
+
+            <div popover id='deleteConfirmation'>
+                <button popovertarget='deleteConfirmation' popovertargetaction='hide' class='exitConfirmation' onclick='deleteAction(&#x27;cancel&#x27;, this.id)'>&#215;</button>
+                <span>
+                    <p id='deleteMsg'p>Are you sure to delete this?</p>
+                    <p id='deleteName'>Toyota</p>
+                    <button popovertarget='deleteConfirmation' popovertargetaction='hide' class='confirmDelete' onclick='deleteAction(&#x27;delete&#x27;, this.title, this.id)'>Confirm</button>
+                </span>
+            </div>
         </div>";
 
     if(isset($_POST["submitCar"])){

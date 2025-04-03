@@ -9,7 +9,8 @@
             
             if(mysqli_num_rows($execQueryGetBrands) != 0){
                 while($rows = mysqli_fetch_assoc($execQueryGetBrands)){
-                    echo "<p>" . $rows["BrandName"] . "<img src='./images/icons/xmark.svg' width='12px' height='12px' onclick='console.log(&#x27;eee&#x27;);'></p>";
+                    // echo "<p>" . $rows["BrandName"] . "<img src='./images/icons/xmark.svg' width='12px' height='12px' onclick='deleteBrands(&#x27;" . $rows["BrandName"] . "&#x27;);'></p>";
+                    echo "<p>" . $rows["BrandName"] . "<img src='./images/icons/xmark.svg' width='12px' height='12px' onclick='deleteConfirmation(&#x27;brands&#x27;,&#x27;" . $rows["BrandName"] . "&#x27;);'></p>";
                 }
             }
         }catch(mysqli_sql_exception){
