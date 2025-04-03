@@ -65,7 +65,7 @@
                         <p>Brands List</p>
                         <span class='brandsList'></span>
                     </span>
-                    <div name='submitBrand' class='submitBtn' onclick='addBrand()'>Add Brand</div>
+                    <div class='submitBtn' onclick='addBrand()'>Add Brand</div>
                 </form>
             </div>
 
@@ -77,13 +77,9 @@
                     <label for='newLocation'>New Location</label>
                     <span class='addLocationsList'>
                         <p>Locations List</p>
-                        <span>
-                            <p>Yo</p>
-                            <p>Eheyyy</p>
-                            <p>Eyyyyyy</p>
-                        </span>
+                        <span class='locationsList'></span>
                     </span>
-                    <button type='submit' name='submitBrand'>Add Brand</button>
+                    <div class='submitBtn' onclick='addLocation()'>Add Location</div>
                 </form>
             </div>
             <p class='msg'>H</p>

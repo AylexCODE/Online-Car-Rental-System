@@ -298,13 +298,29 @@
     }
 
     async function addLocation(){
+        const newLocation = document.getElementById("newLocation").value;
+        
         await $.ajax({
-            
+            type: "post",
+            url: "./queries/addLocation.php",
+            data: { address: newLocation },
+            success: function(res){
+                $(".msg").html(res);
+                if(!res.includes("error")){
+                    $("#newLocation").val("");
+                }
+            },
+            error: function(err){
+                $(".msg").html("Error Pre");
+            }
         });
+
+        getLocations();
     }
 
     $(document).ready(function(){
         getBrands();
+        getLocations();
     })
 
     function getBrands(){
@@ -314,7 +330,6 @@
             url: "./queries/getBrands.php",
             success: function(res){
                 $("#brand").html(defaultOption + res);
-                console.log("YOYO" + res)
             },
             error: function(err){
                 $(".msg").html("Error Pre");
@@ -327,7 +342,19 @@
             url: "./queries/getBrandsList.php",
             success: function(res){
                 $(".brandsList").html(res);
-                console.log("HEYEY" +res)
+            },
+            error: function(err){
+                $(".msg").html("Error Pre");
+            }
+        });
+    }
+
+    function getLocations(){
+        $.ajax({
+            type: "get",
+            url: "./queries/getLocationsList.php",
+            success: function(res){
+                $(".locationsList").html(res);
             },
             error: function(err){
                 $(".msg").html("Error Pre");
