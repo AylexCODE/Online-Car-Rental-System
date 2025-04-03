@@ -378,27 +378,54 @@
         });
     }
 
+    async function deleteLocations(locationAddress){
+        await $.ajax({
+            type: "post",
+            url: "./queries/location/deleteLocation.php",
+            data: { location: locationAddress },
+            success: function(res){
+                $(".msg").html(res);
+                console.log(res)
+            },
+            error: function(){
+                $(".msg").html("Error Pre");
+            }
+        });
+
+        getLocations();
+    }
+
     function deleteConfirmation(type, name){
+        document.getElementById("deleteName").innerHTML = `[ ${name} ]`;
+        document.querySelector(".confirmDelete").id = name;
+
         switch(type){
             case "brands":
-                document.getElementById("deleteConfirmation").showPopover();
-
                 document.getElementById("deleteMsg").innerHTML = "Are you sure to delete this brand?";
-                document.getElementById("deleteName").innerHTML = `[ ${name} ]`;
-
+                
                 document.querySelector(".exitConfirmation").id = "brands";
                 document.querySelector(".confirmDelete").title = "brands";
-                document.querySelector(".confirmDelete").id = name;
+                break;
+            case "locations":
+                document.getElementById("deleteMsg").innerHTML = "Are you sure to delete this Location?";
+
+                document.querySelector(".exitConfirmation").id = "locations";
+                document.querySelector(".confirmDelete").title = "locations";
                 break;
         }
+
+        document.getElementById("deleteConfirmation").showPopover();
     }
 
     function deleteAction(...data){
-        console.log(data)
         switch(data[1]){
             case "brands":
                 document.getElementById("addBrands").showPopover();
                 if(data[0] == "delete") deleteBrands(data[2]);
+                break;
+            case "locations":
+                document.getElementById("addLocations").showPopover();
+                if(data[0] == "delete") deleteLocations(data[2]);
                 break;
         }
     }

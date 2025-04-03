@@ -692,8 +692,17 @@
         justify-content: space-between;
     }
 
-    .addBrandsList > span > p > img {
-        margin-left: 10px;
+    .addBrandsList > span > p > img, .addLocationsList > span > p > span > img {
+        margin-left: 5px;
+    }
+
+    .addBrandsList > span > p > span > img, .addLocationsList > span > p > span > img {
+        margin-left: 5px; 
+    }
+    
+    .addBrandsList > span > p > span, .addLocationsList > span > p > span {
+        display: flex;
+        flex-direction: row;
     }
 
     .addBrandsList > span > p:nth-child(odd), .addLocationsList > span > p:nth-child(odd) {
