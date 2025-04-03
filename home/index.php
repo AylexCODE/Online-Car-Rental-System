@@ -276,10 +276,10 @@
     }
 </script>
 <script type="text/javascript">
-    function addBrand(){
+    async function addBrand(){
         const newBrand = document.getElementById("newBrand").value;
 
-        $.ajax({
+        await $.ajax({
             type: "post",
             url: "./queries/addBrand.php",
             data: { brand: newBrand },
@@ -288,6 +288,46 @@
                 if(!res.includes("error")){
                     $("#newBrand").val("");
                 }
+            },
+            error: function(err){
+                $(".msg").html("Error Pre");
+            }
+        });
+
+        getBrands();
+    }
+
+    async function addLocation(){
+        await $.ajax({
+            
+        });
+    }
+
+    $(document).ready(function(){
+        getBrands();
+    })
+
+    function getBrands(){
+        const defaultOption = "<option value='None' selected disabled></option>";
+        $.ajax({
+            type: "get",
+            url: "./queries/getBrands.php",
+            success: function(res){
+                $("#brand").html(defaultOption + res);
+                console.log("YOYO" + res)
+            },
+            error: function(err){
+                $(".msg").html("Error Pre");
+            }
+        });
+
+
+        $.ajax({
+            type: "get",
+            url: "./queries/getBrandsList.php",
+            success: function(res){
+                $(".brandsList").html(res);
+                console.log("HEYEY" +res)
             },
             error: function(err){
                 $(".msg").html("Error Pre");

@@ -27,15 +27,7 @@
                             <label for='model'>Model</label>
                         </span>
                         <span>
-                            <select id='brand' name='carBrand'>
-                            <option value='None' selected disabled></option>";
-                            $execQueryGetBrands = mysqli_query($conn, $queryGetBrands);   
-                            if(mysqli_num_rows($execQueryGetBrands) != 0){
-                                while($rows = mysqli_fetch_assoc($execQueryGetBrands)){
-                                    echo "<option value='" . $rows["BrandID"] . "'>" . $rows["BrandName"] . "</option>";
-                                }
-                            }
-    echo "</select>
+                            <select id='brand' name='carBrand'></select>
                             <label for='brand'>Brand</label>
                         </span>
                     </span>
@@ -71,14 +63,7 @@
                     <label for='newBrand'>New Brand</label>
                     <span class='addBrandsList'>
                         <p>Brands List</p>
-                        <span>";
-                        $execQueryGetBrands = mysqli_query($conn, $queryGetBrands); 
-                        if(mysqli_num_rows($execQueryGetBrands) != 0){
-                            while($rows = mysqli_fetch_assoc($execQueryGetBrands)){
-                                echo "<p>" . $rows["BrandName"] . "</p>";
-                            }
-                        }
-    echo "</span>
+                        <span class='brandsList'></span>
                     </span>
                     <div name='submitBrand' class='submitBtn' onclick='addBrand()'>Add Brand</div>
                 </form>
