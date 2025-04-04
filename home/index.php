@@ -274,6 +274,10 @@
         if(document.querySelector(".guestBG")) setActiveBtn(activeNav);
         if(document.querySelector(".adminNav")) { adminNavIndicator.style.left = overviewBtn.offsetLeft-5 +"px";  adminNavIndicator.style.top = overviewBtn.offsetTop-5 +"px"; }
     }
+
+    document.getElementById("carImgInput").addEventListener('change', (e) => {
+        console.log(e.target)
+    });
 </script>
 <script type="text/javascript">
     async function addBrand(){

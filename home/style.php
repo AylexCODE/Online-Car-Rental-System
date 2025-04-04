@@ -636,13 +636,23 @@
         width: 170px;
     }
 
-    #addCars, #addBrands, #addLocations {
+    #addCars {
+        position: absolute;
+        bottom: 50%;
+        left: 58%;
+        transform: translate(-50%, 2%);
+    }
+
+    /*#addCars,*/ #addBrands, #addLocations {
         border: 1px solid #E2F87B;
         border-radius: 5px;
         position: absolute;
-        top: 50%;
+        bottom: 50%;
         left: 58%;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, 40%);
+        /* top: 50%;
+        left: 58%;
+        transform: translate(-50%, -50%); */
     }
 
     /* #addCars > button {
