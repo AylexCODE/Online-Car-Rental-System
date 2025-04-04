@@ -305,6 +305,7 @@
                         carImage = false;
                         document.querySelector(".addCarErrorMsg").innerHTML = "Image Doesn't Meet The Expected Aspect Ratio 3:2";
                     }else{
+                        document.querySelector(".addCarErrorMsg").innerHTML = "";
                         carImage = true;
                     }
                 }

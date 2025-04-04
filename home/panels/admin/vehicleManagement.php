@@ -1,5 +1,5 @@
 <?php
-    $queryGetBrands = "SELECT * FROM brands ORDER BY BrandName";
+    require_once("../database/db_conn.php");
 
     echo "<div class='vehicleManagement active'>
             <h4>Vehicle Management</h4>
@@ -63,7 +63,7 @@
                             <label for='availability'>Availability</label>
                         </span>
                         <span>
-                            <input type='text' id='priceDay' value='₱' required>
+                            <input type='text' id='priceDay' name='rentalPriceDay' value='₱' required>
                             <label for='transmission'>Price/Day</label>
                         </span>
                     </span>
@@ -144,17 +144,42 @@
         $brand = filter_input(INPUT_POST, "carBrand", FILTER_SANITIZE_SPECIAL_CHARS);
         $transmission = filter_input(INPUT_POST, "carTransmission", FILTER_SANITIZE_SPECIAL_CHARS);
         $fuelType = filter_input(INPUT_POST, "carFuelType", FILTER_SANITIZE_SPECIAL_CHARS);
+        $rentalPrice = filter_input(INPUT_POST, "rentalPriceDay", FILTER_SANITIZE_SPECIAL_CHARS);
 
         $file = $_FILES["file"]["name"];
         $ffile = $_FILES["file"]["tmp_name"];
+        $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
+
+        $fileNameExist = true;
+        do{
+            $query = "SELECT ImageName FROM cars WHERE ImageName = '$file';";
+
+            try{
+                $execQuery = mysqli_query($conn, $query);
+                if(mysqli_num_rows($execQuery) == 0){
+                    $fileNameExist = false;
+                }else{
+                    $file = substr($file, 0, strlen($file) - strlen($fileExtension) -1) . "A." . $fileExtension;
+                }
+            }catch(mysqli_sql_exception){
+                echo "Error Database Pre";
+            }
+        }while($fileNameExist);
+
         $path = "./images/cars/" . $file;
-
-        $query = "INSERT INTO cars VALUES (null, $brand, $model, $fuelType, $transmission, 999, 1, 0, $file)";
-
-        if(move_uploaded_file($ffile, $path)){
-            echo "Ok";
-        }else{
-            echo "Error pre";
+        
+        try{
+            $query = "INSERT INTO cars VALUES (null, 2, '$model', '$fuelType', '$transmission', '$rentalPrice', 1, 0, '$file')";
+            
+            mysqli_query($conn, $query);
+            if(move_uploaded_file($ffile, $path)){
+                echo "Ok";
+            }else{
+                echo "Error pre";
+            }
+        }catch(mysqli_sql_exception $e){
+            echo "Error Database Pre";
+            echo $e;
         }
     }
 ?>
