@@ -276,7 +276,14 @@
     }
 
     document.getElementById("carImgInput").addEventListener('change', (e) => {
-        console.log(e.target)
+        document.querySelector(".carImg").src = URL.createObjectURL(e.target.files[0]);
+        document.querySelector(".carImg").onload =function(){
+            const width = this.naturalWidth; //53.5
+            const height = this.naturalHeight;
+
+            const ratio = (width/height).toFixed(1);
+            console.log(ratio);
+        }
     });
 </script>
 <script type="text/javascript">
@@ -411,7 +418,7 @@
             url: "./queries/location/editLocation.php",
             data: { address: newAddress, id: locationID },
             success: function(res){
-                $(".locationsList").html(res);
+                $(".msg").html(res);
             },
             error: function(err){
                 $(".msg").html("Error Pre");
@@ -437,37 +444,23 @@
         getLocations();
     }
 
-    function editPane(type, name, id){
-        document.querySelector(".submitEditPane").title = id;
-
-        switch(type){
-            case "brands":
-                document.getElementById("editMsg").innerHTML = `Editing Brand [ ${name} ]`;
-
-                document.querySelector(".exitEditPane").id = "brands";
-                document.querySelector(".submitEditPane").id = "brands";
-                break;
-        }
-
+    function editPane(name, id){
         document.getElementById("editPane").showPopover();
+        
+        document.getElementById("editMsg").innerHTML = `[ ${name} ]`;
+        document.querySelector(".submitEditPane").title = id;
     }
 
-    function editAction(type, id, action){
-        switch(type){
-            case "brands":
-                document.getElementById("addBrands").showPopover();
-                if(action == "edit") editBrands(id, $("#editBrandField").val());
-                break;
-            case "locations":
-                break;
-        }
+    function editAction(id, action){
+        document.getElementById("addBrands").showPopover();
+
+        if(action == "edit") editBrands(id, $("#editBrandField").val());
     }
 
     function editLocationF(name, id){
         document.getElementById("editPaneLocation").showPopover();
 
         document.getElementById("editLocationName").innerHTML = `[ ${name} ]`;
-        document.querySelector(".exitEditPaneLocation").title = id;
         document.querySelector(".submitEditPaneLocation").title = id;
     }
 

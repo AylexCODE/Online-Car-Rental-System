@@ -89,6 +89,7 @@
                         <span class='brandsList'></span>
                     </span>
                     <div class='submitBtn' onclick='addBrand()'>Add Brand</div>
+                    <p class='addBrandErrorMsg'>Hey</p>
                 </form>
             </div>
 
@@ -107,18 +108,19 @@
             </div>
 
             <div popover id='editPane'>
-                <button popovertarget='editPane' popovertargetaction='hide' class='exitEditPane' onclick='editAction(this.id, this.title, &#x27;cancel&#x27;)'>&#215;</button>
+                <button popovertarget='editPane' popovertargetaction='hide' class='exitEditPane' onclick='editAction(this.id, &#x27;cancel&#x27;)'>&#215;</button>
                 <span>
-                    <p id='editMsg'>Edit</p>
+                    <p>Edit Brand</p>
+                    <p id='editMsg'>Ford</p>
                     <input type='text' id='editBrandField'>
                     <label for='editBrandField'>New Brand</label>
-                    <button popovertarget='editPane' popovertargetaction='hide' class='submitEditPane' onclick='editAction(this.id, this.title, &#x27;edit&#x27;)'>Confirm</button>
+                    <button popovertarget='editPane' popovertargetaction='hide' class='submitEditPane' onclick='editAction(this.title, &#x27;edit&#x27;)'>Confirm</button>
                 </span>
             </div>
             <div popover id='editPaneLocation'>
                 <button popovertarget='editPaneLocation' popovertargetaction='hide' class='exitEditPaneLocation' onclick='editActionLocation(this.title, &#x27;cancel&#x27;)'>&#215;</button>
                 <span>
-                    <p id='editMsgLocation'>Edit Location</p>
+                    <p>Edit Location</p>
                     <p id='editLocationName'>Japan</p>
                     <input type='text' id='editLocationField'>
                     <label for='editBrandField'>New Location</label>

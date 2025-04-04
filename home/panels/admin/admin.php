@@ -36,6 +36,6 @@
     include_once("./panels/admin/vehicleManagement.php");
 
     echo "</section>
-        <p class='msg'>H</p>
+        <p class='msg'>Hello World!</p>
         </div>";
 ?>

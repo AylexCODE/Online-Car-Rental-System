@@ -637,6 +637,8 @@
     }
 
     #addCars {
+        border: 1px solid #E2F87B;
+        border-radius: 5px;
         position: absolute;
         bottom: 50%;
         left: 58%;
@@ -668,7 +670,7 @@
         background-color: red;
     } */
     
-    #addCars, #addCars > form > input, #addCars > form > span > span > input, #addCars > form > span > span > select, .addCarsForm > select, #addBrands > form > input,  #addLocations > form > input, #editPane > span > input, #editPaneLocation > span > input  {
+    #addCars > form > input, #addCars > form > span > span > input, #addCars > form > span > span > select, .addCarsForm > select, #addBrands > form > input,  #addLocations > form > input, #editPane > span > input, #editPaneLocation > span > input  {
         background-color: transparent;
         outline: none;
         border: none;
@@ -770,7 +772,7 @@
     .carImg {
         display: block;
         height: 150px;
-        width: 150px;
+        width: 230px;
         margin-inline: auto;
     }
 
@@ -822,11 +824,12 @@
         background-color: #38814a;
     }
 
-    .addBrandsError {
+    .addBrandErrorMsg {
         position: absolute;
-        bottom: 10px;
-        width: 77%;
-        text-align: center;
+        bottom: 4%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 14px;
         color: #F77;
     }
 
@@ -867,7 +870,7 @@
         text-align: center;
     }
 
-    #editPane > span > p:first-child, #editLocationName {
+    #editLocationName, #editMsg {
         margin-bottom: 20px;
     }
 
