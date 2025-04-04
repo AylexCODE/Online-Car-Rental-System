@@ -607,6 +607,10 @@
         padding-inline: 2px;
     }
 
+    .addCarsForm > span:nth-child(1) > span:nth-child(2) {
+       width: 100%;
+    }
+
     #addCars > form > span > span > select *, .addCarsForm > input, .addCarsForm > select  * {
         background-color: #031A09;
     }
@@ -622,7 +626,7 @@
         color: #FDFFF6;
     }
 
-    .addCarsForm > span > span:nth-child(2) > select, .addCarsForm > span > span > input, .addCarsForm > input, .addCarsForm > select, #addBrands > form > input, #addLocations > form > input, #editPane > span > input, #editPaneLocation > span > input { 
+    .addCarsForm > span > span:nth-child(2) > select, .addCarsForm > span > span > input, .addCarsForm > input, .addCarsForm > select, #addBrands > form > input, #addLocations > form > input, .availAndPrice > span > select, #editPane > span > input, #editPaneLocation > span > input { 
         height: 35px;
     }
 
@@ -663,6 +667,7 @@
 
     .addCarsForm > input, .addLocationsForm > input, #editPane > span > input, #editPaneLocation > span > input {
         padding-left: 10px;
+        width: 100%;
     }
 
     .addCarsForm > .submitBtn, .addBrandsForm > .submitBtn, .addLocationsForm > .submitBtn, .confirmDelete, .submitEditPane, .confirmEdit, .submitEditPaneLocation {

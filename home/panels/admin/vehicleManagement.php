@@ -53,6 +53,21 @@
                     <select id='location' name='carLocation'></select>
                     <label for='transmission'>Location</label>
 
+                    <span class='availAndPrice'>
+                        <span>
+                            <select id='availability'>
+                                <option value='None' selected disabled></option>
+                                <option value='1'>Available</option>
+                                <option value='0'>Not Available</option>
+                            </select>
+                            <label for='transmission'>Availability</label>
+                        </span>
+                        <span>
+                            <input type='text' id='priceDay'>
+                            <label for='transmission'>Price/Day</label>
+                        </span>
+                    </span>
+
                     <input type='file' name='file'>
                     <button type='submit' name='submitCar'>Add Car</button>
                 </form>
