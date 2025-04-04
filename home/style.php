@@ -298,10 +298,62 @@
 
     .car {
         display: block;
-        height: 300px;
+        /* height: 300px; */
         width: 280px;
         border: 1px solid white;
         border-radius: 5px;
+        overflow: scroll;
+    }
+
+    .car > img {
+        height: 180px;
+        width: 277.5px;
+    }
+
+    .car > p:nth-child(2) {
+        width: 95%;
+        margin-inline: auto;
+        text-wrap: nowrap;
+        overflow-x: scroll;
+        font-size: 18px;
+    }
+
+    .car > p:nth-child(3) {
+        width: 95%;
+        margin-left: 2.5%;
+        text-wrap: nowrap;
+        overflow-x: scroll;
+        font-size: 14px;
+        opacity: 0.8;
+        margin-bottom: 5px;
+    }
+
+    .car > span:last-child {
+        width: 265px;
+        display: grid;
+        place-items: center;
+    }
+
+    .car > span {
+        width: 95%;
+        margin-left: 2.5%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .car > span > p {
+        font-size: 14px;
+        margin-left: 2.5%;
+    }
+
+    .car > span > button {
+        margin: 5px 0px;
+        padding: 3px 50px;
+        background-color: #E2F87B;
+        border: none;
+        border-radius: 5px;
+        color: #031A09;
     }
 
     /* Admin */
@@ -571,8 +623,17 @@
     }
 
     .vehicleManagement > span:nth-child(2) > span:nth-child(2) > span:nth-child(2) > .scrollCars > .car {
-        height: 200px;
+        /* height: 235px; */
         width: 180px;
+    }
+
+    .vehicleManagement > span:nth-child(2) > span:nth-child(2) > span:nth-child(2) > .scrollCars > .car > img {
+        height: 116px;
+        width: 178px;
+    }
+
+    .vehicleManagement > span:nth-child(2) > span:nth-child(2) > span:nth-child(2) > .scrollCars > .car > span:last-child {
+        width: 170px;
     }
 
     #addCars, #addBrands, #addLocations {
@@ -678,6 +739,29 @@
         border-radius: 5px;
         color: #031A09;
         text-align: center;
+    }
+
+    #carImgInput {
+        visibility: hidden;
+    }
+    
+    .forCarImg > input {
+        position: absolute;
+    }
+
+    .forCarImg > label {
+        border: 2px solid #E2F87B;
+        border-radius: 5px;
+        margin-inline: auto;
+        padding: 5px 15px;
+        margin-bottom: 5px;
+    }
+
+    .carImg {
+        display: block;
+        height: 150px;
+        width: 150px;
+        margin-inline: auto;
     }
 
     .addBrandsList, .addLocationsList {

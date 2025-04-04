@@ -68,8 +68,13 @@
                         </span>
                     </span>
 
-                    <input type='file' name='file'>
-                    <button type='submit' name='submitCar'>Add Car</button>
+                    <span class='forCarImg'>
+                        <input type='file' name='file' accept='image/jpg, image/jpeg, image/png' id='carImgInput'>
+                        <label for='carImg'>Insert Car Image</label>
+                    </span>
+
+                    <div type='submit' name='submitCar' class='submitBtn'>Add Vehicle</div>
+                    <image class='carImg' src='./images/icons/image-icon.svg'></image> <!-- height 150, width 150 -->
                 </form>
             </div>
 
