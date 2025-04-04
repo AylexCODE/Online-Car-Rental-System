@@ -390,6 +390,7 @@
     }
 
     async function deleteLocations(locationID){
+        console.log(locationID);
         await $.ajax({
             type: "post",
             url: "./queries/location/deleteLocation.php",
@@ -452,6 +453,7 @@
     }
 
     function deleteAction(...data){
+        console.log(data)
         switch(data[1]){
             case "brands":
                 document.getElementById("addBrands").showPopover();
