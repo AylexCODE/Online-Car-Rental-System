@@ -824,13 +824,44 @@
         background-color: #38814a;
     }
 
-    .addBrandErrorMsg {
+    .addBrandErrorMsg, .addLocationErrorMsg, .addCarErrorMsg {
         position: absolute;
         bottom: 4%;
         left: 50%;
         transform: translateX(-50%);
         font-size: 14px;
         color: #F77;
+        opacity: 1;
+        text-wrap: nowrap;
+    }
+
+    .addCarErrorMsg {
+        bottom: 3%;
+    }
+
+    .addCarErrorMsg > p {
+        font-size: 14px;
+    }
+
+    .addBrandErrorMsg > p, .addLocationErrorMsg > p, .addCarErrorMsg > p {
+        opacity: 0;
+        text-wrap: nowrap;
+    }
+
+    .addBrandErrorMsg > p, .addLocationErrorMsg > p, .addCarErrorMsg > p {
+        animation: fadeIn 5s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    @keyframes fadeIn {
+        0%{
+            opacity: 1;
+        }
+        70%{
+            opacity: 1;
+        }
+        100%{
+            opacity: 0;
+        }
     }
 
     .exitButton, .exitConfirmation, .exitEditPane, .exitEditPaneLocation {

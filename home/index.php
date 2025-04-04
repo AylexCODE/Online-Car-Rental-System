@@ -268,27 +268,48 @@
             adminNavIndicator.style.left = overviewBtn.offsetLeft-5 +"px";
             adminNavIndicator.style.top = overviewBtn.offsetTop-5 +"px";
         }
+
+        if(document.getElementById("priceDay")){
+            document.getElementById("priceDay").oninput = (event) => { document.getElementById("priceDay").value.length == 0 ? document.getElementById("priceDay").value = "₱" : "" }
+        }
+
+        if(document.getElementById("carImgInput")){
+            document.getElementById("carImgInput").addEventListener('change', (e) => {
+                document.querySelector(".carImg").src = URL.createObjectURL(e.target.files[0]);
+                document.querySelector(".carImg").onload = function(){
+                    const width = this.naturalWidth; //53.5
+                    const height = this.naturalHeight;
+
+                    const ratio = (width/height).toFixed(1);
+
+                    if(ratio != 1.5){
+                        document.querySelector(".addCarErrorMsg").innerHTML = "Image Doesn't Meet The Expected Aspect Ratio 3:2";
+                    }
+                    console.log(ratio);
+                }
+            });
+        }
     }
 
     window.onresize = () => {
         if(document.querySelector(".guestBG")) setActiveBtn(activeNav);
         if(document.querySelector(".adminNav")) { adminNavIndicator.style.left = overviewBtn.offsetLeft-5 +"px";  adminNavIndicator.style.top = overviewBtn.offsetTop-5 +"px"; }
     }
-
-    document.getElementById("carImgInput").addEventListener('change', (e) => {
-        document.querySelector(".carImg").src = URL.createObjectURL(e.target.files[0]);
-        document.querySelector(".carImg").onload =function(){
-            const width = this.naturalWidth; //53.5
-            const height = this.naturalHeight;
-
-            const ratio = (width/height).toFixed(1);
-            console.log(ratio);
-        }
-    });
 </script>
 <script type="text/javascript">
+    async function addVehicle(){
+
+    }
+
     async function addBrand(){
         const newBrand = document.getElementById("newBrand").value;
+
+        if(newBrand.trim() == "") {
+            document.querySelector(".addBrandErrorMsg").innerHTML = "<p>Brand Cannot Be Empty!</p>";
+            return;
+        }else{
+            document.querySelector(".addBrandErrorMsg").innerHTML = "";
+        }
 
         await $.ajax({
             type: "post",
@@ -341,6 +362,7 @@
             data: { brandID: brandID, newBrand: brandName },
             success: function(res){
                 $(".msg").html(res);
+                $("#editBrandField").val("");
             },
             error: function(){
                 $(".msg").html("Error Pre");
@@ -369,6 +391,13 @@
     async function addLocation(){
         const newLocation = document.getElementById("newLocation").value;
         
+        if(newLocation.trim() == ""){
+            document.querySelector(".addLocationErrorMsg").innerHTML = "<p>Brand Cannot Be Empty!</p>";
+            return;
+        }else{
+            document.querySelector(".addLocationErrorMsg").innerHTML = "";
+        }
+
         await $.ajax({
             type: "post",
             url: "./queries/location/addLocation.php",
@@ -419,6 +448,7 @@
             data: { address: newAddress, id: locationID },
             success: function(res){
                 $(".msg").html(res);
+                $("#editLocationField").val("");
             },
             error: function(err){
                 $(".msg").html("Error Pre");
@@ -454,7 +484,14 @@
     function editAction(id, action){
         document.getElementById("addBrands").showPopover();
 
-        if(action == "edit") editBrands(id, $("#editBrandField").val());
+        if(action == "edit"){
+            if($("#editBrandField").val().trim() == "") {
+                document.querySelector(".addBrandErrorMsg").innerHTML = "<p>Brand Cannot Be Empty!</p>";
+                return;
+            }
+            document.querySelector(".addBrandErrorMsg").innerHTML = "";
+            editBrands(id, $("#editBrandField").val());
+        }
     }
 
     function editLocationF(name, id){
@@ -468,7 +505,14 @@
         document.getElementById("addLocations").showPopover();
 
         const newLocation = document.getElementById("editLocationField").value;
-        if(type == "edit") editLocation(newLocation, id);
+        if(type == "edit"){
+            if(newLocation.trim() == ""){
+                document.querySelector(".addLocationErrorMsg").innerHTML = "<p>Location Cannot Be Empty!</p>";
+                return;
+            }else{
+                editLocation(newLocation, id);
+            }
+        }
     }
 
     function deleteConfirmation(type, name, id){

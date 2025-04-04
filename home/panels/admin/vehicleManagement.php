@@ -63,7 +63,7 @@
                             <label for='transmission'>Availability</label>
                         </span>
                         <span>
-                            <input type='text' id='priceDay'>
+                            <input type='text' id='priceDay' value='₱'>
                             <label for='transmission'>Price/Day</label>
                         </span>
                     </span>
@@ -75,6 +75,7 @@
 
                     <button type='submit' name='submitCar' class='submitBtn'>Add Vehicle</button>
                     <image class='carImg' src='./images/icons/image-icon.svg'></image> <!-- height 150, width 150 -->
+                    <p class='addCarErrorMsg'>Accepted Image Ratio is 3:2</p>
                 </form>
             </div>
 
@@ -88,22 +89,23 @@
                         <p>Brands List</p>
                         <span class='brandsList'></span>
                     </span>
-                    <div class='submitBtn' onclick='addBrand()'>Add Brand</div>
-                    <p class='addBrandErrorMsg'>Hey</p>
+                    <button class='submitBtn' onclick='addBrand()'>Add Brand</button>
+                    <p class='addBrandErrorMsg'></p>
                 </form>
             </div>
 
             <span class='addLocationsDisabler' style='position: fixed; top: 0px; left: 0px; background-color: #031A09; height: 100dvh; width: 100dvw; display: none; z-index: 999; opacity: 0.8;' onclick='document.querySelector(&#x27;.addLocationsDisabler&#x27;).style.display = &#x27;none&#x27;'></span>
             <div popover id='addLocations'>
                 <button popovertarget='addLocations' popovertargetaction='hide' class='exitButton' onclick='document.querySelector(&#x27;.addLocationsDisabler&#x27;).style.display = &#x27;none&#x27;'>&#215;</button>
-                <form class='addLocationsForm' method='post'>
+                <form class='addLocationsForm' method='post' onsubmit='return false'>
                     <input type='text' id='newLocation' name='newLocation' required>
                     <label for='newLocation'>New Location</label>
                     <span class='addLocationsList'>
                         <p>Locations List</p>
                         <span class='locationsList'></span>
                     </span>
-                    <div class='submitBtn' onclick='addLocation()'>Add Location</div>
+                    <button class='submitBtn' onclick='addLocation()'>Add Location</button>
+                    <p class='addLocationErrorMsg'></p>
                 </form>
             </div>
 
