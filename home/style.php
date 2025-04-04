@@ -597,7 +597,7 @@
         background-color: red;
     } */
     
-    #addCars, #addCars > form > input, #addCars > form > span > span > input, #addCars > form > span > span > select, .addCarsForm > select, #addBrands > form > input,  #addLocations > form > input, #editPane > span > input  {
+    #addCars, #addCars > form > input, #addCars > form > span > span > input, #addCars > form > span > span > select, .addCarsForm > select, #addBrands > form > input,  #addLocations > form > input, #editPane > span > input, #editPaneLocation > span > input  {
         background-color: transparent;
         outline: none;
         border: none;
@@ -622,7 +622,7 @@
         color: #FDFFF6;
     }
 
-    .addCarsForm > span > span:nth-child(2) > select, .addCarsForm > span > span > input, .addCarsForm > input, .addCarsForm > select, #addBrands > form > input, #addLocations > form > input, #editPane > span > input  { 
+    .addCarsForm > span > span:nth-child(2) > select, .addCarsForm > span > span > input, .addCarsForm > input, .addCarsForm > select, #addBrands > form > input, #addLocations > form > input, #editPane > span > input, #editPaneLocation > span > input { 
         height: 35px;
     }
 
@@ -647,7 +647,7 @@
         opacity: 0.8;
     }
 
-    #editPane > span > label {
+    #editPane > span > label, #editPaneLocation > span > label {
         transform: translateY(-46px);
         font-size: 14px;
         opacity: 0.8;
@@ -661,11 +661,11 @@
         opacity: 0.8;
     }
 
-    .addCarsForm > input, .addLocationsForm > input, #editPane > span > input {
+    .addCarsForm > input, .addLocationsForm > input, #editPane > span > input, #editPaneLocation > span > input {
         padding-left: 10px;
     }
 
-    .addCarsForm > .submitBtn, .addBrandsForm > .submitBtn, .addLocationsForm > .submitBtn, .confirmDelete, .submitEditPane, .confirmEdit {
+    .addCarsForm > .submitBtn, .addBrandsForm > .submitBtn, .addLocationsForm > .submitBtn, .confirmDelete, .submitEditPane, .confirmEdit, .submitEditPaneLocation {
         background-color: #E2F87B;
         border: none;
         outline: none;
@@ -731,7 +731,7 @@
         color: #F77;
     }
 
-    .exitButton, .exitConfirmation, .exitEditPane {
+    .exitButton, .exitConfirmation, .exitEditPane, .exitEditPaneLocation {
         position: absolute;
         top: 10px;
         right: 12.5px;
@@ -742,7 +742,7 @@
         background-color: transparent;
     }
 
-    #deleteConfirmation, #editPane {
+    #deleteConfirmation, #editPane, #editPaneLocation {
         border: 1px solid #E2F87B;
         border-radius: 5px;
         position: absolute;
@@ -752,7 +752,7 @@
         background-color: #316C40;
     }
     
-    #deleteConfirmation > span, #editPane > span {
+    #deleteConfirmation > span, #editPane > span, #editPaneLocation > span {
         display: flex;
         padding: 40px 30px;
         color: #FDFFF6;
@@ -760,7 +760,7 @@
         align-items: center;
     }
 
-    #deleteConfirmation > span > p:first-child, #editPane > span > p:first-child {
+    #deleteConfirmation > span > p:first-child, #editPane > span > p:first-child, #editPaneLocation > span > p:first-child{
         border-bottom: 2px solid #FDFFF6;
         padding-bottom: 3px;
         margin-bottom: 5px;
@@ -768,7 +768,7 @@
         text-align: center;
     }
 
-    #editPane > span > p:first-child {
+    #editPane > span > p:first-child, #editLocationName {
         margin-bottom: 20px;
     }
 

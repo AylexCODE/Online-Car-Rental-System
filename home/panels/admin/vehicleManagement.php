@@ -50,6 +50,9 @@
                     </select>
                     <label for='fueltype'>Fuel Type</label>
 
+                    <select id='location' name='carLocation'></select>
+                    <label for='transmission'>Location</label>
+
                     <input type='file' name='file'>
                     <button type='submit' name='submitCar'>Add Car</button>
                 </form>
@@ -84,12 +87,22 @@
             </div>
 
             <div popover id='editPane'>
-                <button popovertarget='editPane' popovertargetaction='hide' class='exitEditPane' onclick='confirmEditPane(this.id, this.title, &#x27;cancel&#x27;)'>&#215;</button>
+                <button popovertarget='editPane' popovertargetaction='hide' class='exitEditPane' onclick='editAction(this.id, this.title, &#x27;cancel&#x27;)'>&#215;</button>
                 <span>
                     <p id='editMsg'>Edit</p>
                     <input type='text' id='editBrandField'>
                     <label for='editBrandField'>New Brand</label>
                     <button popovertarget='editPane' popovertargetaction='hide' class='submitEditPane' onclick='editAction(this.id, this.title, &#x27;edit&#x27;)'>Confirm</button>
+                </span>
+            </div>
+            <div popover id='editPaneLocation'>
+                <button popovertarget='editPaneLocation' popovertargetaction='hide' class='exitEditPaneLocation' onclick='editActionLocation(this.title, &#x27;cancel&#x27;)'>&#215;</button>
+                <span>
+                    <p id='editMsgLocation'>Edit Location</p>
+                    <p id='editLocationName'>Japan</p>
+                    <input type='text' id='editLocationField'>
+                    <label for='editBrandField'>New Location</label>
+                    <button popovertarget='editPaneLocation' popovertargetaction='hide' class='submitEditPaneLocation' onclick='editActionLocation(this.title, &#x27;edit&#x27;)'>Confirm</button>
                 </span>
             </div>
             <div popover id='deleteConfirmation'>

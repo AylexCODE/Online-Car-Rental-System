@@ -376,8 +376,20 @@
         getLocations();
     }
 
-    function getLocations(){
-        $.ajax({
+    async function getLocations(){
+        const defaultOption = "<option value='None' selected disabled></option>";
+        await $.ajax({
+            type: "get",
+            url: "./queries/location/getLocations.php",
+            success: function(res){
+                $("#location").html(defaultOption + res);
+            },
+            error: function(err){
+                $(".msg").html("Error Pre");
+            }
+        });
+
+        await $.ajax({
             type: "get",
             url: "./queries/location/getLocationsList.php",
             success: function(res){
@@ -389,8 +401,23 @@
         });
     }
 
+    async function editLocation(newAddress, locationID){
+        await $.ajax({
+            type: "post",
+            url: "./queries/location/editLocation.php",
+            data: { address: newAddress, id: locationID },
+            success: function(res){
+                $(".locationsList").html(res);
+            },
+            error: function(err){
+                $(".msg").html("Error Pre");
+            }
+        });
+
+        getLocations();
+    }
+
     async function deleteLocations(locationID){
-        console.log(locationID);
         await $.ajax({
             type: "post",
             url: "./queries/location/deleteLocation.php",
@@ -427,7 +454,24 @@
                 document.getElementById("addBrands").showPopover();
                 if(action == "edit") editBrands(id, $("#editBrandField").val());
                 break;
+            case "locations":
+                break;
         }
+    }
+
+    function editLocationF(name, id){
+        document.getElementById("editPaneLocation").showPopover();
+
+        document.getElementById("editLocationName").innerHTML = `[ ${name} ]`;
+        document.querySelector(".exitEditPaneLocation").title = id;
+        document.querySelector(".submitEditPaneLocation").title = id;
+    }
+
+    function editActionLocation(id, type){
+        document.getElementById("addLocations").showPopover();
+
+        const newLocation = document.getElementById("editLocationField").value;
+        if(type == "edit") editLocation(newLocation, id);
     }
 
     function deleteConfirmation(type, name, id){
@@ -453,7 +497,6 @@
     }
 
     function deleteAction(...data){
-        console.log(data)
         switch(data[1]){
             case "brands":
                 document.getElementById("addBrands").showPopover();
