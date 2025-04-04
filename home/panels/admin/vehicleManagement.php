@@ -27,12 +27,12 @@
                             <label for='model'>Model</label>
                         </span>
                         <span>
-                            <select id='brand' name='carBrand'></select>
+                            <select id='brand' name='carBrand' required></select>
                             <label for='brand'>Brand</label>
                         </span>
                     </span>
 
-                    <select id='transmission' name='carTransmission'>
+                    <select id='transmission' name='carTransmission' required>
                         <option value='None' selected disabled></option>
                         <option value='Manual'>Manual</option>
                         <option value='Automatic'>Automatic</option>
@@ -42,7 +42,7 @@
                     </select>
                     <label for='transmission'>Transmission</label>
 
-                    <select id='fueltype' name='carFuelType'>
+                    <select id='fueltype' name='carFuelType' required>
                         <option value='None' selected disabled></option>
                         <option value='Gasoline'>Gasoline</option>
                         <option value='Diesel'>Diesel</option>
@@ -50,20 +50,20 @@
                     </select>
                     <label for='fueltype'>Fuel Type</label>
 
-                    <select id='location' name='carLocation'></select>
+                    <select id='location' name='carLocation' required></select>
                     <label for='transmission'>Location</label>
 
                     <span class='availAndPrice'>
                         <span>
-                            <select id='availability'>
+                            <select id='availability' required>
                                 <option value='None' selected disabled></option>
                                 <option value='1'>Available</option>
                                 <option value='0'>Not Available</option>
                             </select>
-                            <label for='transmission'>Availability</label>
+                            <label for='availability'>Availability</label>
                         </span>
                         <span>
-                            <input type='text' id='priceDay' value='₱'>
+                            <input type='text' id='priceDay' value='₱' required>
                             <label for='transmission'>Price/Day</label>
                         </span>
                     </span>
@@ -73,7 +73,7 @@
                         <label for='carImgInput'>Insert Car Image</label>
                     </span>
 
-                    <button type='submit' name='submitCar' class='submitBtn'>Add Vehicle</button>
+                    <button type='submit' name='submitCar' class='submitBtn' onclick='submitAddCar(event)'>Add Vehicle</button>
                     <image class='carImg' src='./images/icons/image-icon.svg'></image> <!-- height 150, width 150 -->
                     <p class='addCarErrorMsg'>Accepted Image Ratio is 3:2</p>
                 </form>

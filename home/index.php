@@ -240,6 +240,25 @@
         }
     }
 
+    let carImage = false;
+    function submitAddCar(event){
+        const model = document.getElementById("model").value;
+        const brand = document.getElementById("brand").value;
+        const transmission = document.getElementById("transmission").value;
+        const fueltype = document.getElementById("fueltype").value;
+        const location = document.getElementById("location").value;
+        const availability = document.getElementById("availability").value;
+        const priceDay = document.getElementById("priceDay").value;
+
+        if(model.trim() == "" || brand.trim() == "" || transmission.trim() == "" ||  fueltype.trim() == "" || location.trim() == "" || availability.trim() == "" || priceDay.trim() == "₱"){
+            document.querySelector(".addCarErrorMsg").innerHTML = "<p>Fill All Fields</p>";
+            event.preventDefault();
+        }else if(carImage == false){
+            document.querySelector(".addCarErrorMsg").innerHTML = "<p>Image Is Invalid!</p>";
+            event.preventDefault();
+        }
+    }
+
     window.onload = () => {
         if(document.querySelector(".guestBG")){
             document.querySelector(".carsWrapper").addEventListener("mouseenter", ()=>{ window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth'}) });
@@ -283,9 +302,11 @@
                     const ratio = (width/height).toFixed(1);
 
                     if(ratio != 1.5){
+                        carImage = false;
                         document.querySelector(".addCarErrorMsg").innerHTML = "Image Doesn't Meet The Expected Aspect Ratio 3:2";
+                    }else{
+                        carImage = true;
                     }
-                    console.log(ratio);
                 }
             });
         }
