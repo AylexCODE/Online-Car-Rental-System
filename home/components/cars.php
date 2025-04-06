@@ -17,7 +17,17 @@
             <span>
                 <img src='./images/icons/fuelType-icon.svg' height='14px' width='14px'><p>Gasoline</p>
             </span>
-            <span><button>Rent</button></span>
+            <span>";
+            if(isset($_SESSION["role"])){
+                if($_SESSION["role"] == "Customer"){
+                    echo "<button>Rent</button>";
+                }else{
+                    echo "<button>Edit</button>";
+                }
+            }else{
+                echo "<button>Rent</button>";
+            }
+            echo "</span>
         </span>";
         $i++;
     }
