@@ -9,7 +9,7 @@
             mysqli_query($conn, $deleteQuery);
             echo "<span class='success'>Brand Deleted</span>";
         }catch(mysqli_sql_exception){
-            echo "<span class='error'>Error1 Pre</span>";
+            echo "<span class='error'>Error Pre</span>";
         }
     }
 ?>

@@ -636,22 +636,27 @@
         width: 170px;
     }
 
-    #addCars {
+    /* #addCars {
         border: 1px solid #E2F87B;
         border-radius: 5px;
         position: absolute;
         bottom: 50%;
         left: 58%;
         transform: translate(-50%, 2%);
-    }
+    } */
 
-    /*#addCars,*/ #addBrands, #addLocations {
+    #addCars, #addBrands, #addLocations {
         border: 1px solid #E2F87B;
         border-radius: 5px;
-        position: absolute;
+        display: none;
+        width: fit-content;
+        height: fit-content;
+        pointer-events: all;
+        overflow: hidden;
+        /* position: absolute;
         bottom: 50%;
         left: 58%;
-        transform: translate(-50%, 40%);
+        transform: translate(-50%, 40%); */
         /* top: 50%;
         left: 58%;
         transform: translate(-50%, -50%); */
@@ -825,18 +830,14 @@
     }
 
     .addBrandErrorMsg, .addLocationErrorMsg, .addCarErrorMsg {
-        position: absolute;
-        bottom: 4%;
-        left: 50%;
-        transform: translateX(-50%);
+        position: relative;
+        top: 5px;
+        height: 0px;
+        text-align: center;
         font-size: 14px;
         color: #F77;
         opacity: 1;
         text-wrap: nowrap;
-    }
-
-    .addCarErrorMsg {
-        bottom: 3%;
     }
 
     .addCarErrorMsg > p {
@@ -855,19 +856,22 @@
     @keyframes fadeIn {
         0%{
             opacity: 1;
+            top: 0px;
         }
         70%{
             opacity: 1;
+            top: 0px;
         }
         100%{
             opacity: 0;
+            top: 0px;
         }
     }
 
     .exitButton, .exitConfirmation, .exitEditPane, .exitEditPaneLocation {
-        position: absolute;
-        top: 10px;
-        right: 12.5px;
+        position: relative;
+        left: 94%;
+        height: 0px;
         font-size: 24px;
         color: #E2F87B;
         border: none;
@@ -877,12 +881,14 @@
 
     #deleteConfirmation, #editPane, #editPaneLocation {
         border: 1px solid #E2F87B;
-        border-radius: 5px;
+        pointer-events: all;
+        /* border-radius: 5px;
         position: absolute;
         top: 50%;
         left: 58%;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%); */
         background-color: #316C40;
+        display: none;
     }
     
     #deleteConfirmation > span, #editPane > span, #editPaneLocation > span {
@@ -913,7 +919,7 @@
     .msg {
         position: absolute;
         top: -100px;
-        left: 58%;
+        left: 50%;
         z-index: 999;
         transform: translate(-50%, -50%);
     }

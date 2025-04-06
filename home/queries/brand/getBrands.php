@@ -13,7 +13,7 @@
                 }
             }
         }catch(mysqli_sql_exception){
-            echo "<span class='error'>Error1 Pre</span>";
+            echo "<span class='error'>Error Pre</span>";
          }
     }
 ?>

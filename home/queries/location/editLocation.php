@@ -10,7 +10,7 @@
             mysqli_query($conn, $editLocationQuery);
             echo "<span class='success'>Location Edited</span>";
         }catch(mysqli_sql_exception){
-            echo "<span class='error'>Error Pre</span>";
+            echo "<span class='error'>Location Already Exist</span>";
         }
     }
 ?>

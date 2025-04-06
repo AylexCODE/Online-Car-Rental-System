@@ -231,12 +231,44 @@
         }
     }
 
-    function setBackgroundDisabler(name){
-        document.querySelector(".addCarsDisabler").style.display = "none";
+    function setActiveManagementPane(name){
+        const popoverCover = document.querySelector(".popOverCover"); popoverCover.style.display = "block";
+        const popover = document.querySelector(".popOver"); popover.style.display = "grid";
+        const addCars = document.getElementById("addCars"); addCars.style.display = "none";
+        const addBrands = document.getElementById("addBrands"); addBrands.style.display = "none";
+        const addLocations = document.getElementById("addLocations"); addLocations.style.display = "none";
+        const editPane = document.getElementById("editPane"); editPane.style.display = "none";
+        const editPaneLocation = document.getElementById("editPaneLocation"); editPaneLocation.style.display = "none";
+        const deleteConfirmation = document.getElementById("deleteConfirmation"); deleteConfirmation.style.display = "none";
+        document.querySelector(".addBrandErrorMsg").innerHTML = "";
+        document.querySelector(".addLocationErrorMsg").innerHTML = "";
+        document.querySelector(".addCarErrorMsg").innerHTML = "Accepted Image Ratio is 3:2";
+
         switch(name){
             case "addCars":
-                document.querySelector(".addCarsDisabler").style.display = "block";
+                addCars.style.display = "block";
                 break;
+            case "brands":
+            case "addBrands":
+                addBrands.style.display = "block";
+                break;
+            case "locations":
+            case "addLocations":
+                addLocations.style.display = "block";
+                break;
+            case "editPane":
+                editPane.style.display = "block";
+                break;
+            case "editPaneLocation":
+                editPaneLocation.style.display = "block";
+                break;
+            case "deleteConfirmation":
+                deleteConfirmation.style.display = "block";
+                break;
+            default:
+                popoverCover.style.display = "none";
+                popover.style.display = "none";
+
         }
     }
 
@@ -378,19 +410,24 @@
     }
 
     async function editBrands(brandID, brandName){
+        $("#editBrandField").val("");
+        if(document.getElementById("editMsg").innerHTML.slice(2, document.getElementById("editMsg").innerHTML.length - 2) == brandName){
+            $(".msg").html("<p class='error'>Brand Already Exist</p>");
+            return;
+        }
+
         await $.ajax({
             type: "post",
             url: "./queries/brand/editBrand.php",
             data: { brandID: brandID, newBrand: brandName },
             success: function(res){
                 $(".msg").html(res);
-                $("#editBrandField").val("");
             },
             error: function(){
                 $(".msg").html("Error Pre");
             }
         });
-
+        
         getBrands();
     }
 
@@ -414,7 +451,7 @@
         const newLocation = document.getElementById("newLocation").value;
         
         if(newLocation.trim() == ""){
-            document.querySelector(".addLocationErrorMsg").innerHTML = "<p>Brand Cannot Be Empty!</p>";
+            document.querySelector(".addLocationErrorMsg").innerHTML = "<p>Location Cannot Be Empty!</p>";
             return;
         }else{
             document.querySelector(".addLocationErrorMsg").innerHTML = "";
@@ -464,19 +501,24 @@
     }
 
     async function editLocation(newAddress, locationID){
+        $("#editLocationField").val("");
+        if(document.getElementById("editLocationName").innerHTML.slice(2, document.getElementById("editLocationName").innerHTML.length - 2) == newAddress){
+            $(".msg").html("<p class='error'>Location Already Exist</p>");
+            return;
+        }
+
         await $.ajax({
             type: "post",
             url: "./queries/location/editLocation.php",
             data: { address: newAddress, id: locationID },
             success: function(res){
                 $(".msg").html(res);
-                $("#editLocationField").val("");
             },
             error: function(err){
                 $(".msg").html("Error Pre");
             }
         });
-
+        
         getLocations();
     }
 
@@ -497,15 +539,11 @@
     }
 
     function editPane(name, id){
-        document.getElementById("editPane").showPopover();
-        
         document.getElementById("editMsg").innerHTML = `[ ${name} ]`;
         document.querySelector(".submitEditPane").title = id;
     }
 
     function editAction(id, action){
-        document.getElementById("addBrands").showPopover();
-
         if(action == "edit"){
             if($("#editBrandField").val().trim() == "") {
                 document.querySelector(".addBrandErrorMsg").innerHTML = "<p>Brand Cannot Be Empty!</p>";
@@ -517,15 +555,11 @@
     }
 
     function editLocationF(name, id){
-        document.getElementById("editPaneLocation").showPopover();
-
         document.getElementById("editLocationName").innerHTML = `[ ${name} ]`;
         document.querySelector(".submitEditPaneLocation").title = id;
     }
 
     function editActionLocation(id, type){
-        document.getElementById("addLocations").showPopover();
-
         const newLocation = document.getElementById("editLocationField").value;
         if(type == "edit"){
             if(newLocation.trim() == ""){
@@ -555,18 +589,14 @@
                 document.querySelector(".confirmDelete").id = "locations";
                 break;
         }
-
-        document.getElementById("deleteConfirmation").showPopover();
     }
 
     function deleteAction(...data){
         switch(data[1]){
             case "brands":
-                document.getElementById("addBrands").showPopover();
                 if(data[0] == "delete") deleteBrands(data[2]);
                 break;
             case "locations":
-                document.getElementById("addLocations").showPopover();
                 if(data[0] == "delete") deleteLocations(data[2]);
                 break;
         }

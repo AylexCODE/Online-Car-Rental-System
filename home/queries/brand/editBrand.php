@@ -10,7 +10,7 @@
             mysqli_query($conn, $editQuery);
             echo "<span class='success'>Brand Edited</span>";
         }catch(mysqli_sql_exception){
-            echo "<span class='error'>Error Pre</span>";
+            echo "<span class='error'>Brand Already Exist</span>";
         }
     }
 ?>
