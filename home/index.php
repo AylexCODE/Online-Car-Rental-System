@@ -16,22 +16,44 @@
             margin: 0;
             padding: 0;
         }
-        .loginUserConfirmationWrapper {
+        .loginUserConfirmationWrapper, .loginUserConfirmationBG {
             position: fixed;
             top: 0px;
             left: 0px;
-            display: grid;
+            height: 100vh;
+            width: 100vw;
+            display: none;
             place-items: center;
+            z-index: 999;
+        }
+        .loginUserConfirmationBG {
             background-color: #031A0980;
+            display: block;
+        }
+        .loginUserConfirmation {
+            background-color: #38814a;
+            color: #FDFFF6;
+            z-index: 1000;
         }
     </style>
+    <script type="text/javascript">
+        function toggleSignupAlert(state){
+            if(state == "hide"){
+                document.querySelector(".loginUserConfirmationWrapper").style.display = "none";
+            }else{
+                document.querySelector(".loginUserConfirmationWrapper").style.display = "grid";
+            }
+        }
+    </script>
     <title>Car Rental</title>
 </head>
 <body>
     <span class="loginUserConfirmationWrapper">
-        <span class="loginUserConfirmation">
+        <span class="loginUserConfirmationBG" onclick="toggleSignupAlert('hide')"></span>
+        <span class="loginUserConfirmation" onclick="toggleSignupAlert('hide')">
+            <button>&#215;</button>
             <p>Seems Like You Don't Have an Account</p>
-            <button>Proceed To Signup</button>
+            <a href="../auth/signup.php">Sign Me Up!</a>
         </span>
     </span>
     <?php

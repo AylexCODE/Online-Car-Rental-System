@@ -25,7 +25,7 @@
                     echo "<button>Edit</button>";
                 }
             }else{
-                echo "<button>Rent</button>";
+                echo "<button onclick='toggleSignupAlert(&#x27;show&#x27;)'>Rent</button>";
             }
             echo "</span>
         </span>";
