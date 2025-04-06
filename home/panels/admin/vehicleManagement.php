@@ -177,9 +177,8 @@
             }else{
                 echo "Error pre";
             }
-        }catch(mysqli_sql_exception $e){
+        }catch(mysqli_sql_exception){
             echo "Error Database Pre";
-            echo $e;
         }
     }
 ?>
