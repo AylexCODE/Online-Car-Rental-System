@@ -1,16 +1,17 @@
 <?php
+    session_start();
     require_once("../../../database/db_conn.php");
 
     if(isset($_POST)){
-        $carsQuery = "SELECT * FROM cars";
+        $carsQuery = "SELECT cars.CarID, brands.BrandName, cars.Model, cars.FuelType, cars.Transmission, cars.RentalPrice, cars.LocationID, cars.Availability, cars.ImageName FROM cars INNER JOIN brands ON cars.BrandID = brands.BrandID";
         // Image Dimensions height: 180px | width: 277.5px;
         try{
             $execQuery = mysqli_query($conn, $carsQuery);
             if(mysqli_num_rows($execQuery) != 0){
                 while($rows = mysqli_fetch_assoc($execQuery)){
-                    echo "<span class='car'>
-                        <img src='./images/cars/" . $rows["ImageName"] . "'></img>
-                        <p>Ford Ranger</p>
+                    echo "<span class='car' title='" . $rows[""] . "'>
+                        <img src='./images/cars/" . $rows["ImageName"] . "' id='carImg'></img>
+                        <p><span id='carBrand'>" . $rows[""] . "</span><span id='carModel'>" . $rows[""] . "</span></p>
                         <p>₱3000/Day</p>
                         <span>
                             <img src='./images/icons/location-icon.svg' height='14px' width='14px'><p>Cebu</p>

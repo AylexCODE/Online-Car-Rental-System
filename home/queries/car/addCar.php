@@ -29,7 +29,7 @@
         $path = "./images/cars/" . $file;
         
         try{
-            $query = "INSERT INTO cars VALUES (null, 2, '$model', '$fuelType', '$transmission', '$rentalPrice', 1, 0, '$file')";
+            $query = "INSERT INTO cars VALUES (null, $brand, '$model', '$fuelType', '$transmission', '$rentalPrice', 1, 0, '$file')";
             
             mysqli_query($conn, $query);
             if(move_uploaded_file($ffile, $path)){
