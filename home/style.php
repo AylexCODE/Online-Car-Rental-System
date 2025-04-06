@@ -652,6 +652,7 @@
         width: fit-content;
         height: fit-content;
         pointer-events: all;
+        transform: translateX(30%);
         overflow: hidden;
         /* position: absolute;
         bottom: 50%;
@@ -882,6 +883,7 @@
     #deleteConfirmation, #editPane, #editPaneLocation {
         border: 1px solid #E2F87B;
         pointer-events: all;
+        transform: translateX(30%);
         /* border-radius: 5px;
         position: absolute;
         top: 50%;
@@ -919,7 +921,7 @@
     .msg {
         position: absolute;
         top: -100px;
-        left: 50%;
+        left: 56%;
         z-index: 999;
         transform: translate(-50%, -50%);
     }

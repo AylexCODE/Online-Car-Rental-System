@@ -327,6 +327,10 @@
         }
     }
 
+    function editCar(brand, model, fueltype, price, location, availability, pricePerDay){
+        
+    }
+
     window.onload = () => {
         if(document.querySelector(".guestBG")){
             document.querySelector(".carsWrapper").addEventListener("mouseenter", ()=>{ window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth'}) });
@@ -388,7 +392,21 @@
 </script>
 <script type="text/javascript">
     async function addVehicle(){
+        
+    }
 
+    async function getCars() {
+        $.ajax({
+            type: 'post',
+            url: './queries/car/getCars.php',
+            data: {},
+            success: function(res){
+                $(".scrollCars").html(res);
+            },
+            error: function(){
+                $(".msg").html("Error Pre");
+            }
+        });
     }
 
     async function addBrand(){
@@ -641,6 +659,7 @@
     $(document).ready(function(){
         getBrands();
         getLocations();
+        getCars();
     });
 </script>
 </html>
