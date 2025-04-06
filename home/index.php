@@ -354,6 +354,19 @@
     function editCar(id, imagePath, brand, model, pricePerDay, location, transmission, fueltype, availability){
         const popoverCover = document.querySelector(".popOverCover"); popoverCover.style.display = "block";
         const popover = document.querySelector(".popOver"); popover.style.display = "grid";
+        
+        const tempCarImg = document.getElementById('tempCarImg');
+        const tempCarImgContext = tempCarImg.getContext('2d');
+        const currentCarImg = new Image();
+        currentCarImg.src = './images/cars/' +imagePath;
+        currentCarImg.onload = async () => {
+            tempCarImgContext.drawImage(currentCarImg, 0, 0, 300, 150);
+            tempCarImg.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                console.log(blob)
+                document.querySelector(".carImg").src = url;
+            });
+        };
  
         document.querySelector(".addCarHeader").innerHTML = "Edit Vehicle";
         const newModel = document.getElementById("model"); newModel.value = model; 
@@ -378,6 +391,7 @@
         const editCar = document.getElementById("addCars"); addCars.style.display = "block";
     }
 
+    let imgFakePath = "";
     window.onload = () => {
         if(document.querySelector(".guestBG")){
             document.querySelector(".carsWrapper").addEventListener("mouseenter", ()=>{ window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth'}) });
@@ -414,6 +428,7 @@
         if(document.getElementById("carImgInput")){
             let urlBlob;
             document.getElementById("carImgInput").addEventListener('change', (e) => {
+                console.log(document.getElementById("carImgInput").value)
                 try{
                     urlBlob = URL.createObjectURL(e.target.files[0]);
                 }catch(error){

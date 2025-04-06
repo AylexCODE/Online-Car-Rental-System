@@ -138,6 +138,7 @@
                     </span>
                 </div>
             </span>
-        </div>";
+        </div>
+        <canvas id='tempCarImg' style='display: none;>";
     include_once("./queries/car/addCar.php");
 ?>
