@@ -9,7 +9,7 @@
             
             if(mysqli_num_rows($execQueryGetBrands) != 0){
                 while($rows = mysqli_fetch_assoc($execQueryGetBrands)){
-                    echo "<option value='" . $rows["BrandID"] . "'>" . $rows["BrandName"] . "</option>";
+                    echo "<option value='" . $rows["BrandID"] . "' id='" . $rows["BrandName"]  ."'>" . $rows["BrandName"] . "</option>";
                 }
             }
         }catch(mysqli_sql_exception){

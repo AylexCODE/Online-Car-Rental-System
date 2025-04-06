@@ -10,7 +10,7 @@
             if(mysqli_num_rows($execQuery) != 0){
                 while($rows = mysqli_fetch_assoc($execQuery)){
                     echo "<span class='car' title='" . $rows["CarID"] . "'>
-                        <img src='./images/cars/" . $rows["ImageName"] . "' id='carImg'></img>
+                        <img src='./images/cars/" . $rows["ImageName"] . "' id='" . $rows["ImageName"] . "'></img>
                         <p><span id='carBrand'>" . $rows["BrandName"] . "</span>&nbsp;<span id='carModel'>" . $rows["Model"] . "</span></p>
                         <p id='carPrice'>₱" . $rows["RentalPrice"] . "</p>
                         <span>
@@ -27,7 +27,7 @@
                             if($_SESSION["role"] == "Customer"){
                                 echo $rows["Availability"] == 0 ? "<button class='notAvailable'>Rent</button>" :"<button>Rent</button>";
                             }else{
-                                echo "<button>Edit</button>";
+                                echo "<button onclick='editCar(&#x27;" . $rows["CarID"] . "&#x27;,&#x27;" . $rows["ImageName"] . "&#x27;,&#x27;" . $rows["BrandName"] . "&#x27;,&#x27;" . $rows["Model"] . "&#x27;,&#x27;" . $rows["RentalPrice"] . "&#x27;,&#x27;" . $rows["Address"] . "&#x27;,&#x27;" . $rows["Transmission"] . "&#x27;,&#x27;" . $rows["FuelType"] . "&#x27;,&#x27;" . $rows["Availability"] . "&#x27;)'>Edit</button>";
                             }
                         }else{
                             echo $rows["Availability"] == 0 ? "<button class='notAvailable' onclick='toggleSignupAlert(&#x27;show&#x27;);'>Rent</button>" :"<button onclick='toggleSignupAlert(&#x27;show&#x27;)'>Rent</button>";

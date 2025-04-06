@@ -22,6 +22,7 @@
                 <div id='addCars'><!--popover-->
                     <button class='exitButton' onclick='setActiveManagementPane(&#x27;none&#x27)'>&#215;</button>
                     <form method='post' enctype='multipart/form-data' class='addCarsForm'>
+                        <p class='addCarHeader'>New Vehicle</p>
                         <span>
                             <span>
                                 <input type='text' id='model' name='carModel' required>
@@ -34,7 +35,7 @@
                         </span>
 
                         <select id='transmission' name='carTransmission' required>
-                            <option value='None' selected disabled></option>
+                            <option value='None' id='selectedTransmission' selected disabled></option>
                             <option value='Manual'>Manual</option>
                             <option value='Automatic'>Automatic</option>
                             <option value='Continuously Variable'>Continuously Variable</option>
@@ -44,7 +45,7 @@
                         <label for='transmission'>Transmission</label>
 
                         <select id='fueltype' name='carFuelType' required>
-                            <option value='None' selected disabled></option>
+                            <option value='None' id='selectedFuelType' selected disabled></option>
                             <option value='Gasoline'>Gasoline</option>
                             <option value='Diesel'>Diesel</option>
                             <option value='Electric'>Electric</option>

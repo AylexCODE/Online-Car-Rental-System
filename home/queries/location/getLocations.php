@@ -9,7 +9,7 @@
             
             if(mysqli_num_rows($execQueryGetLocations) != 0){
                 while($rows = mysqli_fetch_assoc($execQueryGetLocations)){
-                    echo "<option value='" . $rows["LocationID"] . "'>" . $rows["Address"] . "</option>";
+                    echo "<option value='" . $rows["LocationID"] . "' id='" . $rows["Address"] . "'>" . $rows["Address"] . "</option>";
                 }
             }
         }catch(mysqli_sql_exception){

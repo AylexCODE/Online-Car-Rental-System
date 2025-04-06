@@ -346,6 +346,13 @@
     .car > span > p {
         font-size: 14px;
         margin-left: 2.5%;
+        width: 150px;
+        margin-block: 1px;
+    }
+    
+    #carLocation {
+        text-wrap: nowrap;
+        overflow-x: scroll;
     }
 
     .car > span > button {
@@ -764,6 +771,21 @@
         text-align: center;
     }
 
+    .addCarHeader {
+        border-bottom: 2px solid #E2F87B;
+        opacity: 0.8;
+        text-align: center;
+        color: #E2F87B;
+        position: relative;
+        bottom: 20px;
+        padding-bottom: 2px;
+        text-transform: uppercase;
+    }
+
+    .addCarsForm > span:nth-child(2) > span:nth-child(2) {
+        width: 100%;
+    }
+    
     #carImgInput {
         visibility: hidden;
     }

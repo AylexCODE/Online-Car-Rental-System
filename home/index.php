@@ -276,12 +276,17 @@
         const editPane = document.getElementById("editPane"); editPane.style.display = "none";
         const editPaneLocation = document.getElementById("editPaneLocation"); editPaneLocation.style.display = "none";
         const deleteConfirmation = document.getElementById("deleteConfirmation"); deleteConfirmation.style.display = "none";
+        
         document.querySelector(".addBrandErrorMsg").innerHTML = "";
         document.querySelector(".addLocationErrorMsg").innerHTML = "";
         document.querySelector(".addCarErrorMsg").innerHTML = "Accepted Image Ratio is 3:2";
 
+        document.getElementById("selectedBrand").setAttribute("value", "None");
+        document.getElementById("selectedBrand").innerHTML = "";
+
         switch(name){
             case "addCars":
+                document.querySelector(".addCarHeader").innerHTML = "New Vehicle";
                 addCars.style.display = "block";
                 break;
             case "brands":
@@ -346,8 +351,31 @@
         }
     }
 
-    function editCar(brand, model, fueltype, price, location, availability, pricePerDay){
+    function editCar(id, imagePath, brand, model, pricePerDay, location, transmission, fueltype, availability){
+        const popoverCover = document.querySelector(".popOverCover"); popoverCover.style.display = "block";
+        const popover = document.querySelector(".popOver"); popover.style.display = "grid";
+ 
+        document.querySelector(".addCarHeader").innerHTML = "Edit Vehicle";
+        const newModel = document.getElementById("model"); newModel.value = model; 
+        const newBrand = document.getElementById("brand");
+        const newTransmission = document.getElementById("transmission"); 
+        const newFueltype = document.getElementById("fueltype"); 
+        const newLocation = document.getElementById("location"); 
+        const newAvailability = document.getElementById("availability"); 
+        const newPriceDay = document.getElementById("priceDay"); 
+        const newCarImgInput = document.getElementById("carImgInput");
         
+        // console.log(URL.createObjectURL("./images/cars"+imagePath));
+        document.getElementById(brand).setAttribute("selected", true);
+        document.getElementById(location).setAttribute("selected", true);
+        // document.getElementById("selectedLocation").setAttribute("value", clocation);
+        // document.getElementById("selectedLocation").innerHTML = clocation;
+        // document.getElementById("selectedTransmission").setAttribute("value", ctransmission);
+        // document.getElementById("selectedTransmission").innerHTML = ctransmission;
+        // document.getElementById("selectedFuelType").setAttribute("value", cfueltype);
+        // document.getElementById("selectedFuelType").innerHTML = cfueltype;
+
+        const editCar = document.getElementById("addCars"); addCars.style.display = "block";
     }
 
     window.onload = () => {
@@ -464,7 +492,7 @@
     }
 
     function getBrands(){
-        const defaultOption = "<option value='None' selected disabled></option>";
+        const defaultOption = "<option value='None' id='selectedBrand' selected disabled></option>";
         $.ajax({
             type: "get",
             url: "./queries/brand/getBrands.php",
@@ -556,7 +584,7 @@
     }
 
     async function getLocations(){
-        const defaultOption = "<option value='None' selected disabled></option>";
+        const defaultOption = "<option value='None' id='selectedLocation' selected disabled></option>";
         await $.ajax({
             type: "get",
             url: "./queries/location/getLocations.php",
