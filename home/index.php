@@ -316,14 +316,33 @@
         const fueltype = document.getElementById("fueltype").value;
         const location = document.getElementById("location").value;
         const availability = document.getElementById("availability").value;
-        const priceDay = document.getElementById("priceDay").value;
+        let priceDay = document.getElementById("priceDay").value;
+        priceDay = priceDay.slice(1, priceDay.length);
 
-        if(model.trim() == "" || brand.trim() == "" || transmission.trim() == "" ||  fueltype.trim() == "" || location.trim() == "" || availability.trim() == "" || priceDay.trim() == "₱"){
+        if(model.trim() == "" || brand == "None" || transmission == "None" ||  fueltype == "None" || location == "None" || availability == "None" || priceDay == ""){
             document.querySelector(".addCarErrorMsg").innerHTML = "<p>Fill All Fields</p>";
             event.preventDefault();
-        }else if(carImage == false){
+        }else if(!carImage){
             document.querySelector(".addCarErrorMsg").innerHTML = "<p>Image Is Invalid!</p>";
             event.preventDefault();
+        }else if(priceDay.includes(".")){
+            if(!/^[0-9]+\.+[0-9]{2}$/.test(priceDay)){
+                document.querySelector(".addCarErrorMsg").innerHTML = "<p>Price Is Invalid!</p>";
+                event.preventDefault();
+            }
+            if(priceDay.slice(0, priceDay.length-3).length > 5){
+                document.querySelector(".addCarErrorMsg").innerHTML = "<p>Price is Too High!</p>";
+                event.preventDefault();
+            }
+        }else if(!priceDay.includes(".")){
+            if(priceDay.includes(".")){
+                document.querySelector(".addCarErrorMsg").innerHTML = "<p>Price is Too High!</p>";
+                event.preventDefault();
+            }
+            if(/[^0-9]/.test(priceDay)){
+            document.querySelector(".addCarErrorMsg").innerHTML = "<p>Price is Invalid!</p>";
+            event.preventDefault();
+            }
         }
     }
 
@@ -365,22 +384,29 @@
         }
 
         if(document.getElementById("carImgInput")){
+            let urlBlob;
             document.getElementById("carImgInput").addEventListener('change', (e) => {
-                document.querySelector(".carImg").src = URL.createObjectURL(e.target.files[0]);
-                document.querySelector(".carImg").onload = function(){
-                    const width = this.naturalWidth; //53.5
-                    const height = this.naturalHeight;
+                try{
+                    urlBlob = URL.createObjectURL(e.target.files[0]);
+                }catch(error){
+                }finally{
+                    document.querySelector(".carImg").src = urlBlob;
+                    document.querySelector(".carImg").onload = function(){
+                        const width = this.naturalWidth; //53.5
+                        const height = this.naturalHeight;
 
-                    const ratio = (width/height).toFixed(1);
+                        const ratio = (width/height).toFixed(1);
 
-                    if(ratio != 1.5){
-                        carImage = false;
-                        document.querySelector(".addCarErrorMsg").innerHTML = "Image Doesn't Meet The Expected Aspect Ratio 3:2";
-                    }else{
-                        document.querySelector(".addCarErrorMsg").innerHTML = "";
-                        carImage = true;
+                        if(ratio != 1.5){
+                            carImage = false;
+                            document.querySelector(".addCarErrorMsg").innerHTML = "Image Doesn't Meet The Expected Aspect Ratio 3:2";
+                        }else{
+                            document.querySelector(".addCarErrorMsg").innerHTML = "";
+                            carImage = true;
+                        }
                     }
                 }
+                console.log(urlBlob)
             });
         }
     }

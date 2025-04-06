@@ -5,7 +5,10 @@
         $transmission = filter_input(INPUT_POST, "carTransmission", FILTER_SANITIZE_SPECIAL_CHARS);
         $fuelType = filter_input(INPUT_POST, "carFuelType", FILTER_SANITIZE_SPECIAL_CHARS);
         $rentalPrice = filter_input(INPUT_POST, "rentalPriceDay", FILTER_SANITIZE_SPECIAL_CHARS);
+        $location = filter_input(INPUT_POST, "carLocation", FILTER_SANITIZE_SPECIAL_CHARS);
+        $availability = filter_input(INPUT_POST, "carAvailability", FILTER_SANITIZE_SPECIAL_CHARS);
 
+        $rentalPrice = substr($rentalPrice, 3, strlen($rentalPrice));
         $file = $_FILES["file"]["name"];
         $ffile = $_FILES["file"]["tmp_name"];
         $fileExtension = pathinfo($file, PATHINFO_EXTENSION);
@@ -29,7 +32,7 @@
         $path = "./images/cars/" . $file;
         
         try{
-            $query = "INSERT INTO cars VALUES (null, $brand, '$model', '$fuelType', '$transmission', '$rentalPrice', 1, 0, '$file')";
+            $query = "INSERT INTO cars VALUES (null, $brand, '$model', '$fuelType', '$transmission', '$rentalPrice', '$location', $availability, '$file')";
             
             mysqli_query($conn, $query);
             if(move_uploaded_file($ffile, $path)){

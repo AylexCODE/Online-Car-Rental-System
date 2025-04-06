@@ -18,7 +18,7 @@
                 </span>
             </span>
             <span class='popOverCover' style='position: fixed; top: 0px; left: 0px; background-color: #031A09; height: 100dvh; width: 100dvw; display: none; z-index: 99; opacity: 0.8;' onclick='setActiveManagementPane(&#x27;none&#x27;)'></span>
-            <span class='popOver' style='position: fixed; top: 0px; left: 0px; height: 100dvh; width: 100dvw; display: none; z-index: 100; pointer-events:none; place-items: center;'>
+            <span class='popOver' style='position: fixed; top: 0px; right: 0px; height: 100dvh; width: 80dvw; display: none; z-index: 100; pointer-events:none; place-items: center;'>
                 <div id='addCars'><!--popover-->
                     <button class='exitButton' onclick='setActiveManagementPane(&#x27;none&#x27)'>&#215;</button>
                     <form method='post' enctype='multipart/form-data' class='addCarsForm'>
@@ -56,7 +56,7 @@
 
                         <span class='availAndPrice'>
                             <span>
-                                <select id='availability' required>
+                                <select id='availability' name='carAvailability' required>
                                     <option value='None' selected disabled></option>
                                     <option value='1'>Available</option>
                                     <option value='0'>Not Available</option>

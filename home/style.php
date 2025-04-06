@@ -299,6 +299,7 @@
     .car {
         display: block;
         /* height: 300px; */
+        height: fit-content;
         width: 280px;
         border: 1px solid white;
         border-radius: 5px;
@@ -354,6 +355,11 @@
         border: none;
         border-radius: 5px;
         color: #031A09;
+    }
+
+    .car > span > .notAvailable {
+        background-color: #F77;
+        color: #FDFFF6;
     }
 
     /* Admin */
@@ -652,7 +658,6 @@
         width: fit-content;
         height: fit-content;
         pointer-events: all;
-        transform: translateX(30%);
         overflow: hidden;
         /* position: absolute;
         bottom: 50%;
@@ -881,11 +886,10 @@
     }
 
     #deleteConfirmation, #editPane, #editPaneLocation {
-        border: 1px solid #E2F87B;
+        border: 2px solid #E2F87B;
         pointer-events: all;
-        transform: translateX(30%);
-        /* border-radius: 5px;
-        position: absolute;
+        border-radius: 5px;
+        /* position: absolute;
         top: 50%;
         left: 58%;
         transform: translate(-50%, -50%); */
@@ -921,15 +925,18 @@
     .msg {
         position: absolute;
         top: -100px;
-        left: 56%;
+        /* left: 50%; */
         z-index: 999;
-        transform: translate(-50%, -50%);
+        width: 80vw;
+        right: 0px;
+        display: grid;
+        place-items: center;
     }
     
     .msg > .error, .msg > .success {
         position: relative;
         color: rgb(255, 100, 100);
-        right: 2.5%;
+        /* right: 2.5%; */
         top: 50px;
         text-wrap: nowrap;
         border: 2px solid #F77;
