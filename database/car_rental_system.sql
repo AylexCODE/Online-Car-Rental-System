@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2025 at 09:01 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Apr 07, 2025 at 02:37 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -37,7 +37,7 @@ CREATE TABLE `brands` (
 --
 
 INSERT INTO `brands` (`BrandID`, `BrandName`) VALUES
-(1, 'Toyota');
+(182, 'Toyota');
 
 -- --------------------------------------------------------
 
@@ -51,22 +51,11 @@ CREATE TABLE `cars` (
   `Model` varchar(50) NOT NULL,
   `FuelType` varchar(16) NOT NULL,
   `Transmission` varchar(16) NOT NULL,
-  `RentalPrice` varchar(12) NOT NULL,
+  `RentalPrice` double NOT NULL,
   `LocationID` int(11) NOT NULL,
   `Availability` tinyint(1) NOT NULL,
-  `ImageName` varchar(256) NOT NULL
+  `ImageName` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
-
---
--- Dumping data for table `cars`
---
-
-INSERT INTO `cars` (`CarID`, `BrandID`, `Model`, `FuelType`, `Transmission`, `RentalPrice`, `LocationID`, `Availability`, `ImageName`) VALUES
-(1, 1, 'Fortuner', 'Petrol', 'Manual', '4999.49', 1, 0, ''),
-(2, 2, 'P540 Super fast Aperta', 'Petrol', 'Manual', '6999.99', 2, 1, ''),
-(3, 2, 'as', 'Gasoline', 'Manual', '', 1, 0, 'Activity3.jpg.png'),
-(4, 2, 'as', 'Gasoline', 'Manual', '', 1, 0, 'Activity3.jpgA.png'),
-(5, 2, 'sa', 'Gasoline', 'Manual', '?1221', 1, 0, 'Activity3.jpgAA.png');
 
 -- --------------------------------------------------------
 
@@ -79,13 +68,59 @@ CREATE TABLE `locations` (
   `Address` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `locations`
+-- Table structure for table `logs`
 --
 
-INSERT INTO `locations` (`LocationID`, `Address`) VALUES
-(1, 'Barangay, Town, Province, Country'),
-(2, 'San Roque, Balilihan, Bohol, Philipines');
+CREATE TABLE `logs` (
+  `LogID` int(11) NOT NULL,
+  `LogMessage` varchar(100) NOT NULL,
+  `Type` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payments`
+--
+
+CREATE TABLE `payments` (
+  `PaymentID` int(11) NOT NULL,
+  `RentalID` int(11) NOT NULL,
+  `PaymentDate` varchar(50) NOT NULL,
+  `AmountPaid` double(10,2) NOT NULL,
+  `PaymentMethod` varchar(24) NOT NULL,
+  `PaymentStatus` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rentals`
+--
+
+CREATE TABLE `rentals` (
+  `RentalID` int(11) NOT NULL,
+  `UserID` int(11) NOT NULL,
+  `CarID` int(11) NOT NULL,
+  `StartDate` date NOT NULL,
+  `EndDate` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tickets`
+--
+
+CREATE TABLE `tickets` (
+  `TicketID` int(11) NOT NULL,
+  `UserID` int(12) NOT NULL,
+  `Conversation` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Conversation`)),
+  `Status` tinyint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -96,6 +131,7 @@ INSERT INTO `locations` (`LocationID`, `Address`) VALUES
 CREATE TABLE `users` (
   `UserID` int(11) NOT NULL,
   `Name` varchar(50) NOT NULL,
+  `Age` int(11) NOT NULL,
   `PhoneNumber` varchar(11) NOT NULL,
   `Email` varchar(50) NOT NULL,
   `DoB` date NOT NULL,
@@ -109,11 +145,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`UserID`, `Name`, `PhoneNumber`, `Email`, `DoB`, `DriversLicense`, `Role`, `Password`, `DateCreated`) VALUES
-(1, 'Lex Code', '09634356322', 'lexcode@gmail.com', '2003-10-16', '125-98-210832', 'Admin', '$2y$10$M93Kq6TIVLZC75yRCa17NeoYSDzjScTLg.EH1tciUj3UEDTxHJGgu', '2025-03-24 21:48:11'),
-(3, 'as as', '09122122121', 'as@gmail.com', '2003-03-07', '121-22-121212', 'Customer', '$2y$10$iKMMgLHrtzV9GGyfSEA4.uLaHWsNLY8/KhZN6k3HrB/RxnsJeuVL.', '2025-03-29 14:34:34'),
-(5, 'as as', '09121212121', 'ley@gmail.com', '2004-03-03', '121-21-212121', 'Customer', '$2y$10$52gr13rki0jLpsGEHWJhJuHmhibdg8odHWZxoaAKj3wygKa1Wsvq.', '2025-03-29 18:29:03'),
-(7, 'sa as', '09124356533', 'sasa@gmail.com', '2007-03-01', '121-21-1176gd', 'Customer', '$2y$10$MW59AYifeoq1VXs0zaFiIOvOu0VxDnH1C5YRQa1vRdWKcj05Y8Kx.', '2025-04-03 20:15:37');
+INSERT INTO `users` (`UserID`, `Name`, `Age`, `PhoneNumber`, `Email`, `DoB`, `DriversLicense`, `Role`, `Password`, `DateCreated`) VALUES
+(11, 'Leonard Handsome', 0, '09999999999', 'barogleonard@gmail.com', '2006-06-15', '111-12-123432', 'Admin', '$2y$10$JXQDyZord7I6V0c9cUlHgugSB4EG3g7GHMgSYynU731NlpFPCns9y', '2025-03-30 08:58:40'),
+(13, 'Rhemars Handsome', 0, '09999999992', 'ririgwapo@gmail.com', '1995-06-21', '111-11-111111', 'Customer', '$2y$10$LoUgjiBv30eNwDvZ5H0vHOJamVDZ/1gKeOegxLDNzE6SKGugxcKpe', '2025-03-31 08:04:47'),
+(14, 'Rhemars Pisot', 0, '09876543333', 'rhemarspisot@gmail.com', '1997-06-10', '564-44-443334', 'Customer', '$2y$10$AcWqt8./PC7OKiNDpQRxc.8DKDIgct3cNMlsglLIozdpElnMZjSMS', '2025-03-31 08:30:37'),
+(15, 'leo perd', 0, '09123456361', 'leo@gmail.com', '2003-10-14', 'io1-29-821212', 'Admin', '$2y$10$pF1hmk7BBXYneFI4HIJ4cu7HTuTGeEf9K0G7HbjeR19fUILmqmyX2', '2025-04-04 13:01:40');
 
 --
 -- Indexes for dumped tables
@@ -130,7 +166,8 @@ ALTER TABLE `brands`
 -- Indexes for table `cars`
 --
 ALTER TABLE `cars`
-  ADD PRIMARY KEY (`CarID`);
+  ADD PRIMARY KEY (`CarID`),
+  ADD KEY `BrandID` (`BrandID`);
 
 --
 -- Indexes for table `locations`
@@ -140,13 +177,40 @@ ALTER TABLE `locations`
   ADD UNIQUE KEY `Address` (`Address`);
 
 --
+-- Indexes for table `logs`
+--
+ALTER TABLE `logs`
+  ADD PRIMARY KEY (`LogID`);
+
+--
+-- Indexes for table `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`PaymentID`),
+  ADD KEY `RentalID` (`RentalID`);
+
+--
+-- Indexes for table `rentals`
+--
+ALTER TABLE `rentals`
+  ADD PRIMARY KEY (`RentalID`),
+  ADD KEY `UserID` (`UserID`),
+  ADD KEY `CarID` (`CarID`);
+
+--
+-- Indexes for table `tickets`
+--
+ALTER TABLE `tickets`
+  ADD PRIMARY KEY (`TicketID`),
+  ADD KEY `UserID` (`UserID`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`UserID`),
   ADD UNIQUE KEY `DLicense` (`DriversLicense`),
-  ADD UNIQUE KEY `PhoneNo` (`PhoneNumber`),
-  ADD UNIQUE KEY `Email` (`Email`);
+  ADD UNIQUE KEY `PhoneNo` (`PhoneNumber`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -156,13 +220,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `BrandID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `BrandID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=184;
 
 --
 -- AUTO_INCREMENT for table `cars`
 --
 ALTER TABLE `cars`
-  MODIFY `CarID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `CarID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `locations`
@@ -171,10 +235,63 @@ ALTER TABLE `locations`
   MODIFY `LocationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
+-- AUTO_INCREMENT for table `logs`
+--
+ALTER TABLE `logs`
+  MODIFY `LogID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `PaymentID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `rentals`
+--
+ALTER TABLE `rentals`
+  MODIFY `RentalID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tickets`
+--
+ALTER TABLE `tickets`
+  MODIFY `TicketID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `cars`
+--
+ALTER TABLE `cars`
+  ADD CONSTRAINT `cars_ibfk_1` FOREIGN KEY (`BrandID`) REFERENCES `brands` (`BrandID`);
+
+--
+-- Constraints for table `payments`
+--
+ALTER TABLE `payments`
+  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`RentalID`) REFERENCES `rentals` (`RentalID`);
+
+--
+-- Constraints for table `rentals`
+--
+ALTER TABLE `rentals`
+  ADD CONSTRAINT `rentals_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`),
+  ADD CONSTRAINT `rentals_ibfk_2` FOREIGN KEY (`CarID`) REFERENCES `cars` (`CarID`);
+
+--
+-- Constraints for table `tickets`
+--
+ALTER TABLE `tickets`
+  ADD CONSTRAINT `tickets_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
