@@ -431,6 +431,7 @@
                 console.log(document.getElementById("carImgInput").value)
                 try{
                     urlBlob = URL.createObjectURL(e.target.files[0]);
+                    imgFakePath = document.getElementById("carImgInput").value;
                 }catch(error){
                 }finally{
                     document.querySelector(".carImg").src = urlBlob;
