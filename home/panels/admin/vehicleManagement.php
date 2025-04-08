@@ -1,8 +1,8 @@
 <?php
     require_once("../database/db_conn.php");
 
-    echo "<div class='vehicleManagement active'>
-            <h4>Vehicle Management</h4>
+    echo "<div class='vehicleManagement'>
+            <h4>Car Management</h4>
             <span>
                 <span>
                 </span>
@@ -138,7 +138,7 @@
                     </span>
                 </div>
             </span>
-        </div>
-        <canvas id='tempCarImg' style='display: none;>";
+            <canvas id='tempCarImg' style='display: none;'>
+        </div>";
     include_once("./queries/car/addCar.php");
 ?>

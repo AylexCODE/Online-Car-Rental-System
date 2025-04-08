@@ -1,7 +1,7 @@
 <?php
     require_once("../../../database/db_conn.php");
 
-    $queryGetLocations = "SELECT * FROM Locations ORDER BY Address";
+    $queryGetLocations = "SELECT * FROM locations ORDER BY Address;";
     
     if(isset($_GET)){
         try{
@@ -13,7 +13,7 @@
                 }
             }
         }catch(mysqli_sql_exception){
-            echo "<span class='error'>Error2 Pre</span>";
+            echo "<span class='error'>Error Pre</span>";
          }
     }
 ?>

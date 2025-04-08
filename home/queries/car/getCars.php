@@ -3,7 +3,7 @@
     require_once("../../../database/db_conn.php");
 
     if(isset($_POST)){
-        $carsQuery = "SELECT car.CarID, brands.BrandName, car.Model, car.FuelType, car.Transmission, car.RentalPrice, (SELECT locations.Address FROM locations WHERE locations.LocationID = car.LocationID) Address, car.Availability, car.ImageName FROM cars car INNER JOIN brands ON car.BrandID = brands.BrandID";
+        $carsQuery = "SELECT car.CarID, brands.BrandName, (SELECT models.ModelName from models WHERE models.ModelID = car.ModelID) AS Model, car.FuelType, car.Transmission, car.RentalPrice, (SELECT locations.Address FROM locations WHERE locations.LocationID = car.LocationID) Address, car.Availability, car.ImageName FROM cars car INNER JOIN brands ON car.BrandID = brands.BrandID";
         // Image Dimensions height: 180px | width: 277.5px;
         try{
             $execQuery = mysqli_query($conn, $carsQuery);

@@ -1,6 +1,6 @@
 <?php
     echo "<div class='vehicleStatistics'>
-            <h4>Vehicle Statistics</h4>
+            <h4>Cars Statistics</h4>
             <span>
                 <span>
                     <p>Total Model/s</p>
@@ -13,7 +13,7 @@
                     <button>Tap for more info.</button>
                 </span>
                 <span>
-                    <p>Total Vehicle/s</p>
+                    <p>Total Car/s</p>
                     <p>128</p>
                     <button>Tap for more info.</button>
                 </span>

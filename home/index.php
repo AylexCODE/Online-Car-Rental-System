@@ -135,7 +135,7 @@
     const contactPage = document.querySelector(".contactPage");
 
     let overviewBtn, vehiclesBtn, bookingsBtn, usersBtn, ticketsBtn, logsBtn, adminNavIndicator;
-    let moreVehicleSettings, vehicleStatistics, vehicleManagement;
+    let moreVehicleSettings, vehicleStatistics, vehicleManagement, userManagement;
 
     function setActiveBtn(index){
         homeBtn.classList.remove("active");
@@ -215,6 +215,8 @@
 
         moreVehicleSettings.classList.remove('open');
         vehicleStatistics.classList.remove("active");
+        vehicleManagement.classList.remove("active");
+        userManagement.classList.remove("active");
 
         switch(index){
             case 1:
@@ -236,6 +238,8 @@
                 adminNavIndicator.style.width = bookingsBtn.offsetWidth+20 +"px";
                 break;
             case 4:
+                userManagement.classList.add("active");
+                
                 adminNavIndicator.style.top = usersBtn.offsetTop-5 +"px";
                 usersBtn.classList.add("active");
                 adminNavIndicator.style.width = usersBtn.offsetWidth+20 +"px";
@@ -414,6 +418,7 @@
             moreVehicleSettings = document.querySelector('.moreVehicleSettings');
             vehicleStatistics = document.querySelector('.vehicleStatistics');
             vehicleManagement = document.querySelector('.vehicleManagement');
+            userManagement = document.querySelector('.userManagement');
 
             adminNavIndicator.style.height = overviewBtn.offsetHeight+10 +"px";
             adminNavIndicator.style.width = overviewBtn.offsetWidth+20 +"px";

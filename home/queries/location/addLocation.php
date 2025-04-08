@@ -4,7 +4,7 @@
     if(isset($_POST)){
         $address = filter_var($_POST["address"], FILTER_SANITIZE_SPECIAL_CHARS);
         
-        $queryAddLocation = "INSERT INTO Locations VALUES (null, '$address')";
+        $queryAddLocation = "INSERT INTO locations VALUES (null, '$address')";
 
         try{
             mysqli_query($conn, $queryAddLocation);
