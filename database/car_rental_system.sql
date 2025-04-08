@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 07, 2025 at 02:37 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.1.25
+-- Generation Time: Apr 08, 2025 at 06:45 AM
+-- Server version: 10.4.6-MariaDB
+-- PHP Version: 8.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `brands` (
   `BrandID` int(11) NOT NULL,
   `BrandName` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `brands`
@@ -48,14 +48,14 @@ INSERT INTO `brands` (`BrandID`, `BrandName`) VALUES
 CREATE TABLE `cars` (
   `CarID` int(11) NOT NULL,
   `BrandID` int(11) NOT NULL,
-  `Model` varchar(50) NOT NULL,
+  `ModelID` int(11) NOT NULL,
   `FuelType` varchar(16) NOT NULL,
   `Transmission` varchar(16) NOT NULL,
   `RentalPrice` double NOT NULL,
   `LocationID` int(11) NOT NULL,
   `Availability` tinyint(1) NOT NULL,
   `ImageName` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -66,7 +66,7 @@ CREATE TABLE `cars` (
 CREATE TABLE `locations` (
   `LocationID` int(11) NOT NULL,
   `Address` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -78,7 +78,19 @@ CREATE TABLE `logs` (
   `LogID` int(11) NOT NULL,
   `LogMessage` varchar(100) NOT NULL,
   `Type` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `models`
+--
+
+CREATE TABLE `models` (
+  `ModelID` int(11) NOT NULL,
+  `BrandID` int(11) NOT NULL,
+  `ModelName` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -93,7 +105,7 @@ CREATE TABLE `payments` (
   `AmountPaid` double(10,2) NOT NULL,
   `PaymentMethod` varchar(24) NOT NULL,
   `PaymentStatus` int(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -107,7 +119,21 @@ CREATE TABLE `rentals` (
   `CarID` int(11) NOT NULL,
   `StartDate` date NOT NULL,
   `EndDate` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `ReviewID` int(11) NOT NULL,
+  `UserID` int(11) NOT NULL,
+  `CarID` int(11) NOT NULL,
+  `UserReview` varchar(255) NOT NULL,
+  `Rating` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -120,7 +146,7 @@ CREATE TABLE `tickets` (
   `UserID` int(12) NOT NULL,
   `Conversation` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Conversation`)),
   `Status` tinyint(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -139,7 +165,7 @@ CREATE TABLE `users` (
   `Role` varchar(16) NOT NULL,
   `Password` varchar(100) NOT NULL,
   `DateCreated` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `users`
@@ -167,7 +193,8 @@ ALTER TABLE `brands`
 --
 ALTER TABLE `cars`
   ADD PRIMARY KEY (`CarID`),
-  ADD KEY `BrandID` (`BrandID`);
+  ADD KEY `BrandID` (`BrandID`),
+  ADD KEY `ModelID` (`ModelID`);
 
 --
 -- Indexes for table `locations`
@@ -183,6 +210,13 @@ ALTER TABLE `logs`
   ADD PRIMARY KEY (`LogID`);
 
 --
+-- Indexes for table `models`
+--
+ALTER TABLE `models`
+  ADD PRIMARY KEY (`ModelID`),
+  ADD KEY `BrandID` (`BrandID`);
+
+--
 -- Indexes for table `payments`
 --
 ALTER TABLE `payments`
@@ -196,6 +230,12 @@ ALTER TABLE `rentals`
   ADD PRIMARY KEY (`RentalID`),
   ADD KEY `UserID` (`UserID`),
   ADD KEY `CarID` (`CarID`);
+
+--
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`ReviewID`);
 
 --
 -- Indexes for table `tickets`
@@ -241,6 +281,12 @@ ALTER TABLE `logs`
   MODIFY `LogID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `models`
+--
+ALTER TABLE `models`
+  MODIFY `ModelID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
@@ -251,6 +297,12 @@ ALTER TABLE `payments`
 --
 ALTER TABLE `rentals`
   MODIFY `RentalID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `ReviewID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tickets`
@@ -272,7 +324,14 @@ ALTER TABLE `users`
 -- Constraints for table `cars`
 --
 ALTER TABLE `cars`
-  ADD CONSTRAINT `cars_ibfk_1` FOREIGN KEY (`BrandID`) REFERENCES `brands` (`BrandID`);
+  ADD CONSTRAINT `cars_ibfk_1` FOREIGN KEY (`BrandID`) REFERENCES `brands` (`BrandID`),
+  ADD CONSTRAINT `cars_ibfk_2` FOREIGN KEY (`ModelID`) REFERENCES `models` (`ModelID`);
+
+--
+-- Constraints for table `models`
+--
+ALTER TABLE `models`
+  ADD CONSTRAINT `models_ibfk_1` FOREIGN KEY (`BrandID`) REFERENCES `brands` (`BrandID`);
 
 --
 -- Constraints for table `payments`
