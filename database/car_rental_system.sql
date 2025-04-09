@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 08, 2025 at 06:45 AM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 8.3.8
+-- Generation Time: Apr 09, 2025 at 05:59 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.1.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,14 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `brands` (
   `BrandID` int(11) NOT NULL,
   `BrandName` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `brands`
---
-
-INSERT INTO `brands` (`BrandID`, `BrandName`) VALUES
-(182, 'Toyota');
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -55,7 +48,7 @@ CREATE TABLE `cars` (
   `LocationID` int(11) NOT NULL,
   `Availability` tinyint(1) NOT NULL,
   `ImageName` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -66,7 +59,7 @@ CREATE TABLE `cars` (
 CREATE TABLE `locations` (
   `LocationID` int(11) NOT NULL,
   `Address` varchar(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -78,7 +71,7 @@ CREATE TABLE `logs` (
   `LogID` int(11) NOT NULL,
   `LogMessage` varchar(100) NOT NULL,
   `Type` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -90,7 +83,7 @@ CREATE TABLE `models` (
   `ModelID` int(11) NOT NULL,
   `BrandID` int(11) NOT NULL,
   `ModelName` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -105,7 +98,7 @@ CREATE TABLE `payments` (
   `AmountPaid` double(10,2) NOT NULL,
   `PaymentMethod` varchar(24) NOT NULL,
   `PaymentStatus` int(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -119,7 +112,7 @@ CREATE TABLE `rentals` (
   `CarID` int(11) NOT NULL,
   `StartDate` date NOT NULL,
   `EndDate` date NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -133,7 +126,7 @@ CREATE TABLE `reviews` (
   `CarID` int(11) NOT NULL,
   `UserReview` varchar(255) NOT NULL,
   `Rating` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -146,7 +139,7 @@ CREATE TABLE `tickets` (
   `UserID` int(12) NOT NULL,
   `Conversation` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Conversation`)),
   `Status` tinyint(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -165,17 +158,7 @@ CREATE TABLE `users` (
   `Role` varchar(16) NOT NULL,
   `Password` varchar(100) NOT NULL,
   `DateCreated` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`UserID`, `Name`, `Age`, `PhoneNumber`, `Email`, `DoB`, `DriversLicense`, `Role`, `Password`, `DateCreated`) VALUES
-(11, 'Leonard Handsome', 0, '09999999999', 'barogleonard@gmail.com', '2006-06-15', '111-12-123432', 'Admin', '$2y$10$JXQDyZord7I6V0c9cUlHgugSB4EG3g7GHMgSYynU731NlpFPCns9y', '2025-03-30 08:58:40'),
-(13, 'Rhemars Handsome', 0, '09999999992', 'ririgwapo@gmail.com', '1995-06-21', '111-11-111111', 'Customer', '$2y$10$LoUgjiBv30eNwDvZ5H0vHOJamVDZ/1gKeOegxLDNzE6SKGugxcKpe', '2025-03-31 08:04:47'),
-(14, 'Rhemars Pisot', 0, '09876543333', 'rhemarspisot@gmail.com', '1997-06-10', '564-44-443334', 'Customer', '$2y$10$AcWqt8./PC7OKiNDpQRxc.8DKDIgct3cNMlsglLIozdpElnMZjSMS', '2025-03-31 08:30:37'),
-(15, 'leo perd', 0, '09123456361', 'leo@gmail.com', '2003-10-14', 'io1-29-821212', 'Admin', '$2y$10$pF1hmk7BBXYneFI4HIJ4cu7HTuTGeEf9K0G7HbjeR19fUILmqmyX2', '2025-04-04 13:01:40');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -214,6 +197,7 @@ ALTER TABLE `logs`
 --
 ALTER TABLE `models`
   ADD PRIMARY KEY (`ModelID`),
+  ADD UNIQUE KEY `ModelName` (`ModelName`),
   ADD KEY `BrandID` (`BrandID`);
 
 --
@@ -260,19 +244,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
-  MODIFY `BrandID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=184;
+  MODIFY `BrandID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cars`
 --
 ALTER TABLE `cars`
-  MODIFY `CarID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `CarID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `locations`
 --
 ALTER TABLE `locations`
-  MODIFY `LocationID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `LocationID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `logs`
@@ -314,7 +298,7 @@ ALTER TABLE `tickets`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
