@@ -5,7 +5,7 @@
         $brandID = $_POST["brandID"];
         $newBrand = $_POST["newBrand"];
 
-        $editQuery = "UPDATE Brands SET BrandName = '$newBrand' WHERE BrandID = '$brandID'";
+        $editQuery = "UPDATE brands SET BrandName = '$newBrand' WHERE BrandID = '$brandID'";
         try{
             mysqli_query($conn, $editQuery);
             echo "<span class='success'>Brand Edited</span>";
