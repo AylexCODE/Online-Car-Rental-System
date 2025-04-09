@@ -73,7 +73,7 @@
                         </span>
                     </nav>";
                 echo "<div class='homePage active'>";
-                include_once("./panels/customer/customer.php");
+                include_once("./panels/customer/rentStatus.php");
                 include_once("./components/carSelection.php");
                 echo "<span class='carsDisplay'>";
                 include_once("./components/cars.php");

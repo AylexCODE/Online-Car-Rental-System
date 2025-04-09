@@ -7,11 +7,11 @@
                             <p>Pick Location</p>
                             <p>8912 Balilihan, Cebu</p>
                         </span>
-                        <span class='pickupTime'>
+                        <span class='startTime'>
                             <p>Pickup Time</p>
                             <p>09:00pm</p>
                         </span>
-                        <span class='pickupDate'>
+                        <span class='startDate'>
                             <p>Pickup Date</p>
                             <p>Jun 19, 2022</p>
                         </span>

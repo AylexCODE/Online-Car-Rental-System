@@ -211,12 +211,12 @@
         padding-block: 10px;
     }
 
-    .pickupLocation, .pickupTime, .pickupDate, .returnDate, .returnTime {
+    .pickupLocation, .startTime, .startDate, .returnDate, .returnTime {
         text-shadow: 2px 2px #031A09;
         overflow-x: scroll;
     }
 
-    .pickupLocation > p:first-child, .pickupTime > p:first-child, .pickupDate > p:first-child, .returnDate > p:first-child, .returnTime > p:first-child {
+    .pickupLocation > p:first-child, .startTime > p:first-child, .startDate > p:first-child, .returnDate > p:first-child, .returnTime > p:first-child {
         font-size: 14px;
         position: sticky;
         opacity: .8;
