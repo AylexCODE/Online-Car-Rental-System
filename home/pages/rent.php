@@ -8,11 +8,12 @@
                     <p class='rentInfoHeader'>Location & Date</p>
                     <span>
                         <label for='startDateTime'>Start/Pick-Up Date & Time</label>
-                        <input type='datetime-local' id='startDateTime' name='startDateTime'>
+                        <input type='datetime-local' id='startDateTime' max='' name='startDateTime' onchange='verifyDate()'>
                     </span>
                     <span>
                         <label for='endDateTime'>End/Drop-Off Date & Time</label>
-                        <input type='datetime-local' id='endDate' name='endDate'>
+                        <input type='datetime-local' id='endDateTime' max='' name='endDate' onchange='verifyDate()' disabled='true'>
+                        <p class='endDateInvalid' style='font-size: 12px; color: red; height: 0px;'></p>
                     </span>
                     <span>
                         <label for='pickupLocation'>Pick-Up Location</label>
@@ -53,14 +54,14 @@
                 <span>
                     <span>
                         <label>Rental Duration</label>
-                        <input type='text' disabled>
+                        <input type='text' id='rentDuration' disabled>
                     </span>
                     <span>
                         <label>Paid By</label>
                         <select>
-                            <option>Daily</option>
-                            <option>Weekly</option>
-                            <option>Monthly</option>
+                            <option id='payDaily'>Daily</option>
+                            <option id='payWeekly' disabled='true'>Weekly</option>
+                            <option id='payMonthly' disabled='true'>Monthly</option>
                         </select>
                     </span>
                 </span>
@@ -94,6 +95,10 @@
 ?>
 
 <script type="text/javascript">
+    const startDate = document.getElementById("startDateTime");
+    const now = new Date();
+    let tomorrow = new Date(now.getTime() + 86400000);
+
     function setInitialRentInfo(carID, brandName, modelName, rentalPrice, transmission, fuelType, imgUrl){
         const homePage = document.querySelector(".homePage");
         const rentPage = document.querySelector(".rentPage");
@@ -104,9 +109,71 @@
             document.querySelector(".rentCarFuelType").innerHTML = fuelType;
             document.querySelector(".rentCarTransmission").innerHTML = transmission;
             document.querySelector(".rentCarImg").src = imgUrl;
+
+            let minStartDate = `${tomorrow.getFullYear()}-${tomorrow.getMonth().toString().length != 1 ? (tomorrow.getMonth()+1) : "0" +(tomorrow.getMonth()+1)}-${tomorrow.getDate().toString().length != 1 ? tomorrow.getDate() : "0" +tomorrow.getDate()}T${tomorrow.getHours()}:${tomorrow.getMinutes()}`;
+            
+            startDate.min = minStartDate;
         }else{
             document.querySelector(".homePage").style.display = "block";
             document.querySelector(".rentPage").style.display = "none";
+        }
+    }
+
+    function verifyDate(){
+        const endDate = document.getElementById("endDateTime");
+        if(startDate.value != ""){
+            let dateOffset = new Date();
+
+            let startDayOnly = document.getElementById("startDateTime").value.split("-");
+            startDayOnly = startDayOnly[2].split("T");
+            dateOffset.setDate(parseInt(startDayOnly[0]));
+            dateOffset = new Date(dateOffset.getTime() + 86400000);
+
+            
+            let minEndDate = `${dateOffset.getFullYear()}-${dateOffset.getMonth().toString().length != 1 ? (dateOffset.getMonth()+1) : "0" +(dateOffset.getMonth()+1)}-${dateOffset.getDate().toString().length != 1 ? dateOffset.getDate() : "0" +dateOffset.getDate()}T${dateOffset.getHours()}:${dateOffset.getMinutes()}`;
+                
+            endDate.min = minEndDate;
+            endDate.disabled = false;
+            if(endDate.value != ""){
+                const tempStartDate = Date.parse(startDate.value);
+                const tempEndDate = Date.parse(endDate.value);
+
+                const hours = Math.floor((tempEndDate - tempStartDate) / 1000 / 60 / 60); 
+                if(hours < 12){
+                    document.querySelector(".endDateInvalid").innerHTML = "Rent Duration is Less Than 12 Hours!";
+                    document.getElementById("rentDuration").value = "";
+                }else{
+                    document.querySelector(".endDateInvalid").innerHTML = "";
+
+                    if(hours >= 24){
+                        const day = hours / 24;
+                        if(day.toString().includes(".")){
+                            document.getElementById("rentDuration").value = `${day.toFixed(0)} ${day > 1 ? 'Days' : 'Day'} ${(hours % 24).toFixed(0)} ${hours % 24 > 1 ? 'Hours' : 'Hour'}`;
+                        }else{
+                            document.getElementById("rentDuration").value = `${day.toFixed(0)} ${day > 1 ? 'Days' : 'Day'}`;
+                        }
+                    }else{
+                        document.getElementById("rentDuration").value = hours + " Hours";
+                    }
+                }
+                
+                if(hours / 24 >= 7){
+                    document.getElementById("payWeekly").disabled = false;
+                    if(hours / 24 / 30 >= 1){
+                        document.getElementById("payMonthly").disabled = false;
+                    }else{
+                        document.getElementById("payMonthly").disabled = true;
+                        document.getElementById("payWeekly").selected = true;
+                    }
+                }else{
+                    document.getElementById("payMonthly").disabled = true;
+                    document.getElementById("payWeekly").disabled = true;
+                    document.getElementById("payDaily").selected = true;
+                }
+            }
+        }else{
+            endDate.disabled = true;
+            endDate.value = "";
         }
     }
 </script>
