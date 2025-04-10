@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2025 at 05:59 AM
--- Server version: 10.4.32-MariaDB
--- PHP Version: 8.1.25
+-- Generation Time: Apr 10, 2025 at 03:08 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -44,7 +44,7 @@ CREATE TABLE `cars` (
   `ModelID` int(11) NOT NULL,
   `FuelType` varchar(16) NOT NULL,
   `Transmission` varchar(16) NOT NULL,
-  `RentalPrice` double NOT NULL,
+  `RentalPrice` double(10,2) NOT NULL,
   `LocationID` int(11) NOT NULL,
   `Availability` tinyint(1) NOT NULL,
   `ImageName` varchar(250) NOT NULL
@@ -160,6 +160,18 @@ CREATE TABLE `users` (
   `DateCreated` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vouchers`
+--
+
+CREATE TABLE `vouchers` (
+  `VoucherID` varchar(16) NOT NULL,
+  `DeductionPercent` double(5,2) NOT NULL,
+  `Status` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -235,6 +247,12 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`UserID`),
   ADD UNIQUE KEY `DLicense` (`DriversLicense`),
   ADD UNIQUE KEY `PhoneNo` (`PhoneNumber`);
+
+--
+-- Indexes for table `vouchers`
+--
+ALTER TABLE `vouchers`
+  ADD UNIQUE KEY `VoucherID` (`VoucherID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
