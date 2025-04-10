@@ -1,92 +1,158 @@
 <?php
     echo "<div class='rentCar'>
         <h2>Rental Form</h2>
+        <button class='rentExitButton' onclick='setInitialRentInfo(0, 0, 0, 0, 0, 0, 0);'>Back</button>
         <form>
             <span>
                 <span>
+                    <p class='rentInfoHeader'>Location & Date</p>
                     <span>
-                        <p class='rentInfoHeader'>Location & Date</p>
-                        <span>
-                            <label for='startDateTime'>Start/Pick-Up Date & Time</label>
-                            <input type='datetime-local' id='startDateTime' name='startDateTime'>
-                        </span>
-                        <span>
-                            <label for='endDateTime'>End/Drop-Off Date & Time</label>
-                            <input type='datetime-local' id='endDate' name='endDate'>
-                        </span>
-                        <span>
-                            <label for='pickupLocation'>Pickup Location</label>
-                            <select id='pickupLocation' name='pickupLocation'>
-                                <option>Balilihan</option>
-                                <option>Balilihan</option>
-                            </select>
-                        </span>
-                        <span>
-                            <label for='dropOffLocation'>Drop off Location</label>
-                            <select id='dropOffLocation' name='dropOffLocation' style='margin-bottom: 5px;'>
-                                <option>Balilihan</option>
-                                <option>Balilihan</option>
-                            </select>
-                        </span>
+                        <label for='startDateTime'>Start/Pick-Up Date & Time</label>
+                        <input type='datetime-local' id='startDateTime' name='startDateTime'>
                     </span>
-                    <span class='rentCarInfo'>
-                        <p class='rentInfoHeader'>Car Information</p>
-                        <img height='180px' width='277px'>
-                        <p style='font-size: 20px;'>Ford Ranger</p>
-                        <span><span>₱&nbsp;</span><p>5000/Monthly</p></span>
-                        <span><img src='./images/icons/fuelType-icon.svg' height='14px' width='14px'>&nbsp;<p>Gasoline</p></span>
-                        <span><img src='./images/icons/transmission-icon.svg' height='14px' width='14px'>&nbsp;<p>Manual</p></span>
+                    <span>
+                        <label for='endDateTime'>End/Drop-Off Date & Time</label>
+                        <input type='datetime-local' id='endDate' name='endDate'>
+                    </span>
+                    <span>
+                        <label for='pickupLocation'>Pick-Up Location</label>
+                        <select id='pickupLocation' name='pickupLocation'>
+                            <option>Balilihan</option>
+                            <option>Balilihan</option>
+                        </select>
+                    </span>
+                    <span>
+                        <label for='dropOffLocation'>Drop-Off Location</label>
+                        <select id='dropOffLocation' name='dropOffLocation' style='margin-bottom: 5px;'>
+                            <option>Balilihan</option>
+                            <option>Balilihan</option>
+                        </select>
                     </span>
                 </span>
-                <span>
+                <span class='rentCarInfo'>
+                    <p class='rentInfoHeader'>Car Information</p>
+                    <img height='180px' width='277px' class='rentCarImg' style='border: 1px solid #E2F87B; border-radius: 5px;'>
                     <span>
-                        <iframe width='100%' height='200' style='border: 0' loading='lazy' allowfullscreen referrerpolict='no-referrer-when-downgrade' id='map'
-                            src='https://www.google.com/maps/embed/v1/direction?key=g
-                            &origin=PXW6+572, Provincial+Road, Balilihan, Bohol&maptype=satellite&destination=QX4H+H2P, Balilihan, Bohol'>
-                        </iframe>
+                        <p style='font-size: 20px;' class='rentCarBrandModel'>Ford Ranger</p>
+                        <span><span>₱&nbsp;</span><p class='rentCarPrice'>5000</p>/Day</span>
+                        <span><img src='./images/icons/fuelType-icon.svg' height='14px' width='14px'>&nbsp;<p class='rentCarFuelType'>Gasoline</p></span>
+                        <span><img src='./images/icons/transmission-icon.svg' height='14px' width='14px'>&nbsp;<p class='rentCarTransmission'>Manual</p></span>
                     </span>
                 </span>
             </span>
+            <span>
+                <span>
+                    <iframe width='100%' height='200' style='border: 1px solid #E2F87B; border-radius: 5px;' loading='lazy' allowfullscreen referrerpolict='no-referrer-when-downgrade' id='map'
+                        src='https://www.google.com/maps/embed/v1/directions?key=AIzaSyDeVWNZzB23rWAxghPYc3EUKwWfLpkuzZQ
+                        &origin=PXW6+572, Provincial+Road, Balilihan, Bohol&maptype=satellite&destination=QX4H+H2P, Balilihan, Bohol'>
+                    </iframe>
+                </span>
+            </span>
+            <span>
+                <p>Additional Information</p>
+                <span>
+                    <span>
+                        <label>Rental Duration</label>
+                        <input type='text' disabled>
+                    </span>
+                    <span>
+                        <label>Paid By</label>
+                        <select>
+                            <option>Daily</option>
+                            <option>Weekly</option>
+                            <option>Monthly</option>
+                        </select>
+                    </span>
+                </span>
+                <label>Payment Method</label>
+                <select>
+                    <option>Credit/Depit Card</option>
+                    <option>PayPal</option>
+                    <option>GCash</option>
+                    <option>Bank Transfer</option>
+                    <option>Cash on Pickup</option>
+                </select>
+                <label>Enter Voucher (optional)</label>
+                <input type='text'>
+            </span>
+            <span>
+                <p>Fees</p>
+                <label>Fuel Cost</label>
+                <input type='text' disabled>
+                <input type='text' disabled>
+            </span>
+            <p id='rentalCost'>Total Rental Cost: ₱<span>120</span></p>
         </form>
-        <button>Submit</button>
+        <span class='agreementCheck'>
+            <span>
+                <input type='checkbox' id='agreementCheckbox'>
+                <label for='agreementCheckbox'>&nbsp;I have read and agree to the <span style='text-decoration: underline; cursor: pointer;'>terms and conditions.</span></label>
+            </span>
+        </span>
+        <button id='rentSubmitBtn'>Submit</button>
     </div>";
 ?>
 
+<script type="text/javascript">
+    function setInitialRentInfo(carID, brandName, modelName, rentalPrice, transmission, fuelType, imgUrl){
+        const homePage = document.querySelector(".homePage");
+        const rentPage = document.querySelector(".rentPage");
+        if(carID != 0){
+            document.body.scrollTop = 0;
+            document.querySelector(".rentCarBrandModel").innerHTML = `${brandName} ${modelName}`;
+            document.querySelector(".rentCarPrice").innerHTML = rentalPrice;
+            document.querySelector(".rentCarFuelType").innerHTML = fuelType;
+            document.querySelector(".rentCarTransmission").innerHTML = transmission;
+            document.querySelector(".rentCarImg").src = imgUrl;
+        }else{
+            document.querySelector(".homePage").style.display = "block";
+            document.querySelector(".rentPage").style.display = "none";
+        }
+    }
+</script>
+
 <style type="text/css">
-    .rentCar {
+    .rentCar, .rentCar > form {
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: 10px;
     }
 
     .rentCar > h2 {
         font-size: 28px;
-        margin-block: 20px;
+        margin-top: 10px;
     }
 
     .rentCar .rentInfoHeader {
         text-align: center;
+        margin-bottom: 5px;
     }
 
-    .rentCar > form > span:first-child {
+    .rentCar > form {
         border: 2px solid #E2F87B;
         padding: 20px 30px;
         border-radius: 10px;
         display: block;
+        transform: translateY(-40px);
     }
 
-    .rentCar > form > span:first-child > span:first-child {
+    .rentCar > form > span:first-child, .rentCar > form > span:nth-child(3) > span {
         display: flex;
         flex-direction: row;
         gap: 40px;
     }
 
-    .rentCar > form > span:first-child > span:first-child > span:first-child, .rentCar > form > span:first-child > span:first-child > span:first-child > span {
+    .rentCar > form > span:nth-child(3) > span {
+        gap: 10px;
+    }
+
+    .rentCar > form > span:first-child > span:first-child, .rentCar > form > span:first-child > span:first-child > span, .rentCar > form > span:nth-child(3) > span > span {
         display: flex;
         flex-direction: column;
     }
 
-    .rentCar > form > span:first-child > span:first-child > span:first-child {
+    .rentCar > form > span:first-child > span:first-child {
         justify-content: space-between;
     }
 
@@ -122,15 +188,118 @@
         transform: translateY(10px);
     }
 
-    .rentCarInfo > span {
+    .rentCarInfo {
+        display: flex;
+        flex-direction: column;
+        align-items: left;
+    }
+
+    .rentCarInfo > span > span {
         color: #FDFFF6;
         display: flex;
         flex-direction: row;
         align-items: center;
     }
 
-    .rentCarInfo > span > p {
+    .rentCarInfo > span > span > p {
         font-size: 14px;
+    }
+
+    .rentCar > form > span:nth-child(2){
+        display: block;
+        margin-top: 10px;
+    }
+
+    .rentCar > form > span:nth-child(3), .rentCar > form > span:nth-child(4){
+        border-top: 2px solid #E2F87B;
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .rentCar > form > span:nth-child(3) > p:nth-child(1),  .rentCar > form > span:nth-child(4) > p:nth-child(1) {
+        margin-block: 10px 12.5px;
+    }
+
+    .rentCar input[disabled]{
+        opacity: 0.8;
+    }
+
+    #rentalCost {
+        margin-top: 15px;
+    }
+
+    .agreementCheck {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 0px;
+        margin-bottom: 20px;
+        transform: translateY(-40px);
+    }
+
+    .agreementCheck > span > label {
+        font-size: 16px;
+        opacity: 1;
+    }
+
+    .agreementCheck > span > input {
+        transform: translateY(8px);
+    }
+
+    .rentCar > #rentSubmitBtn, .rentExitButton {
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        background-color: #E2F87B;
+        color: #031A09;
+        padding: 5px 30px;
+        transform: translateY(-40px);
+    }
+
+    .rentExitButton {
+        position: sticky;
+        top: 54px;
+        left: 92%;
+        z-index: 999;
+        cursor: pointer;
+    }
+
+    @media only screen and (max-width: 992px) {
+        .rentCar > form > span:first-child, .rentCar > form > span:nth-child(3) > span {
+            flex-direction: column-reverse;
+            gap: 20px;
+        }
+
+        .rentCar .rentCarImg {
+            scale: 0.9;
+            align-self: center;
+        }
+
+        .rentCar .rentInfoHeader {
+            align-self: flex-start;
+        }
+        
+        .rentCarInfo {
+            align-items: center;
+        }
+
+        .rentCarInfo .rentInfoHeader {
+            align-self: center;
+        }
+
+        .rentCar > form, .agreementCheck {
+            width: 85%;
+        }
+
+        .agreementCheck {
+            margin-block: 10px 30px;
+            justify-content: center;
+        }
+
+        .rentExitButton {
+            padding: 5px 20px;
+        }
     }
     /*    
 Here’s an example of standard **Online Car Rental Agreement Terms and Conditions**. Please note that this is a general template and should be customized according to your local laws and specific business requirements.

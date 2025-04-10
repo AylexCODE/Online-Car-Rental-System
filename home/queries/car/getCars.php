@@ -25,7 +25,7 @@
                         <span>";
                         if(isset($_SESSION["role"])){
                             if($_SESSION["role"] == "Customer"){
-                                echo $rows["Availability"] == 0 ? "<button class='notAvailable'>Rent</button>" :"<button onclick='toggleRentPage(" . $rows["CarID"] . ");'>Rent</button>";
+                                echo $rows["Availability"] == 0 ? "<button class='notAvailable'>Rent</button>" :"<button onclick='toggleRentPage(&#x27;" . $rows["CarID"] . "&#x27;,&#x27;" . $rows["BrandName"] . "&#x27;,&#x27;" . $rows["Model"] . "&#x27;,&#x27;" . $rows["RentalPrice"] . "&#x27;,&#x27;" . $rows["Transmission"] . "&#x27;,&#x27;" . $rows["FuelType"] . "&#x27;,&#x27;" . $rows["ImageName"] . "&#x27;);'>Rent</button>";
                             }else{
                                 echo "<button onclick='editCar(&#x27;" . $rows["CarID"] . "&#x27;,&#x27;" . $rows["ImageName"] . "&#x27;,&#x27;" . $rows["BrandName"] . "&#x27;,&#x27;" . $rows["Model"] . "&#x27;,&#x27;" . $rows["RentalPrice"] . "&#x27;,&#x27;" . $rows["Address"] . "&#x27;,&#x27;" . $rows["Transmission"] . "&#x27;,&#x27;" . $rows["FuelType"] . "&#x27;,&#x27;" . $rows["Availability"] . "&#x27;)'>Edit</button>";
                             }
@@ -43,13 +43,9 @@
 ?>
 
 <script type="text/javascript">
-    function toggleRentPage(carID){
-        const homePage = document.querySelector(".homePage");
-        const rentPage = document.querySelector(".rentPage");
-
-        if(carID != 0){
-            rentPage.style.display = "block";
-            homePage.style.display = "none";
-        }
+    function toggleRentPage(carID, brandName, modelName, rentalPrice, transmission, fuelType, imgUrl){
+        setInitialRentInfo(carID, brandName, modelName, rentalPrice, transmission, fuelType, "./images/cars/" +imgUrl);
+        document.querySelector(".homePage").style.display = "none";
+        document.querySelector(".rentPage").style.display = "block";
     }
 </script>
