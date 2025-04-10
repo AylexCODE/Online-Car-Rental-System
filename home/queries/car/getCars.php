@@ -9,7 +9,7 @@
             $execQuery = mysqli_query($conn, $carsQuery);
             if(mysqli_num_rows($execQuery) != 0){
                 while($rows = mysqli_fetch_assoc($execQuery)){
-                    echo "<span class='car' title='" . $rows["CarID"] . "'>
+                    echo "<span class='car' title='" . $rows["BrandName"] . " " . $rows["Model"] . "'>
                         <img src='./images/cars/" . $rows["ImageName"] . "' id='" . $rows["ImageName"] . "'></img>
                         <p><span id='carBrand'>" . $rows["BrandName"] . "</span>&nbsp;<span id='carModel'>" . $rows["Model"] . "</span></p>
                         <p id='carPrice'>₱" . $rows["RentalPrice"] . "</p>
@@ -25,7 +25,7 @@
                         <span>";
                         if(isset($_SESSION["role"])){
                             if($_SESSION["role"] == "Customer"){
-                                echo $rows["Availability"] == 0 ? "<button class='notAvailable'>Rent</button>" :"<button>Rent</button>";
+                                echo $rows["Availability"] == 0 ? "<button class='notAvailable'>Rent</button>" :"<button onclick='toggleRentPage(" . $rows["CarID"] . ");'>Rent</button>";
                             }else{
                                 echo "<button onclick='editCar(&#x27;" . $rows["CarID"] . "&#x27;,&#x27;" . $rows["ImageName"] . "&#x27;,&#x27;" . $rows["BrandName"] . "&#x27;,&#x27;" . $rows["Model"] . "&#x27;,&#x27;" . $rows["RentalPrice"] . "&#x27;,&#x27;" . $rows["Address"] . "&#x27;,&#x27;" . $rows["Transmission"] . "&#x27;,&#x27;" . $rows["FuelType"] . "&#x27;,&#x27;" . $rows["Availability"] . "&#x27;)'>Edit</button>";
                             }
@@ -36,9 +36,20 @@
                     </span>";
                 }
             }
-        }catch(mysqli_sql_exception $e){
+        }catch(mysqli_sql_exception){
             echo "Error Database Pre";
-            echo $e;
         }
     }
 ?>
+
+<script type="text/javascript">
+    function toggleRentPage(carID){
+        const homePage = document.querySelector(".homePage");
+        const rentPage = document.querySelector(".rentPage");
+
+        if(carID != 0){
+            rentPage.style.display = "block";
+            homePage.style.display = "none";
+        }
+    }
+</script>

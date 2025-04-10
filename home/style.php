@@ -702,7 +702,7 @@
        width: 100%;
     }
 
-    #addCars > form > span > span > select *, .addCarsForm > input, .addCarsForm > select  * {
+    #addCars > form > span > span > select *, .addCarsForm > input, .addCarsForm > select * {
         background-color: #031A09;
     }
 
