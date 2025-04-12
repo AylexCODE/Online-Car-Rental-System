@@ -18,15 +18,15 @@
                     <span>
                         <label for='pickUpLocation'>Pick-Up Location</label>
                         <select id='pickUpLocation' name='pickUpLocation'>
-                            <option>Balilihan</option>
-                            <option>Balilihan</option>
+                            <option value='Balilihan|5km'>Balilihan</option>
+                            <option value='Catigbian|9km'>Catigbian</option>
                         </select>
                     </span>
                     <span>
                         <label for='dropOffLocation'>Drop-Off Location</label>
                         <select id='dropOffLocation' name='dropOffLocation' style='margin-bottom: 5px;'>
-                            <option>Balilihan</option>
-                            <option>Balilihan</option>
+                            <option value='Balilihan|5km'>Balilihan</option>
+                            <option value='Catigbian|9km'>Catigbian</option>
                         </select>
                     </span>
                 </span>
@@ -81,10 +81,10 @@
             <span>
                 <p>Fees</p>
                 <label>Fuel Cost</label>
-                <input type='text' disabled>
-                <input type='text' disabled>
+                <input type='text' id='pickUpFuelCost' Value='Pick-Up Cost ₱-, -km' disabled>
+                <input type='text' id='dropOffFuelCost' Value='Drop-Off Cost ₱-, -km' disabled>
             </span>
-            <p id='rentalCost'>Total Rental Cost: ₱<span id='amountPaid'>120</span></p>
+            <p id='rentalCost'>Total Rental Cost: ₱<span id='amountPaid'>-</span></p>
         </form>
         <span class='agreementCheck'>
             <span>
@@ -104,7 +104,7 @@
 
     const pickUpLocation = document.getElementById("pickUpLocation");
     const dropOffLocation = document.getElementById("dropOffLocation");
-    let startDateTime, endDateTime;
+    let startDateTime, endDateTime, rentDuration, initialRentPrice, pickUpCost, dropOffUpCost;
     const paymentMethod = document.getElementById("paymentMethod");
     const amountPaid = document.getElementById("amountPaid");
     let voucher = document.getElementById("voucher");
@@ -122,12 +122,20 @@
 
             let minStartDate = `${tomorrow.getFullYear()}-${tomorrow.getMonth().toString().length != 1 ? (tomorrow.getMonth()+1) : "0" +(tomorrow.getMonth()+1)}-${tomorrow.getDate().toString().length != 1 ? tomorrow.getDate() : "0" +tomorrow.getDate()}T${tomorrow.getHours().toString().length != 1 ? tomorrow.getHours() : "0" +tomorrow.getHours()}:${tomorrow.getMinutes().toString().length != 1 ? tomorrow.getMinutes() : "0" +tomorrow.getMinutes()}`;
             
-            console.log(minStartDate);
             startDate.min = minStartDate;
         }else{
             document.querySelector(".homePage").style.display = "block";
             document.querySelector(".rentPage").style.display = "none";
         }
+        const pickUpKm = document.getElementById("pickUpLocation").value;
+        pickUpCost = pickUpKm.split("|")[1].substr(0, pickUpKm.split("|")[1].length-2) * 5;
+        
+        const dropOffKm = document.getElementById("dropOffLocation").value;
+        dropOffUpCost = dropOffKm.split("|")[1].substr(0, dropOffKm.split("|")[1].length-2) * 5;
+        
+        document.getElementById("pickUpFuelCost").value = `Pick-Up Cost ( ${pickUpKm.split("|")[1]} ) ₱${pickUpCost}`;
+        document.getElementById("dropOffFuelCost").value = `Drop-Off Cost ( ${dropOffKm.split("|")[1]} ) ₱${dropOffUpCost}`;
+        
         document.getElementById("agreementCheckbox").checked = false;
     }
 
@@ -135,6 +143,8 @@
         document.getElementById("rentDuration").value = "-";
         document.getElementById("payMonthly").disabled = true;
         document.getElementById("payWeekly").disabled = true;
+        rentDuration = 0;
+
         if(startDate.value != ""){
             let dateOffset = new Date();
 
@@ -145,7 +155,7 @@
 
             startDateTime = startDate.value.replace("T", " ");
             
-            let minEndDate = `${dateOffset.getFullYear()}-${dateOffset.getMonth().toString().length != 1 ? (dateOffset.getMonth()+1) : "0" +(dateOffset.getMonth()+1)}-${dateOffset.getDate().toString().length != 1 ? dateOffset.getDate() : "0" +dateOffset.getDate()}T${dateOffset.getHours()}:${dateOffset.getMinutes()}`;
+            let minEndDate = `${dateOffset.getFullYear()}-${dateOffset.getMonth().toString().length != 1 ? (dateOffset.getMonth()+1) : "0" +(dateOffset.getMonth()+1)}-${dateOffset.getDate().toString().length != 1 ? dateOffset.getDate() : "0" +dateOffset.getDate()}T${dateOffset.getHours().toString().length != 1 ? dateOffset.getHours() : "0" +dateOffset.getHours()}:${dateOffset.getMinutes().toString().length != 1 ? dateOffset.getMinutes() : "0" +dateOffset.getMinutes()}`;
                 
             endDate.min = minEndDate;
             endDate.disabled = false;
@@ -154,15 +164,21 @@
                 const tempEndDate = Date.parse(endDate.value);
 
                 endDateTime = endDate.value.replace("T", " ");
-
                 const hours = Math.floor((tempEndDate - tempStartDate) / 1000 / 60 / 60); 
                 if(hours < 12){
-                    document.querySelector(".endDateInvalid").innerHTML = "Rent Duration is Less Than 12 Hours!";
+                    if(hours <= 0){
+                        endDate.value = "";
+                        document.querySelector(".endDateInvalid").innerHTML = "";
+                    }else{
+                        document.querySelector(".endDateInvalid").innerHTML = "Rent Duration is Less Than 12 Hours!";
+                    }
                 }else{
                     document.querySelector(".endDateInvalid").innerHTML = "";
 
                     if(hours >= 24){
                         const day = hours / 24;
+                        rentDuration = day.toFixed(2);
+
                         if(day.toString().includes(".")){
                             document.getElementById("rentDuration").value = `${day.toFixed(0)} ${day > 1 ? 'Days' : 'Day'} ${(hours % 24).toFixed(0)} ${hours % 24 > 1 ? 'Hours' : 'Hour'}`;
                         }else{
@@ -198,6 +214,20 @@
             document.getElementById("invalidPay").selected = true;
             document.getElementById("payDaily").disabled = true;
         }
+        initialRentPrice = (rentDuration * document.querySelector(".rentCarPrice").innerHTML).toFixed(2);
+        calcPrice();
+    }
+
+    function updateLocationCost(){
+        const pickUpKm = document.getElementById("pickUpLocation").value;
+        pickUpCost = pickUpKm.split("|")[1].substr(0, pickUpKm.split("|")[1].length-2) * 5;
+
+        const dropOffKm = document.getElementById("dropOffLocation").value;
+        dropOffUpCost = dropOffKm.split("|")[1].substr(0, dropOffKm.split("|")[1].length-2) * 5;
+
+        document.getElementById("pickUpFuelCost").value = `Pick-Up Cost ( ${pickUpKm.split("|")[1]} ) ₱${pickUpCost}`;
+        document.getElementById("dropOffFuelCost").value = `Drop-Off Cost ( ${dropOffKm.split("|")[1]} ) ₱${dropOffUpCost}`;
+        calcPrice();
     }
 
     function verifyForm(){
@@ -213,6 +243,16 @@
         }
     }
 
+    function calcPrice(){
+        if(initialRentPrice != 0){
+            document.getElementById("amountPaid").innerHTML = (parseFloat(initialRentPrice) + (pickUpCost + dropOffUpCost)).toFixed(2);
+        }else{
+            document.getElementById("amountPaid").innerHTML = "-";
+        }
+    }
+
+    document.getElementById("pickUpLocation").onchange = (e) => {updateLocationCost()}
+    document.getElementById("dropOffLocation").onchange = (e) => {updateLocationCost()}
     document.getElementById("agreementCheckbox").addEventListener('change', (e) => { if(e.target.checked == true)window.open("./pages/agreement.php", "_blank") });
 </script>
 
