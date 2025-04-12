@@ -16,8 +16,8 @@
                         <p class='endDateInvalid' style='font-size: 12px; color: red; height: 0px;'></p>
                     </span>
                     <span>
-                        <label for='pickupLocation'>Pick-Up Location</label>
-                        <select id='pickupLocation' name='pickupLocation'>
+                        <label for='pickUpLocation'>Pick-Up Location</label>
+                        <select id='pickUpLocation' name='pickUpLocation'>
                             <option>Balilihan</option>
                             <option>Balilihan</option>
                         </select>
@@ -59,22 +59,24 @@
                     <span>
                         <label>Paid By</label>
                         <select>
-                            <option id='payDaily'>Daily</option>
-                            <option id='payWeekly' disabled='true'>Weekly</option>
-                            <option id='payMonthly' disabled='true'>Monthly</option>
+                            <option value='' id='invalidPay' disabled></option>
+                            <option value='Daily' id='payDaily' disabled='true'>Daily</option>
+                            <option value='Weekly' id='payWeekly' disabled='true'>Weekly</option>
+                            <option value='Monthly' id='payMonthly' disabled='true'>Monthly</option>
                         </select>
                     </span>
                 </span>
                 <label>Payment Method</label>
-                <select>
-                    <option>Credit/Depit Card</option>
-                    <option>PayPal</option>
-                    <option>GCash</option>
-                    <option>Bank Transfer</option>
-                    <option>Cash on Pickup</option>
+                <select id='paymentMethod'>
+                    <option value=''></option>
+                    <option value='Credit/Debit Card'>Credit/Debit Card</option>
+                    <option value='PayPal'>PayPal</option>
+                    <option value='GCash'>GCash</option>
+                    <option value='Bank Transfer'>Bank Transfer</option>
+                    <option value='Cash-On-Pickup'>Cash-On-Pickup</option>
                 </select>
                 <label>Enter Voucher (optional)</label>
-                <input type='text'>
+                <input type='text' id='voucher'>
             </span>
             <span>
                 <p>Fees</p>
@@ -82,7 +84,7 @@
                 <input type='text' disabled>
                 <input type='text' disabled>
             </span>
-            <p id='rentalCost'>Total Rental Cost: ₱<span>120</span></p>
+            <p id='rentalCost'>Total Rental Cost: ₱<span id='amountPaid'>120</span></p>
         </form>
         <span class='agreementCheck'>
             <span>
@@ -90,14 +92,22 @@
                 <label for='agreementCheckbox'>&nbsp;I have read and agree to the <a href='./pages/agreement.php' target='_blank'><span style='text-decoration: underline;'>terms and conditions</span>.&nbsp;<img src='./images/icons/navigatePage-icon.svg' height='10px' width='10px'></a></label>
             </span>
         </span>
-        <button id='rentSubmitBtn'>Submit</button>
+        <button id='rentSubmitBtn' onclick='verifyForm()'>Submit</button>
     </div>";
 ?>
 
 <script type="text/javascript">
-    const startDate = document.getElementById("startDateTime");
     const now = new Date();
     let tomorrow = new Date(now.getTime() + 86400000);
+    const startDate = document.getElementById("startDateTime");
+    const endDate = document.getElementById("endDateTime");
+
+    const pickUpLocation = document.getElementById("pickUpLocation");
+    const dropOffLocation = document.getElementById("dropOffLocation");
+    let startDateTime, endDateTime;
+    const paymentMethod = document.getElementById("paymentMethod");
+    const amountPaid = document.getElementById("amountPaid");
+    let voucher = document.getElementById("voucher");
 
     function setInitialRentInfo(carID, brandName, modelName, rentalPrice, transmission, fuelType, imgUrl){
         const homePage = document.querySelector(".homePage");
@@ -110,8 +120,9 @@
             document.querySelector(".rentCarTransmission").innerHTML = transmission;
             document.querySelector(".rentCarImg").src = imgUrl;
 
-            let minStartDate = `${tomorrow.getFullYear()}-${tomorrow.getMonth().toString().length != 1 ? (tomorrow.getMonth()+1) : "0" +(tomorrow.getMonth()+1)}-${tomorrow.getDate().toString().length != 1 ? tomorrow.getDate() : "0" +tomorrow.getDate()}T${tomorrow.getHours()}:${tomorrow.getMinutes()}`;
+            let minStartDate = `${tomorrow.getFullYear()}-${tomorrow.getMonth().toString().length != 1 ? (tomorrow.getMonth()+1) : "0" +(tomorrow.getMonth()+1)}-${tomorrow.getDate().toString().length != 1 ? tomorrow.getDate() : "0" +tomorrow.getDate()}T${tomorrow.getHours().toString().length != 1 ? tomorrow.getHours() : "0" +tomorrow.getHours()}:${tomorrow.getMinutes().toString().length != 1 ? tomorrow.getMinutes() : "0" +tomorrow.getMinutes()}`;
             
+            console.log(minStartDate);
             startDate.min = minStartDate;
         }else{
             document.querySelector(".homePage").style.display = "block";
@@ -121,11 +132,9 @@
     }
 
     function verifyDate(){
-        const endDate = document.getElementById("endDateTime");
         document.getElementById("rentDuration").value = "-";
         document.getElementById("payMonthly").disabled = true;
         document.getElementById("payWeekly").disabled = true;
-        document.getElementById("payDaily").selected = true;
         if(startDate.value != ""){
             let dateOffset = new Date();
 
@@ -134,6 +143,7 @@
             dateOffset.setDate(parseInt(startDayOnly[0]));
             dateOffset = new Date(dateOffset.getTime() + 86400000);
 
+            startDateTime = startDate.value.replace("T", " ");
             
             let minEndDate = `${dateOffset.getFullYear()}-${dateOffset.getMonth().toString().length != 1 ? (dateOffset.getMonth()+1) : "0" +(dateOffset.getMonth()+1)}-${dateOffset.getDate().toString().length != 1 ? dateOffset.getDate() : "0" +dateOffset.getDate()}T${dateOffset.getHours()}:${dateOffset.getMinutes()}`;
                 
@@ -142,6 +152,8 @@
             if(endDate.value != ""){
                 const tempStartDate = Date.parse(startDate.value);
                 const tempEndDate = Date.parse(endDate.value);
+
+                endDateTime = endDate.value.replace("T", " ");
 
                 const hours = Math.floor((tempEndDate - tempStartDate) / 1000 / 60 / 60); 
                 if(hours < 12){
@@ -169,11 +181,35 @@
                         document.getElementById("payMonthly").disabled = true;
                         document.getElementById("payWeekly").selected = true;
                     }
+                }else{
+                    document.getElementById("payDaily").disabled = false;
+                    document.getElementById("payDaily").selected = true;
                 }
+            }else{
+                endDateTime = "";
+                document.getElementById("invalidPay").selected = true;
+                document.getElementById("payDaily").disabled = true;
             }
         }else{
             endDate.disabled = true;
             endDate.value = "";
+            startDateTime = "";
+            endDateTime = "";
+            document.getElementById("invalidPay").selected = true;
+            document.getElementById("payDaily").disabled = true;
+        }
+    }
+
+    function verifyForm(){
+        if(startDateTime == "" || endDateTime == "" || paymentMethod.value == ""){
+        }else{
+            console.log(pickUpLocation.value);
+            console.log(dropOffLocation.value);
+            console.log(startDateTime);
+            console.log(endDateTime);
+            console.log(paymentMethod.value);
+            console.log(amountPaid.innerHTML);
+            console.log(voucher.value)
         }
     }
 
