@@ -117,6 +117,7 @@
             document.querySelector(".homePage").style.display = "block";
             document.querySelector(".rentPage").style.display = "none";
         }
+        document.getElementById("agreementCheckbox").checked = false;
     }
 
     function verifyDate(){
