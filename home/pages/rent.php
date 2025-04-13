@@ -1,5 +1,5 @@
 <?php
-    echo "<div class='rentCar'>
+    echo "<div class='rentCar' title='". $_SESSION["UID"] . "'>
         <h2>Rental Form</h2>
         <button class='rentExitButton' onclick='setInitialRentInfo(0, 0, 0, 0, 0, 0, 0);'>Back</button>
         <form>
@@ -18,15 +18,15 @@
                     <span>
                         <label for='pickUpLocation'>Pick-Up Location</label>
                         <select id='pickUpLocation' name='pickUpLocation'>
-                            <option value='Balilihan|5km'>Balilihan</option>
-                            <option value='Catigbian|9km'>Catigbian</option>
+                            <option value='1|Balilihan|5km'>Balilihan</option>
+                            <option value='2|Catigbian|9km'>Catigbian</option>
                         </select>
                     </span>
                     <span>
                         <label for='dropOffLocation'>Drop-Off Location</label>
                         <select id='dropOffLocation' name='dropOffLocation' style='margin-bottom: 5px;'>
-                            <option value='Balilihan|5km'>Balilihan</option>
-                            <option value='Catigbian|9km'>Catigbian</option>
+                            <option value='1|Balilihan|5km'>Balilihan</option>
+                            <option value='2|Catigbian|9km'>Catigbian</option>
                         </select>
                     </span>
                 </span>
@@ -129,10 +129,10 @@
             document.querySelector(".rentPage").style.display = "none";
         }
         const pickUpKm = document.getElementById("pickUpLocation").value;
-        pickUpCost = pickUpKm.split("|")[1].substr(0, pickUpKm.split("|")[1].length-2) * 5;
+        pickUpCost = pickUpKm.split("|")[2].substr(0, pickUpKm.split("|")[2].length-2) * 5;
         
         const dropOffKm = document.getElementById("dropOffLocation").value;
-        dropOffUpCost = dropOffKm.split("|")[1].substr(0, dropOffKm.split("|")[1].length-2) * 5;
+        dropOffUpCost = dropOffKm.split("|")[2].substr(0, dropOffKm.split("|")[2].length-2) * 5;
         
         document.getElementById("pickUpFuelCost").value = `Pick-Up Cost ( ${pickUpKm.split("|")[1]} ) ₱${pickUpCost}`;
         document.getElementById("dropOffFuelCost").value = `Drop-Off Cost ( ${dropOffKm.split("|")[1]} ) ₱${dropOffUpCost}`;
@@ -221,10 +221,10 @@
 
     function updateLocationCost(){
         const pickUpKm = document.getElementById("pickUpLocation").value;
-        pickUpCost = pickUpKm.split("|")[1].substr(0, pickUpKm.split("|")[1].length-2) * 5;
+        pickUpCost = pickUpKm.split("|")[2].substr(0, pickUpKm.split("|")[2].length-2) * 5;
 
         const dropOffKm = document.getElementById("dropOffLocation").value;
-        dropOffUpCost = dropOffKm.split("|")[1].substr(0, dropOffKm.split("|")[1].length-2) * 5;
+        dropOffUpCost = dropOffKm.split("|")[2].substr(0, dropOffKm.split("|")[2].length-2) * 5;
 
         document.getElementById("pickUpFuelCost").value = `Pick-Up Cost ( ${pickUpKm.split("|")[1]} ) ₱${pickUpCost}`;
         document.getElementById("dropOffFuelCost").value = `Drop-Off Cost ( ${dropOffKm.split("|")[1]} ) ₱${dropOffUpCost}`;
@@ -234,8 +234,11 @@
     async function verifyForm(){
         if(startDateTime == "" || endDateTime == "" || paymentMethod.value == ""){
         }else{
-            console.log(pickUpLocation.value);
-            console.log(dropOffLocation.value);
+            const pickUpLocationID = pickUpLocation.value.split("|")[0];;
+            const dropOffLocationID = dropOffLocation.value.split("|")[0];;
+
+            console.log(pickUpLocationID);
+            console.log(dropOffLocationID);
             console.log(startDateTime);
             console.log(endDateTime);
             console.log(paymentMethod.value);
@@ -243,7 +246,7 @@
             console.log(voucher.value)
             const isAvailable = await checkCarAvailability(carId);
             if(isAvailable == 1){
-                submitRent(carId, pickUpLocation.value, dropOffLocation.value, startDateTime, endDateTime, paymentMethod.value, amountPaid.innerHTML, voucher.value);
+                submitRent(carId, pickUpLocationID, dropOffLocationID, startDateTime, endDateTime, paymentMethod.value, amountPaid.innerHTML, voucher.value, document.querySelector(".rentCar").title);
             }else{
                 console.log("Car is Unavailable Right Now...");
             }

@@ -497,13 +497,13 @@
         return result;
     }
 
-    async function submitRent(carId, pickUpLocation, dropOffLocation, startDateTime, endDateTime, paymentMethod, amountPaid, voucher){
-        $.ajax({
+    async function submitRent(carId, pickUpLocation, dropOffLocation, startDateTime, endDateTime, paymentMethod, amountPaid, voucher, UID){
+        await $.ajax({
             type: 'post',
             url: './queries/rent/addRent.php',
-            data: { carID: carId, pickUpLocation: pickUpLocation, dropOffLocation: dropOffLocation, startDateTime: startDateTime, endDateTime: endDateTime, paymentMethod: paymentMethod, amountPaid: amountPaid, voucher: voucher },
+            data: {carID: carId, pickUpLocation: pickUpLocation, dropOffLocation: dropOffLocation, startDateTime: startDateTime, endDateTime: endDateTime, paymentMethod: paymentMethod, amountPaid: amountPaid, voucher: voucher, UID: UID },
             success: function(res){
-                $(".msg").html("Car Booked");
+                console.log(res)
             },
             error: function(){
                 $(".msg").html("Error Pre");
@@ -781,5 +781,58 @@
         getLocations();
         getCars();
     });
+
+    // async function submitRent(carId, pickUpLocation, dropOffLocation, startDateTime, endDateTime, paymentMethod, amountPaid, voucher, UID){
+    //     await $.ajax({
+    //         type: 'post',
+    //         url: './queries/rent/addRent.php',
+    //         data: { action: "updateCar", carID: carId },
+    //         success: function(res){
+    //             console.log("UpdateCar: " +res)
+    //         },
+    //         error: function(){
+    //             $(".msg").html("Error Pre");
+    //         }
+    //     });
+
+    //     await $.ajax({
+    //         type: 'post',
+    //         url: './queries/rent/addRent.php',
+    //         data: { action: "addRental", carID: carId, pickUpLocation: pickUpLocation, dropOffLocation: dropOffLocation, startDateTime: startDateTime, endDateTime: endDateTime, UID: UID },
+    //         success: function(res){
+    //             console.log("AddRental: " +res)
+    //         },
+    //         error: function(){
+    //             $(".msg").html("Error Pre");
+    //         }
+    //     });
+
+    //     let rentalID;
+    //     await $.ajax({
+    //         type: 'post',
+    //         url: './queries/rent/addRent.php',
+    //         data: { action: "getRentalID", UID: UID },
+    //         success: function(res){
+    //             rentalID = res;
+    //             console.log("GetRentalID: " +res)
+    //         },
+    //         error: function(){
+    //             $(".msg").html("Error Pre");
+    //         }
+    //     });
+
+    //     $.ajax({
+    //         type: 'post',
+    //         url: './queries/rent/addRent.php',
+    //         data: { action: "addPayment", rentalID: rentalID, paymentMethod: paymentMethod, amountPaid: amountPaid, voucher: voucher },
+    //         success: function(res){
+    //             console.log("AddPayment: " +res)
+    //             $(".msg").html("Car Booked");
+    //         },
+    //         error: function(){
+    //             $(".msg").html("Error Pre");
+    //         }
+    //     });
+    // }
 </script>
 </html>
