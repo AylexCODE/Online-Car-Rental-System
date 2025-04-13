@@ -497,8 +497,18 @@
         return result;
     }
 
-    async function submitRent(){
-
+    async function submitRent(carId, pickUpLocation, dropOffLocation, startDateTime, endDateTime, paymentMethod, amountPaid, voucher){
+        $.ajax({
+            type: 'post',
+            url: './queries/rent/addRent.php',
+            data: { carID: carId, pickUpLocation: pickUpLocation, dropOffLocation: dropOffLocation, startDateTime: startDateTime, endDateTime: endDateTime, paymentMethod: paymentMethod, amountPaid: amountPaid, voucher: voucher },
+            success: function(res){
+                $(".msg").html("Car Booked");
+            },
+            error: function(){
+                $(".msg").html("Error Pre");
+            }
+        });
     }
 
     async function addCars(){

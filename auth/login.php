@@ -18,6 +18,7 @@
                 unset($_SESSION["TempEmail"]);
                 $_SESSION["email"] = $rows["Email"];
                 $_SESSION["role"] = $rows["Role"];
+                $_SESSION["UID"] = $rows["UserID"];
                 
                 header("location: ../home/index.php");
             }else{

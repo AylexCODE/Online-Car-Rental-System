@@ -243,7 +243,7 @@
             console.log(voucher.value)
             const isAvailable = await checkCarAvailability(carId);
             if(isAvailable == 1){
-
+                submitRent(carId, pickUpLocation.value, dropOffLocation.value, startDateTime, endDateTime, paymentMethod.value, amountPaid.innerHTML, voucher.value);
             }else{
                 console.log("Car is Unavailable Right Now...");
             }
