@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 12, 2025 at 01:12 PM
+-- Generation Time: Apr 13, 2025 at 02:44 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -112,6 +112,8 @@ CREATE TABLE `rentals` (
   `RentalID` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
   `CarID` int(11) NOT NULL,
+  `PickUpLocationID` int(11) NOT NULL,
+  `DropOffLocationID` int(11) NOT NULL,
   `StartDate` datetime NOT NULL,
   `EndDate` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -220,8 +222,7 @@ ALTER TABLE `models`
 --
 ALTER TABLE `payments`
   ADD PRIMARY KEY (`PaymentID`),
-  ADD KEY `RentalID` (`RentalID`),
-  ADD KEY `VoucherID` (`VoucherID`);
+  ADD KEY `RentalID` (`RentalID`);
 
 --
 -- Indexes for table `rentals`
@@ -343,8 +344,7 @@ ALTER TABLE `models`
 -- Constraints for table `payments`
 --
 ALTER TABLE `payments`
-  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`RentalID`) REFERENCES `rentals` (`RentalID`),
-  ADD CONSTRAINT `payments_ibfk_2` FOREIGN KEY (`VoucherID`) REFERENCES `vouchers` (`VoucherID`);
+  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`RentalID`) REFERENCES `rentals` (`RentalID`);
 
 --
 -- Constraints for table `rentals`
