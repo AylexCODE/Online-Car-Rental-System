@@ -92,7 +92,7 @@
                 <label for='agreementCheckbox'>&nbsp;I have read and agree to the <a href='./pages/agreement.php' target='_blank'><span style='text-decoration: underline;'>terms and conditions</span>.&nbsp;<img src='./images/icons/navigatePage-icon.svg' height='10px' width='10px'></a></label>
             </span>
         </span>
-        <button id='rentSubmitBtn' onclick='verifyForm()'>Submit</button>
+        <button id='rentSubmitBtn' onclick='verifyForm()' disabled='true'>Submit</button>
     </div>";
 ?>
 
@@ -104,7 +104,7 @@
 
     const pickUpLocation = document.getElementById("pickUpLocation");
     const dropOffLocation = document.getElementById("dropOffLocation");
-    let startDateTime, endDateTime, rentDuration, initialRentPrice, pickUpCost, dropOffUpCost;
+    let carId, startDateTime, endDateTime, rentDuration, initialRentPrice, pickUpCost, dropOffUpCost;
     const paymentMethod = document.getElementById("paymentMethod");
     const amountPaid = document.getElementById("amountPaid");
     let voucher = document.getElementById("voucher");
@@ -113,6 +113,7 @@
         const homePage = document.querySelector(".homePage");
         const rentPage = document.querySelector(".rentPage");
         if(carID != 0){
+            carId = carID;
             document.body.scrollTop = 0;
             document.querySelector(".rentCarBrandModel").innerHTML = `${brandName} ${modelName}`;
             document.querySelector(".rentCarPrice").innerHTML = rentalPrice;
@@ -230,7 +231,7 @@
         calcPrice();
     }
 
-    function verifyForm(){
+    async function verifyForm(){
         if(startDateTime == "" || endDateTime == "" || paymentMethod.value == ""){
         }else{
             console.log(pickUpLocation.value);
@@ -240,6 +241,12 @@
             console.log(paymentMethod.value);
             console.log(amountPaid.innerHTML);
             console.log(voucher.value)
+            const isAvailable = await checkCarAvailability(carId);
+            if(isAvailable == 1){
+
+            }else{
+                console.log("Car is Unavailable Right Now...");
+            }
         }
     }
 
@@ -253,7 +260,7 @@
 
     document.getElementById("pickUpLocation").onchange = (e) => {updateLocationCost()}
     document.getElementById("dropOffLocation").onchange = (e) => {updateLocationCost()}
-    document.getElementById("agreementCheckbox").addEventListener('change', (e) => { if(e.target.checked == true)window.open("./pages/agreement.php", "_blank") });
+    document.getElementById("agreementCheckbox").addEventListener('change', (e) => { if(e.target.checked == true) { window.open("./pages/agreement.php", "_blank"); document.getElementById("rentSubmitBtn").disabled = false; }else{document.getElementById("rentSubmitBtn").disabled = true;} });
 </script>
 
 <style type="text/css">
@@ -409,6 +416,10 @@
         color: #031A09;
         padding: 5px 30px;
         transform: translateY(-20px);
+    }
+
+    .rentCar > #rentSubmitBtn:disabled {
+        opacity: 0.6;
     }
 
     .rentExitButton {

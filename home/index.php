@@ -481,7 +481,27 @@
     }
 </script>
 <script type="text/javascript">
-    async function addVehicle(){
+    async function checkCarAvailability(carID) {
+        let result;
+        await $.ajax({
+            type: 'post',
+            url: './queries/car/checkCarAvailability.php',
+            data: { carID },
+            success: function(res){
+                result = res;
+            },
+            error: function(){
+                $(".msg").html("Error Pre");
+            }
+        });
+        return result;
+    }
+
+    async function submitRent(){
+
+    }
+
+    async function addCars(){
         
     }
 
