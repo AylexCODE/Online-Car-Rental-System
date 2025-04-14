@@ -56,7 +56,7 @@
     <title>Car Rental</title>
 </head>
 <body>
-    <section class="homePage">
+    <section class="homePageWrapper">
         <span class="loginUserConfirmationWrapper">
             <span class="loginUserConfirmationBG" onclick="toggleSignupAlert('hide')"></span>
             <span class="loginUserConfirmation" onclick="toggleSignupAlert('hide')">
@@ -82,7 +82,7 @@
                                 <a href='../auth/logout.php'>logout</a>
                             </span>
                         </nav>";
-                    echo "<div class='homePage active'>";
+                    echo "<div class='homePage'>";
                     include_once("./panels/customer/rentStatus.php");
                     include_once("./components/carSelection.php");
                     echo "<span class='carsDisplay'>";
@@ -109,7 +109,7 @@
                             <a href='../auth/signup.php'>Sign Up</a>
                         </span>
                     </nav>";
-                echo "<div class='homePage active'>
+                echo "<div class='homePage>
                         <div class='guestBG'>
                             <span>
                                 <p>Fast & Affordable</p>
@@ -159,6 +159,7 @@
         aboutBtn.classList.remove("active");
         contactBtn.classList.remove("active");
 
+        homePage.style.display = "none";
         aboutPage.style.display = "none";
         contactPage.style.display = "none";
         
@@ -171,13 +172,13 @@
                     homeBtn.classList.add("active");
                     navIndicator.style.left = homeBtn.offsetLeft-4 +"px";
                     navIndicator.style.width = homeBtn.clientWidth+8 +"px";
-                    homePage.classList.add("active");
+                    homePage.style.display = "block";
                     break;
                 case 2:
                     document.getElementById("bookingBtn").classList.add("active");
                     navIndicator.style.left = document.getElementById("bookingBtn").offsetLeft-4 +"px";
                     navIndicator.style.width = document.getElementById("bookingBtn").clientWidth+8 +"px";
-                    document.querySelector(".myBooking").style.display = "flex";
+                    document.querySelector(".myBooking").style.display = "block";
                     break;
                 case 3:
                     aboutBtn.classList.add("active");
@@ -804,7 +805,7 @@
                 break;
         }
     }
-
+    
     $(document).ready(function(){
         getBrands();
         getLocations();

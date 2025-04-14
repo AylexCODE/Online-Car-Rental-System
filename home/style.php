@@ -108,10 +108,6 @@
         text-align: right;
     }
 
-    .homePage.active, .aboutPage.active, .contactPage.active {
-        display: block;
-    }
-
     @keyframes fade {
         from {
             opacity: 0;
@@ -119,10 +115,6 @@
         to {
             opacity: 1;
         }
-    }
-
-    .homePage, .aboutPage, .contactPage {
-        display: none;
     }
 
     .guestBG {
