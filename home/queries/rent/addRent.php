@@ -29,8 +29,9 @@
 
                                 try {
                                     mysqli_query($conn, $addPaymentQuery);
-                                }catch(mysqli_sql_exception){
+                                }catch(mysqli_sql_exception $e){
                                     echo "Error Add Payment";
+                                    echo $e;
                                 }
                             }
                         }catch(mysqli_sql_exception){
