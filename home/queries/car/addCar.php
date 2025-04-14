@@ -5,7 +5,6 @@
         $transmission = filter_input(INPUT_POST, "carTransmission", FILTER_SANITIZE_SPECIAL_CHARS);
         $fuelType = filter_input(INPUT_POST, "carFuelType", FILTER_SANITIZE_SPECIAL_CHARS);
         $rentalPrice = filter_input(INPUT_POST, "rentalPriceDay", FILTER_SANITIZE_SPECIAL_CHARS);
-        $location = filter_input(INPUT_POST, "carLocation", FILTER_SANITIZE_SPECIAL_CHARS);
         $availability = filter_input(INPUT_POST, "carAvailability", FILTER_SANITIZE_SPECIAL_CHARS);
 
         $rentalPrice = substr($rentalPrice, 3, strlen($rentalPrice));
@@ -42,7 +41,7 @@
             $row = mysqli_fetch_assoc($execQuery);
             $modelID = $row["ModelID"];
 
-            $query = "INSERT INTO cars VALUES (null, $brandID, '$modelID', '$fuelType', '$transmission', '$rentalPrice', '$location', $availability, '$file')";
+            $query = "INSERT INTO cars VALUES (null, $brandID, '$modelID', '$fuelType', '$transmission', '$rentalPrice', $availability, '$file')";
             mysqli_query($conn, $query);
             if(move_uploaded_file($ffile, $path)){
                 echo "<p class=\"msg\"><span class='" . "success" . "'>Vehicle Added</span></p>";

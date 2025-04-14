@@ -9,7 +9,11 @@
             
             if(mysqli_num_rows($execQueryGetLocations) != 0){
                 while($rows = mysqli_fetch_assoc($execQueryGetLocations)){
-                    echo "<option value='" . $rows["LocationID"] . "' id='" . $rows["Address"] . "'>" . $rows["Address"] . "</option>";
+                    if($rows["AddressCode"] == "PXW6+572, Provincial Road, Balilihan, Bohol, Philippines"){
+                        echo "<option value='" . $rows["LocationID"] . "|" . $rows["Address"] . "|" . $rows["AddressCode"] . "|" . $rows["DistanceKM"] . "' selected>" . $rows["Address"] . "</option>";
+                    }else{
+                        echo "<option value='" . $rows["LocationID"] . "|" . $rows["Address"] . "|" . $rows["AddressCode"] . "|" . $rows["DistanceKM"] . "'>" . $rows["Address"] . "</option>";
+                    }
                 }
             }
         }catch(mysqli_sql_exception){

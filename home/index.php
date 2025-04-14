@@ -370,7 +370,7 @@
         }
     }
 
-    function editCar(id, imagePath, brand, model, pricePerDay, location, transmission, fueltype, availability){
+    function editCar(id, imagePath, brand, model, pricePerDay, transmission, fueltype, availability){
         const popoverCover = document.querySelector(".popOverCover"); popoverCover.style.display = "block";
         const popover = document.querySelector(".popOver"); popover.style.display = "grid";
         
@@ -623,9 +623,11 @@
 
     async function addLocation(){
         const newLocation = document.getElementById("newLocation").value;
+        const newAddressCode = document.getElementById("newAddressCode").value;
+        const newDistance = document.getElementById("newDistance").value;
         
-        if(newLocation.trim() == ""){
-            document.querySelector(".addLocationErrorMsg").innerHTML = "<p>Location Cannot Be Empty!</p>";
+        if(newLocation.trim() == "" || newAddressCode.trim() == "" || newDistance.trim() == ""){
+            document.querySelector(".addLocationErrorMsg").innerHTML = "<p>Fields Cannot Be Empty!</p>";
             return;
         }else{
             document.querySelector(".addLocationErrorMsg").innerHTML = "";
@@ -634,11 +636,13 @@
         await $.ajax({
             type: "post",
             url: "./queries/location/addLocation.php",
-            data: { address: newLocation },
+            data: { location: newLocation, address: newAddressCode, distance: newDistance },
             success: function(res){
                 $(".msg").html(res);
                 if(!res.includes("error")){
                     $("#newLocation").val("");
+                    $("#newAddressCode").val("");
+                    $("#newDistance").val("");
                 }
             },
             error: function(err){
@@ -650,23 +654,37 @@
     }
 
     async function getLocations(){
-        const defaultOption = "<option value='None' id='selectedLocation' selected disabled></option>";
-        await $.ajax({
-            type: "get",
-            url: "./queries/location/getLocations.php",
-            success: function(res){
-                $("#location").html(defaultOption + res);
-            },
-            error: function(err){
-                $(".msg").html("Error Pre");
-            }
-        });
+        // const defaultOption = "<option value='None' id='selectedLocation' selected disabled></option>";
+        // await $.ajax({
+        //     type: "get",
+        //     url: "./queries/location/getLocations.php",
+        //     success: function(res){
+        //         $("#location").html(defaultOption + res);
+        //     },
+        //     error: function(err){
+        //         $(".msg").html("Error Pre");
+        //     }
+        // });
 
         await $.ajax({
             type: "get",
             url: "./queries/location/getLocationsList.php",
             success: function(res){
                 $(".locationsList").html(res);
+            },
+            error: function(err){
+                $(".msg").html("Error Pre");
+            }
+        });
+    }
+
+    async function getLocationsForRent(){
+        await $.ajax({
+            type: 'get',
+            url: "./queries/location/getLocations.php",
+            success: function(res){
+                $("#pickUpLocation").html(res);
+                $("#dropOffLocation").html(res);
             },
             error: function(err){
                 $(".msg").html("Error Pre");

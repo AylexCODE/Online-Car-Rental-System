@@ -17,17 +17,11 @@
                     </span>
                     <span>
                         <label for='pickUpLocation'>Pick-Up Location</label>
-                        <select id='pickUpLocation' name='pickUpLocation'>
-                            <option value='1|Balilihan|5km'>Balilihan</option>
-                            <option value='2|Catigbian|9km'>Catigbian</option>
-                        </select>
+                        <select id='pickUpLocation' name='pickUpLocation'></select>
                     </span>
                     <span>
                         <label for='dropOffLocation'>Drop-Off Location</label>
-                        <select id='dropOffLocation' name='dropOffLocation' style='margin-bottom: 5px;'>
-                            <option value='1|Balilihan|5km'>Balilihan</option>
-                            <option value='2|Catigbian|9km'>Catigbian</option>
-                        </select>
+                        <select id='dropOffLocation' name='dropOffLocation' style='margin-bottom: 5px;'></select>
                     </span>
                 </span>
                 <span class='rentCarInfo'>
@@ -43,9 +37,17 @@
             </span>
             <span>
                 <span>
-                    <iframe width='100%' height='200' style='border: 1px solid #E2F87B; border-radius: 10px;' loading='lazy' allowfullscreen referrerpolict='no-referrer-when-downgrade' id='map'
-                        src='https://www.google.com/maps/embed/v1/directions?key=AIzaSyDeVWNZzB23rWAxghPYc3EUKwWfLpkuzZQ
-                        &origin=PXW6+572, Provincial+Road, Balilihan, Bohol&maptype=satellite&destination=QX4H+H2P, Balilihan, Bohol'>
+                    <span style='display: flex; flex-direction: row; justify-content: center; gap: 5px; margin-block: 2.5px;'>
+                        <span class='switchMapBtn active' onclick='switchMap(0)' id='mapSwitch0'>Pick-Up Location</span>
+                        <span class='switchMapBtn' onclick='switchMap(1)' id='mapSwitch1'>Drop-Off Location</span>
+                    </span>
+                    <iframe width='100%' height='200' frameborder='0' style='border: 1px solid #E2F87B; border-radius: 10px;' loading='lazy' allowfullscreen referrerpolict='no-referrer-when-downgrade' id='map'
+                        src='https://www.google.com/maps/embed/v1/place?key=AIzaSyDeVWNZzB23rWAxghPYc3EUKwWfLpkuzZQ
+                        &q=PXW6+572, Provincial+Road, Balilihan, Bohol&maptype=satellite'>
+                    </iframe>
+                    <iframe width='100%' height='200' frameborder='0' style='border: 1px solid #E2F87B; border-radius: 10px; display: none;' loading='lazy' allowfullscreen referrerpolict='no-referrer-when-downgrade' id='map1'
+                        src='https://www.google.com/maps/embed/v1/place?key=AIzaSyDeVWNZzB23rWAxghPYc3EUKwWfLpkuzZQ
+                        &q=PXW6+572, Provincial+Road, Balilihan, Bohol&maptype=satellite'>
                     </iframe>
                 </span>
             </span>
@@ -129,13 +131,13 @@
             document.querySelector(".rentPage").style.display = "none";
         }
         const pickUpKm = document.getElementById("pickUpLocation").value;
-        pickUpCost = pickUpKm.split("|")[2].substr(0, pickUpKm.split("|")[2].length-2) * 5;
+        pickUpCost = pickUpKm.split("|")[3].substr(0, pickUpKm.split("|")[3].length-2) * 5;
         
         const dropOffKm = document.getElementById("dropOffLocation").value;
-        dropOffUpCost = dropOffKm.split("|")[2].substr(0, dropOffKm.split("|")[2].length-2) * 5;
+        dropOffUpCost = dropOffKm.split("|")[3].substr(0, dropOffKm.split("|")[3].length-2) * 5;
         
-        document.getElementById("pickUpFuelCost").value = `Pick-Up Cost ( ${pickUpKm.split("|")[1]} ) ₱${pickUpCost}`;
-        document.getElementById("dropOffFuelCost").value = `Drop-Off Cost ( ${dropOffKm.split("|")[1]} ) ₱${dropOffUpCost}`;
+        document.getElementById("pickUpFuelCost").value = `Pick-Up Cost ( ${pickUpKm.split("|")[3]}km ) ₱${pickUpCost}`;
+        document.getElementById("dropOffFuelCost").value = `Drop-Off Cost ( ${dropOffKm.split("|")[3]}km ) ₱${dropOffUpCost}`;
         
         document.getElementById("agreementCheckbox").checked = false;
     }
@@ -221,13 +223,26 @@
 
     function updateLocationCost(){
         const pickUpKm = document.getElementById("pickUpLocation").value;
-        pickUpCost = pickUpKm.split("|")[2].substr(0, pickUpKm.split("|")[2].length-2) * 5;
+        pickUpCost = pickUpKm.split("|")[3].substr(0, pickUpKm.split("|")[3].length-2) * 5;
 
         const dropOffKm = document.getElementById("dropOffLocation").value;
-        dropOffUpCost = dropOffKm.split("|")[2].substr(0, dropOffKm.split("|")[2].length-2) * 5;
+        dropOffUpCost = dropOffKm.split("|")[3].substr(0, dropOffKm.split("|")[3].length-2) * 5;
 
-        document.getElementById("pickUpFuelCost").value = `Pick-Up Cost ( ${pickUpKm.split("|")[1]} ) ₱${pickUpCost}`;
-        document.getElementById("dropOffFuelCost").value = `Drop-Off Cost ( ${dropOffKm.split("|")[1]} ) ₱${dropOffUpCost}`;
+        document.getElementById("pickUpFuelCost").value = `Pick-Up Cost ( ${pickUpKm.split("|")[3]}km ) ₱${pickUpCost}`;
+        document.getElementById("dropOffFuelCost").value = `Drop-Off Cost ( ${dropOffKm.split("|")[3]}km ) ₱${dropOffUpCost}`;
+
+        if(pickUpKm.split("|")[2] == "PXW6+572, Provincial Road, Balilihan, Bohol, Philippines"){
+            document.getElementById("map").src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyDeVWNZzB23rWAxghPYc3EUKwWfLpkuzZQ&q=PXW6+572, Provincial+Road, Balilihan, Bohol&maptype=satellite";
+        }else{
+            document.getElementById("map").src = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyDeVWNZzB23rWAxghPYc3EUKwWfLpkuzZQ&origin=PXW6+572, Provincial Road, Balilihan, Bohol, Philippines&maptype=satellite&destination=" +pickUpKm.split("|")[2];
+        }
+
+        if(dropOffKm.split("|")[2] == "PXW6+572, Provincial Road, Balilihan, Bohol, Philippines"){
+            document.getElementById("map1").src = "https://www.google.com/maps/embed/v1/place?key=AIzaSyDeVWNZzB23rWAxghPYc3EUKwWfLpkuzZQ&q=PXW6+572, Provincial+Road, Balilihan, Bohol&maptype=satellite";
+        }else{
+            document.getElementById("map1").src = "https://www.google.com/maps/embed/v1/directions?key=AIzaSyDeVWNZzB23rWAxghPYc3EUKwWfLpkuzZQ&origin=PXW6+572, Provincial Road, Balilihan, Bohol, Philippines&maptype=satellite&destination=" +dropOffKm.split("|")[2];
+        }
+        
         calcPrice();
     }
 
@@ -254,10 +269,25 @@
     }
 
     function calcPrice(){
-        if(initialRentPrice != 0){
+        if(initialRentPrice && endDateTime){
             document.getElementById("amountPaid").innerHTML = (parseFloat(initialRentPrice) + (pickUpCost + dropOffUpCost)).toFixed(2);
         }else{
             document.getElementById("amountPaid").innerHTML = "-";
+        }
+    }
+
+    function switchMap(map){
+        document.getElementById("mapSwitch0").classList.remove("active");
+        document.getElementById("mapSwitch1").classList.remove("active");
+        document.getElementById("map").style.display = "none";
+        document.getElementById("map1").style.display = "none";
+
+        if(map == 0){
+            document.getElementById("mapSwitch0").classList.add("active");
+            document.getElementById("map").style.display = "block";
+        }else{
+            document.getElementById("mapSwitch1").classList.add("active");
+            document.getElementById("map1").style.display = "block";
         }
     }
 
@@ -382,6 +412,21 @@
 
     .rentCar input[disabled]{
         opacity: 0.8;
+    }
+
+    .switchMapBtn {
+        background-color: #316C40;
+        border: none;
+        outline: none;
+        border-radius: 5px;
+        padding-inline: 10px;
+        padding-block: 2.5px;
+        color: #E0E070;
+    }
+    
+    .switchMapBtn.active {
+        color: #E2F87B;
+        background-color: #38814a;
     }
 
     #rentalCost {

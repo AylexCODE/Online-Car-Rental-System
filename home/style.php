@@ -286,7 +286,7 @@
     .carsDisplay > span {
         width: 100%;
         height: 100%;
-        margin-top: 2.5px;
+        padding-top: 7.5px;
         padding-bottom: 25px;
         overflow-y: scroll;
         display: flex;
@@ -304,6 +304,11 @@
         border: 1px solid white;
         border-radius: 5px;
         overflow: scroll;
+    }
+
+    .car:hover {
+        scale: 1.03;
+        transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .car > img {
@@ -350,9 +355,10 @@
         margin-block: 1px;
     }
     
-    #carLocation {
+    #availabilityStatus {
         text-wrap: nowrap;
         overflow-x: scroll;
+        width: 100%;
     }
 
     .car > span > button {

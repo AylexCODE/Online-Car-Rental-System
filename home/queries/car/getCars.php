@@ -2,8 +2,8 @@
     session_start();
     require_once("../../../database/db_conn.php");
 
-    if(isset($_POST)){
-        $carsQuery = "SELECT car.CarID, brands.BrandName, (SELECT models.ModelName from models WHERE models.ModelID = car.ModelID) AS Model, car.FuelType, car.Transmission, car.RentalPrice, (SELECT locations.Address FROM locations WHERE locations.LocationID = car.LocationID) Address, car.Availability, car.ImageName FROM cars car INNER JOIN brands ON car.BrandID = brands.BrandID";
+    if(isset($_POST)){ // Rentals status 0 = pending; 1 = ongoing; 2 = completed; 3 = cancelled
+        $carsQuery = "SELECT car.CarID, brands.BrandName, (SELECT models.ModelName from models WHERE models.ModelID = car.ModelID) AS Model, car.FuelType, car.Transmission, car.RentalPrice, (SELECT rentals.EndDate FROM rentals WHERE rentals.carID = car.carID AND rentals.status = 2 OR rentals.status = 3) RentalStatus, car.Availability, car.ImageName FROM cars car INNER JOIN brands ON car.BrandID = brands.BrandID";
         // Image Dimensions height: 180px | width: 277.5px;
         try{
             $execQuery = mysqli_query($conn, $carsQuery);
@@ -14,20 +14,20 @@
                         <p><span id='carBrand'>" . $rows["BrandName"] . "</span>&nbsp;<span id='carModel'>" . $rows["Model"] . "</span></p>
                         <p id='carPrice'>₱" . $rows["RentalPrice"] . "</p>
                         <span>
-                            <img src='./images/icons/location-icon.svg' height='14px' width='14px'><p id='carLocation'>" . $rows["Address"] . "</p>
+                            <img src='./images/icons/fuelType-icon.svg' height='14px' width='14px'><p id='carFueltype'>" . $rows["FuelType"] . "</p>
                         </span>
                         <span>
                             <img src='./images/icons/transmission-icon.svg' height='14px' width='14px'><p id='carTransmission'>" . $rows["Transmission"] . "</p>
                         </span>
                         <span>
-                            <img src='./images/icons/fuelType-icon.svg' height='14px' width='14px'><p id='carFueltype'>" . $rows["FuelType"] . "</p>
+                            <img src='./images/icons/availability-icon.svg' height='14px' width='14px'><p id='availabilityStatus'>"; echo $rows["RentalStatus"] != '' ? "Available in: " . substr($rows["RentalStatus"], 0, 10) . "&nbsp;(Estimate)" : "Available";  echo "</p>
                         </span>
                         <span>";
                         if(isset($_SESSION["role"])){
                             if($_SESSION["role"] == "Customer"){
                                 echo $rows["Availability"] == 0 ? "<button class='notAvailable'>Rent</button>" :"<button onclick='toggleRentPage(&#x27;" . $rows["CarID"] . "&#x27;,&#x27;" . $rows["BrandName"] . "&#x27;,&#x27;" . $rows["Model"] . "&#x27;,&#x27;" . $rows["RentalPrice"] . "&#x27;,&#x27;" . $rows["Transmission"] . "&#x27;,&#x27;" . $rows["FuelType"] . "&#x27;,&#x27;" . $rows["ImageName"] . "&#x27;);'>Rent</button>";
                             }else{
-                                echo "<button onclick='editCar(&#x27;" . $rows["CarID"] . "&#x27;,&#x27;" . $rows["ImageName"] . "&#x27;,&#x27;" . $rows["BrandName"] . "&#x27;,&#x27;" . $rows["Model"] . "&#x27;,&#x27;" . $rows["RentalPrice"] . "&#x27;,&#x27;" . $rows["Address"] . "&#x27;,&#x27;" . $rows["Transmission"] . "&#x27;,&#x27;" . $rows["FuelType"] . "&#x27;,&#x27;" . $rows["Availability"] . "&#x27;)'>Edit</button>";
+                                echo "<button onclick='editCar(&#x27;" . $rows["CarID"] . "&#x27;,&#x27;" . $rows["ImageName"] . "&#x27;,&#x27;" . $rows["BrandName"] . "&#x27;,&#x27;" . $rows["Model"] . "&#x27;,&#x27;" . $rows["RentalPrice"] . "&#x27;,&#x27;" . $rows["Transmission"] . "&#x27;,&#x27;" . $rows["FuelType"] . "&#x27;,&#x27;" . $rows["Availability"] . "&#x27;)'>Edit</button>";
                             }
                         }else{
                             echo $rows["Availability"] == 0 ? "<button class='notAvailable' onclick='toggleSignupAlert(&#x27;show&#x27;);'>Rent</button>" :"<button onclick='toggleSignupAlert(&#x27;show&#x27;)'>Rent</button>";
@@ -43,8 +43,11 @@
 ?>
 
 <script type="text/javascript">
-    function toggleRentPage(carID, brandName, modelName, rentalPrice, transmission, fuelType, imgUrl){
+    async function toggleRentPage(carID, brandName, modelName, rentalPrice, transmission, fuelType, imgUrl){
+        await getLocationsForRent();
+
         setInitialRentInfo(carID, brandName, modelName, rentalPrice, transmission, fuelType, "./images/cars/" +imgUrl);
+
         document.querySelector(".homePage").style.display = "none";
         document.querySelector(".rentPage").style.display = "block";
     }

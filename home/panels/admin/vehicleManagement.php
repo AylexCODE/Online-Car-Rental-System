@@ -52,9 +52,6 @@
                         </select>
                         <label for='fueltype'>Fuel Type</label>
 
-                        <select id='location' name='carLocation' required></select>
-                        <label for='transmission'>Location</label>
-
                         <span class='availAndPrice'>
                             <span>
                                 <select id='availability' name='carAvailability' required>
@@ -100,6 +97,12 @@
                     <form class='addLocationsForm' method='post' onsubmit='return false'>
                         <input type='text' id='newLocation' name='newLocation' required>
                         <label for='newLocation'>New Location</label>
+
+                        <input type='text' id='newAddressCode' name='newAddressCode' required>
+                        <label for='newAddressCode'>Address Code</label>
+
+                        <input type='number' id='newDistance' step='0.01' name='newDistance' required>
+                        <label for='newDistance'>Distance ( km )</label>
                         <span class='addLocationsList'>
                             <p>Locations List</p>
                             <span class='locationsList'></span>
@@ -142,3 +145,15 @@
         </div>";
     include_once("./queries/car/addCar.php");
 ?>
+
+<style type="text/css">
+    input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type="number"] {
+        -moz-appearance: textfield;
+        appearance: textfield;
+    }
+</style>
