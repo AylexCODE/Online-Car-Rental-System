@@ -91,6 +91,7 @@
                         </section>";
                     echo "</div>";
 
+                    include_once("./panels/customer/customerBooking.php");
                     include_once("./panels/customer/aboutUs.php");
                     include_once("./panels/customer/contactUs.php");
                 }
@@ -157,12 +158,13 @@
         homeBtn.classList.remove("active");
         aboutBtn.classList.remove("active");
         contactBtn.classList.remove("active");
-        homePage.classList.remove("active");
-        aboutBtn.classList.remove("active");
-        contactBtn.classList.remove("active");
 
+        aboutPage.style.display = "none";
+        contactPage.style.display = "none";
+        
         activeNav = index;
         if(document.getElementById("bookingBtn")){
+            document.querySelector(".myBooking").style.display = "none";
             document.getElementById("bookingBtn").classList.remove("active");
             switch(index){
                 case 1:
@@ -175,19 +177,19 @@
                     document.getElementById("bookingBtn").classList.add("active");
                     navIndicator.style.left = document.getElementById("bookingBtn").offsetLeft-4 +"px";
                     navIndicator.style.width = document.getElementById("bookingBtn").clientWidth+8 +"px";
-                    document.getElementById("myBooking").classList.add("active");
+                    document.querySelector(".myBooking").style.display = "flex";
                     break;
                 case 3:
                     aboutBtn.classList.add("active");
                     navIndicator.style.left = aboutBtn.offsetLeft-4 +"px";
                     navIndicator.style.width = aboutBtn.clientWidth+8 +"px";
-                    aboutBtn.classList.add("active");
+                    aboutPage.style.display = "block";
                     break;
                 case 4:
                     contactBtn.classList.add("active");
                     navIndicator.style.left = contactBtn.offsetLeft-4 +"px";
                     navIndicator.style.width = contactBtn.clientWidth+8 +"px";
-                    contactBtn.classList.add("active");
+                    contactPage.style.display = "block";
                     break;
             }
         }else{
@@ -202,13 +204,13 @@
                     aboutBtn.classList.add("active");
                     navIndicator.style.left = aboutBtn.offsetLeft-4 +"px";
                     navIndicator.style.width = aboutBtn.clientWidth+8 +"px";
-                    aboutBtn.classList.add("active");
+                    aboutPage.style.display = "block";
                     break;
                 case 3:
                     contactBtn.classList.add("active");
                     navIndicator.style.left = contactBtn.offsetLeft-4 +"px";
                     navIndicator.style.width = contactBtn.clientWidth+8 +"px";
-                    contactBtn.classList.add("active");
+                    contactPage.style.display = "block";
                     break;
             }
         }
