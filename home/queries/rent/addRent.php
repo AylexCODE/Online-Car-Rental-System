@@ -10,6 +10,7 @@
         $paymentMethod = $_POST["paymentMethod"];
         $amountPaid = $_POST["amountPaid"];
         $voucher = $_POST["voucher"];
+        $paymentFrequency = $_POST["paymentFrequency"];
 
         $updateCarAvailable = "UPDATE cars SET Availability = 0 WHERE CarID = '$carID'";
 
@@ -25,7 +26,7 @@
                             if($execQuery = mysqli_query($conn, $getRentalIDQuery)){
                                 $getRentalID = mysqli_fetch_assoc($execQuery);
                                 $rentalID = $getRentalID["RentalID"];
-                                $addPaymentQuery = "INSERT INTO payments VALUES (null, '$rentalID', NOW(), '$amountPaid', '$paymentMethod', 'Pending', '$voucher');";
+                                $addPaymentQuery = "INSERT INTO payments VALUES (null, '$rentalID', NOW(), '$paymentFrequency', '$amountPaid','$paymentMethod', 'Pending', '$voucher');";
 
                                 try {
                                     mysqli_query($conn, $addPaymentQuery);

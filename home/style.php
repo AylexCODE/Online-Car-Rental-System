@@ -304,6 +304,7 @@
         border: 1px solid white;
         border-radius: 5px;
         overflow: scroll;
+        transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
 
     .car:hover {

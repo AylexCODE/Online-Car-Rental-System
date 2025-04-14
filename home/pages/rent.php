@@ -59,8 +59,8 @@
                         <input type='text' id='rentDuration' disabled value='-'>
                     </span>
                     <span>
-                        <label>Paid By</label>
-                        <select>
+                        <label>Payment Frequency</label>
+                        <select id='paymentFrequency'>
                             <option value='' id='invalidPay' disabled></option>
                             <option value='Daily' id='payDaily' disabled='true'>Daily</option>
                             <option value='Weekly' id='payWeekly' disabled='true'>Weekly</option>
@@ -106,6 +106,7 @@
 
     const pickUpLocation = document.getElementById("pickUpLocation");
     const dropOffLocation = document.getElementById("dropOffLocation");
+    const paymentFrequency = document.getElementById("paymentFrequency");
     let carId, startDateTime, endDateTime, rentDuration, initialRentPrice, pickUpCost, dropOffUpCost;
     const paymentMethod = document.getElementById("paymentMethod");
     const amountPaid = document.getElementById("amountPaid");
@@ -254,7 +255,7 @@
 
             const isAvailable = await checkCarAvailability(carId);
             if(isAvailable == 1){
-                submitRent(carId, pickUpLocationID, dropOffLocationID, startDateTime, endDateTime, paymentMethod.value, amountPaid.innerHTML, voucher.value, document.querySelector(".rentCar").title);
+                submitRent(carId, pickUpLocationID, dropOffLocationID, startDateTime, endDateTime, paymentMethod.value, paymentFrequency.value, amountPaid.innerHTML, voucher.value, document.querySelector(".rentCar").title);
             }else{
                 console.log("Car is Unavailable Right Now...");
             }
