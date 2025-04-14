@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 13, 2025 at 02:44 PM
+-- Generation Time: Apr 14, 2025 at 09:54 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -45,7 +45,6 @@ CREATE TABLE `cars` (
   `FuelType` varchar(16) NOT NULL,
   `Transmission` varchar(16) NOT NULL,
   `RentalPrice` double(10,2) NOT NULL,
-  `LocationID` int(11) NOT NULL,
   `Availability` tinyint(1) NOT NULL,
   `ImageName` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
@@ -59,7 +58,8 @@ CREATE TABLE `cars` (
 CREATE TABLE `locations` (
   `LocationID` int(11) NOT NULL,
   `Address` varchar(100) NOT NULL,
-  `Distance` double(10,2) NOT NULL
+  `AddressCode` varchar(100) NOT NULL,
+  `DistanceKM` double(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -115,7 +115,8 @@ CREATE TABLE `rentals` (
   `PickUpLocationID` int(11) NOT NULL,
   `DropOffLocationID` int(11) NOT NULL,
   `StartDate` datetime NOT NULL,
-  `EndDate` datetime NOT NULL
+  `EndDate` datetime NOT NULL,
+  `Status` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -222,7 +223,8 @@ ALTER TABLE `models`
 --
 ALTER TABLE `payments`
   ADD PRIMARY KEY (`PaymentID`),
-  ADD KEY `RentalID` (`RentalID`);
+  ADD KEY `RentalID` (`RentalID`),
+  ADD KEY `VoucherID` (`VoucherID`);
 
 --
 -- Indexes for table `rentals`
@@ -251,7 +253,8 @@ ALTER TABLE `tickets`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`UserID`),
   ADD UNIQUE KEY `DLicense` (`DriversLicense`),
-  ADD UNIQUE KEY `PhoneNo` (`PhoneNumber`);
+  ADD UNIQUE KEY `PhoneNo` (`PhoneNumber`),
+  ADD UNIQUE KEY `Email` (`Email`);
 
 --
 -- Indexes for table `vouchers`
@@ -344,7 +347,8 @@ ALTER TABLE `models`
 -- Constraints for table `payments`
 --
 ALTER TABLE `payments`
-  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`RentalID`) REFERENCES `rentals` (`RentalID`);
+  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`RentalID`) REFERENCES `rentals` (`RentalID`),
+  ADD CONSTRAINT `payments_ibfk_2` FOREIGN KEY (`VoucherID`) REFERENCES `vouchers` (`VoucherID`);
 
 --
 -- Constraints for table `rentals`

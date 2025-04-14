@@ -15,7 +15,7 @@
 
         try{
             if(mysqli_query($conn, $updateCarAvailable)){
-                $addRentalQuery = "INSERT INTO rentals VALUES (null, '$UID', '$carID', '$pickUpLocation', '$dropOffLocation', '$startDateTime', '$endDateTime');";
+                $addRentalQuery = "INSERT INTO rentals VALUES (null, '$UID', '$carID', '$pickUpLocation', '$dropOffLocation', '$startDateTime', '$endDateTime', 0);";
 
                 try{
                     if(mysqli_query($conn, $addRentalQuery)){
@@ -29,8 +29,9 @@
 
                                 try {
                                     mysqli_query($conn, $addPaymentQuery);
-                                }catch(mysqli_sql_exception){
+                                }catch(mysqli_sql_exception $e){
                                     echo "Error Add Payment";
+                                    echo $e;
                                 }
                             }
                         }catch(mysqli_sql_exception){
