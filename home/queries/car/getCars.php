@@ -20,7 +20,7 @@
                             <img src='./images/icons/transmission-icon.svg' height='14px' width='14px'><p id='carTransmission'>" . $rows["Transmission"] . "</p>
                         </span>
                         <span>
-                            <img src='./images/icons/availability-icon.svg' height='14px' width='14px'><p id='availabilityStatus'>"; echo $rows["RentalStatus"] != '' ? "Available in: " . substr($rows["RentalStatus"], 0, 10) . "&nbsp;(Estimate)" : "Available";  echo "</p>
+                            <img src='./images/icons/availability-icon.svg' height='14px' width='14px'><p id='availabilityStatus'>"; echo $rows["Availability"] == 0 ? "Available in: " . substr($rows["RentalStatus"], 0, 10) . "&nbsp;(Estimate)" : "Available";  echo "</p>
                         </span>
                         <span>";
                         if(isset($_SESSION["role"])){

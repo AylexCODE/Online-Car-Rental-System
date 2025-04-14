@@ -68,6 +68,7 @@
         <?php
             if(isset($_SESSION["email"])){
                 if($_SESSION["role"] == "Customer"){
+                    echo "<p class='notif'>Hello World!</p>";
                     echo "<span class='navIndicator'></span>";
                     echo "<nav>
                             <span>
@@ -503,12 +504,20 @@
             url: './queries/rent/addRent.php',
             data: {carID: carId, pickUpLocation: pickUpLocation, dropOffLocation: dropOffLocation, startDateTime: startDateTime, endDateTime: endDateTime, paymentMethod: paymentMethod, amountPaid: amountPaid, voucher: voucher, UID: UID },
             success: function(res){
-                console.log(res)
+                if(!res.includes("Error")){
+                    $(".notif").html("<span class='success'>Car Booked</span>");
+                    document.querySelector(".homePage").style.display = "block";
+                    document.querySelector(".rentPage").style.display = "none";
+                }else{
+                    $(".notif").html("<span class='error'>Something Went Wrong</span>");
+                }
             },
             error: function(){
                 $(".msg").html("Error Pre");
             }
         });
+
+        getCars();
     }
 
     async function addCars(){

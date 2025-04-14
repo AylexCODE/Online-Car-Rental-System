@@ -252,13 +252,6 @@
             const pickUpLocationID = pickUpLocation.value.split("|")[0];;
             const dropOffLocationID = dropOffLocation.value.split("|")[0];;
 
-            console.log(pickUpLocationID);
-            console.log(dropOffLocationID);
-            console.log(startDateTime);
-            console.log(endDateTime);
-            console.log(paymentMethod.value);
-            console.log(amountPaid.innerHTML);
-            console.log(voucher.value)
             const isAvailable = await checkCarAvailability(carId);
             if(isAvailable == 1){
                 submitRent(carId, pickUpLocationID, dropOffLocationID, startDateTime, endDateTime, paymentMethod.value, amountPaid.innerHTML, voucher.value, document.querySelector(".rentCar").title);

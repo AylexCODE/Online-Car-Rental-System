@@ -950,7 +950,7 @@
         margin-bottom: 10px;
     }
 
-    .msg {
+    .msg, .notif {
         position: absolute;
         top: -100px;
         /* left: 50%; */
@@ -960,8 +960,13 @@
         display: grid;
         place-items: center;
     }
+
+    .notif {
+        position: fixed;
+        width: 100vw;
+    }
     
-    .msg > .error, .msg > .success {
+    .msg > .error, .msg > .success, .notif > .success, .notif > .error {
         position: relative;
         color: rgb(255, 100, 100);
         /* right: 2.5%; */
@@ -975,7 +980,7 @@
         animation: msgSlideDown 5s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
-    .msg > .success  {
+    .msg > .success, .notif > .success  {
         color: #E2F87B;
         border: 2px solid #E2F87B;
     }
