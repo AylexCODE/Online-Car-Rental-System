@@ -26,55 +26,104 @@
           }
         }
       }elseif($_POST["action"] == "getCar"){
-        $getBookingCar = "SELECT (SELECT (SELECT BrandName FROM brands WHERE BrandID = cars.BrandID) AS Brand FROM cars WHERE CarID = rental.CarID) AS Brand, (SELECT (SELECT ModelName FROM models where ModelID = cars.ModelID) AS Model FROM cars WHERE CarID = rental.CarID) AS Model, (SELECT FuelType FROM cars WHERE CarID = rental.CarID) AS FuelType, (SELECT Transmission FROM cars WHERE CarID = rental.CarID) AS Transmission, (SELECT ImageName FROM cars WHERE CarID = rental.CarID) AS ImageName FROM rentals rental WHERE UserID = '" . $_SESSION["UID"] . "' ORDER BY rental.RentalID DESC;";
+        $getBookingCar = "SELECT cars.FuelType, cars.Transmission, cars.ImageName, (SELECT BrandName FROM brands WHERE BrandID = cars.BrandID) AS Brand, (SELECT ModelName FROM models WHERE ModelID = cars.ModelID) AS Model, DATEDIFF(rentals.EndDate, rentals.StartDate) AS RentStats FROM cars INNER JOIN rentals ON rentals.CarID = cars.CarID WHERE UserID = '" . $_SESSION["UID"] . "' AND rentals.Status = 0 OR rentals.Status = 1 ORDER BY rentals.RentalID DESC;";
         
         try{
           $execGetBookingCar = mysqli_query($conn, $getBookingCar);
-          $rows = mysqli_fetch_assoc($execGetBookingCar);
-
-          echo "<img src='./images/cars/" . $rows["ImageName"] . "' height='180px' width='277px'>
-                  <p class='carBookingName'>" . $rows["Brand"] . "&nbsp;" . $rows["Model"] . "</p>
-                  <span>
-                      <img src='./images/icons/fuelType-icon.svg' height='14px' width='14px'><p>&nbsp;" . $rows["FuelType"] . "</p>
-                  </span>
-                  <span>
-                      <img src='./images/icons/transmission-icon.svg' height='14px' width='14px'><p>&nbsp;" . $rows["Transmission"] . "</p>
-                  </span>";
+          
+          if($rows = mysqli_fetch_assoc($execGetBookingCar)){
+            echo "<img src='./images/cars/" . $rows["ImageName"] . "' height='180px' width='277px'>
+                    <p class='carBookingName'>" . $rows["Brand"] . "&nbsp;" . $rows["Model"] . "</p>
+                    <span>
+                      <span>
+                          <img src='./images/icons/fuelType-icon.svg' height='14px' width='14px'><p>&nbsp;" . $rows["FuelType"] . "</p>
+                      </span>
+                      <span>
+                          <img src='./images/icons/transmission-icon.svg' height='14px' width='14px'><p>&nbsp;" . $rows["Transmission"] . "</p>
+                      </span>
+                      <span>
+                          <img src='./images/icons/availability-icon.svg' height='14px' width='14px'><p>&nbsp;"; echo $rows["RentStats"] >   0 ? "Upcoming" : "Ongoing"; echo "</p>
+                      </span>
+                    </span>";
+          }else{
+            echo "No Car Rent";
+          }
         }catch(mysqli_sql_exception){
           echo "Error";
         }
       }elseif($_POST["action"] == "getBookingPickUp"){
-        $getPickUp = "SELECT locations.Address, rentals.StartDate, (SELECT AmountPaid FROM payments WHERE payments.RentalID = rentals.RentalID) AS AmountPaid, (SELECT PaymentFrequency FROM payments WHERE payments.RentalID = rentals.RentalID) AS PaymentFrequency FROM rentals INNER JOIN locations ON rentals.PickUpLocationID = locations.LocationID WHERE rentals.UserID = '" . $_SESSION["UID"] . "' ORDER BY rentals.RentalID DESC;";
+        $getPickUp = "SELECT locations.Address, rentals.StartDate, (SELECT AmountPaid FROM payments WHERE payments.RentalID = rentals.RentalID) AS AmountPaid, (SELECT PaymentFrequency FROM payments WHERE payments.RentalID = rentals.RentalID) AS PaymentFrequency FROM rentals INNER JOIN locations ON rentals.PickUpLocationID = locations.LocationID WHERE rentals.UserID = '" . $_SESSION["UID"] . "' AND rentals.Status = 0 OR rentals.Status = 1 ORDER BY rentals.RentalID DESC;";
 
         try{
           $execGetPickUp = mysqli_query($conn, $getPickUp);
-          $rows = mysqli_fetch_assoc($execGetPickUp);
-
-          echo "<span>
-                  <span id='rentPickupLocation'>
-                      <p>Pick-Up Location</p>
-                      <p>" . $rows["Address"] . "</p>
-                  </span>
-                  <span id='rentStartTime'>
-                      <p>Pick-Up Time</p>
-                      <p>" . explode(" ", $rows["StartDate"])[1] . "</p>
-                  </span>
-                  <span id='rentStartDate'>
-                      <p>Pick-Up Date</p>
-                      <p>" . explode(" ", $rows["StartDate"])[0] . "</p>
-                  </span>
-                  <span id='rentAmountPaid'>
-                      <p>Amount Paid</p>
-                      <p>₱" . $rows["AmountPaid"] . "</p>
-                  </span>
-                  <span id='rentPaymentFrequency'>
-                      <p>Payment Frequency</p>
-                      <p>" . $rows["PaymentFrequency"] . "</p>
-                  </span>
-              </span>";
-        }catch(mysqli_sql_exception $e){
+          
+          if($rows = mysqli_fetch_assoc($execGetPickUp)){
+            echo "<span>
+                    <span id='rentPickupLocation'>
+                        <span>
+                          <p>Pick-Up Location</p>
+                          <p>" . $rows["Address"] . "</p>
+                        </span>
+                    </span>
+                    <span id='rentStartTime'>
+                        <span>
+                          <p>Pick-Up Time</p>
+                          <p>" . explode(" ", $rows["StartDate"])[1] . "</p>
+                        </span>
+                    </span>
+                    <span id='rentStartDate'>
+                        <span>
+                          <p>Pick-Up Date</p>
+                          <p>" . explode(" ", $rows["StartDate"])[0] . "</p>
+                        </span>
+                    </span>
+                    <span id='rentAmountPaid'>
+                        <span>
+                          <p>Amount Paid</p>
+                          <p>₱" . $rows["AmountPaid"] . "</p>
+                        </span>
+                    </span>
+                    <span id='rentPaymentFrequency'>
+                        <span>
+                          <p>Payment Frequency</p>
+                          <p>" . $rows["PaymentFrequency"] . "</p>
+                        </span>
+                    </span>
+                </span>";
+          }
+        }catch(mysqli_sql_exception){
           echo "Error";
-          echo $e;
+        }
+      }elseif($_POST["action"] == "getBookingDropOff"){
+        $getDropOff = "SELECT locations.Address, rentals.EndDate FROM rentals INNER JOIN locations ON locations.LocationID = rentals.DropOffLocationID WHERE rentals.Status = 0 OR rentals.Status = 1;";
+       
+        try{
+          $exeGetDropOff = mysqli_query($conn, $getDropOff);
+          
+          if($rows = mysqli_fetch_assoc($exeGetDropOff)){
+            echo "<span>
+                    <span id='rentDropOffLocation'>
+                        <span>
+                          <p>Drop-Off Location</p>
+                          <p>" . $rows["Address"] . "</p>
+                        </span>
+                    </span>
+                    <span id='rentEndTime'>
+                        <span>
+                          <p>Return Time</p>
+                          <p>" . explode(" ", $rows["EndDate"])[1] . "</p>
+                        </span>
+                    </span>
+                    <span id='returnDate'>
+                        <span>
+                          <p>Return Date</p>
+                          <p>" . explode(" ", $rows["EndDate"])[0] . "</p>
+                        </span>
+                    </span>
+                </span>";
+          }
+        }catch(mysqli_sql_exception){
+          echo "Error";
         }
       }
     }

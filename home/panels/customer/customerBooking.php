@@ -32,29 +32,27 @@
                     <img src='./images/cars/ford.png' height='180px' width='277px'>
                     <p class='carBookingName'>Ford</p>
                     <span>
-                        <img src='./images/icons/fuelType-icon.svg' height='14px' width='14px'><p id='carFueltype'>&nbsp;E</p>
-                    </span>
-                    <span>
-                        <img src='./images/icons/transmission-icon.svg' height='14px' width='14px'><p id='carTransmission'>&nbsp;E</p>
+                        <span>
+                            <img src='./images/icons/fuelType-icon.svg' height='14px' width='14px'><p id='carFueltype'>&nbsp;E</p>
+                        </span>
+                        <span>
+                            <img src='./images/icons/transmission-icon.svg' height='14px' width='14px'><p id='carTransmission'>&nbsp;E</p>
+                        </span>
                     </span>
                 </div>
                 <div class='bookingStatus' id='bookingDropOff'>
                     <span>
                         <span id='rentDropOffLocation'>
                             <p>Drop-Off Location</p>
-                            <p>8912 Balilihan, Cebu, Snshasigyc</p>
+                            <p></p>
                         </span>
                         <span id='rentEndTime'>
-                            <p>End Time</p>
-                            <p>09:00pm</p>
-                        </span>
-                        <span id='rentEndDate'>
-                            <p>End Date</p>
-                            <p>Jun 19, 2022</p>
+                            <p>Return Time</p>
+                            <p></p>
                         </span>
                         <span id='returnDate'>
                             <p>Return Date</p>
-                            <p>July 19, 2022</p>
+                            <p></p>
                         </span>
                     </span>
                 </div>
@@ -121,6 +119,19 @@
 
             }
         });
+
+        $.ajax({
+            type: "post",
+            url: "./queries/user/getBooking.php",
+            data: { action: 'getBookingDropOff' },
+            success: function(res){
+                console.log(res);
+                $("#bookingDropOff").html(res);
+            },
+            error: function(error){
+
+            }
+        });
     }
 
     getUserBookingHistory();
@@ -174,21 +185,36 @@
         border-radius: 5px;
     }
 
-    .bookingStatus > span{
+    .bookingStatus > span {
         display: flex;
         flex-direction: row;
         justify-content: space-evenly;
+        overflow-x: scroll;
     }
-
-    .bookingStatus > span > span > p:first-child{
+    
+    .bookingStatus > span > span > span > p {
+        text-wrap: nowrap;
+    }
+    
+    .bookingStatus > span > span > span > p:first-child{
         opacity: 0.8;
         font-size: 14px;
     }
 
+    .bookingStatus > span > span > span {
+        padding-inline: 20px;
+    }
+
+    
     .bookingStatus > span > span:not(:last-child){
         border-right: 1px solid #FDFFF6;
-        margin-right: 30px;
-        padding-right: 30px;
+    }
+    
+    .bookingStatus > span > span {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-grow: 1;
     }
 
     #rentCarInfo, #rentCarInfo > span {
@@ -197,10 +223,21 @@
         align-items: center;
         justify-content: center;
     }
-
+    
     #rentCarInfo {
         gap: 5px;
         flex-direction: column;
+    }
+    
+    #rentCarInfo > span {
+        flex-direction: column;
+    }
+
+    #rentCarInfo > span > span {
+        display: flex;
+        flex-direction: row;
+        align-self: flex-start;
+        align-items: center;
     }
 
     .bookingHistory > span {
