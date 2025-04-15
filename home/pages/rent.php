@@ -128,7 +128,7 @@
             
             startDate.min = minStartDate;
         }else{
-            document.querySelector(".homePage").style.display = "block";
+            document.querySelector(".homePageWrapper").style.display = "block";
             document.querySelector(".rentPage").style.display = "none";
         }
         const pickUpKm = document.getElementById("pickUpLocation").value;

@@ -4,43 +4,41 @@
         <span>
             <div class='currentBooking'>
                 <h4>Current Booking</h4>
-                <div class='bookingStatus'>
+                <div class='bookingStatus' id='bookingPickUp'>
                     <span>
                         <span id='rentPickupLocation'>
                             <p>Pick-Up Location</p>
-                            <p>8912 Balilihan, Cebu, Snshasigyc</p>
+                            <p></p>
                         </span>
                         <span id='rentStartTime'>
                             <p>Pick-Up Time</p>
-                            <p>09:00pm</p>
+                            <p></p>
                         </span>
                         <span id='rentStartDate'>
                             <p>Pick-Up Date</p>
-                            <p>Jun 19, 2022</p>
+                            <p></p>
                         </span>
                         <span id='rentAmountPaid'>
                             <p>Amount Paid</p>
-                            <p>$1290</p>
+                            <p></p>
                         </span>
                         <span id='rentPaymentFrequency'>
                             <p>Payment Frequency</p>
-                            <p>Daily</p>
+                            <p></p>
                         </span>
                     </span>
                 </div>
-                <div class='rentCarInfo'>
+                <div id='rentCarInfo'>
                     <img src='./images/cars/ford.png' height='180px' width='277px'>
+                    <p class='carBookingName'>Ford</p>
                     <span>
                         <img src='./images/icons/fuelType-icon.svg' height='14px' width='14px'><p id='carFueltype'>&nbsp;E</p>
                     </span>
                     <span>
                         <img src='./images/icons/transmission-icon.svg' height='14px' width='14px'><p id='carTransmission'>&nbsp;E</p>
                     </span>
-                    <span>
-                        <img src='./images/icons/availability-icon.svg' height='14px' width='14px'><p id='availabilityStatus'>&nbsp;E</p>
-                    </span>
                 </div>
-                <div class='bookingStatus'>
+                <div class='bookingStatus' id='bookingDropOff'>
                     <span>
                         <span id='rentDropOffLocation'>
                             <p>Drop-Off Location</p>
@@ -88,14 +86,39 @@
     function getUserBookingHistory(){
         $.ajax({
             type: "post",
-            url: "./queries/user/getBookingHistory.php",
-            data: {},
+            url: "./queries/user/getBooking.php",
+            data: { action: 'getCar' },
             success: function(res){
                 console.log(res)
+                $("#rentCarInfo").html(res);
+            },
+            error: function(error){
+
+            }
+        });
+
+        $.ajax({
+            type: "post",
+            url: "./queries/user/getBooking.php",
+            data: { action: 'getHistory' },
+            success: function(res){
                 $("#bookingHistoryRow").html(res);
             },
             error: function(error){
                 
+            }
+        });
+
+        $.ajax({
+            type: "post",
+            url: "./queries/user/getBooking.php",
+            data: { action: 'getBookingPickUp' },
+            success: function(res){
+                console.log(res);
+                $("#bookingPickUp").html(res);
+            },
+            error: function(error){
+
             }
         });
     }
@@ -137,6 +160,10 @@
         width: 80%;
     }
 
+    .carBookingName {
+        font-size: 20px;
+    }
+
     .bookingHistory {
         margin-top: 30px;
     }
@@ -164,15 +191,16 @@
         padding-right: 30px;
     }
 
-    .rentCarInfo, .rentCarInfo > span {
+    #rentCarInfo, #rentCarInfo > span {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
     }
 
-    .rentCarInfo {
+    #rentCarInfo {
         gap: 5px;
+        flex-direction: column;
     }
 
     .bookingHistory > span {

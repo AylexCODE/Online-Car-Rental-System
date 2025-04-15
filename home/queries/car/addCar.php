@@ -36,7 +36,7 @@
                 mysqli_query($conn, $query);
             }catch(mysqli_sql_exception){}
 
-            $query = "SELECT ModelID FROM models WHERE BrandID = '$brandID'";
+            $query = "SELECT ModelID FROM models WHERE BrandID = '$brandID' ORDER BY ModelID DESC";
             $execQuery = mysqli_query($conn, $query);
             $row = mysqli_fetch_assoc($execQuery);
             $modelID = $row["ModelID"];

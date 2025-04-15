@@ -63,6 +63,7 @@
                 <button>&#215;</button>
                 <p>Seems Like You Don't Have an Account</p>
                 <a href="../auth/signup.php">Sign Me Up!</a>
+                <a href="../auth/login.php">Log In!</a>
             </span>
         </span>
         <?php
@@ -109,7 +110,7 @@
                             <a href='../auth/signup.php'>Sign Up</a>
                         </span>
                     </nav>";
-                echo "<div class='homePage>
+                echo "<div class='homePage'>
                         <div class='guestBG'>
                             <span>
                                 <p>Fast & Affordable</p>
@@ -199,7 +200,7 @@
                     homeBtn.classList.add("active");
                     navIndicator.style.left = homeBtn.offsetLeft-4 +"px";
                     navIndicator.style.width = homeBtn.clientWidth+8 +"px";
-                    homePage.classList.add("active");
+                    homePage.style.display = "block";   
                     break;
                 case 2:
                     aboutBtn.classList.add("active");
@@ -490,7 +491,7 @@
         await $.ajax({
             type: 'post',
             url: './queries/car/checkCarAvailability.php',
-            data: { carID },
+            data: { carID: carID },
             success: function(res){
                 result = res;
             },
@@ -505,11 +506,11 @@
         await $.ajax({
             type: 'post',
             url: './queries/rent/addRent.php',
-            data: {carID: carId, pickUpLocation: pickUpLocation, dropOffLocation: dropOffLocation, startDateTime: startDateTime, endDateTime: endDateTime, paymentMethod: paymentMethod, paymentFrequency: paymentFrequency, amountPaid: amountPaid, voucher: voucher, UID: UID },
+            data: { carID: carId, pickUpLocation: pickUpLocation, dropOffLocation: dropOffLocation, startDateTime: startDateTime, endDateTime: endDateTime, paymentMethod: paymentMethod, paymentFrequency: paymentFrequency, amountPaid: amountPaid, voucher: voucher, UID: UID },
             success: function(res){
                 if(!res.includes("Error")){
                     $(".notif").html("<span class='success'>Car Booked</span>");
-                    document.querySelector(".homePage").style.display = "block";
+                    document.querySelector(".homePageWrapper").style.display = "block";
                     document.querySelector(".rentPage").style.display = "none";
                 }else{
                     $(".notif").html("<span class='error'>Something Went Wrong</span>");
