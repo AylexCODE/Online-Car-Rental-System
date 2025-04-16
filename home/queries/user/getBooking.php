@@ -26,7 +26,7 @@
           }
         }
       }elseif($_POST["action"] == "getCar"){
-        $getBookingCar = "SELECT cars.FuelType, cars.Transmission, cars.ImageName, (SELECT BrandName FROM brands WHERE BrandID = cars.BrandID) AS Brand, (SELECT ModelName FROM models WHERE ModelID = cars.ModelID) AS Model, DATEDIFF(rentals.EndDate, rentals.StartDate) AS RentStats FROM cars INNER JOIN rentals ON rentals.CarID = cars.CarID WHERE UserID = '" . $_SESSION["UID"] . "' AND rentals.Status = 0 OR rentals.Status = 1 ORDER BY rentals.RentalID DESC;";
+        $getBookingCar = "SELECT cars.FuelType, cars.Transmission, cars.ImageName, (SELECT BrandName FROM brands WHERE BrandID = cars.BrandID) AS Brand, (SELECT ModelName FROM models WHERE ModelID = cars.ModelID) AS Model, TIMESTAMPDIFF(MINUTE, NOW(), rentals.StartDate) AS RentStats FROM cars INNER JOIN rentals ON rentals.CarID = cars.CarID WHERE UserID = '" . $_SESSION["UID"] . "' AND rentals.Status = 0 OR rentals.Status = 1 ORDER BY rentals.RentalID DESC;";
         
         try{
           $execGetBookingCar = mysqli_query($conn, $getBookingCar);
@@ -48,8 +48,9 @@
           }else{
             echo "No Car Rent";
           }
-        }catch(mysqli_sql_exception){
+        }catch(mysqli_sql_exception $e){
           echo "Error";
+          echo $e;
         }
       }elseif($_POST["action"] == "getBookingPickUp"){
         $getPickUp = "SELECT locations.Address, rentals.StartDate, (SELECT AmountPaid FROM payments WHERE payments.RentalID = rentals.RentalID) AS AmountPaid, (SELECT PaymentFrequency FROM payments WHERE payments.RentalID = rentals.RentalID) AS PaymentFrequency FROM rentals INNER JOIN locations ON rentals.PickUpLocationID = locations.LocationID WHERE rentals.UserID = '" . $_SESSION["UID"] . "' AND rentals.Status = 0 OR rentals.Status = 1 ORDER BY rentals.RentalID DESC;";

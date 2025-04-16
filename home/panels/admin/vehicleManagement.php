@@ -146,6 +146,54 @@
     include_once("./queries/car/addCar.php");
 ?>
 
+<script type="text/javascript">
+    function setActiveManagementPane(name){
+        const popoverCover = document.querySelector(".popOverCover"); popoverCover.style.display = "block";
+        const popover = document.querySelector(".popOver"); popover.style.display = "grid";
+        const addCars = document.getElementById("addCars"); addCars.style.display = "none";
+        const addBrands = document.getElementById("addBrands"); addBrands.style.display = "none";
+        const addLocations = document.getElementById("addLocations"); addLocations.style.display = "none";
+        const editPane = document.getElementById("editPane"); editPane.style.display = "none";
+        const editPaneLocation = document.getElementById("editPaneLocation"); editPaneLocation.style.display = "none";
+        const deleteConfirmation = document.getElementById("deleteConfirmation"); deleteConfirmation.style.display = "none";
+        
+        document.querySelector(".addBrandErrorMsg").innerHTML = "";
+        document.querySelector(".addLocationErrorMsg").innerHTML = "";
+        document.querySelector(".addCarErrorMsg").innerHTML = "Accepted Image Ratio is 3:2";
+
+        document.getElementById("selectedBrand").setAttribute("value", "None");
+        document.getElementById("selectedBrand").innerHTML = "";
+
+        switch(name){
+            case "addCars":
+                document.querySelector(".addCarHeader").innerHTML = "New Vehicle";
+                addCars.style.display = "block";
+                break;
+            case "brands":
+            case "addBrands":
+                addBrands.style.display = "block";
+                break;
+            case "locations":
+            case "addLocations":
+                addLocations.style.display = "block";
+                break;
+            case "editPane":
+                editPane.style.display = "block";
+                break;
+            case "editPaneLocation":
+                editPaneLocation.style.display = "block";
+                break;
+            case "deleteConfirmation":
+                deleteConfirmation.style.display = "block";
+                break;
+            default:
+                popoverCover.style.display = "none";
+                popover.style.display = "none";
+
+        }
+    }
+</script>
+
 <style type="text/css">
     input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
         -webkit-appearance: none;

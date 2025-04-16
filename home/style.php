@@ -476,17 +476,17 @@
         padding: 15px 25px;
     }
 
-    .vehicleStatistics, .vehicleManagement, .userManagement {
+    .vehicleStatistics, .vehicleManagement, .userManagement, .rentals {
         display: none;
         color: #FDFFF6;
     }
-    .vehicleStatistics.active, .vehicleManagement.active, .userManagement.active {
+    .vehicleStatistics.active, .vehicleManagement.active, .userManagement.active, .rentals.active {
         display: flex;
         gap: 10px;
         flex-direction: column;
     }
 
-    .vehicleStatistics > h4, .vehicleManagement > h4, .userManagement > h4 {
+    .vehicleStatistics > h4, .vehicleManagement > h4, .userManagement > h4, .rentals > h4 {
         font-size: 24px;
         width: 100%;
         padding-bottom: 10px;

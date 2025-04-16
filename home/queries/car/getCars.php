@@ -3,7 +3,7 @@
     require_once("../../../database/db_conn.php");
 
     if(isset($_POST)){ // Rentals status 0 = pending; 1 = ongoing; 2 = completed; 3 = cancelled
-        $carsQuery = "SELECT car.CarID, (SELECT brands.BrandName from brands WHERE brands.BrandID = car.BrandID) AS BrandName, (SELECT models.ModelName from models WHERE models.ModelID = car.ModelID) AS Model, car.FuelType, car.Transmission, car.RentalPrice, (SELECT rentals.EndDate FROM rentals WHERE rentals.carID = car.carID AND rentals.status = 2 OR rentals.status = 3) RentalStatus, car.Availability, car.ImageName FROM cars car INNER JOIN brands ON car.BrandID = brands.BrandID";
+        $carsQuery = "SELECT car.CarID, (SELECT brands.BrandName from brands WHERE brands.BrandID = car.BrandID) AS BrandName, (SELECT models.ModelName from models WHERE models.ModelID = car.ModelID) AS Model, car.FuelType, car.Transmission, car.RentalPrice, (SELECT rentals.EndDate FROM rentals WHERE rentals.carID = car.carID) RentalStatus, car.Availability, car.ImageName FROM cars car INNER JOIN brands ON car.BrandID = brands.BrandID";
         // Image Dimensions height: 180px | width: 277.5px;
         try{
             $execQuery = mysqli_query($conn, $carsQuery);

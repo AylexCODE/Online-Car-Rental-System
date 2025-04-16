@@ -152,8 +152,8 @@
     const aboutPage = document.querySelector(".aboutPage");
     const contactPage = document.querySelector(".contactPage");
 
-    let overviewBtn, vehiclesBtn, bookingsBtn, usersBtn, ticketsBtn, logsBtn, adminNavIndicator;
-    let moreVehicleSettings, vehicleStatistics, vehicleManagement, userManagement;
+    // let overviewBtn, vehiclesBtn, bookingsBtn, usersBtn, ticketsBtn, logsBtn, adminNavIndicator;
+    // let moreVehicleSettings, vehicleStatistics, vehicleManagement, userManagement;
 
     function setActiveBtn(index){
         homeBtn.classList.remove("active");
@@ -225,117 +225,117 @@
         document.getElementById("mFilter").value = "";
     }
 
-    function setActiveBtnAdmin(index){
-        overviewBtn.classList.remove("active");
-        vehiclesBtn.classList.remove("active");
-        bookingsBtn.classList.remove("active");
-        usersBtn.classList.remove("active");
-        ticketsBtn.classList.remove("active");
-        logsBtn.classList.remove("active");
+    // function setActiveBtnAdmin(index){
+    //     overviewBtn.classList.remove("active");
+    //     vehiclesBtn.classList.remove("active");
+    //     bookingsBtn.classList.remove("active");
+    //     usersBtn.classList.remove("active");
+    //     ticketsBtn.classList.remove("active");
+    //     logsBtn.classList.remove("active");
 
-        moreVehicleSettings.classList.remove('open');
-        vehicleStatistics.classList.remove("active");
-        vehicleManagement.classList.remove("active");
-        userManagement.classList.remove("active");
+    //     moreVehicleSettings.classList.remove('open');
+    //     vehicleStatistics.classList.remove("active");
+    //     vehicleManagement.classList.remove("active");
+    //     userManagement.classList.remove("active");
 
-        switch(index){
-            case 1:
-                adminNavIndicator.style.top = overviewBtn.offsetTop-5 +"px";
-                overviewBtn.classList.add("active");
-                adminNavIndicator.style.width = overviewBtn.offsetWidth+20 +"px";
-                break;
-            case 2:
-                moreVehicleSettings.classList.add('open');
-                vehicleStatistics.classList.add("active");
+    //     switch(index){
+    //         case 1:
+    //             adminNavIndicator.style.top = overviewBtn.offsetTop-5 +"px";
+    //             overviewBtn.classList.add("active");
+    //             adminNavIndicator.style.width = overviewBtn.offsetWidth+20 +"px";
+    //             break;
+    //         case 2:
+    //             moreVehicleSettings.classList.add('open');
+    //             vehicleStatistics.classList.add("active");
 
-                adminNavIndicator.style.top = vehiclesBtn.offsetTop-5 +"px";
-                vehiclesBtn.classList.add("active");
-                adminNavIndicator.style.width = vehiclesBtn.offsetWidth+20 +"px";
-                break;
-            case 3:
-                adminNavIndicator.style.top = bookingsBtn.offsetTop-5 +"px";
-                bookingsBtn.classList.add("active");
-                adminNavIndicator.style.width = bookingsBtn.offsetWidth+20 +"px";
-                break;
-            case 4:
-                userManagement.classList.add("active");
+    //             adminNavIndicator.style.top = vehiclesBtn.offsetTop-5 +"px";
+    //             vehiclesBtn.classList.add("active");
+    //             adminNavIndicator.style.width = vehiclesBtn.offsetWidth+20 +"px";
+    //             break;
+    //         case 3:
+    //             adminNavIndicator.style.top = bookingsBtn.offsetTop-5 +"px";
+    //             bookingsBtn.classList.add("active");
+    //             adminNavIndicator.style.width = bookingsBtn.offsetWidth+20 +"px";
+    //             break;
+    //         case 4:
+    //             userManagement.classList.add("active");
                 
-                adminNavIndicator.style.top = usersBtn.offsetTop-5 +"px";
-                usersBtn.classList.add("active");
-                adminNavIndicator.style.width = usersBtn.offsetWidth+20 +"px";
-                break;
-            case 5:
-                adminNavIndicator.style.top = ticketsBtn.offsetTop-5 +"px";
-                ticketsBtn.classList.add("active");
-                adminNavIndicator.style.width = ticketsBtn.offsetWidth+20 +"px";
-                break;
-            case 6:
-                adminNavIndicator.style.top = logsBtn.offsetTop-5 +"px";
-                logsBtn.classList.add("active");
-                adminNavIndicator.style.width = logsBtn.offsetWidth+20 +"px";
-                break;
-        }
-    }
+    //             adminNavIndicator.style.top = usersBtn.offsetTop-5 +"px";
+    //             usersBtn.classList.add("active");
+    //             adminNavIndicator.style.width = usersBtn.offsetWidth+20 +"px";
+    //             break;
+    //         case 5:
+    //             adminNavIndicator.style.top = ticketsBtn.offsetTop-5 +"px";
+    //             ticketsBtn.classList.add("active");
+    //             adminNavIndicator.style.width = ticketsBtn.offsetWidth+20 +"px";
+    //             break;
+    //         case 6:
+    //             adminNavIndicator.style.top = logsBtn.offsetTop-5 +"px";
+    //             logsBtn.classList.add("active");
+    //             adminNavIndicator.style.width = logsBtn.offsetWidth+20 +"px";
+    //             break;
+    //     }
+    // }
 
-    function setActiveAdminSettings(name){
-        vehicleStatistics.classList.remove("active");
-        vehicleManagement.classList.remove("active");
+    // function setActiveAdminSettings(name){
+    //     vehicleStatistics.classList.remove("active");
+    //     vehicleManagement.classList.remove("active");
 
-        switch(name){
-            case "vehicleStatistics":
-                vehicleStatistics.classList.add("active");
-                break;
-            case "vehicleManagement":
-                vehicleManagement.classList.add("active");
-                break;
-        }
-    }
+    //     switch(name){
+    //         case "vehicleStatistics":
+    //             vehicleStatistics.classList.add("active");
+    //             break;
+    //         case "vehicleManagement":
+    //             vehicleManagement.classList.add("active");
+    //             break;
+    //     }
+    // }
 
-    function setActiveManagementPane(name){
-        const popoverCover = document.querySelector(".popOverCover"); popoverCover.style.display = "block";
-        const popover = document.querySelector(".popOver"); popover.style.display = "grid";
-        const addCars = document.getElementById("addCars"); addCars.style.display = "none";
-        const addBrands = document.getElementById("addBrands"); addBrands.style.display = "none";
-        const addLocations = document.getElementById("addLocations"); addLocations.style.display = "none";
-        const editPane = document.getElementById("editPane"); editPane.style.display = "none";
-        const editPaneLocation = document.getElementById("editPaneLocation"); editPaneLocation.style.display = "none";
-        const deleteConfirmation = document.getElementById("deleteConfirmation"); deleteConfirmation.style.display = "none";
+    // function setActiveManagementPane(name){
+    //     const popoverCover = document.querySelector(".popOverCover"); popoverCover.style.display = "block";
+    //     const popover = document.querySelector(".popOver"); popover.style.display = "grid";
+    //     const addCars = document.getElementById("addCars"); addCars.style.display = "none";
+    //     const addBrands = document.getElementById("addBrands"); addBrands.style.display = "none";
+    //     const addLocations = document.getElementById("addLocations"); addLocations.style.display = "none";
+    //     const editPane = document.getElementById("editPane"); editPane.style.display = "none";
+    //     const editPaneLocation = document.getElementById("editPaneLocation"); editPaneLocation.style.display = "none";
+    //     const deleteConfirmation = document.getElementById("deleteConfirmation"); deleteConfirmation.style.display = "none";
         
-        document.querySelector(".addBrandErrorMsg").innerHTML = "";
-        document.querySelector(".addLocationErrorMsg").innerHTML = "";
-        document.querySelector(".addCarErrorMsg").innerHTML = "Accepted Image Ratio is 3:2";
+    //     document.querySelector(".addBrandErrorMsg").innerHTML = "";
+    //     document.querySelector(".addLocationErrorMsg").innerHTML = "";
+    //     document.querySelector(".addCarErrorMsg").innerHTML = "Accepted Image Ratio is 3:2";
 
-        document.getElementById("selectedBrand").setAttribute("value", "None");
-        document.getElementById("selectedBrand").innerHTML = "";
+    //     document.getElementById("selectedBrand").setAttribute("value", "None");
+    //     document.getElementById("selectedBrand").innerHTML = "";
 
-        switch(name){
-            case "addCars":
-                document.querySelector(".addCarHeader").innerHTML = "New Vehicle";
-                addCars.style.display = "block";
-                break;
-            case "brands":
-            case "addBrands":
-                addBrands.style.display = "block";
-                break;
-            case "locations":
-            case "addLocations":
-                addLocations.style.display = "block";
-                break;
-            case "editPane":
-                editPane.style.display = "block";
-                break;
-            case "editPaneLocation":
-                editPaneLocation.style.display = "block";
-                break;
-            case "deleteConfirmation":
-                deleteConfirmation.style.display = "block";
-                break;
-            default:
-                popoverCover.style.display = "none";
-                popover.style.display = "none";
+    //     switch(name){
+    //         case "addCars":
+    //             document.querySelector(".addCarHeader").innerHTML = "New Vehicle";
+    //             addCars.style.display = "block";
+    //             break;
+    //         case "brands":
+    //         case "addBrands":
+    //             addBrands.style.display = "block";
+    //             break;
+    //         case "locations":
+    //         case "addLocations":
+    //             addLocations.style.display = "block";
+    //             break;
+    //         case "editPane":
+    //             editPane.style.display = "block";
+    //             break;
+    //         case "editPaneLocation":
+    //             editPaneLocation.style.display = "block";
+    //             break;
+    //         case "deleteConfirmation":
+    //             deleteConfirmation.style.display = "block";
+    //             break;
+    //         default:
+    //             popoverCover.style.display = "none";
+    //             popover.style.display = "none";
 
-        }
-    }
+    //     }
+    // }
 
     let carImage = false;
     function submitAddCar(event){
@@ -426,25 +426,25 @@
         }
 
         
-        if(document.querySelector(".adminNav")){
-            overviewBtn = document.getElementById('overviewBtn');
-            vehiclesBtn = document.getElementById('vehiclesBtn');
-            bookingsBtn = document.getElementById('bookingsBtn');
-            usersBtn = document.getElementById('usersBtn');
-            ticketsBtn = document.getElementById('ticketsBtn');
-            logsBtn = document.getElementById('logsBtn');
-            adminNavIndicator = document.querySelector('.adminNavIndicator');
+        // if(document.querySelector(".adminNav")){
+        //     overviewBtn = document.getElementById('overviewBtn');
+        //     vehiclesBtn = document.getElementById('vehiclesBtn');
+        //     bookingsBtn = document.getElementById('bookingsBtn');
+        //     usersBtn = document.getElementById('usersBtn');
+        //     ticketsBtn = document.getElementById('ticketsBtn');
+        //     logsBtn = document.getElementById('logsBtn');
+        //     adminNavIndicator = document.querySelector('.adminNavIndicator');
 
-            moreVehicleSettings = document.querySelector('.moreVehicleSettings');
-            vehicleStatistics = document.querySelector('.vehicleStatistics');
-            vehicleManagement = document.querySelector('.vehicleManagement');
-            userManagement = document.querySelector('.userManagement');
+        //     moreVehicleSettings = document.querySelector('.moreVehicleSettings');
+        //     vehicleStatistics = document.querySelector('.vehicleStatistics');
+        //     vehicleManagement = document.querySelector('.vehicleManagement');
+        //     userManagement = document.querySelector('.userManagement');
 
-            adminNavIndicator.style.height = overviewBtn.offsetHeight+10 +"px";
-            adminNavIndicator.style.width = overviewBtn.offsetWidth+20 +"px";
-            adminNavIndicator.style.left = overviewBtn.offsetLeft-5 +"px";
-            adminNavIndicator.style.top = overviewBtn.offsetTop-5 +"px";
-        }
+        //     adminNavIndicator.style.height = overviewBtn.offsetHeight+10 +"px";
+        //     adminNavIndicator.style.width = overviewBtn.offsetWidth+20 +"px";
+        //     adminNavIndicator.style.left = overviewBtn.offsetLeft-5 +"px";
+        //     adminNavIndicator.style.top = overviewBtn.offsetTop-5 +"px";
+        // }
 
         if(document.getElementById("priceDay")){
             document.getElementById("priceDay").oninput = (event) => { document.getElementById("priceDay").value.length == 0 ? document.getElementById("priceDay").value = "₱" : "" }
@@ -482,7 +482,7 @@
 
     window.onresize = () => {
         if(document.querySelector(".guestBG")) setActiveBtn(activeNav);
-        if(document.querySelector(".adminNav")) { adminNavIndicator.style.left = overviewBtn.offsetLeft-5 +"px";  adminNavIndicator.style.top = overviewBtn.offsetTop-5 +"px"; }
+        if(document.querySelector(".adminNav")) { adminNavIndicator.style.left = overviewBtn.offsetLeft-5 +"px"; if(activeAdminNav == 1){adminNavIndicator.style.top = overviewBtn.offsetTop-5 +"px";}else if(activeAdminNav == 2){adminNavIndicator.style.top = vehiclesBtn.offsetTop-5 +"px";}else if(activeAdminNav == 3){adminNavIndicator.style.top = bookingsBtn.offsetTop-5 +"px";}else if(activeAdminNav == 4){adminNavIndicator.style.top = usersBtn.offsetTop-5 +"px";}else if(activeAdminNav == 5){adminNavIndicator.style.top = ticketsBtn.offsetTop-5 +"px";}else if(activeAdminNav == 6){adminNavIndicator.style.top = logsBtn.offsetTop-5 +"px";} }
     }
 </script>
 <script type="text/javascript">
