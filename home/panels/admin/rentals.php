@@ -16,34 +16,21 @@
                             <th>Status</th>
                             </tr>
                             <tr class='activeRentalsFilter'>
-                                <td><input type='number'></td>
-                                <td><input type='search'></td>
-                                <td><input type='search'></td>
-                                <td><input type='search'></td>
-                                <td><input type='search'></td>
+                                <td><input type='number' id='activeFilterRentalID'></td>
+                                <td><input type='search' id='activeFilterUser'></td>
+                                <td><input type='search' id='activeFilterCar'></td>
+                                <td><input type='search' id='activeFilterPickD'></td>
+                                <td><input type='search' id='activeFilterDropD'></td>
                                 <td>
-                                    <select>
-                                        <option>Accepted</option>
+                                    <select id='activeFilterStatus'>
+                                        <option>Pending</option>
+                                        <option>Confirmed</option>
                                         <option>Declined</option>
                                     </select>
                                 </td>
                             </tr>
                         </thead>
-                        <tbody>";
-                        $i = 0;
-                        while($i < 20){
-                            echo "<tr>
-                            <td>$i</td>
-                            <td>LEY LEY LEYL YEYAHASKJ</td>
-                            <td>FORD SUPRA TOYOA</td>
-                            <td>2025-12-12 12:12:12</td>
-                            <td>2025-12-12 12:12:12</td>
-                            <td>Accepted</td>
-                            </tr>";
-                            $i++;
-                        }
-
-                        echo "</tbody>
+                        <tbody id='activeRentals'></tbody>
                         </tr>
                     </table>
                 </span>
@@ -71,25 +58,12 @@
                                     <select>
                                         <option>Completed</option>
                                         <option>Cancelled</option>
+                                        <option>Declined</option>
                                     </select>
                                 </td>
                             </tr>
                         </thead>
-                        <tbody>";
-                        $i = 0;
-                        while($i < 20){
-                            echo "<tr>
-                            <td>$i</td>
-                            <td>LEY LEY LEYL YEYAHASKJ</td>
-                            <td>FORD SUPRA TOYOA</td>
-                            <td>2025-12-12 12:12:12</td>
-                            <td>2025-12-12 12:12:12</td>
-                            <td>Accepted</td>
-                            </tr>";
-                            $i++;
-                        }
-
-                        echo "</tbody>
+                        <tbody id='rentalHistory'></tbody>
                         </tr>
                     </table>
                 </span>
@@ -97,6 +71,61 @@
         </span>
     </div>";
 ?>
+
+<script type="text/javascript">
+    const activeFilterRentalID = document.getElementById("activeFilterRentalID");
+    const activeFilterUser = document.getElementById("activeFilterUser");
+    const activeFilterCar = document.getElementById("activeFilterCar");
+    const activeFilterPickD = document.getElementById("activeFilterPickD");
+    const activeFilterDropD = document.getElementById("activeFilterDropD");
+    const activeFilterStatus = document.getElementById("activeFilterStatus");
+
+    function getActiveRentals(){
+        $.ajax({
+            type: 'post',
+            url: './queries/rent/getRentals.php',
+            data: { type: 'active', rentalID: activeFilterRentalID.value, user: activeFilterUser.value, car: activeFilterCar.value, pickUpDate: activeFilterPickD.value, dropOffDate: activeFilterDropD.value, status: activeFilterStatus.value },
+            success: function(res){
+                $("#activeRentals").html(res);
+            },
+            error: function(error){
+                console.log(error)
+            }
+        });
+    }
+    
+    function getRentalsHistory(){
+        $.ajax({
+            type: 'post',
+            url: './queries/rent/getRentals.php',
+            data: { type: 'history', rentalID: activeFilterRentalID.value, user: activeFilterUser.value, car: activeFilterCar.value, pickUpDate: activeFilterPickD.value, dropOffDate: activeFilterDropD.value, status: activeFilterStatus.value },
+            success: function(res){
+                $("#rentalHistory").html(res);
+            },
+            error: function(error){
+                console.log(error)
+            }
+        });
+    }
+
+    function activeRentAction(action, rentID, carID){
+        $.ajax({
+            type: 'post',
+            url: './queries/rent/activeRentAction.php',
+            data: { action: action, rentID: rentID, carID: carID },
+            success: function(res){
+                getActiveRentals();
+                getRentalsHistory();
+            },
+            error: function(error){
+                console.log(error);
+            }
+        });
+    }
+
+    getActiveRentals();
+    getRentalsHistory();
+</script>
 
 <style type="text/css">
     .rentals {
@@ -121,6 +150,7 @@
         display: block;
         height: 100%;
         scroll-snap-align: start;
+        margin-bottom: 20px;
     }
 
     .rentals > span > span > p {
@@ -202,9 +232,13 @@
 
     .rentals > span > span > span > table td {
         border: 1px 0px 1px 0px solid #FDFFF650;
-        padding: 20px 10px;
+        padding: 10px 10px;
         text-align: left;
         overflow-x: scroll;
+    }
+
+    .rentals > span > span:nth-child(2) > span > table td {
+        padding: 20px 10px;
     }
 
     .rentals > span > span > span > table tr:nth-child(odd){
@@ -234,5 +268,25 @@
     input[type="number"] {
         -moz-appearance: textfield;
         appearance: textfield;
+    }
+
+    .activeRentalstatusAction {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    .activeRentalstatusAction > button {
+        padding: 5px 2.5px;
+        outline: none;
+        border: 1px solid #076d0d;
+        border-radius: 5px;
+        background-color: #00b809;
+        color: #FDFFF6;
+    }
+
+    .activeRentalstatusAction > button:last-child {
+        border-color: #b10303;
+        background-color: #ff2323;
     }
 </style>
