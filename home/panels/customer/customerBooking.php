@@ -1,8 +1,8 @@
 <?php
     echo "<div class='myBooking'>
-        <span style='display: block; height: 40px; width: 100%;'></span>
         <span>
             <div class='currentBooking'>
+                <span style='display: block; height: 40px; width: 100%;'></span>
                 <h4>Current Booking</h4>
                 <div class='bookingStatus' id='bookingPickUp'>
                     <span>
@@ -87,7 +87,6 @@
             url: "./queries/user/getBooking.php",
             data: { action: 'getCar' },
             success: function(res){
-                console.log(res)
                 $("#rentCarInfo").html(res);
             },
             error: function(error){
@@ -112,7 +111,6 @@
             url: "./queries/user/getBooking.php",
             data: { action: 'getBookingPickUp' },
             success: function(res){
-                console.log(res);
                 $("#bookingPickUp").html(res);
             },
             error: function(error){
@@ -125,8 +123,35 @@
             url: "./queries/user/getBooking.php",
             data: { action: 'getBookingDropOff' },
             success: function(res){
-                console.log(res);
                 $("#bookingDropOff").html(res);
+            },
+            error: function(error){
+
+            }
+        });
+    }
+
+    function retrieveBookedCar(rentalID){
+        $.ajax({
+            type: "post",
+            url: "./queries/rent/retrieveBookedCar.php",
+            data: { RentalID: rentalID },
+            success: function(res){
+                getUserBookingHistory();
+            },
+            error: function(error){
+
+            }
+        });
+    }
+
+    function returnBookedCar(rentalID, carID){
+        $.ajax({
+            type: "post",
+            url: "./queries/rent/returnBookedCar.php",
+            data: { RentalID: rentalID, CarID: carID },
+            success: function(res){
+                getUserBookingHistory();
             },
             error: function(error){
 
@@ -149,14 +174,14 @@
         background-color: #316C40;
         display: none;
         color: #FDFFF6;
-        overflow-y: scroll;
+        overflow: hidden;
     }
 
     .myBooking > span {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-bottom: 20px;
+        overflow: hidden;
     }
 
     .myBooking h4 {
@@ -176,7 +201,7 @@
     }
 
     .bookingHistory {
-        margin-top: 30px;
+        margin-block: 25px;
     }
 
     .bookingStatus {
@@ -277,5 +302,58 @@
 
     .bookingHistory > span > table tr:hover{
         background-color: #499e5e;
+    }
+
+    .bookingWaitApproval, .bookingCancelled {
+        background-color: #E2F87B;
+        padding-inline: 5px;
+        border-radius: 5px;
+        color: #316C40;
+        padding-bottom: 1.5px;
+    }
+    
+    .bookingCancelled {
+        color: #E2F87B;
+        background-color: #ff5757;
+    }
+
+    .bookingWaitApproval svg, .bookingCancelled svg {
+        height: 14px;
+        width: 14px;
+    }
+
+    .bookingActions {
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+    }
+
+    .bookingActions > button {
+        padding: 5px 10px;
+        outline: none;
+        border: 1px solid #E2F87B;
+        background-color: #38814a;
+        color: #FDFFF6;
+        border-radius: 5px;
+    }
+
+    .bookingActions > button[disabled]{
+        opacity: 0.8;
+    }
+
+    .bookingActions > button:last-child {
+        background-color: #E2F87B;
+        color: #295234;
+    }
+
+    .myBooking > span:nth-child(1){
+        overflow-y: scroll;
+        scroll-behavior: smooth;
+        scroll-snap-type: y mandatory;
+        height: 100%;
+    }
+
+    .myBooking > span:nth-child(1) > div{
+        scroll-snap-align: start;
     }
 </style>

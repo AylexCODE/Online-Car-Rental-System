@@ -26,6 +26,7 @@
                                         <option value=''>All</option>
                                         <option value='0'>Pending</option>
                                         <option value='1'>Confirmed</option>
+                                        <option value='2'>Ongoing</option>
                                     </select>
                                 </td>
                             </tr>
@@ -108,7 +109,6 @@
             url: './queries/rent/getRentals.php',
             data: { type: 'history', rentalID: historyFilterRentalID.value, user: historyFilterUser.value, car: historyFilterCar.value, pickUpDate: historyFilterPickD.value, dropOffDate: historyFilterDropD.value, status: historyFilterStatus.value },
             success: function(res){
-                console.log(res)
                 $("#rentalHistory").html(res);
             },
             error: function(error){
@@ -230,6 +230,10 @@
         background-image: url("./images/icons/x-icon.svg");
         background-repeat: no-repeat;
         background-size: contain;
+    }
+
+    .rentals > span > span > span > table input::-webkit-calendar-picker-indicator {
+        filter: invert();
     }
 
     .rentals > span > span > span > table select {
