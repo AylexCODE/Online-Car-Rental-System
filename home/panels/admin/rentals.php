@@ -16,16 +16,16 @@
                             <th>Status</th>
                             </tr>
                             <tr class='activeRentalsFilter'>
-                                <td><input type='number' id='activeFilterRentalID'></td>
-                                <td><input type='search' id='activeFilterUser'></td>
-                                <td><input type='search' id='activeFilterCar'></td>
-                                <td><input type='search' id='activeFilterPickD'></td>
-                                <td><input type='search' id='activeFilterDropD'></td>
+                                <td><input type='number' id='activeFilterRentalID' oninput='getActiveRentals();'></td>
+                                <td><input type='search' id='activeFilterUser' oninput='getActiveRentals();'></td>
+                                <td><input type='search' id='activeFilterCar' oninput='getActiveRentals();'></td>
+                                <td><input type='date' id='activeFilterPickD' oninput='getActiveRentals();'></td>
+                                <td><input type='date' id='activeFilterDropD' onchange='getActiveRentals();'></td>
                                 <td>
-                                    <select id='activeFilterStatus'>
-                                        <option>Pending</option>
-                                        <option>Confirmed</option>
-                                        <option>Declined</option>
+                                    <select id='activeFilterStatus' onchange='getActiveRentals();'>
+                                        <option value=''>All</option>
+                                        <option value='0'>Pending</option>
+                                        <option value='1'>Confirmed</option>
                                     </select>
                                 </td>
                             </tr>
@@ -49,16 +49,17 @@
                             <th>Status</th>
                             </tr>
                             <tr class='activeRentalsFilter'>
-                                <td><input type='number'></td>
-                                <td><input type='search'></td>
-                                <td><input type='search'></td>
-                                <td><input type='search'></td>
-                                <td><input type='search'></td>
+                                <td><input type='number' id='historyFilterRentalID' oninput='getRentalsHistory();'></td>
+                                <td><input type='search' list='usersList' id='historyFilterUser' oninput='getRentalsHistory();'></td>
+                                <td><input type='search' id='historyFilterCar' oninput='getRentalsHistory();'></td>
+                                <td><input type='date' id='historyFilterPickD' oninput='getRentalsHistory();'></td>
+                                <td><input type='date' id='historyFilterDropD' onchange='getRentalsHistory();'></td>
                                 <td>
-                                    <select>
-                                        <option>Completed</option>
-                                        <option>Cancelled</option>
-                                        <option>Declined</option>
+                                    <select id='historyFilterStatus' onchange='getRentalsHistory();'>
+                                        <option value=''>All</option>
+                                        <option value='3'>Completed</option>
+                                        <option value='4'>Cancelled</option>
+                                        <option value='5'>Declined</option>
                                     </select>
                                 </td>
                             </tr>
@@ -80,6 +81,13 @@
     const activeFilterDropD = document.getElementById("activeFilterDropD");
     const activeFilterStatus = document.getElementById("activeFilterStatus");
 
+    const historyFilterRentalID = document.getElementById("historyFilterRentalID");
+    const historyFilterUser = document.getElementById("historyFilterUser");
+    const historyFilterCar = document.getElementById("historyFilterCar");
+    const historyFilterPickD = document.getElementById("historyFilterPickD");
+    const historyFilterDropD = document.getElementById("historyFilterDropD");
+    const historyFilterStatus = document.getElementById("historyFilterStatus");
+
     function getActiveRentals(){
         $.ajax({
             type: 'post',
@@ -98,8 +106,9 @@
         $.ajax({
             type: 'post',
             url: './queries/rent/getRentals.php',
-            data: { type: 'history', rentalID: activeFilterRentalID.value, user: activeFilterUser.value, car: activeFilterCar.value, pickUpDate: activeFilterPickD.value, dropOffDate: activeFilterDropD.value, status: activeFilterStatus.value },
+            data: { type: 'history', rentalID: historyFilterRentalID.value, user: historyFilterUser.value, car: historyFilterCar.value, pickUpDate: historyFilterPickD.value, dropOffDate: historyFilterDropD.value, status: historyFilterStatus.value },
             success: function(res){
+                console.log(res)
                 $("#rentalHistory").html(res);
             },
             error: function(error){
