@@ -17,10 +17,10 @@
                             </tr>
                             <tr class='activeRentalsFilter'>
                                 <td><input type='number'></td>
-                                <td><input type='text'></td>
-                                <td><input type='text'></td>
-                                <td><input type='text'></td>
-                                <td><input type='text'></td>
+                                <td><input type='search'></td>
+                                <td><input type='search'></td>
+                                <td><input type='search'></td>
+                                <td><input type='search'></td>
                                 <td>
                                     <select>
                                         <option>Accepted</option>
@@ -63,14 +63,14 @@
                             </tr>
                             <tr class='activeRentalsFilter'>
                                 <td><input type='number'></td>
-                                <td><input type='text'></td>
-                                <td><input type='text'></td>
-                                <td><input type='text'></td>
-                                <td><input type='text'></td>
+                                <td><input type='search'></td>
+                                <td><input type='search'></td>
+                                <td><input type='search'></td>
+                                <td><input type='search'></td>
                                 <td>
                                     <select>
-                                        <option>Accepted</option>
-                                        <option>Declined</option>
+                                        <option>Completed</option>
+                                        <option>Cancelled</option>
                                     </select>
                                 </td>
                             </tr>
@@ -129,11 +129,12 @@
     }
 
     .rentals > span > span > span > table {
-        border-collapse: collapse;
+        border-collapse: separate;
         width: 100%;
         background-color: #316C40;
         color: #FDFFF6;
         text-wrap: nowrap;
+        border-spacing: 0;
     }
 
     .rentals > span > span > span {
@@ -159,11 +160,11 @@
         width: 90px;
     }
     
-    /* .rentals > span > span > table th:is(:last-child){
-        border-radius: 0px 5px 0px 0px;
+    .rentals > span > span > span > table th:is(:last-child){
+        width: 110px;
     }
 
-    .rentals > span > span > table th:not(:first-child, :last-child){
+    /* .rentals > span > span > table th:not(:first-child, :last-child){
         border-radius: 0px;
         border: 1px solid #FDFFF650;
         border-top: none;
@@ -174,14 +175,28 @@
         outline: none;
         border: 1px solid #FDFFF6;
         /* margin-block: 10px; */
-        background-color: #316C40;
+        background-color: #295234;
         padding: 0px 10px;
         height: 40px;
         border-radius: 5px;
         color: #FDFFF6;
     }
 
+    .rentals > span > span > span > table input::-webkit-search-cancel-button {
+        color: #FDFFF6;
+        -webkit-appearance: none;
+        appearance: none;
+        height: 12px;
+        width: 15px;
+        background-image: url("./images/icons/x-icon.svg");
+        background-repeat: no-repeat;
+        background-size: contain;
+    }
+
     .rentals > span > span > span > table select {
+        -wekbit-appearance: none;
+        appearance: none;
+        text-align: center;
         padding: 5px 0px;
     }
 
@@ -207,7 +222,7 @@
     .activeRentalsFilter {
         position: sticky;
         top: 59px;
-        background-color: #38814a;
+        background-color: #295234;
         height: 20px;
     }
 
