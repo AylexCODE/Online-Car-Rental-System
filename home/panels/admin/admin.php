@@ -19,10 +19,16 @@
             <button onclick='setActiveBtnAdmin(4)' id='usersBtn'><img src='./images/icons/user-icon.svg' height='16px' width='16px'>Users</button>
             <span></span>
 
-            <button onclick='setActiveBtnAdmin(5)' id='ticketsBtn'><img src='./images/icons/ticket-icon.svg' height='16px' width='16px'>Tickets</button>
+            <button onclick='setActiveBtnAdmin(5)' id='usersBtn'><img src='./images/icons/user-icon.svg' height='16px' width='16px'>Payments</button>
             <span></span>
 
-            <button onclick='setActiveBtnAdmin(6)' id='logsBtn'><img src='./images/icons/logs-icon.svg' height='16px' width='16px'>Logs</button>
+            <button onclick='setActiveBtnAdmin(6)' id='usersBtn'><img src='./images/icons/user-icon.svg' height='16px' width='16px'>Vouchers</button>
+            <span></span>
+            
+            <button onclick='setActiveBtnAdmin(7)' id='ticketsBtn'><img src='./images/icons/ticket-icon.svg' height='16px' width='16px'>Tickets</button>
+            <span></span>
+
+            <button onclick='setActiveBtnAdmin(8)' id='logsBtn'><img src='./images/icons/logs-icon.svg' height='16px' width='16px'>Logs</button>
         </span>
         <span>
             <a href='../auth/logout.php'><img src='./images/icons/logout-icon.svg' height='16px' width='16px'>Log out</a>
