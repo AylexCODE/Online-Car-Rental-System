@@ -6,7 +6,7 @@
     // Rentals status 0 = pending; 1 = confirmed; 2 = ongoing; 3 = completed; 4 = cancelled; 5 = declined
     if(isset($_GET)){
       if($_POST["action"] == "getHistory"){
-        $getBookingHistoryQuery = "SELECT (SELECT (SELECT BrandName FROM brands WHERE BrandID = cars.BrandID) AS Brand FROM cars WHERE CarID = rental.CarID) AS Brand, (SELECT (SELECT ModelName FROM models where ModelID = cars.ModelID) AS Model FROM cars WHERE CarID = rental.CarID) AS Model, rental.StartDate, rental.EndDate, rental.Status, DATEDIFF(rental.EndDate, rental.StartDate) AS Duration, payment.AmountPaid, payment.PaymentFrequency, rental.status FROM rentals rental INNER JOIN payments payment ON rental.RentalID = payment.RentalID WHERE UserID = '" . $_SESSION["UID"] . "' ORDER BY rental.RentalID DESC;";
+        $getBookingHistoryQuery = "SELECT (SELECT (SELECT BrandName FROM brands WHERE BrandID = cars.BrandID) AS Brand FROM cars WHERE CarID = rental.CarID) AS Brand, (SELECT (SELECT ModelName FROM models where ModelID = cars.ModelID) AS Model FROM cars WHERE CarID = rental.CarID) AS Model, rental.StartDate, rental.EndDate, rental.Status, DATEDIFF(rental.EndDate, rental.StartDate) AS Duration, payment.AmountPaid, payment.PaymentFrequency, rental.status, rental.Penalty FROM rentals rental INNER JOIN payments payment ON rental.RentalID = payment.RentalID WHERE UserID = '" . $_SESSION["UID"] . "' ORDER BY rental.RentalID DESC;";
         $execGetBookingHistoryQuery = mysqli_query($conn, $getBookingHistoryQuery);
         
         $i = mysqli_num_rows($execGetBookingHistoryQuery);
@@ -41,14 +41,19 @@
                   <td>" . $rows["EndDate"] . "</td>
                   <td>"; echo $rows["Duration"] == 1 ? $rows["Duration"] . "&nbsp;Day" : $rows["Duration"] . "&nbsp;Days"; echo"</td>
                   <td>" . $rows["AmountPaid"] . "</td>
+                  <td>" . $rows["Penalty"] . "</td>
                   <td>" . $rows["PaymentFrequency"] . "</td>
                   <td>$status</th>
               </tr>";
               $i--;
           }
+        }else{
+          echo "<tr>
+                  <td colspan='9' style='text-align: center;'>No history yet</td>
+                </tr>";
         }
       }elseif($_POST["action"] == "getCar"){
-        $getBookingCar = "SELECT cars.CarID, cars.FuelType, cars.Transmission, cars.ImageName, (SELECT BrandName FROM brands WHERE BrandID = cars.BrandID) AS Brand, (SELECT ModelName FROM models WHERE ModelID = cars.ModelID) AS Model, TIMESTAMPDIFF(HOUR, rentals.StartDate, NOW()) AS isOverTime, TIMESTAMPDIFF(HOUR, NOW(), rentals.EndDate) AS ReturnPenalty, rentals.Status, rentals.RentalID FROM cars INNER JOIN rentals ON rentals.CarID = cars.CarID WHERE UserID = '" . $_SESSION["UID"] . "' AND rentals.Status = 0 OR rentals.Status = 1 OR rentals.Status = 2 ORDER BY rentals.RentalID DESC LIMIT 1;";
+        $getBookingCar = "SELECT cars.CarID, cars.FuelType, cars.Transmission, cars.ImageName, (SELECT BrandName FROM brands WHERE BrandID = cars.BrandID) AS Brand, (SELECT ModelName FROM models WHERE ModelID = cars.ModelID) AS Model, TIMESTAMPDIFF(HOUR, rentals.StartDate, NOW()) AS isOverTime, TIMESTAMPDIFF(MINUTE, rentals.EndDate, NOW()) AS ReturnPenalty, rentals.Status, rentals.RentalID FROM cars INNER JOIN rentals ON rentals.CarID = cars.CarID WHERE UserID = '" . $_SESSION["UID"] . "' AND rentals.Status = 0 OR rentals.Status = 1 OR rentals.Status = 2 ORDER BY rentals.RentalID DESC LIMIT 1;";
         
         try{
           $execGetBookingCar = mysqli_query($conn, $getBookingCar);
@@ -86,8 +91,8 @@
 
                         echo "<span class='bookingActions'>";
                           echo $rows["isOverTime"] >= -12 && $rows["Status"] == 1 ? "<button onclick='retrieveBookedCar(" . $rows["RentalID"] . ", " . $rows["CarID"] . ", &#x27;show&#x27;)'>Retrieve Car</button>" : "<button disabled>Retrieve Car</button>";
-                          echo $rows["Status"] == 2 && $rows["ReturnPenalty"] >= -12 ? "<button onclick='returnBookedCar(" . $rows["RentalID"] . ", " . $rows["CarID"] . ", &#x27;show&#x27;)'>Return Car</button>" : "<button disabled>Return Car</button>";
-                          echo $rows["Status"] == 2 && $rows["ReturnPenalty"] >= -6 ? ($rows["ReturnPenalty"] > 0 ? "<p style='color: #e27c00;'>Late Return <span id='lateReturnHours'>" . $rows["ReturnPenalty"] . "</span> Hours ago</p>" : "<p>Late Return Penalty In: " . $rows["ReturnPenalty"] . " Hours</p>") : "";
+                          echo $rows["Status"] == 2 && $rows["ReturnPenalty"] >= -(60*12) ? "<button onclick='returnBookedCar(" . $rows["RentalID"] . ", " . $rows["CarID"] . ", &#x27;show&#x27;)'>Return Car</button>" : "<button disabled>Return Car</button>";
+                          echo $rows["Status"] == 2 && $rows["ReturnPenalty"] >= -(60*6) ? ($rows["ReturnPenalty"] > 0 ? "<p style='color: #e27c00;' id='lateReturnTime'>Late Return <span id='lateReturn'>" . ($rows["ReturnPenalty"] > 60 ? number_format(($rows["ReturnPenalty"] / 60), 0) . "</span> Hour/s ago</p>" : $rows["ReturnPenalty"] . "</span> Minute/s ago</p>") : "<p>Late Return Penalty In: " . ($rows["ReturnPenalty"] < -60 ? number_format(abs($rows["ReturnPenalty"] / 60), 0) . " Hour/s</p>" : abs($rows["ReturnPenalty"]) . " Minute/s</p>" ) ) : "";
                         echo "</span>";
                       }
           }else{

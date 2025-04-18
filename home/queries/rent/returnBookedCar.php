@@ -10,8 +10,9 @@
         $scratches = $_POST["scratches"];
         $chippedPaint = $_POST["chippedPaint"];
         $crackedWindshields = $_POST["crackedWindshields"];
+        $penalty = $_POST["penalty"];
 
-        $rentalRetriveCar = "UPDATE rentals SET Status = 3 WHERE RentalID = $rentalID";
+        $rentalRetriveCar = "UPDATE rentals SET Status = 3, Penalty = '$penalty' WHERE RentalID = $rentalID";
         try{
             mysqli_query($conn, $rentalRetriveCar);
         }catch(mysqli_sql_exception){

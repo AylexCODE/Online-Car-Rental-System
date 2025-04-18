@@ -68,6 +68,7 @@
                             <th>End DateTime</th>
                             <th>Duration</th>
                             <th>Amount Paid</th>
+                            <th>Penalty</th>
                             <th>Payment Frequency</th>
                             <th>Status</th>
                         </thead>
@@ -211,19 +212,24 @@
             $(".carConditionReturnCover").css('display', 'flex');
             document.getElementById("carConditionReturn").classList.add(rentalID +"|" +carID);
 
-            if(document.getElementById("lateReturnHours")){
-                $("#lateReturnPenalty").html($("#lateReturnHours").html() * lateReturnCostHour);
+            if(document.getElementById("lateReturn")){
+                if(document.getElementById("lateReturnTime").innerHTML.includes("Hour")){
+                    $("#lateReturnPenalty").html(parseFloat($("#lateReturn").html()) * lateReturnCostHour);
+                }else{
+                    $("#lateReturnPenalty").html(lateReturnCostHour);
+                }
             }
         }else if(action == "confirm"){
             const returnDents = document.getElementById("returnDents").checked == true ? 1 : 0 ;
             const returnScratches = document.getElementById("returnScratches").checked == true ? 1 : 0 ;
             const returnChippedPaint = document.getElementById("returnChippedPaint").checked == true ? 1 : 0 ;
             const returnCrackedWindshields = document.getElementById("returnCrackedWindshields").checked == true ? 1 : 0 ;
+            const totalPenalty = (parseFloat($("#lateReturn").html()) * lateReturnCostHour) + totalDamageCost;
 
             $.ajax({
                 type: "post",
                 url: "./queries/rent/returnBookedCar.php",
-                data: { RentalID: rentalID, CarID: carID, dents: returnDents, scratches: returnScratches, chippedPaint: returnChippedPaint, crackedWindshields: returnCrackedWindshields },
+                data: { RentalID: rentalID, CarID: carID, dents: returnDents, scratches: returnScratches, chippedPaint: returnChippedPaint, crackedWindshields: returnCrackedWindshields, penalty: totalPenalty },
                 success: function(res){
                     getUserBookingHistory();
                 },
@@ -389,7 +395,8 @@
     }
 
     .bookingHistory > span {
-        height: 530px;
+        min-height: 0px;
+        max-height: 530px;
         border-radius: 5px;
         overflow-y: scroll;
         border: 1px solid #FDFFF6;

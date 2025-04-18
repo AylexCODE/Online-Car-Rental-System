@@ -100,7 +100,7 @@
 
 <script type="text/javascript">
     const now = new Date();
-    let tomorrow = new Date(now.getTime() + 86400000);
+    // let tomorrow = new Date(now.getTime() + 86400000);
     const startDate = document.getElementById("startDateTime");
     const endDate = document.getElementById("endDateTime");
 
@@ -124,7 +124,8 @@
             document.querySelector(".rentCarTransmission").innerHTML = transmission;
             document.querySelector(".rentCarImg").src = imgUrl;
 
-            let minStartDate = `${tomorrow.getFullYear()}-${tomorrow.getMonth().toString().length != 1 ? (tomorrow.getMonth()+1) : "0" +(tomorrow.getMonth()+1)}-${tomorrow.getDate().toString().length != 1 ? tomorrow.getDate() : "0" +tomorrow.getDate()}T${tomorrow.getHours().toString().length != 1 ? tomorrow.getHours() : "0" +tomorrow.getHours()}:${tomorrow.getMinutes().toString().length != 1 ? tomorrow.getMinutes() : "0" +tomorrow.getMinutes()}`;
+            // let minStartDate = `${tomorrow.getFullYear()}-${tomorrow.getMonth().toString().length != 1 ? (tomorrow.getMonth()+1) : "0" +(tomorrow.getMonth()+1)}-${tomorrow.getDate().toString().length != 1 ? tomorrow.getDate() : "0" +tomorrow.getDate()}T${tomorrow.getHours().toString().length != 1 ? tomorrow.getHours() : "0" +tomorrow.getHours()}:${tomorrow.getMinutes().toString().length != 1 ? tomorrow.getMinutes() : "0" +tomorrow.getMinutes()}`;
+            let minStartDate = `${now.getFullYear()}-${now.getMonth().toString().length != 1 ? (now.getMonth()+1) : "0" +(now.getMonth()+1)}-${now.getDate().toString().length != 1 ? now.getDate() : "0" +now.getDate()}T${now.getHours().toString().length != 1 ? now.getHours() : "0" +now.getHours()}:${now.getMinutes().toString().length != 1 ? now.getMinutes() : "0" +now.getMinutes()}`;
             
             startDate.min = minStartDate;
         }else{
