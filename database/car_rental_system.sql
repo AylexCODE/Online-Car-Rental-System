@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2025 at 06:43 AM
+-- Generation Time: Apr 18, 2025 at 11:06 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -132,6 +132,7 @@ CREATE TABLE `rentals` (
   `DropOffLocationID` int(11) NOT NULL,
   `StartDate` datetime NOT NULL,
   `EndDate` datetime NOT NULL,
+  `Penalty` double(10,2) NOT NULL,
   `Status` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
