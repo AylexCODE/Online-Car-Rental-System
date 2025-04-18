@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2025 at 10:05 AM
+-- Generation Time: Apr 18, 2025 at 06:35 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -96,6 +96,7 @@ CREATE TABLE `payments` (
   `PaymentID` int(11) NOT NULL,
   `RentalID` int(11) NOT NULL,
   `PaymentDate` varchar(50) NOT NULL,
+  `PaymentFrequency` varchar(12) NOT NULL,
   `AmountPaid` double(10,2) NOT NULL,
   `PaymentMethod` varchar(24) NOT NULL,
   `PaymentStatus` int(3) NOT NULL,
@@ -174,7 +175,8 @@ CREATE TABLE `vouchers` (
   `VoucherID` varchar(16) NOT NULL,
   `DeductionPercent` double(5,2) NOT NULL,
   `ExpiryDate` datetime NOT NULL,
-  `Status` tinyint(1) NOT NULL
+  `UsedTimes` int(11) NOT NULL,
+  `MaxUsage` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
