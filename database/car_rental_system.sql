@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2025 at 06:35 AM
+-- Generation Time: Apr 18, 2025 at 06:43 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -48,6 +48,21 @@ CREATE TABLE `cars` (
   `Availability` tinyint(1) NOT NULL,
   `ImageName` varchar(250) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `damages`
+--
+
+CREATE TABLE `damages` (
+  `CarID` int(11) NOT NULL,
+  `IsDamaged` tinyint(1) NOT NULL,
+  `Dents` tinyint(1) NOT NULL,
+  `Scratches` tinyint(1) NOT NULL,
+  `ChippedPaint` tinyint(1) NOT NULL,
+  `CrackedWindshields` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -199,6 +214,12 @@ ALTER TABLE `cars`
   ADD KEY `ModelID` (`ModelID`);
 
 --
+-- Indexes for table `damages`
+--
+ALTER TABLE `damages`
+  ADD PRIMARY KEY (`CarID`);
+
+--
 -- Indexes for table `locations`
 --
 ALTER TABLE `locations`
@@ -336,6 +357,12 @@ ALTER TABLE `users`
 ALTER TABLE `cars`
   ADD CONSTRAINT `cars_ibfk_1` FOREIGN KEY (`BrandID`) REFERENCES `brands` (`BrandID`),
   ADD CONSTRAINT `cars_ibfk_2` FOREIGN KEY (`ModelID`) REFERENCES `models` (`ModelID`);
+
+--
+-- Constraints for table `damages`
+--
+ALTER TABLE `damages`
+  ADD CONSTRAINT `damages_ibfk_1` FOREIGN KEY (`CarID`) REFERENCES `cars` (`CarID`);
 
 --
 -- Constraints for table `models`
