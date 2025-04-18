@@ -108,10 +108,27 @@
             </span>
         </div>
 
-        <span class='userFeedbackCover' onclick=''>
-            <div id='userFeedback'>
-            </div>
-        </span>
+        <span id='userFeedbackCover' onclick='leaveFeedback(&#x27;None&#x27;, &#x27;None&#x27;, &#x27;hide&#x27;);'></span>
+        <div id='userFeedback'>
+            <span>
+                <button style='position: relative; background-color: transparent; left: 54%; top: -10px; outline: none; border: none; color: #E2F87B; font-size: 24px; height: 5px;' onclick='leaveFeedback(&#x27;None&#x27;, &#x27;None&#x27;, &#x27;hide&#x27;);'>&#215;</button>
+                <h4>Leave a review</h4>
+                <span>
+                    <p>About your experience on using <span class='reviewCarName'></span></p>
+                    <textarea id='review' spellcheck='false'></textarea>
+                </span>
+                <span id='starRatings'>
+                    <span onclick='setRating(1);'>★</span><span onclick='setRating(2);'>★</span><span onclick='setRating(3);'>★</span><span onclick='setRating(4);'>★</span><span onclick='setRating(5);'>★</span>
+                </span>
+                <button onclick='leaveFeedback(document.getElementById(&#x27;reviewInfo&#x27;).className.split(&#x27;|&#x27;)[0], document.getElementById(&#x27;reviewInfo&#x27;).className.split(&#x27;|&#x27;)[1], &#x27;confirm&#x27;, $(&#x27;.carBookingName&#x27;).html());'>Submit</button>
+            </span>
+        </div>
+
+        <div class='reviewNotif'>
+            <h5 id='reviewInfo'>Thank You for using our service, would you like to leave a review?</h5>
+            <button onclick='leaveFeedback(&#x27;None&#x27;, &#x27;None&#x27;, &#x27;show&#x27;, $(&#x27;.carBookingName&#x27;).html()); reviewBtn(&#x27;hide&#x27;);'>YES</button>
+            <button onclick='reviewBtn(&#x27;hide&#x27;);'>NO</button>
+        </div>
     </div>";
 ?>
 
@@ -121,7 +138,7 @@
     const scratchesCost = 1000;
     const chippedPaintCost = 4000;
     const crackedWindshieldsCost = 10000;
-    let totalDamageCost = 0;
+    let totalDamageCost = 0, rating = 3;
 
     function getUserBookingHistory(){
         $.ajax({
@@ -237,6 +254,8 @@
                 data: { RentalID: rentalID, CarID: carID, dents: returnDents, scratches: returnScratches, chippedPaint: returnChippedPaint, crackedWindshields: returnCrackedWindshields, penalty: totalPenalty },
                 success: function(res){
                     getUserBookingHistory();
+                    document.getElementById("reviewInfo").classList.add(`${rentalID}|${carID}`);
+                    reviewBtn("show");
                 },
                 error: function(error){
     
@@ -293,11 +312,55 @@
         document.getElementById("carDmgPenalty").innerHTML = totalDamageCost;
     }
 
-    function leaveFeedback(rentalID, carId, ){
+    function leaveFeedback(rentalID, carId, action, carName){
+        $("#userFeedback").css('display', 'none');
+        $("#userFeedbackCover").css('display', 'none');
 
+        if(action == "show"){
+            $("#userFeedback").css('display', 'flex');
+            $("#userFeedbackCover").css('display', 'flex');
+            $(".reviewCarName").html($(".carBookingName").html());
+        }else if(action == "confirm"){
+            $.ajax({
+                type: 'post',
+                url: './queries/user/leaveReview.php',
+                data: { rentalID: rentalID, carId: carId, rating: rating, userReview: $("#review").val() },
+                success: function(res){
+                    $(".notif").html(res);
+                },
+                error: function(error){
+                    $(".notif").html(error);
+                }
+            });
+        }
+    }
+
+    function setRating(star){
+        const starRating = document.getElementById("starRatings").children;
+        rating = star;
+        
+        for(let i = 0; i < starRating.length; i++){
+            starRating[i].style.color = "#499e5e";
+        }
+
+        for(let i = 0; i < star; i++){
+            starRating[i].style.color = "#E2F87B";
+        }
+    }
+
+    function reviewBtn(attr){
+        switch(attr){
+            case "show":
+                document.querySelector(".reviewNotif").classList.add("active");
+                break;
+            case "hide":
+                document.querySelector(".reviewNotif").classList.remove("active");
+                break;
+        }
     }
 
     getUserBookingHistory();
+    setRating(rating);
 </script>
 
 <style type="text/css">
@@ -496,7 +559,7 @@
         scroll-snap-align: start;
     }
 
-    #carCondition, #carConditionReturn {
+    #carCondition, #carConditionReturn, #userFeedback {
         position: absolute;
         top: 0px; left: 0px;
         display: none;
@@ -509,7 +572,7 @@
         z-index: 100;
     }
 
-    .carConditionCover, .carConditionReturnCover {
+    .carConditionCover, .carConditionReturnCover, #userFeedbackCover {
         position: absolute;
         top: 0px; left: 0px;
         height: 100%;
@@ -518,7 +581,7 @@
         display: none;
     }
 
-    #carCondition > span, #carConditionReturn > span {
+    #carCondition > span, #carConditionReturn > span, #userFeedback > span {
         background-color: #316C40;
         border: 1px solid #E2F87B;
         border-radius: 5px;
@@ -532,7 +595,7 @@
         max-width: fit-content;
     }
 
-    #carCondition > span button, #carConditionReturn > span button {
+    #carCondition > span button, #carConditionReturn > span button, #userFeedback > span > button {
         background-color: #E2F87B;
         border-radius: 5px;
         outline: none;
@@ -574,5 +637,69 @@
     #carConditionIndicator > p, #carConditionIndicatorReturn > p {
         padding-bottom: 5px;
         margin-bottom: 5px;
+    }
+
+    #userFeedback > span > span:nth-child(4) > span {
+        font-size: 20px;
+        color: #499e5e;
+    }
+
+    #userFeedback > span > span:nth-child(4) {
+        margin-bottom: 5px;
+    }
+
+    #userFeedback > span > button {
+        padding: 5px 100px;
+    }
+
+    #review {
+        width: 100%;
+        resize: none;
+        height: 200px;
+        outline: none;
+        border-radius: 5px;
+        padding: 5px;
+        border: 1px solid #E2F87B50;
+        background-color: #316C40;
+        color: #E2F87B;
+        margin-block: 5px;
+    }
+
+    #review:focus {
+        outline: 1px solid #499e5e;
+    }
+
+    .reviewNotif {
+        position: fixed;
+        top: -100px;
+        left: 50%;
+        background-color: #499e5e;
+        transform: translateX(-50%);
+        padding: 10px 15px;
+        border-radius: 5px;
+        border: 2px solid #E2F87B;
+        width: 40%;
+        text-align: center;
+        transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    .reviewNotif.active {
+        top: 60px;
+    }
+
+    .reviewNotif > button {
+        padding: 5px 10px;
+        width: 40%;
+        background-color: #499e5e;
+        border-radius: 5px;
+        border: 1px solid #E2F87B;
+        margin-block: 5px;
+        transform: translateY(5px);  
+        color: #E2F87B;
+    }
+
+    .reviewNotif > button:nth-child(2) {
+        background-color: #E2F87B;
+        color: #499e5e;
     }
 </style>
