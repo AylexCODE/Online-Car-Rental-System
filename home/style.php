@@ -4,6 +4,11 @@
         url: ("../fonts/SpaceGrotesk-Regular.otf");
         src: url("../fonts/SpaceGrotesk-Regular.otf");
     }
+    @font-face{
+        font-family: space-grotesk-semibold;
+        url: ("../fonts/SpaceGrotesk-SemiBold.otf");
+        src: url("../fonts/SpaceGrotesk-SemiBold.otf");
+    }
     * {
         margin: 0;
         padding: 0;
@@ -473,25 +478,26 @@
     .adminDisplay {
         height: 100%;
         width: 80%;
-        padding: 15px 25px;
+        /* padding: 15px 25px; */
     }
 
-    .vehicleStatistics, .vehicleManagement, .userManagement, .rentals {
+    .vehicleStatistics, .vehicleManagement, .userManagement, .rentals, .voucherManagement {
         display: none;
         color: #FDFFF6;
     }
-    .vehicleStatistics.active, .vehicleManagement.active, .userManagement.active, .rentals.active {
+    .vehicleStatistics.active, .vehicleManagement.active, .userManagement.active, .rentals.active, .voucherManagement.active{
         display: flex;
         gap: 10px;
         flex-direction: column;
     }
 
-    .vehicleStatistics > h4, .vehicleManagement > h4, .userManagement > h4, .rentals > h4 {
+    .vehicleStatistics > h4, .vehicleManagement > h4, .userManagement > h4, .rentals > h4, .voucherManagement > h4 {
         font-size: 24px;
         width: 100%;
         padding-bottom: 10px;
         margin-bottom: 5px;
         border-bottom: 1px solid #FDFFF690;
+        padding: 15px 25px;
     }
 
     .vehicleStatistics > span:nth-child(2){

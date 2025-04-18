@@ -22,7 +22,7 @@
             <button onclick='setActiveBtnAdmin(5)' id='paymentsBtn'><img src='./images/icons/payment-icon.svg' height='16px' width='16px'>Payments</button>
             <span></span>
 
-            <button onclick='setActiveBtnAdmin(6)' id='vouchersBtn'><img src='./images/icons/voucher-icon.svg' height='16px' width='16px'>Vouchers</button>
+            <button onclick='setActiveBtnAdmin(6)' id='vouchersBtn'><img src='./images/icons/voucher-icon.svg' height='16px' width='16px'>voucher</button>
             <span></span>
             
             <button onclick='setActiveBtnAdmin(7)' id='ticketsBtn'><img src='./images/icons/ticket-icon.svg' height='16px' width='16px'>Tickets</button>
@@ -42,6 +42,7 @@
     include_once("./panels/admin/vehicleManagement.php");
     include_once("./panels/admin/userManagement.php");
     include_once("./panels/admin/rentals.php");
+    include_once("./panels/admin/voucherManagement.php");
 
     echo "</section>
         <p class='msg'>Hello World!</p>
@@ -64,7 +65,7 @@
     const moreVehicleSettings = document.querySelector('.moreVehicleSettings');
     const userManagement = document.querySelector('.userManagement');
     const rentals = document.querySelector('.rentals');
-    const voucher = document.querySelector('.vouchers');
+    const voucherPane = document.querySelector('.voucherManagement');
 
     adminNavIndicator.style.height = overviewBtn.offsetHeight+10 +"px";
     adminNavIndicator.style.width = overviewBtn.offsetWidth+20 +"px";
@@ -88,6 +89,7 @@
         vehicleManagement.classList.remove("active");
         userManagement.classList.remove("active");
         rentals.classList.remove("active");
+        voucherPane.classList.remove("active");
 
         activeAdminNav = index;
         switch(index){
@@ -124,6 +126,8 @@
                 adminNavIndicator.style.width = paymentsBtn.offsetWidth+20 +"px";
                 break;
             case 6:
+                voucherPane.classList.add("active");
+                
                 adminNavIndicator.style.top = vouchersBtn.offsetTop-5 +"px";
                 vouchersBtn.classList.add("active");
                 adminNavIndicator.style.width = vouchersBtn.offsetWidth+20 +"px";
