@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2025 at 02:01 PM
+-- Generation Time: Apr 18, 2025 at 05:21 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -190,7 +190,7 @@ CREATE TABLE `users` (
 
 CREATE TABLE `vouchers` (
   `VoucherID` varchar(16) NOT NULL,
-  `DeductionPercent` double(5,2) NOT NULL,
+  `Deduction` double(5,2) NOT NULL,
   `ExpiryDate` datetime NOT NULL,
   `UsedTimes` int(11) NOT NULL,
   `MaxUsage` int(11) NOT NULL
