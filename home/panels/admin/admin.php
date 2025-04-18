@@ -19,10 +19,10 @@
             <button onclick='setActiveBtnAdmin(4)' id='usersBtn'><img src='./images/icons/user-icon.svg' height='16px' width='16px'>Users</button>
             <span></span>
 
-            <button onclick='setActiveBtnAdmin(5)' id='usersBtn'><img src='./images/icons/payment-icon.svg' height='16px' width='16px'>Payments</button>
+            <button onclick='setActiveBtnAdmin(5)' id='paymentsBtn'><img src='./images/icons/payment-icon.svg' height='16px' width='16px'>Payments</button>
             <span></span>
 
-            <button onclick='setActiveBtnAdmin(6)' id='usersBtn'><img src='./images/icons/voucher-icon.svg' height='16px' width='16px'>Vouchers</button>
+            <button onclick='setActiveBtnAdmin(6)' id='vouchersBtn'><img src='./images/icons/voucher-icon.svg' height='16px' width='16px'>Vouchers</button>
             <span></span>
             
             <button onclick='setActiveBtnAdmin(7)' id='ticketsBtn'><img src='./images/icons/ticket-icon.svg' height='16px' width='16px'>Tickets</button>
@@ -53,6 +53,8 @@
     const vehiclesBtn = document.getElementById('vehiclesBtn');
     const bookingsBtn = document.getElementById('bookingsBtn');
     const usersBtn = document.getElementById('usersBtn');
+    const paymentsBtn = document.getElementById('paymentsBtn');
+    const vouchersBtn = document.getElementById('vouchersBtn')
     const ticketsBtn = document.getElementById('ticketsBtn');
     const logsBtn = document.getElementById('logsBtn');
     const adminNavIndicator = document.querySelector('.adminNavIndicator');
@@ -62,6 +64,7 @@
     const moreVehicleSettings = document.querySelector('.moreVehicleSettings');
     const userManagement = document.querySelector('.userManagement');
     const rentals = document.querySelector('.rentals');
+    const voucher = document.querySelector('.vouchers');
 
     adminNavIndicator.style.height = overviewBtn.offsetHeight+10 +"px";
     adminNavIndicator.style.width = overviewBtn.offsetWidth+20 +"px";
@@ -75,6 +78,8 @@
         vehiclesBtn.classList.remove("active");
         bookingsBtn.classList.remove("active");
         usersBtn.classList.remove("active");
+        paymentsBtn.classList.remove("active");
+        vouchersBtn.classList.remove("active");
         ticketsBtn.classList.remove("active");
         logsBtn.classList.remove("active");
 
@@ -114,11 +119,21 @@
                 adminNavIndicator.style.width = usersBtn.offsetWidth+20 +"px";
                 break;
             case 5:
+                adminNavIndicator.style.top = paymentsBtn.offsetTop-5 +"px";
+                paymentsBtn.classList.add("active");
+                adminNavIndicator.style.width = paymentsBtn.offsetWidth+20 +"px";
+                break;
+            case 6:
+                adminNavIndicator.style.top = vouchersBtn.offsetTop-5 +"px";
+                vouchersBtn.classList.add("active");
+                adminNavIndicator.style.width = vouchersBtn.offsetWidth+20 +"px";
+                break;
+            case 7:
                 adminNavIndicator.style.top = ticketsBtn.offsetTop-5 +"px";
                 ticketsBtn.classList.add("active");
                 adminNavIndicator.style.width = ticketsBtn.offsetWidth+20 +"px";
                 break;
-            case 6:
+            case 8:
                 adminNavIndicator.style.top = logsBtn.offsetTop-5 +"px";
                 logsBtn.classList.add("active");
                 adminNavIndicator.style.width = logsBtn.offsetWidth+20 +"px";

@@ -482,7 +482,7 @@
 
     window.onresize = () => {
         if(document.querySelector(".guestBG")) setActiveBtn(activeNav);
-        if(document.querySelector(".adminNav")) { adminNavIndicator.style.left = overviewBtn.offsetLeft-5 +"px"; if(activeAdminNav == 1){adminNavIndicator.style.top = overviewBtn.offsetTop-5 +"px";}else if(activeAdminNav == 2){adminNavIndicator.style.top = vehiclesBtn.offsetTop-5 +"px";}else if(activeAdminNav == 3){adminNavIndicator.style.top = bookingsBtn.offsetTop-5 +"px";}else if(activeAdminNav == 4){adminNavIndicator.style.top = usersBtn.offsetTop-5 +"px";}else if(activeAdminNav == 5){adminNavIndicator.style.top = ticketsBtn.offsetTop-5 +"px";}else if(activeAdminNav == 6){adminNavIndicator.style.top = logsBtn.offsetTop-5 +"px";} }
+        if(document.querySelector(".adminNav")) { adminNavIndicator.style.left = overviewBtn.offsetLeft-5 +"px"; if(activeAdminNav == 1){adminNavIndicator.style.top = overviewBtn.offsetTop-5 +"px";}else if(activeAdminNav == 2){adminNavIndicator.style.top = vehiclesBtn.offsetTop-5 +"px";}else if(activeAdminNav == 3){adminNavIndicator.style.top = bookingsBtn.offsetTop-5 +"px";}else if(activeAdminNav == 4){adminNavIndicator.style.top = usersBtn.offsetTop-5 +"px";}else if(activeAdminNav == 5){adminNavIndicator.style.top = paymentsBtn.offsetTop-5 +"px";}else if(activeAdminNav == 6){adminNavIndicator.style.top = vouchersBtn.offsetTop-5 +"px";}else if(activeAdminNav == 7){adminNavIndicator.style.top = ticketsBtn.offsetTop-5 +"px";}else if(activeAdminNav == 8){adminNavIndicator.style.top = logsBtn.offsetTop-5 +"px";} }
     }
 </script>
 <script type="text/javascript">
