@@ -77,18 +77,46 @@
                 </span>
             </div>
         </span>
-        <div id='carCondition' onclick='retrieveBookedCar( &#x27;None&#x27;, &#x27;None&#x27;, &#x27;hide&#x27;);'>
+        <span class='carConditionCover' onclick='retrieveBookedCar(&#x27;None&#x27;, &#x27;None&#x27;, &#x27;hide&#x27;);' style='display: none;'></span>
+        <div id='carCondition'>
             <span>
-                <button style='position: relative; background-color: transparent; left: 50%; top: -10px; outline: none; border: none; color: #E2F87B; font-size: 24px; height: 5px;' onclick='retrieveBookedCar(this.id, &#x27;None&#x27;, &#x27;hide&#x27;);'>&#215;</button>
+                <button style='position: relative; background-color: transparent; left: 54%; top: -10px; outline: none; border: none; color: #E2F87B; font-size: 24px; height: 5px;' onclick='retrieveBookedCar(&#x27;None&#x27;, &#x27;None&#x27;, &#x27;hide&#x27;);'>&#215;</button>
                 <h4 style='margin-bottom: 5px;'>Car Condition</h4>
-                <span id='carConditionIndicator'>Good!</span>
-                <button onclick='retrieveBookedCar(document.getElementById(&#x27;carCondition&#x27;).className, &#x27;None&#x27;, &#x27;confirm&#x27;);'>Confirm</p>
+                <span id='carConditionIndicator'></span>
+                <button onclick='retrieveBookedCar(document.getElementById(&#x27;carCondition&#x27;).className, &#x27;None&#x27;, &#x27;confirm&#x27;);'>Confirm</button>
+            </span>
+        </div>
+
+        <span class='carConditionReturnCover' onclick='returnBookedCar(&#x27;None&#x27;, &#x27;None&#x27;, &#x27;hide&#x27;);' style='display: none;'></span>
+        <div id='carConditionReturn'>
+            <span>
+                <button style='position: relative; background-color: transparent; left: 54%; top: -10px; outline: none; border: none; color: #E2F87B; font-size: 24px; height: 5px;' onclick='returnBookedCar(&#x27;None&#x27;, &#x27;None&#x27;, &#x27;hide&#x27;);'>&#215;</button>
+                <h4 style='margin-bottom: 5px;'>Car Condition</h4>
+                <span id='carConditionIndicatorReturn'>
+                    <p>Damages:</p>
+                    <span><input type='checkbox' id='returnDents' onchange='updateDamages(&#x27;dents&#x27;)'><label for='returnDents'>Dents <span class='dentsCost'></span></label></span>
+                    <span><input type='checkbox' id='returnScratches'  onchange='updateDamages(&#x27;scratches&#x27;)'><label for='returnScratches'>Scratches <span class='scratchesCost'></span></label></span>
+                    <span><input type='checkbox' id='returnChippedPaint'  onchange='updateDamages(&#x27;chippedPaint&#x27;)'><label for='returnChippedPaint'>Chipped Paint <span class='chippedPaintCost'></span></label></span>
+                    <span><input type='checkbox' id='returnCrackedWindshields'  onchange='updateDamages(&#x27;cWS&#x27;)'><label for='returnCrackedWindshields'>Cracked Windshields <span class='crackedWindshieldsCost'></span></label></span>
+                </span>
+                <span>
+                    <p>Car Damage Penalty:&nbsp;₱<span id='carDmgPenalty'>0</span></p>
+                </span>
+                <p>Late Return Penalty:&nbsp;₱<span id='lateReturnPenalty'>0</span></p>
+                <button onclick='returnBookedCar(document.getElementById(&#x27;carConditionReturn&#x27;).className.split(&#x27;|&#x27;)[0], document.getElementById(&#x27;carConditionReturn&#x27;).className.split(&#x27;|&#x27;)[1], &#x27;confirm&#x27;);'>Confirm</button>
             </span>
         </div>
     </div>";
 ?>
 
 <script type="text/javascript">
+    const lateReturnCostHour = 50;
+    const dentsCost = 1900;
+    const scratchesCost = 1000;
+    const chippedPaintCost = 4000;
+    const crackedWindshieldsCost = 10000;
+    let totalDamageCost = 0;
+
     function getUserBookingHistory(){
         $.ajax({
             type: "post",
@@ -140,8 +168,12 @@
     }
 
     function retrieveBookedCar(rentalID, carID, action){
+        $("#carCondition").css('display', 'none');
+        $(".carConditionCover").css('display', 'none');
+
         if(action == "show"){
             $("#carCondition").css('display', 'flex');
+            $(".carConditionCover").css('display', 'flex');
             document.getElementById("carCondition").classList.add(rentalID);
 
             $.ajax({
@@ -167,18 +199,31 @@
     
                 }
             });
-        }else{
-            $("#carCondition").css('display', 'none');
         }
     }
 
     function returnBookedCar(rentalID, carID, action){
+        $("#carConditionReturn").css('display', 'none');
+        $(".carConditionReturnCover").css('display', 'none');
 
-        if(action == "confirm"){
+        if(action == "show"){
+            $("#carConditionReturn").css('display', 'flex');
+            $(".carConditionReturnCover").css('display', 'flex');
+            document.getElementById("carConditionReturn").classList.add(rentalID +"|" +carID);
+
+            if(document.getElementById("lateReturnHours")){
+                $("#lateReturnPenalty").html($("#lateReturnHours").html() * lateReturnCostHour);
+            }
+        }else if(action == "confirm"){
+            const returnDents = document.getElementById("returnDents").checked == true ? 1 : 0 ;
+            const returnScratches = document.getElementById("returnScratches").checked == true ? 1 : 0 ;
+            const returnChippedPaint = document.getElementById("returnChippedPaint").checked == true ? 1 : 0 ;
+            const returnCrackedWindshields = document.getElementById("returnCrackedWindshields").checked == true ? 1 : 0 ;
+
             $.ajax({
                 type: "post",
                 url: "./queries/rent/returnBookedCar.php",
-                data: { RentalID: rentalID, CarID: carID },
+                data: { RentalID: rentalID, CarID: carID, dents: returnDents, scratches: returnScratches, chippedPaint: returnChippedPaint, crackedWindshields: returnCrackedWindshields },
                 success: function(res){
                     getUserBookingHistory();
                 },
@@ -187,6 +232,54 @@
                 }
             });
         }
+    }
+
+    function updateDamages(type){
+        const returnDents = document.getElementById("returnDents").checked == true ? 1 : 0 ;
+        const returnScratches = document.getElementById("returnScratches").checked == true ? 1 : 0 ;
+        const returnChippedPaint = document.getElementById("returnChippedPaint").checked == true ? 1 : 0 ;
+        const returnCrackedWindshields = document.getElementById("returnCrackedWindshields").checked == true ? 1 : 0 ;
+
+        switch(type){
+            case "dents":
+                document.querySelector(".dentsCost").innerHTML = "";
+                if(returnDents == 1){
+                    totalDamageCost += dentsCost;
+                    document.querySelector(".dentsCost").innerHTML = `( ₱${dentsCost} )`;
+                }else{
+                    totalDamageCost -= dentsCost;
+                }
+                break;
+            case "scratches":
+                document.querySelector(".scratchesCost").innerHTML = "";
+                if(returnScratches == 1){
+                    totalDamageCost += scratchesCost;
+                    document.querySelector(".scratchesCost").innerHTML = `( ₱${scratchesCost} )`;
+                }else{
+                    totalDamageCost -= scratchesCost;
+                }
+                break;
+            case "chippedPaint":
+                document.querySelector(".chippedPaintCost").innerHTML = "";
+                if(returnChippedPaint == 1){
+                    totalDamageCost += chippedPaintCost;
+                    document.querySelector(".chippedPaintCost").innerHTML = `( ₱${chippedPaintCost} )`;
+                }else{
+                    totalDamageCost -= chippedPaintCost;
+                }
+                break;
+            case "cWS":
+                document.querySelector(".crackedWindshieldsCost").innerHTML = "";
+                if(returnCrackedWindshields == 1){
+                    totalDamageCost += crackedWindshieldsCost;
+                    document.querySelector(".crackedWindshieldsCost").innerHTML = `( ₱${crackedWindshieldsCost} )`;
+                }else{
+                    totalDamageCost -= crackedWindshieldsCost;
+                }
+                break;
+        }
+
+        document.getElementById("carDmgPenalty").innerHTML = totalDamageCost;
     }
 
     getUserBookingHistory();
@@ -387,44 +480,82 @@
         scroll-snap-align: start;
     }
 
-    #carCondition {
+    #carCondition, #carConditionReturn {
         position: absolute;
         top: 0px; left: 0px;
         display: none;
         height: 100%;
         width: 100%;
-        background-color: #031A0950;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        pointer-events: none;
+        z-index: 100;
     }
 
-    #carCondition > span {
+    .carConditionCover, .carConditionReturnCover {
+        position: absolute;
+        top: 0px; left: 0px;
+        height: 100%;
+        width: 100%;
+        background-color: #031A0950;
+        display: none;
+    }
+
+    #carCondition > span, #carConditionReturn > span {
         background-color: #316C40;
         border: 1px solid #E2F87B;
         border-radius: 5px;
-        padding: 10px 20px;
+        padding: 10px 30px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        pointer-events: all;
+        min-width: 25%;
+        max-width: fit-content;
     }
 
-    #carCondition > span button {
+    #carCondition > span button, #carConditionReturn > span button {
         background-color: #E2F87B;
         border-radius: 5px;
         outline: none;
         border: none;
         padding: 5px 10px;
-        margin-top: 10px;
+        margin-bottom: 10px;
         color: #295234;
     }
-    
-    #carConditionIndicator {
+
+    #carCondition > span > button, #carConditionReturn > span > button {
+        margin-top: -4px;
+    }
+
+    #carConditionReturn > span > p:nth-child(5){
+        margin-bottom: 15px;
         width: 100%;
     }
 
-    #carConditionIndicator > p {
+    #carConditionReturn > span > span:nth-child(4) {
+        margin-bottom: 5px;
+    }
+    
+    #carConditionIndicator, #carConditionIndicatorReturn, #carConditionReturn > span > span:nth-child(4) {
+        width: 100%;
+    }
+
+    #carConditionIndicatorReturn {
+        margin-bottom: 10px;
+    }
+
+    #carConditionIndicatorReturn > span {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 5px;
+        margin-bottom: 5px;
+    }
+
+    #carConditionIndicator > p, #carConditionIndicatorReturn > p {
         padding-bottom: 5px;
         margin-bottom: 5px;
     }

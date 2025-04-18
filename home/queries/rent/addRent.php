@@ -17,7 +17,7 @@
 
         try{
             if(mysqli_query($conn, $updateCarAvailable)){
-                $addRentalQuery = "INSERT INTO rentals VALUES (null, '$UID', '$carID', '$pickUpLocation', '$dropOffLocation', '$startDateTime', '$endDateTime', 0);";
+                $addRentalQuery = "INSERT INTO rentals VALUES (null, '$UID', '$carID', '$pickUpLocation', '$dropOffLocation', '$startDateTime', '$endDateTime', 0. 0);";
 
                 try{
                     if(mysqli_query($conn, $addRentalQuery)){

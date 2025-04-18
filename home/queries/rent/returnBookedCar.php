@@ -5,7 +5,12 @@
     if(isset($_POST)){
         $rentalID = $_POST["RentalID"];
         $carID = $_POST["CarID"];
-        
+
+        $dents = $_POST["dents"];
+        $scratches = $_POST["scratches"];
+        $chippedPaint = $_POST["chippedPaint"];
+        $crackedWindshields = $_POST["crackedWindshields"];
+
         $rentalRetriveCar = "UPDATE rentals SET Status = 3 WHERE RentalID = $rentalID";
         try{
             mysqli_query($conn, $rentalRetriveCar);
@@ -18,6 +23,18 @@
             mysqli_query($conn, $setCarAvailability);
         }catch(mysqli_sql_exception){
             echo "Error";
+        }
+
+        $isDamaged = 0;
+        if($dents == 1 || $scratches == 1 || $chippedPaint == 1 || $crackedWindshields == 1){
+            $isDamaged = 1;
+        }
+        $setCarDamages = "UPDATE damages SET isDamaged = '$isDamaged', Dents = '$dents', Scratches = '$scratches', ChippedPaint = '$chippedPaint', CrackedWindshields = '$crackedWindshields' WHERE CarID = '$carID';";
+        try{
+            mysqli_query($conn, $setCarDamages);
+        }catch(mysqli_sql_exception $e){
+            echo "Error";
+            echo $e;
         }
     }
 ?>

@@ -48,7 +48,7 @@
           }
         }
       }elseif($_POST["action"] == "getCar"){
-        $getBookingCar = "SELECT cars.CarID, cars.FuelType, cars.Transmission, cars.ImageName, (SELECT BrandName FROM brands WHERE BrandID = cars.BrandID) AS Brand, (SELECT ModelName FROM models WHERE ModelID = cars.ModelID) AS Model, TIMESTAMPDIFF(HOUR, rentals.StartDate, NOW()) AS isOverTime, TIMESTAMPDIFF(HOUR, rentals.EndDate, NOW()) AS ReturnPenalty, rentals.Status, rentals.RentalID FROM cars INNER JOIN rentals ON rentals.CarID = cars.CarID WHERE UserID = '" . $_SESSION["UID"] . "' AND rentals.Status = 0 OR rentals.Status = 1 OR rentals.Status = 2 ORDER BY rentals.RentalID DESC LIMIT 1;";
+        $getBookingCar = "SELECT cars.CarID, cars.FuelType, cars.Transmission, cars.ImageName, (SELECT BrandName FROM brands WHERE BrandID = cars.BrandID) AS Brand, (SELECT ModelName FROM models WHERE ModelID = cars.ModelID) AS Model, TIMESTAMPDIFF(HOUR, rentals.StartDate, NOW()) AS isOverTime, TIMESTAMPDIFF(HOUR, NOW(), rentals.EndDate) AS ReturnPenalty, rentals.Status, rentals.RentalID FROM cars INNER JOIN rentals ON rentals.CarID = cars.CarID WHERE UserID = '" . $_SESSION["UID"] . "' AND rentals.Status = 0 OR rentals.Status = 1 OR rentals.Status = 2 ORDER BY rentals.RentalID DESC LIMIT 1;";
         
         try{
           $execGetBookingCar = mysqli_query($conn, $getBookingCar);
@@ -87,6 +87,7 @@
                         echo "<span class='bookingActions'>";
                           echo $rows["isOverTime"] >= -12 && $rows["Status"] == 1 ? "<button onclick='retrieveBookedCar(" . $rows["RentalID"] . ", " . $rows["CarID"] . ", &#x27;show&#x27;)'>Retrieve Car</button>" : "<button disabled>Retrieve Car</button>";
                           echo $rows["Status"] == 2 && $rows["ReturnPenalty"] >= -12 ? "<button onclick='returnBookedCar(" . $rows["RentalID"] . ", " . $rows["CarID"] . ", &#x27;show&#x27;)'>Return Car</button>" : "<button disabled>Return Car</button>";
+                          echo $rows["Status"] == 2 && $rows["ReturnPenalty"] >= -6 ? ($rows["ReturnPenalty"] > 0 ? "<p style='color: #e27c00;'>Late Return <span id='lateReturnHours'>" . $rows["ReturnPenalty"] . "</span> Hours ago</p>" : "<p>Late Return Penalty In: " . $rows["ReturnPenalty"] . " Hours</p>") : "";
                         echo "</span>";
                       }
           }else{
