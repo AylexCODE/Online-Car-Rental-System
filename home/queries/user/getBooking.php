@@ -85,8 +85,8 @@
                             </span>";
 
                         echo "<span class='bookingActions'>";
-                          echo $rows["isOverTime"] >= -12 && $rows["Status"] == 1 ? "<button onclick='retrieveBookedCar(" . $rows["RentalID"] . ")'>Retrieve Car</button>" : "<button disabled>Retrieve Car</button>";
-                          echo $rows["Status"] == 2 && $rows["ReturnPenalty"] >= -12 ? "<button onclick='returnBookedCar(" . $rows["RentalID"] . ", " . $rows["CarID"] . ")'>Return Car</button>" : "<button disabled>Return Car</button>";
+                          echo $rows["isOverTime"] >= -12 && $rows["Status"] == 1 ? "<button onclick='retrieveBookedCar(" . $rows["RentalID"] . ", " . $rows["CarID"] . ", &#x27;show&#x27;)'>Retrieve Car</button>" : "<button disabled>Retrieve Car</button>";
+                          echo $rows["Status"] == 2 && $rows["ReturnPenalty"] >= -12 ? "<button onclick='returnBookedCar(" . $rows["RentalID"] . ", " . $rows["CarID"] . ", &#x27;show&#x27;)'>Return Car</button>" : "<button disabled>Return Car</button>";
                         echo "</span>";
                       }
           }else{

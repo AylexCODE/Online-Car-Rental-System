@@ -77,6 +77,14 @@
                 </span>
             </div>
         </span>
+        <div id='carCondition' onclick='retrieveBookedCar( &#x27;None&#x27;, &#x27;None&#x27;, &#x27;hide&#x27;);'>
+            <span>
+                <button style='position: relative; background-color: transparent; left: 50%; top: -10px; outline: none; border: none; color: #E2F87B; font-size: 24px; height: 5px;' onclick='retrieveBookedCar(this.id, &#x27;None&#x27;, &#x27;hide&#x27;);'>&#215;</button>
+                <h4 style='margin-bottom: 5px;'>Car Condition</h4>
+                <span id='carConditionIndicator'>Good!</span>
+                <button onclick='retrieveBookedCar(document.getElementById(&#x27;carCondition&#x27;).className, &#x27;None&#x27;, &#x27;confirm&#x27;);'>Confirm</p>
+            </span>
+        </div>
     </div>";
 ?>
 
@@ -131,32 +139,54 @@
         });
     }
 
-    function retrieveBookedCar(rentalID){
-        $.ajax({
-            type: "post",
-            url: "./queries/rent/retrieveBookedCar.php",
-            data: { RentalID: rentalID },
-            success: function(res){
-                getUserBookingHistory();
-            },
-            error: function(error){
+    function retrieveBookedCar(rentalID, carID, action){
+        if(action == "show"){
+            $("#carCondition").css('display', 'flex');
+            document.getElementById("carCondition").classList.add(rentalID);
 
-            }
-        });
+            $.ajax({
+                type: "post",
+                url: "./queries/car/getCarCondition.php",
+                data: { carID: carID },
+                success: function(res){
+                    $("#carConditionIndicator").html(res);
+                },
+                error: function(error){
+    
+                }
+            });
+        }else if(action == "confirm"){
+            $.ajax({
+                type: "post",
+                url: "./queries/rent/retrieveBookedCar.php",
+                data: { RentalID: rentalID },
+                success: function(res){
+                    getUserBookingHistory();
+                },
+                error: function(error){
+    
+                }
+            });
+        }else{
+            $("#carCondition").css('display', 'none');
+        }
     }
 
-    function returnBookedCar(rentalID, carID){
-        $.ajax({
-            type: "post",
-            url: "./queries/rent/returnBookedCar.php",
-            data: { RentalID: rentalID, CarID: carID },
-            success: function(res){
-                getUserBookingHistory();
-            },
-            error: function(error){
+    function returnBookedCar(rentalID, carID, action){
 
-            }
-        });
+        if(action == "confirm"){
+            $.ajax({
+                type: "post",
+                url: "./queries/rent/returnBookedCar.php",
+                data: { RentalID: rentalID, CarID: carID },
+                success: function(res){
+                    getUserBookingHistory();
+                },
+                error: function(error){
+    
+                }
+            });
+        }
     }
 
     getUserBookingHistory();
@@ -355,5 +385,47 @@
 
     .myBooking > span:nth-child(1) > div{
         scroll-snap-align: start;
+    }
+
+    #carCondition {
+        position: absolute;
+        top: 0px; left: 0px;
+        display: none;
+        height: 100%;
+        width: 100%;
+        background-color: #031A0950;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #carCondition > span {
+        background-color: #316C40;
+        border: 1px solid #E2F87B;
+        border-radius: 5px;
+        padding: 10px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #carCondition > span button {
+        background-color: #E2F87B;
+        border-radius: 5px;
+        outline: none;
+        border: none;
+        padding: 5px 10px;
+        margin-top: 10px;
+        color: #295234;
+    }
+    
+    #carConditionIndicator {
+        width: 100%;
+    }
+
+    #carConditionIndicator > p {
+        padding-bottom: 5px;
+        margin-bottom: 5px;
     }
 </style>

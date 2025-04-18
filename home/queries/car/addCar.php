@@ -21,7 +21,7 @@
                 if(mysqli_num_rows($execQuery) == 0){
                     $fileNameExist = false;
                 }else{
-                    $file = substr($file, 0, strlen($file) - strlen($fileExtension) -1) . "A." . $fileExtension;
+                    $file = substr($file, 0, strlen($file) - strlen($fileExtension) -1) . rand(0, 9) . "." . $fileExtension;
                 }
             }catch(mysqli_sql_exception){
                 echo "Error Database Pre";
@@ -36,21 +36,32 @@
                 mysqli_query($conn, $query);
             }catch(mysqli_sql_exception){}
 
-            $query = "SELECT ModelID FROM models WHERE BrandID = '$brandID' ORDER BY ModelID DESC";
+            $query = "SELECT ModelID FROM models WHERE BrandID = '$brandID' ORDER BY ModelID DESC LIMIT 1";
             $execQuery = mysqli_query($conn, $query);
             $row = mysqli_fetch_assoc($execQuery);
             $modelID = $row["ModelID"];
 
-            $query = "INSERT INTO cars VALUES (null, $brandID, '$modelID', '$fuelType', '$transmission', '$rentalPrice', $availability, '$file')";
+            $query = "INSERT INTO cars VALUES (null, '$brandID', '$modelID', '$fuelType', '$transmission', '$rentalPrice', $availability, '$file')";
             mysqli_query($conn, $query);
             if(move_uploaded_file($ffile, $path)){
                 echo "<p class=\"msg\"><span class='" . "success" . "'>Vehicle Added</span></p>";
             }else{
-                echo "<p class=\"msg\"><span class='" . "error" . "'>Error Pre</span></p>";
+                echo "<p class=\"msg\"><span class='" . "error" . "'>Database Error Pre</span></p>";
             }
-        }catch(mysqli_sql_exception $e){
+
+            try{
+                $query = "SELECT CarID FROM cars WHERE ModelID = '$modelID' ORDER BY CarID DESC LIMIT 1";
+                $execQuery = mysqli_query($conn, $query);
+                $row = mysqli_fetch_assoc($execQuery);
+                $carID = $row["CarID"];
+
+                $query = "INSERT INTO damages VALUE ('$carID', '0', '0', '0', '0', '0');";
+                mysqli_query($conn, $query);
+            }catch(mysqli_sql_exception){
+                echo "Error Getting CarID Pre";
+            }
+        }catch(mysqli_sql_exception){
             echo "Error Database Pre";
-            echo $e;
         }
     }
 ?>

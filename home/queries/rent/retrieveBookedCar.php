@@ -8,8 +8,8 @@
         $rentalRetriveCar = "UPDATE rentals SET Status = 2 WHERE RentalID = $rentalID";
         try{
             mysqli_query($conn, $rentalRetriveCar);
-        }catch(mysqli_sql_exception){
-            echo "Error";
+        }catch(mysqli_sql_exception $e){
+            echo $e;
         }
     }
 ?>
