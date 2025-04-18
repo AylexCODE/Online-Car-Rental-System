@@ -107,6 +107,11 @@
                 <button onclick='returnBookedCar(document.getElementById(&#x27;carConditionReturn&#x27;).className.split(&#x27;|&#x27;)[0], document.getElementById(&#x27;carConditionReturn&#x27;).className.split(&#x27;|&#x27;)[1], &#x27;confirm&#x27;);'>Confirm</button>
             </span>
         </div>
+
+        <span class='userFeedbackCover' onclick=''>
+            <div id='userFeedback'>
+            </div>
+        </span>
     </div>";
 ?>
 
@@ -286,6 +291,10 @@
         }
 
         document.getElementById("carDmgPenalty").innerHTML = totalDamageCost;
+    }
+
+    function leaveFeedback(rentalID, carId, ){
+
     }
 
     getUserBookingHistory();

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2025 at 11:06 AM
+-- Generation Time: Apr 18, 2025 at 12:15 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -144,6 +144,7 @@ CREATE TABLE `rentals` (
 
 CREATE TABLE `reviews` (
   `ReviewID` int(11) NOT NULL,
+  `RentalID` int(11) NOT NULL,
   `UserID` int(11) NOT NULL,
   `CarID` int(11) NOT NULL,
   `UserReview` varchar(255) NOT NULL,
