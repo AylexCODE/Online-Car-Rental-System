@@ -149,7 +149,7 @@
     .addVoucher > div {
         background-color: #316C40;
         border-radius: 5px;
-        padding: 10px 20px;
+        padding: 20px 30px;
         border: 2px solid #E2F87B;
         display: flex;
         flex-direction: column;
@@ -184,6 +184,7 @@
         outline: none;
         border: none;
         color: #316C40;
+        padding-block: 5px;
     }
 
     .voucherManagement {
