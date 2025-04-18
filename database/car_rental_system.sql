@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 18, 2025 at 12:15 PM
+-- Generation Time: Apr 18, 2025 at 02:01 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -261,7 +261,10 @@ ALTER TABLE `rentals`
 -- Indexes for table `reviews`
 --
 ALTER TABLE `reviews`
-  ADD PRIMARY KEY (`ReviewID`);
+  ADD PRIMARY KEY (`ReviewID`),
+  ADD KEY `RentalID` (`RentalID`),
+  ADD KEY `CarID` (`CarID`),
+  ADD KEY `UserID` (`UserID`);
 
 --
 -- Indexes for table `tickets`
@@ -384,6 +387,14 @@ ALTER TABLE `payments`
 ALTER TABLE `rentals`
   ADD CONSTRAINT `rentals_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`),
   ADD CONSTRAINT `rentals_ibfk_2` FOREIGN KEY (`CarID`) REFERENCES `cars` (`CarID`);
+
+--
+-- Constraints for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`RentalID`) REFERENCES `rentals` (`RentalID`),
+  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`CarID`) REFERENCES `cars` (`CarID`),
+  ADD CONSTRAINT `reviews_ibfk_3` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`);
 
 --
 -- Constraints for table `tickets`
