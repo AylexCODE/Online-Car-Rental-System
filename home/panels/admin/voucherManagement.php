@@ -6,17 +6,17 @@
                     <span>
                         <p>Active Vouchers</p>
                         <p>12</p>
-                        <p>Tap to add voucher</p>
+                        <p onclick='showHideAddVoucher()'>Tap to add voucher</p>
                     </span>
                     <span>
                         <p>Used Vouchers</p>
                         <p>12</p>
-                        <p>Tap to add voucher</p>
+                        <p onclick='showHideAddVoucher()'>Tap to add voucher</p>
                     </span>
                     <span>
                         <p>Total Vouchers</p>
                         <p>12</p>
-                        <p>Tap to add voucher</p>
+                        <p onclick='showHideAddVoucher()'>Tap to add voucher</p>
                     </span>
                 </span>
                 <span class='vouchersTable'>
@@ -74,14 +74,26 @@
                             </table>
                         </span>
                     </span>
-                    <div class='addVoucherCover'></div>
+                    <div class='addVoucherCover' onclick='showHideAddVoucher()'></div>
                     <div class='addVoucher'>
                         <div>
+                            <button onclick='showHideAddVoucher()'>&#215;</button>
                             <h4>Add Voucher</h4>
-
-                            <label for='voucherDeduction'>Deduction</label>
-                            <input type='number' id='voucherDeduction'>
-
+                            
+                            <span>
+                                <span>
+                                    <label for='voucherDeduction'>Discount</label>
+                                    <input type='number' id='voucherDeduction'>
+                                </span>
+                                <span>
+                                    <label for='voucherType'>Type</label>
+                                    <select id='voucherType'>
+                                        <option value='Cash'>Cash</option>
+                                        <option value='percentage'>Percent</option>
+                                    </select>
+                                </span>
+                            </span>
+                            
                             <label for='voucherExpiryDate'>Expiry Date</label>
                             <input type='date' id='voucherExpiryDate'>
 
@@ -125,68 +137,14 @@
         </div>";
 ?>
 
+<script type="text/javascript">
+    function showHideAddVoucher(){
+       document.querySelector(".addVoucherCover").classList.toggle("active");
+       document.querySelector(".addVoucher").classList.toggle("active");
+    }
+</script>
+
 <style type="text/css">
-    .addVoucherCover {
-        position: absolute;
-        top: 0px; left: 0px;
-        display: block;
-        height: 100vh;
-        width: 100vw;
-        background-color: #031A0980;
-        z-index: 100;
-    }
-
-    .addVoucher {
-        position: absolute;
-        top: 0px; left: 0px;
-        display: grid;
-        height: 100vh;
-        width: 100vw;
-        place-items: center;
-        z-index: 105;
-    }
-
-    .addVoucher > div {
-        background-color: #316C40;
-        border-radius: 5px;
-        padding: 20px 30px;
-        border: 2px solid #E2F87B;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-    }
-    
-    .addVoucher > div > h4 {
-        border-bottom: 2px solid #FDFFF680;
-        padding-bottom: 5px;
-        font-size: 24px;
-        text-align: center;
-    }
-
-    .addVoucher input {
-        background-color: #316C40;
-        border: none;
-        border-bottom: 1px solid #E2F87B;
-        color: #FDFFF6;
-        outline: none;
-        padding-block: 2.5px;
-    }
-
-    .addVoucher label {
-        font-size: 14px;
-        opacity: 0.8;
-        transform: translateY(10px);
-    }
-
-    .addVoucher button {
-        background-color: #E2F87B;
-        border-radius: 5px;
-        outline: none;
-        border: none;
-        color: #316C40;
-        padding-block: 5px;
-    }
-
     .voucherManagement {
         width: 100%;
         height: 100%;
@@ -292,7 +250,7 @@
         outline: 1px solid #38814a;
     }
 
-    .activeVouchersTable tr:nth-child(even) td, .allVouchersTable tr:nth-child(even) td, .usedVouchersTable tr:nth-child(even) {
+    .activeVouchersTable tr:nth-child(even) td, .allVouchersTable tr:nth-child(even) td, .usedVouchersTable tr:nth-child(even) td {
         padding: 20px 10px;
         outline: 1px solid #316C40;
     }
@@ -313,6 +271,101 @@
 
     .usedVouchersTable > span {
         overflow: scroll;
+    }
+    
+    .addVoucherCover {
+        position: absolute;
+        top: 0px; left: 0px;
+        display: none;
+        height: 100vh;
+        width: 100vw;
+        background-color: #031A0980;
+        z-index: 100;
+    }
+    
+    .addVoucherCover.active {
+        display: block;
+    }
+
+    .addVoucher {
+        position: absolute;
+        top: 0px; left: 0px;
+        display: none;
+        height: 100vh;
+        width: 100vw;
+        place-items: center;
+        z-index: 105;
+        pointer-events: none;
+    }
+    
+    .addVoucher.active {
+        display: grid;
+    }
+
+    .addVoucher > div {
+        background-color: #316C40;
+        border-radius: 5px;
+        padding: 20px 30px;
+        border: 2px solid #E2F87B;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        pointer-events: all;
+    }
+    
+    .addVoucher > div > h4 {
+        border-bottom: 2px solid #FDFFF680;
+        padding-bottom: 5px;
+        font-size: 24px;
+        text-align: center;
+    }
+    
+    .addVoucher > div > span:nth-child(3){
+      display: flex;
+      flex-direction: row;
+      gap: 5px;
+    }
+    
+    .addVoucher > div > span:nth-child(3) > span {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .addVoucher input, .addVoucher select {
+        background-color: #316C40;
+        border: none;
+        border-bottom: 1px solid #E2F87B;
+        color: #FDFFF6;
+        outline: none;
+        padding-block: 2.5px;
+        height: 26px;
+    }
+
+    .addVoucher label {
+        font-size: 14px;
+        opacity: 0.8;
+        transform: translateY(10px);
+    }
+
+    .addVoucher button {
+        background-color: #E2F87B;
+        border-radius: 5px;
+        outline: none;
+        border: none;
+        color: #316C40;
+        padding-block: 5px;
+    }
+    
+    .addVoucher > div > button:first-child {
+        height: 0px;
+        position: relative;
+        text-align: right;
+        left: 12.5px;
+        background-color: #316C40;
+        color: #E2F87B;
+        padding-block: 0px;
+        bottom: 10px;
     }
 
     .addVoucher input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {

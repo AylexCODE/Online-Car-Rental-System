@@ -203,12 +203,6 @@
         width: 110px;
     }
 
-    /* .rentals > span > span > table th:not(:first-child, :last-child){
-        border-radius: 0px;
-        border: 1px solid #FDFFF650;
-        border-top: none;
-    } */
-
     .rentals > span > span > span > table input, .rentals > span > span > span > table select {
         width: 100%;
         outline: none;
