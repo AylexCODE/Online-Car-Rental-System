@@ -10,8 +10,10 @@
 
             <button onclick='setActiveBtnAdmin(2)' id='vehiclesBtn'><img src='./images/icons/car-icon.svg' height='16px' width='16px'>Cars</button>
             <span class='moreVehicleSettings'>
-                <button onclick='setActiveAdminSettings(&#x27;vehicleStatistics&#x27;)'>Car Statistics</button>
-                <button onclick='setActiveAdminSettings(&#x27;vehicleManagement&#x27;)'>Car Management</button>
+                <!--<button onclick='setActiveAdminSettings(&#x27;vehicleStatistics&#x27;)'>Car Statistics</button>-->
+                <!--<button onclick='setActiveAdminSettings(&#x27;vehicleManagement&#x27;)'>Car Management</button>-->
+                <a href='#carStatistics'>Car Statistics</a>
+                <a href='#carManagement'>Car Management</a>
             </span>
             <button onclick='setActiveBtnAdmin(3)' id='bookingsBtn'><img src='./images/icons/booking-icon.svg' height='16px' width='16px'>Rentals</button>
             <span></span>
@@ -38,8 +40,8 @@
         <span class='adminDisplayOffset'></span>";
     echo "<section class='adminDisplay'>";
 
-    include_once("./panels/admin/vehicleStatistics.php");
-    include_once("./panels/admin/vehicleManagement.php");
+   // include_once("./panels/admin/vehicleStatistics.php");
+    include_once("./panels/admin/carManagement.php");
     include_once("./panels/admin/userManagement.php");
     include_once("./panels/admin/rentals.php");
     include_once("./panels/admin/voucherManagement.php");
@@ -60,8 +62,8 @@
     const logsBtn = document.getElementById('logsBtn');
     const adminNavIndicator = document.querySelector('.adminNavIndicator');
 
-    const vehicleStatistics = document.querySelector('.vehicleStatistics');
-    const vehicleManagement = document.querySelector('.vehicleManagement');
+    //const vehicleStatistics = document.querySelector('.vehicleStatistics');
+    const carManagement = document.querySelector('.carManagement');
     const moreVehicleSettings = document.querySelector('.moreVehicleSettings');
     const userManagement = document.querySelector('.userManagement');
     const rentals = document.querySelector('.rentals');
@@ -85,8 +87,8 @@
         logsBtn.classList.remove("active");
 
         moreVehicleSettings.classList.remove('open');
-        vehicleStatistics.classList.remove("active");
-        vehicleManagement.classList.remove("active");
+        //vehicleStatistics.classList.remove("active");
+        carManagement.classList.remove("active");
         userManagement.classList.remove("active");
         rentals.classList.remove("active");
         voucherPane.classList.remove("active");
@@ -100,7 +102,7 @@
                 break;
             case 2:
                 moreVehicleSettings.classList.add('open');
-                vehicleStatistics.classList.add("active");
+                carManagement.classList.add("active");
                 
                 adminNavIndicator.style.top = vehiclesBtn.offsetTop-5 +"px";
                 vehiclesBtn.classList.add("active");
@@ -145,7 +147,7 @@
         }
     }
 
-    function setActiveAdminSettings(name){
+    /*function setActiveAdminSettings(name){
         vehicleStatistics.classList.remove("active");
         vehicleManagement.classList.remove("active");
 
@@ -157,5 +159,5 @@
                 vehicleManagement.classList.add("active");
                 break;
         }
-    }
+    }*/
 </script>

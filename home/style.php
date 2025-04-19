@@ -452,14 +452,19 @@
         transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
-    .adminNav > span > .moreVehicleSettings > button {
+    .adminNav > span > .moreVehicleSettings > a {
         background-color: transparent;
-        border: none;
         text-transform: capitalize;
         color: #FDFFF6;
         font-size: 14px;
         margin-left: 10px;
+        text-decoration: none;
     }
+    
+     .adminNav > span > .moreVehicleSettings > a:visited, .adminNav > span > .moreVehicleSettings > a:focus, .adminNav > span > .moreVehicleSettings > a:hover {
+        background-color: transparent;
+        color: #FDFFF6;
+     }
 
     .adminBody {
         display: flex;
@@ -481,17 +486,18 @@
         /* padding: 15px 25px; */
     }
 
-    .vehicleStatistics, .vehicleManagement, .userManagement, .rentals, .voucherManagement {
+    .carManagement, .userManagement, .rentals, .voucherManagement {
         display: none;
         color: #FDFFF6;
     }
-    .vehicleStatistics.active, .vehicleManagement.active, .userManagement.active, .rentals.active, .voucherManagement.active{
+    
+    .carManagement.active, .userManagement.active, .rentals.active, .voucherManagement.active{
         display: flex;
         gap: 10px;
         flex-direction: column;
     }
 
-    .vehicleStatistics > h4, .vehicleManagement > h4, .userManagement > h4, .rentals > h4, .voucherManagement > h4 {
+    .carManagement > h4, .userManagement > h4, .rentals > h4, .voucherManagement > h4 {
         font-size: 24px;
         width: 100%;
         padding-bottom: 10px;
@@ -500,135 +506,7 @@
         padding: 15px 25px;
     }
 
-    .vehicleStatistics > span:nth-child(2){
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
-    }
-
-    .vehicleStatistics > span > span {
-        width: fit-content;
-        padding: 15px 20px;
-        background-color: #316C40;
-        border-radius: 5px;
-    }
-
-    .vehicleStatistics > span > span > p:nth-child(1){
-        font-size: 16px;
-        border-bottom: 1px solid #FDFFF690;
-        padding-bottom: 5px;
-        opacity: 0.8;
-        text-align: center;
-    }
-
-    .vehicleStatistics > span > span > p:nth-child(2){
-        font-size: 20px;
-        padding-top: 5px;
-        text-align: center;
-    }
-
-    .vehicleStatistics > span > span > button {
-        background-color: transparent;
-        outline: none;
-        border: none;
-        opacity: 0.6;
-        font-size: 14px;
-        color: #FDFFF6;
-        margin-top: 5px;
-    }
-
-    .vehicleStatistics > span:nth-child(3){
-        padding-inline: 20px;
-        background-color: #316C40;
-        border-radius: 5px;
-        height: 68dvh;
-        overflow: auto;
-    }
-    
-    .recentVehicleActivity {
-        width: 100%;
-        color: #FDFFF6;
-    }
-
-    .vehicleStatistics > span:nth-child(3) > p {
-        padding-top: 25px;
-        position: sticky;
-        top: 2px;
-        background-color: #316C40;
-    }
-
-    .recentVehicleActivity th{
-        position: sticky;
-        top: 46px;
-        text-align: left;
-        padding-top: 20px;
-        padding-bottom: 10px;
-        font-weight: normal;
-        border-bottom: 1px solid #FDFFF690;
-        background-color: #316C40;
-    }
-
-    .recentVehicleActivity td{
-        padding-block: 10px;
-    }
-
-    .vehicleManagement > span:nth-child(2){
-        display: flex;
-        flex-direction: row;
-        gap: 10px;
-        width: 100%;
-        height: 85vh;
-    }
-    
-    .vehicleManagement > span:nth-child(2) > span:nth-child(1) {
-        height: 100%;
-        width: 20%;
-        background-color: #316C40;
-        border-radius: 5px;
-    }
-
-    .vehicleManagement > span:nth-child(2) > span:nth-child(2) {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        width: 80%;
-        gap: 10px;
-    }
-
-    .vehicleManagement > span:nth-child(2) > span:nth-child(2) > span:nth-child(1) {
-        display: flex;
-        flex-direction: row;
-        justify-content: left;
-        align-items: center;
-        background-color: #316C40;
-        border-radius: 5px;
-        height: 18%;
-        width: 100%;
-        padding-inline: 4%;
-        gap: 3%;
-    }
-
-    .vehicleManagement > span:nth-child(2) > span:nth-child(2) > span:nth-child(1) > button {
-        border: none;
-        outline: none;
-        background-color: #E2F87B;
-        color: #031A09;
-        padding-inline: 5%;
-        padding-block: 15px;
-        border-radius: 5px;
-        font-weight: bold;
-    }
-
-    .vehicleManagement > span:nth-child(2) > span:nth-child(2) > span:nth-child(2) {
-        display: block;
-        background-color: #316C40;
-        border-radius: 5px;
-        height: 82%;
-        width: 100%;
-        padding: 10px 20px;
-    }
-
-    .vehicleManagement > span:nth-child(2) > span:nth-child(2) > span:nth-child(2) > .scrollCars {
+    #carManagement > span:nth-child(2) > span > span:nth-child(2) > .scrollCars {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
@@ -640,17 +518,17 @@
         gap: 10px;
     }
 
-    .vehicleManagement > span:nth-child(2) > span:nth-child(2) > span:nth-child(2) > .scrollCars > .car {
+    #carManagement > span:nth-child(2) > span > span:nth-child(2) > .scrollCars > .car {
         /* height: 235px; */
         width: 180px;
     }
 
-    .vehicleManagement > span:nth-child(2) > span:nth-child(2) > span:nth-child(2) > .scrollCars > .car > img {
+    #carManagement > span:nth-child(2) > span > span:nth-child(2) > .scrollCars > .car > img {
         height: 116px;
         width: 178px;
     }
 
-    .vehicleManagement > span:nth-child(2) > span:nth-child(2) > span:nth-child(2) > .scrollCars > .car > span:last-child {
+    #carManagement > span:nth-child(2) > span > span:nth-child(2) > .scrollCars > .car > span:last-child {
         width: 170px;
     }
 
