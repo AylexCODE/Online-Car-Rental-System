@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2025 at 11:01 AM
+-- Generation Time: Apr 20, 2025 at 02:12 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -85,8 +85,9 @@ CREATE TABLE `locations` (
 
 CREATE TABLE `logs` (
   `LogID` int(11) NOT NULL,
-  `LogMessage` varchar(100) NOT NULL,
-  `Type` varchar(50) NOT NULL
+  `UserID` int(11) NOT NULL,
+  `DateAndTime` datetime NOT NULL,
+  `Activity` varchar(256) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
