@@ -40,27 +40,27 @@
                                 <th>Type</th>
                                 <th>Damages</th>
                             <thead>
-                            <tbody>
-                                <tr class='recentCarActivityySearchBar'>
-                                    <td><input type='number'></td>
-                                    <td><input type='search'></td>
-                                    <td><input type='search'></td>
-                                    <td><input type='search'></td>
-                                    <td><input type='search'></td>
-                                    <td><input type='datetime-local'></td>
-                                    <td>
-                                        <select>
-                                            <option>Return</option>
-                                            <option>Take</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <select>
-                                            <option>No</option>
-                                            <option>Yes</option>
-                                        </select>
-                                    </td>
-                                </tr>";
+                            <tr class='recentCarActivityySearchBar'>
+                                <td><input type='number'></td>
+                                <td><input type='search'></td>
+                                <td><input type='search'></td>
+                                <td><input type='search'></td>
+                                <td><input type='search'></td>
+                                <td><input type='datetime-local'></td>
+                                <td>
+                                    <select>
+                                        <option>Return</option>
+                                        <option>Take</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select>
+                                        <option>No</option>
+                                        <option>Yes</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tbody>";
                             $j = 0;
                             while($j < 15){
                             echo "<tr>
@@ -472,6 +472,8 @@
         appearance: none;
         height: 12px;
         width: 15px;
+        position: relative;
+        left: 7.5px;
         background-image: url("./images/icons/x-icon.svg");
         background-repeat: no-repeat;
         background-size: contain;

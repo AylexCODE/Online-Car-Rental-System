@@ -45,6 +45,7 @@
     include_once("./panels/admin/userManagement.php");
     include_once("./panels/admin/rentals.php");
     include_once("./panels/admin/voucherManagement.php");
+    include_once("./panels/admin/logs.php");
 
     echo "</section>
         <p class='msg'>Hello World!</p>
@@ -68,6 +69,7 @@
     const userManagement = document.querySelector('.userManagement');
     const rentals = document.querySelector('.rentals');
     const voucherPane = document.querySelector('.voucherManagement');
+    const logs = document.querySelector('.logs');
 
     adminNavIndicator.style.height = overviewBtn.offsetHeight+10 +"px";
     adminNavIndicator.style.width = overviewBtn.offsetWidth+20 +"px";
@@ -92,6 +94,7 @@
         userManagement.classList.remove("active");
         rentals.classList.remove("active");
         voucherPane.classList.remove("active");
+        logs.classList.remove("active");
 
         activeAdminNav = index;
         switch(index){
@@ -140,6 +143,8 @@
                 adminNavIndicator.style.width = ticketsBtn.offsetWidth+20 +"px";
                 break;
             case 8:
+                logs.classList.add("active");
+
                 adminNavIndicator.style.top = logsBtn.offsetTop-5 +"px";
                 logsBtn.classList.add("active");
                 adminNavIndicator.style.width = logsBtn.offsetWidth+20 +"px";

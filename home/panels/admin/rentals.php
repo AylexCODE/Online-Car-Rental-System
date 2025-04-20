@@ -1,44 +1,41 @@
 <?php
   echo "<div class='rentals'>
-          <h4>Rentals</h4>
+          <h4>Rental Management & Statistics</h4>
           <span>
             <span>
-                <p>Active Rentals</p>
                 <span>
+                    <p>Active Rentals</p>
                     <table>
                         <thead>
-                            <tr class='activeRentalLabel'>
                             <th>Rental ID</th>
                             <th>User</th>
                             <th>Car</th>
                             <th>Pick-Up Date</th>
                             <th>Drop-Off Date</th>
                             <th>Status</th>
-                            </tr>
-                            <tr class='activeRentalsFilter'>
-                                <td><input type='number' id='activeFilterRentalID' oninput='getActiveRentals();'></td>
-                                <td><input type='search' id='activeFilterUser' oninput='getActiveRentals();'></td>
-                                <td><input type='search' id='activeFilterCar' oninput='getActiveRentals();'></td>
-                                <td><input type='date' id='activeFilterPickD' oninput='getActiveRentals();'></td>
-                                <td><input type='date' id='activeFilterDropD' onchange='getActiveRentals();'></td>
-                                <td>
-                                    <select id='activeFilterStatus' onchange='getActiveRentals();'>
-                                        <option value=''>All</option>
-                                        <option value='0'>Pending</option>
-                                        <option value='1'>Confirmed</option>
-                                        <option value='2'>Ongoing</option>
-                                    </select>
-                                </td>
-                            </tr>
                         </thead>
-                        <tbody id='activeRentals'></tbody>
+                        <tr class='rentalSearchBar'>
+                            <td><input type='number' id='activeFilterRentalID' oninput='getActiveRentals();'></td>
+                            <td><input type='search' id='activeFilterUser' oninput='getActiveRentals();'></td>
+                            <td><input type='search' id='activeFilterCar' oninput='getActiveRentals();'></td>
+                            <td><input type='date' id='activeFilterPickD' oninput='getActiveRentals();'></td>
+                            <td><input type='date' id='activeFilterDropD' onchange='getActiveRentals();'></td>
+                            <td>
+                                <select id='activeFilterStatus' onchange='getActiveRentals();'>
+                                    <option value=''>All</option>
+                                    <option value='0'>Pending</option>
+                                    <option value='1'>Confirmed</option>
+                                    <option value='2'>Ongoing</option>
+                                </select>
+                            </td>
                         </tr>
+                        <tbody id='activeRentals'></tbody>
                     </table>
                 </span>
             </span>
             <span>
-                <p>Rentals History</p>
                 <span>
+                    <p>Rentals History</p>
                     <table>
                         <thead>
                             <tr class='activeRentalLabel'>
@@ -49,7 +46,7 @@
                             <th>Drop-Off Date</th>
                             <th>Status</th>
                             </tr>
-                            <tr class='activeRentalsFilter'>
+                            <tr class='rentalSearchBar'>
                                 <td><input type='number' id='historyFilterRentalID' oninput='getRentalsHistory();'></td>
                                 <td><input type='search' list='usersList' id='historyFilterUser' oninput='getRentalsHistory();'></td>
                                 <td><input type='search' id='historyFilterCar' oninput='getRentalsHistory();'></td>
@@ -66,7 +63,6 @@
                             </tr>
                         </thead>
                         <tbody id='rentalHistory'></tbody>
-                        </tr>
                     </table>
                 </span>
             </span>
@@ -139,68 +135,95 @@
 <style type="text/css">
     .rentals {
         height: 100%;
+        width: 100%;
+        display: none;
+        overflow-y: hidden;
     }
     
     .rentals > span {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        padding: 0px 25px;
         height: 100%;
+        display: block;
         overflow-y: scroll;
         scroll-behavior: smooth;
         scroll-snap-type: y mandatory;
-        & ::-webkit-scrollbar{
-            display: none;
-        }
     }
-    
+
     .rentals > span > span {
-        display: block;
+        display: flex;
+        flex-direction: column;
         height: 100%;
-        scroll-snap-align: start;
-        margin-bottom: 20px;
-    }
-
-    .rentals > span > span > p {
-        font-size: 18px;
-        margin-bottom: 5px;
-    }
-
-    .rentals > span > span > span > table {
-        border-collapse: separate;
         width: 100%;
-        background-color: #316C40;
-        color: #FDFFF6;
-        text-wrap: nowrap;
-        border-spacing: 0;
+        scroll-snap-align: start;
+        gap: 5px;
+        padding-bottom: 10px;
+    }
+
+    .rentals > span > span:nth-child(2){
+        margin-block: 10px;
     }
 
     .rentals > span > span > span {
-        display: block;
-        min-height: 0px;
-        max-height: 90%;
+        background-color: #316C40;
+        height: 100%;
+        width: 100%;
         overflow: scroll;
-        border: 1px solid #FDFFF650;
-        border-top: none;
+        padding: 0px 20px 15px 20px;
         border-radius: 5px;
     }
-    
-    .rentals > span > span > span > table th{
+
+    .rentals > span > span > span > p {
+        text-align: left;
+        font-size: 20px;
         position: sticky;
         top: 0px;
-        padding: 20px 10px;
-        background-color: #e27c00;
+        background-color: #316C40;
+        padding-block: 15px;
+        outline: 1px solid #316C40;
+    }
+
+    .rentals > span > span > span > table {
+        width: 100%;
         text-align: left;
+        color: #FDFFF6;
+        font-weight: normal;
+        font-family: space-grotesk-semibold;
+        text-wrap: nowrap;
+    }
+
+    .rentals th {
+        border-bottom: 1px solid #E2F87B;
+        outline: 1px solid #316C40;
+        position: sticky;
+        padding: 5px 10px;
+        top: 56px;
+        background-color: #316C40;
+    }
+
+    .rentals tr:nth-child(even){
+        background-color: #38814a;
     }
     
-    .rentals > span > span > span > table th:is(:first-child){
-        border-radius: 5px 0px 0px 0px;
-        width: 90px;
+    .rentals tr:nth-child(odd) td {
+        padding: 20px 10px;
+        outline: 1px solid #316C40;
     }
-    
-    .rentals > span > span > span > table th:is(:last-child){
-        width: 110px;
+
+    .rentals td {
+        padding: 20px 10px;
+        outline: 1px solid #38814a;
+        overflow-x: scroll;
+    }
+
+    .rentalSearchBar {
+        position: sticky;
+        top: 88px;
+        background-color: #316C40;
+    }
+
+    .rentalSearchBar > td {
+        border-bottom: 1px solid #E2F87B70;
+        padding: 0px 0px;
     }
 
     .rentals > span > span > span > table input, .rentals > span > span > span > table select {
@@ -221,6 +244,8 @@
         appearance: none;
         height: 12px;
         width: 15px;
+        position: relative;
+        left: 7.5px;
         background-image: url("./images/icons/x-icon.svg");
         background-repeat: no-repeat;
         background-size: contain;
@@ -237,36 +262,6 @@
         padding: 5px 0px;
     }
 
-    .rentals > span > span > span > table td {
-        border: 1px 0px 1px 0px solid #FDFFF650;
-        padding: 10px 10px;
-        text-align: left;
-        overflow-x: scroll;
-    }
-
-    .rentals > span > span:nth-child(2) > span > table td {
-        padding: 20px 10px;
-    }
-
-    .rentals > span > span > span > table tr:nth-child(odd){
-        background-color: #38814a;
-    }
-    
-    .rentals > span > span > span > table tr:not(.activeRentalsFilter, .activeRentalLabel){
-        border-bottom: 1px solid #FDFFF650;
-    }
-
-    .rentals > span > span > span > table tr:hover:not(.activeRentalsFilter){
-        background-color: #499e5e;
-    }
-
-    .activeRentalsFilter {
-        position: sticky;
-        top: 59px;
-        background-color: #295234;
-        height: 20px;
-    }
-
     input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
@@ -277,13 +272,13 @@
         appearance: textfield;
     }
 
-    .activeRentalstatusAction {
+    .rentals tr:not(:first-child) > td:last-child{
         display: flex;
         flex-direction: column;
         gap: 5px;
     }
 
-    .activeRentalstatusAction > button {
+    .rentals tr:not(:first-child) > td:last-child > button {
         padding: 5px 2.5px;
         outline: none;
         border: 1px solid #076d0d;
@@ -292,8 +287,12 @@
         color: #FDFFF6;
     }
 
-    .activeRentalstatusAction > button:last-child {
+    .rentals tr:not(:first-child) > td:last-child > button:last-child {
         border-color: #b10303;
         background-color: #ff2323;
+    }
+
+    .rentals th:first-child {
+        width: 80px;
     }
 </style>

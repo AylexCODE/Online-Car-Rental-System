@@ -79,7 +79,7 @@
                     <td>" . $rental["Brand"] . "&nbsp;" . $rental["Model"] . "</td>
                     <td>" . $rental["StartDate"] . "</td>
                     <td>" . $rental["EndDate"] . "</td>
-                    <td class='activeRentalstatusAction'>"; if($status == "Pending") { echo "<button onclick='activeRentAction(1, " . $rental["RentalID"] . ", &#x27;NA&#x27;);'>Confirm</button><button onclick='activeRentAction(5, " . $rental["RentalID"] . ", " . $rental["CarID"] . ");'>Decline</button>"; }else{ echo $status; } echo "</td>
+                    <td>"; if($status == "Pending") { echo "<button onclick='activeRentAction(1, " . $rental["RentalID"] . ", &#x27;NA&#x27;);'>Confirm</button><button onclick='activeRentAction(5, " . $rental["RentalID"] . ", " . $rental["CarID"] . ");'>Decline</button>"; }else{ echo $status; } echo "</td>
                     </tr>";
                 }
             }else{

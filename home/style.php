@@ -486,18 +486,18 @@
         /* padding: 15px 25px; */
     }
 
-    .carManagement, .userManagement, .rentals, .voucherManagement {
+    .carManagement, .userManagement, .rentals, .voucherManagement, .logs {
         display: none;
         color: #FDFFF6;
     }
     
-    .carManagement.active, .userManagement.active, .rentals.active, .voucherManagement.active{
+    .carManagement.active, .userManagement.active, .rentals.active, .voucherManagement.active, .logs.active{
         display: flex;
         gap: 10px;
         flex-direction: column;
     }
 
-    .carManagement > h4, .userManagement > h4, .rentals > h4, .voucherManagement > h4 {
+    .carManagement > h4, .userManagement > h4, .rentals > h4, .voucherManagement > h4, .logs > h4 {
         font-size: 24px;
         width: 100%;
         padding-bottom: 10px;
