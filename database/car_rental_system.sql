@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2025 at 02:12 PM
+-- Generation Time: Apr 20, 2025 at 02:14 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -234,7 +234,8 @@ ALTER TABLE `locations`
 -- Indexes for table `logs`
 --
 ALTER TABLE `logs`
-  ADD PRIMARY KEY (`LogID`);
+  ADD PRIMARY KEY (`LogID`),
+  ADD KEY `UserID` (`UserID`);
 
 --
 -- Indexes for table `models`
@@ -370,6 +371,12 @@ ALTER TABLE `cars`
 --
 ALTER TABLE `damages`
   ADD CONSTRAINT `damages_ibfk_1` FOREIGN KEY (`CarID`) REFERENCES `cars` (`CarID`);
+
+--
+-- Constraints for table `logs`
+--
+ALTER TABLE `logs`
+  ADD CONSTRAINT `logs_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`);
 
 --
 -- Constraints for table `models`
