@@ -3,20 +3,20 @@
             <h4>Voucher Management & Statistics</h4>
             <span>
                 <span>
-                    <span>
+                    <span onclick='showHideAddVoucher()'>
                         <p>Active Vouchers</p>
                         <p>12</p>
-                        <p onclick='showHideAddVoucher()'>Tap to add voucher</p>
+                        <p>Tap to add voucher</p>
                     </span>
-                    <span>
+                    <span onclick='showHideAddVoucher()'>
                         <p>Used Vouchers</p>
                         <p>12</p>
-                        <p onclick='showHideAddVoucher()'>Tap to add voucher</p>
+                        <p>Tap to add voucher</p>
                     </span>
-                    <span>
+                    <span onclick='showHideAddVoucher()'>
                         <p>Total Vouchers</p>
                         <p>12</p>
-                        <p onclick='showHideAddVoucher()'>Tap to add voucher</p>
+                        <p>Tap to add voucher</p>
                     </span>
                 </span>
                 <span class='vouchersTable'>

@@ -140,8 +140,9 @@
     const crackedWindshieldsCost = 10000;
     let totalDamageCost = 0, rating = 3;
 
-    function getUserBookingHistory(){
-        $.ajax({
+    localStorage.removeItem('carName')
+    async function getUserBookingHistory(){
+        await $.ajax({
             type: "post",
             url: "./queries/user/getBooking.php",
             data: { action: 'getCar' },
@@ -153,7 +154,7 @@
             }
         });
 
-        $.ajax({
+        await $.ajax({
             type: "post",
             url: "./queries/user/getBooking.php",
             data: { action: 'getHistory' },
@@ -165,7 +166,7 @@
             }
         });
 
-        $.ajax({
+        await $.ajax({
             type: "post",
             url: "./queries/user/getBooking.php",
             data: { action: 'getBookingPickUp' },
@@ -177,7 +178,7 @@
             }
         });
 
-        $.ajax({
+        await $.ajax({
             type: "post",
             url: "./queries/user/getBooking.php",
             data: { action: 'getBookingDropOff' },
@@ -188,6 +189,8 @@
 
             }
         });
+
+        localStorage.getItem('carName') ? '' : localStorage.setItem('carName', $(".carBookingName").html());
     }
 
     function retrieveBookedCar(rentalID, carID, action){
@@ -319,7 +322,7 @@
         if(action == "show"){
             $("#userFeedback").css('display', 'flex');
             $("#userFeedbackCover").css('display', 'flex');
-            $(".reviewCarName").html($(".carBookingName").html());
+            $(".reviewCarName").html(localStorage.getItem('carName'));
         }else if(action == "confirm"){
             $.ajax({
                 type: 'post',
@@ -359,6 +362,7 @@
         }
     }
 
+    localStorage.removeItem('carName');
     getUserBookingHistory();
     setRating(rating);
 </script>
