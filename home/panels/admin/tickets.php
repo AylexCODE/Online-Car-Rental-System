@@ -18,13 +18,25 @@
                         </span>
                         <span class='userChats'>
                             <button class='newChatsToggle' onclick='toggleNewChats()'><span>&#x290F;</span>&nbsp;New Chats</button>
-                            <span id='newChats'>
-                                <p>Hello World</p>
-                            </span>
+                            <span id='newChats'>";
+                                echo "<span onclick='getChats(&#x27;open&#x27;);'>
+                                    <span class='profilePic'>A</span>
+                                    <span class='userInfo'>
+                                        <p>Lex</p>
+                                        <p>Hey</p>
+                                    </span>
+                                </span>";
+                            echo "</span>
                             <button class='existingChatsToggle' onclick='toggleRecentChats()'><span>&#x290F;</span>&nbsp;Recent Chats</button>
-                            <span id='existingChats'>
-                                <p>Hello World</p>
-                            </span>
+                            <span id='existingChats'>";
+                                echo "<span onclick='getChats(&#x27;open&#x27;);'>
+                                    <span class='profilePic'>A</span>
+                                    <span class='userInfo'>
+                                        <p>Lex</p>
+                                        <p>Hey</p>
+                                    </span>
+                                </span>";
+                            echo "</span>
                         </span>
                     </span>
                     <span class='messagingWrapper'>
@@ -36,7 +48,7 @@
                                     <p>lex@gmail.com</p>
                                 </span>
                             </span>
-                            <button>
+                            <button onclick='getChats(&#x27;close&#x27;);'>
                                 <p style='font-size: 26px;'>&#x27A5;</p>
                             </button>
                         </div>
@@ -55,6 +67,16 @@
 ?>
 
 <script type="text/javascript">
+    function getChats(action){
+        if(action == "close"){
+            document.querySelector(".messagingWrapper").style.width = "0%";
+            document.querySelector(".userAccounts").style.width = "100%";
+        }else{
+            document.querySelector(".messagingWrapper").style.width = "65%";
+            document.querySelector(".userAccounts").style.width = "35%";
+        }
+    }
+
     function toggleNewChats(){
         document.querySelector(".newChatsToggle").classList.toggle("showing");
 
@@ -79,6 +101,11 @@
 </script>
 
 <style type="text/css">
+    #newChats > span, #existingChats > span {
+        display: flex;
+        flex-direction: row;
+    }
+
     #messages {
         display: flex;
         flex-direction: column;
@@ -111,6 +138,7 @@
         padding: 10px 15px;
         align-items : center;
         gap: 10px;
+        justify-content: space-between;
     }
 
     .messagingActions > button {
@@ -173,9 +201,10 @@
         gap: 10px;
         background-color: #316C40;
         height: 100%;
-        width: 35%;
+        width: 100%;
         border-radius: 5px;
         padding: 15px 15px;
+        transition: all 1s cubic-bezier(0.215, 0.610, 0.355, 1);
     }
 
     .userFilterWrapper {
@@ -267,17 +296,19 @@
 
     .messagingWrapper {
         display: block;
-        width: 65%;
+        width: 0%;
+        overflow: hidden;
         height: 100%;
         background-color: #316C40;
         border-radius: 5px;
+        transition: all 1s cubic-bezier(0.215, 0.610, 0.355, 1);
     }
 
     .messagingWrapper > div:nth-child(1) {
         padding: 10px 20px;
     }
 
-    .messagingWrapper > div:nth-child(1), .messagingWrapper > div > span {
+    .messagingWrapper > div:nth-child(1), .messagingWrapper > div:nth-child(1) > span {
         height: 60px;
         width: 100%;
         border-bottom: 1px solid #FDFFF660;
