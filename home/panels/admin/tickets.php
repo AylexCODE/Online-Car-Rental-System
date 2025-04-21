@@ -75,7 +75,7 @@
         }
     }
 
-    document.getElementById("message").addEventListener('input', () => { if(document.getElementById("message").offsetHeight <= 300){document.getElementById("message").style.height = "36px"; document.getElementById("message").style.height = document.getElementById("message").scrollHeight+2 + "px";}} );
+    document.getElementById("message").addEventListener('input', () => { if(document.getElementById("message").scrollHeight <= 300){document.getElementById("message").style.height = "36px"; document.getElementById("message").style.height = document.getElementById("message").scrollHeight+2 + "px";}} );
 </script>
 
 <style type="text/css">
@@ -139,6 +139,7 @@
         &::-webkit-scrollbar {
             display: block;
             width: 10px;
+            border-left: 1px solid rgba(103, 221, 133, 0.62);
         }
 
         &::-webkit-scrollbar-thumb{
