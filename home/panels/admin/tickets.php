@@ -101,84 +101,6 @@
 </script>
 
 <style type="text/css">
-    #newChats > span, #existingChats > span {
-        display: flex;
-        flex-direction: row;
-    }
-
-    #messages {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        height: calc(100% - 120px);
-        align-items: center;
-        padding: 10px 20px;
-    }
-
-    #messages > .customerMsg {
-        align-self: flex-start;
-        background-color: #38814a;
-        border-radius: 10px 10px 10px 0px;
-        padding: 7.5px 15px;
-    }
-
-    #messages > .adminMsg {
-        align-self: flex-end;
-        background-color: #294E28;
-        border-radius: 10px 10px 0px 10px;
-        padding: 7.5px 15px;
-    }
-
-    .messagingActions {
-        display: flex;
-        flex-direction: row;
-        border-top: 1px solid #FDFFF660;
-        width: 100%;
-        height: 60px;
-        padding: 10px 15px;
-        align-items : center;
-        gap: 10px;
-        justify-content: space-between;
-    }
-
-    .messagingActions > button {
-        background-color: transparent;
-        outline: none;
-        border: 1px solid #E2F87B;
-        border-radius: 50%;
-        height: fit-content;
-        width: fit-content;
-        padding: 8px;
-    }
-
-    #message {
-        resize: none;
-        background-color: #316C40;
-        width: 100%;
-        outline: none;
-        border: 1px solid #E2F87B;
-        border-radius: 10px;
-        padding: 7.5px 10px;
-        color: #E2F87B;
-        height: 36px;
-        justify-self: flex-end;
-        align-self: flex-end;
-
-        &::-webkit-scrollbar {
-            display: block;
-            width: 10px;
-            border-left: 1px solid rgba(103, 221, 133, 0.62);
-        }
-
-        &::-webkit-scrollbar-thumb{
-            background:rgb(103, 221, 133);
-            border-radius: 2.5px 10px 10px 2.5px;
-        }
-
-        overflow-y: scroll;
-        text-wrap: wordwrap;
-    }
-
     .tickets {
         height: 100%;
     }
@@ -236,6 +158,8 @@
     .userAccounts > span:nth-child(2) {
         padding-bottom: 10px;
         border-bottom: 1px solid #FDFFF660;
+        display: flex;
+        flex-direction: column;
     }
 
     .userAccounts > span:nth-child(2) > label {
@@ -343,5 +267,87 @@
         outline: none;
         border: none;
         color: #FDFFF6;
+    }
+
+    #newChats > span, #existingChats > span {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #messages {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: calc(100% - 120px);
+        align-items: center;
+        padding: 10px 20px;
+    }
+
+    #messages > .customerMsg {
+        align-self: flex-start;
+        background-color: #38814a;
+        border-radius: 10px 10px 10px 0px;
+        padding: 7.5px 15px;
+    }
+
+    #messages > .adminMsg {
+        align-self: flex-end;
+        background-color: #294E28;
+        border-radius: 10px 10px 0px 10px;
+        padding: 7.5px 15px;
+    }
+
+    .messagingActions {
+        display: flex;
+        flex-direction: row;
+        border-top: 1px solid #FDFFF660;
+        width: 100%;
+        height: 60px;
+        padding: 10px 15px;
+        align-items : center;
+        gap: 10px;
+        justify-content: space-between;
+    }
+
+    .messagingActions > button {
+        background-color: transparent;
+        outline: none;
+        border: 1px solid #E2F87B;
+        border-radius: 50%;
+        height: fit-content;
+        width: fit-content;
+        padding: 8px;
+    }
+
+    #message {
+        resize: none;
+        background-color: #316C40;
+        width: 100%;
+        outline: none;
+        border: 1px solid #E2F87B;
+        border-radius: 10px;
+        padding: 7.5px 10px;
+        color: #E2F87B;
+        height: 36px;
+        justify-self: flex-end;
+        align-self: flex-end;
+
+        &::-webkit-scrollbar {
+            display: block;
+            width: 10px;
+            border-left: 1px solid rgba(103, 221, 133, 0.62);
+        }
+
+        &::-webkit-scrollbar-thumb{
+            background:rgb(103, 221, 133);
+            border-radius: 2.5px 10px 10px 2.5px;
+        }
+
+        overflow-y: scroll;
+        text-wrap: wordwrap;
+    }
+
+    .messagingActions::selection {
+        background: #000;
     }
 </style>
