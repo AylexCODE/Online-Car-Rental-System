@@ -41,10 +41,13 @@
     echo "<section class='adminDisplay'>";
 
    // include_once("./panels/admin/vehicleStatistics.php");
+    include_once("./panels/admin/overview.php");
     include_once("./panels/admin/carManagement.php");
     include_once("./panels/admin/userManagement.php");
+    include_once("./panels/admin/payments.php");
     include_once("./panels/admin/rentals.php");
     include_once("./panels/admin/voucherManagement.php");
+    include_once("./panels/admin/tickets.php");
     include_once("./panels/admin/logs.php");
 
     echo "</section>
@@ -64,11 +67,14 @@
     const adminNavIndicator = document.querySelector('.adminNavIndicator');
 
     //const vehicleStatistics = document.querySelector('.vehicleStatistics');
+    const overview = document.querySelector('.overview');
     const carManagement = document.querySelector('.carManagement');
     const moreVehicleSettings = document.querySelector('.moreVehicleSettings');
     const userManagement = document.querySelector('.userManagement');
     const rentals = document.querySelector('.rentals');
-    const voucherPane = document.querySelector('.voucherManagement');
+    const payments = document.querySelector('.payments'); 
+    const vouchers = document.querySelector('.voucherManagement');
+    const tickets = document.querySelector('.tickets'); 
     const logs = document.querySelector('.logs');
 
     adminNavIndicator.style.height = overviewBtn.offsetHeight+10 +"px";
@@ -88,17 +94,22 @@
         ticketsBtn.classList.remove("active");
         logsBtn.classList.remove("active");
 
+        overview.classList.remove("active");
         moreVehicleSettings.classList.remove('open');
         //vehicleStatistics.classList.remove("active");
         carManagement.classList.remove("active");
         userManagement.classList.remove("active");
+        payments.classList.remove("active");
         rentals.classList.remove("active");
-        voucherPane.classList.remove("active");
+        vouchers.classList.remove("active");
+        tickets.classList.remove("active");
         logs.classList.remove("active");
 
         activeAdminNav = index;
         switch(index){
             case 1:
+                overview.classList.add("active");
+
                 adminNavIndicator.style.top = overviewBtn.offsetTop-5 +"px";
                 overviewBtn.classList.add("active");
                 adminNavIndicator.style.width = overviewBtn.offsetWidth+20 +"px";
@@ -126,18 +137,22 @@
                 adminNavIndicator.style.width = usersBtn.offsetWidth+20 +"px";
                 break;
             case 5:
+                payments.classList.add("active");
+                
                 adminNavIndicator.style.top = paymentsBtn.offsetTop-5 +"px";
                 paymentsBtn.classList.add("active");
                 adminNavIndicator.style.width = paymentsBtn.offsetWidth+20 +"px";
                 break;
             case 6:
-                voucherPane.classList.add("active");
+                vouchers.classList.add("active");
                 
                 adminNavIndicator.style.top = vouchersBtn.offsetTop-5 +"px";
                 vouchersBtn.classList.add("active");
                 adminNavIndicator.style.width = vouchersBtn.offsetWidth+20 +"px";
                 break;
             case 7:
+                tickets.classList.add("active");
+
                 adminNavIndicator.style.top = ticketsBtn.offsetTop-5 +"px";
                 ticketsBtn.classList.add("active");
                 adminNavIndicator.style.width = ticketsBtn.offsetWidth+20 +"px";
