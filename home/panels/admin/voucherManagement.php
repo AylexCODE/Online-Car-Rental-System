@@ -248,6 +248,7 @@
     .activeVouchersTable td, .allVouchersTable td, .usedVouchersTable td {
         padding: 20px 10px;
         outline: 1px solid #38814a;
+        font-family: space-grotesk-regular;
     }
 
     .activeVouchersTable tr:nth-child(even) td, .allVouchersTable tr:nth-child(even) td, .usedVouchersTable tr:nth-child(even) td {

@@ -200,8 +200,10 @@
         background-color: #316C40;
     }
 
-    .rentals tr:nth-child(even){
+    .rentals tr:nth-child(even) td {
         background-color: #38814a;
+        outline: 1px solid #38814a;
+        padding: 20px 10px;
     }
     
     .rentals tr:nth-child(odd) td {
@@ -213,6 +215,10 @@
         padding: 20px 10px;
         outline: 1px solid #38814a;
         overflow-x: scroll;
+    }
+
+    .rentals tr:nth-child(even):has(button) td, .rentals tr:nth-child(odd):has(button) td {
+        padding: 10px 10px;
     }
 
     .rentalSearchBar {
