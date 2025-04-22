@@ -86,6 +86,7 @@
     const historyFilterStatus = document.getElementById("historyFilterStatus");
 
     function getActiveRentals(){
+        console.log("E");
         $.ajax({
             type: 'post',
             url: './queries/rent/getRentals.php',
@@ -210,7 +211,7 @@
         padding: 20px 10px;
         outline: 1px solid #316C40;
     }
-
+    
     .rentals td {
         padding: 20px 10px;
         outline: 1px solid #38814a;
@@ -278,13 +279,13 @@
         appearance: textfield;
     }
 
-    .rentals tr:not(:first-child) > td:last-child{
+    .rentals tr > td:last-child{
         display: flex;
         flex-direction: column;
         gap: 5px;
     }
 
-    .rentals tr:not(:first-child) > td:last-child > button {
+    .rentals tr > td:last-child > button {
         padding: 5px 2.5px;
         outline: none;
         border: 1px solid #076d0d;
@@ -293,12 +294,22 @@
         color: #FDFFF6;
     }
 
-    .rentals tr:not(:first-child) > td:last-child > button:last-child {
+    .rentals tr > td:last-child > button:last-child {
         border-color: #b10303;
         background-color: #ff2323;
     }
 
     .rentals th:first-child {
         width: 80px;
+    }
+
+    #activeRentals td:nth-child(2), #rentalHistory td:nth-child(2){
+        min-width: 110px;
+        max-width: 110px;
+    }
+
+    #activeRentals td:nth-child(3), #rentalHistory td:nth-child(2){
+        min-width: 110px;
+        max-width: 110px;
     }
 </style>

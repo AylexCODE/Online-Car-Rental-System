@@ -46,7 +46,7 @@
                                 <td><input type='search'></td>
                                 <td><input type='search'></td>
                                 <td><input type='search'></td>
-                                <td><input type='datetime-local'></td>
+                                <td><input type='date' id='recentFilterDate'></td>
                                 <td>
                                     <select>
                                         <option>Return</option>
@@ -54,24 +54,24 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select>
+                                    <select id='recentFilterDmg'>
                                         <option>No</option>
                                         <option>Yes</option>
                                     </select>
                                 </td>
                             </tr>
-                            <tbody>";
+                            <tbody id='carStats'>";
                             $j = 0;
                             while($j < 15){
                             echo "<tr>
                                     <td>1</td>
-                                    <td>Ford</td>
-                                    <td>Ranger</td>
-                                    <td>Lex</td>
-                                    <td>lexcode@gmail.com</td>
-                                    <td>Sept 16, 2025 12:57:20</td>
+                                    <td>Ford ssssssssssssssssssssssssssss</td>
+                                    <td>Ranger ssssssssssssssssssssssssss</td>
+                                    <td>Lex ssssssssssssssssssssssss</td>
+                                    <td>lexcode@gmail.com sssssssssssssssssssssss</td>
+                                    <td>Sept 16, 2025</td>
                                     <td>Return</td>
-                                    <td>Scratches</td>
+                                    <td>Scratches ssssssssssssssssssssssss</td>
                                   </tr>";
                                   $j++;
                             }
@@ -492,6 +492,44 @@
     
     .recentCarActivity > table select:nth-child(1){
         width: 70px;
+    }
+
+    #carStats td:nth-child(1){
+        max-width: 70px;
+        min-width: 70px;
+    }
+
+    #carStats td:nth-child(2), #carStats td:nth-child(3) {
+        max-width: 85px;
+        min-width: 85px;
+    }
+
+    #carStats td:nth-child(4), #carStats td:nth-child(5) {
+        max-width: 150px;
+        min-width: 150px;
+    }
+
+    #carStats td:nth-child(6) {
+        max-width: 40px;
+        min-width: 40px;
+    }
+    
+    #carStats td:nth-child(7) {
+        max-width: 40px;
+        min-width: 40px;
+    }
+
+    #carStats td:nth-child(8) {
+        max-width: 110px;
+        min-width: 110px;
+    }
+
+    #recentFilterDate {
+        width: 150px;
+    }
+
+    #recentFilterDmg {
+        width: 100%;
     }
     
     input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {

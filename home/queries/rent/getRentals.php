@@ -37,12 +37,12 @@
         $getRentalsQuery = "";
         if($_POST["type"] == "active"){
             if($status ==  ""){
-                $filterStatus = "rentals.Status = 0 OR rentals.Status = 1 OR rentals.Status = 2";
+                $filterStatus = "(rentals.Status = 0 OR rentals.Status = 1 OR rentals.Status = 2)";
             }
             $getRentalsQuery = "SELECT rentals.RentalID, (SELECT users.Name FROM users WHERE UserID = rentals.UserID) AS User, (SELECT models.ModelName FROM models WHERE models.ModelID = cars.ModelID) AS Model, (SELECT brands.BrandName FROM brands WHERE brands.BrandID = cars.BrandID) AS Brand, rentals.CarID, rentals.StartDate, rentals.EndDate, rentals.Status FROM rentals INNER JOIN cars ON rentals.CarID = cars.CarID WHERE $filterStatus $filterRentalID $filterUser $filterCar $filterPickUpDate $filterDropOffDate;";
         }else{
             if($status ==  ""){
-                $filterStatus = "rentals.Status = 3 OR rentals.Status = 4 OR rentals.Status = 5";
+                $filterStatus = "(rentals.Status = 3 OR rentals.Status = 4 OR rentals.Status = 5)";
             }
             $getRentalsQuery = "SELECT rentals.RentalID, (SELECT users.Name FROM users WHERE UserID = rentals.UserID) AS User, (SELECT models.ModelName FROM models WHERE models.ModelID = cars.ModelID) AS Model, (SELECT brands.BrandName FROM brands WHERE brands.BrandID = cars.BrandID) AS Brand, rentals.StartDate, rentals.EndDate, rentals.Status FROM rentals INNER JOIN cars ON rentals.CarID = cars.CarID WHERE $filterStatus $filterRentalID $filterUser $filterCar $filterPickUpDate $filterDropOffDate ORDER BY rentals.RentalID DESC;";
         }
@@ -84,7 +84,7 @@
                 }
             }else{
                 echo "<tr>
-                        <td colspan='6' style='text-align: center;'>No Data</td>
+                        <td style='text-align: center;'>No Data</td>
                     </tr>";
             }
         }catch(mysqli_sql_exception $e){
