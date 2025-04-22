@@ -65,13 +65,13 @@
                             while($j < 15){
                             echo "<tr>
                                     <td>1</td>
-                                    <td>Ford ssssssssssssssssssssssssssss</td>
-                                    <td>Ranger ssssssssssssssssssssssssss</td>
-                                    <td>Lex ssssssssssssssssssssssss</td>
-                                    <td>lexcode@gmail.com sssssssssssssssssssssss</td>
+                                    <td>Ford    </td>
+                                    <td>Ranger</td>
+                                    <td>Lex</td>
+                                    <td>lexcode@gmail.com</td>
                                     <td>Sept 16, 2025</td>
                                     <td>Return</td>
-                                    <td>Scratches ssssssssssssssssssssssss</td>
+                                    <td>Scratches</td>
                                   </tr>";
                                   $j++;
                             }
