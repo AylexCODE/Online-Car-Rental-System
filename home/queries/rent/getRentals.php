@@ -21,8 +21,11 @@
         }if(trim($user) !=  ""){
             $filterUser = "AND rentals.UserID = (SELECT UserID FROM users WHERE Name LIKE '%$user%' AND Role = 'Customer' LIMIT 1)";
         }if(trim($car) !=  ""){
+            $filterCar = "AND rentals.CarID = (SELECT CarID FROM cars WHERE cars.BrandID = (SELECT BrandID FROM brands WHERE BrandName LIKE '%" . explode(" ", $car)[0] . "%' LIMIT 1) LIMIT 1)";
             if(count(explode(" ", $car)) > 1){
-                $filterCar = "AND rentals.CarID = (SELECT CarID FROM cars WHERE cars.BrandID = (SELECT BrandID FROM brands WHERE BrandName LIKE '%" . explode(" ", $car)[0] . "%' LIMIT 1) AND cars.ModelID = (SELECT ModelID FROM models WHERE ModelName LIKE '%" . explode(" ", $car)[1] . "%' LIMIT 1))";
+                if(explode(" ", $car)[1]){
+                    $filterCar = "AND rentals.CarID = (SELECT CarID FROM cars WHERE cars.BrandID = (SELECT BrandID FROM brands WHERE BrandName LIKE '%" . explode(" ", $car)[0] . "%' LIMIT 1) AND cars.ModelID = (SELECT ModelID FROM models WHERE ModelName LIKE '%" . explode(" ", $car)[1] . "%' LIMIT 1) LIMIT 1)";
+                }
             }
         }if($pickUpDate !=  ""){
             $filterPickUpDate = "AND rentals.StartDate LIKE '$pickUpDate%'";

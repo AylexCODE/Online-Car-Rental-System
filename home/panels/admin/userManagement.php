@@ -14,6 +14,8 @@
                                 <th>Age</th>
                                 <th>Driver's License</th>
                                 <th>Registered Date</th>
+                                <th>Rents</th>
+                                <th>Car Preference</th>
                             </thead>
                             <tr class='usersFilter'>
                                 <td><input type='number'></td>
@@ -23,6 +25,8 @@
                                 <td><input type='number'></td>
                                 <td><input type='search'></td>
                                 <td><input type='date'></td>
+                                <td><input type='number'></td>
+                                <td><input type='search'></td>
                             </tr>
                             <tbody>";
                             $l = 0;
@@ -34,7 +38,9 @@
                                     <td>09218912341</td>
                                     <td>19</td>
                                     <td>174-76-934164</td>
-                                    <td>2025-10-23</td>
+                                    <td>2025-10-23 12:54:30</td>
+                                    <td>3</td>
+                                    <td>Ford Lambo</td>
                                 </tr>";
                                 $l++;
                             }
@@ -134,7 +140,7 @@
         outline: none;
         border: 1px solid #FDFFF6;
         background-color: #295234;
-        padding: 0px 10px;
+        padding: 0px 5px;
         height: 40px;
         border-radius: 5px;
         color: #FDFFF6;
