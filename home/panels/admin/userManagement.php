@@ -7,19 +7,18 @@
                         <div>
                             <p>Users (12 Total)</p>
                             <span>
-                                <p>Filter by:</p>
-                                <select>
-                                    <option>UID</option>
-                                    <option>Name</option>
-                                    <option>Email</option>
-                                    <option>Age</option>
-                                    <option>Reg. Date</option>
-                                    <option>Rents</option>
-                                    <option>Preference</option>
+                                <p>Order by:</p>
+                                <select id='uSortOrder' onchange='getUsers();'>
+                                    <option value='UID'>UID</option>
+                                    <option value='Name'>Name</option>
+                                    <option value='Email'>Email</option>
+                                    <option value='Age'>Age</option>
+                                    <option value='RegDate'>Reg. Date</option>
+                                    <option value='Rents'>Rents</option>
                                 </select>
-                                <select>
-                                    <option>ASC</option>
-                                    <option>DESC</option>
+                                <select id='uOrderBy' onchange='getUsers();'>
+                                    <option value='ASC'>ASC</option>
+                                    <option value='DESC'>DESC</option>
                                 </select>
                             </span>
                         </div>
@@ -36,15 +35,15 @@
                                 <th>Car Preference</th>
                             </thead>
                             <tr class='usersFilter'>
-                                <td><input type='number' id='uFilterUID'></td>
-                                <td><input type='search' id='uName'></td>
-                                <td><input type='number' id='uEmail'></td>
-                                <td><input type='search' id='uPhoneNo'></td>
-                                <td><input type='number' id='uAge'></td>
-                                <td><input type='search' id='uDLicense'></td>
-                                <td><input type='date' id='uRegDate'></td>
-                                <td><input type='number' id='uRentTimes'></td>
-                                <td><input type='search' id='uPreference'></td>
+                                <td><input type='number' id='uFilterUID' oninput='getUsers();'></td>
+                                <td><input type='search' id='uName' oninput='getUsers();'></td>
+                                <td><input type='search' id='uEmail' oninput='getUsers();'></td>
+                                <td><input type='number' id='uPhoneNo' oninput='getUsers();'></td>
+                                <td><input type='number' id='uAge' oninput='getUsers();'></td>
+                                <td><input type='search' id='uDLicense' oninput='getUsers();'></td>
+                                <td><input type='date' id='uRegDate' oninput='getUsers();'></td>
+                                <td><input type='number' id='uRentTimes' oninput='getUsers();'></td>
+                                <td><input type='search' id='uPreference' oninput='filterPref();'></td>
                             </tr>
                             <tbody id='usersList'></tbody>
                         </table>
@@ -55,6 +54,8 @@
 ?>
 
 <script type="text/javascript">
+    const forFilterPref = document.getElementById("usersList");
+
     const uFilterUID = document.getElementById("uFilterUID");
     const uName = document.getElementById("uName");
     const uEmail = document.getElementById("uEmail");
@@ -64,19 +65,34 @@
     const uRegDate = document.getElementById("uRegDate");
     const uRentTimes = document.getElementById("uRentTimes");
     const uPreference = document.getElementById("uPreference");
+    const uOrderBy = document.getElementById("uOrderBy");
+    const uSortOrder = document.getElementById("uSortOrder");
 
     function getUsers(){
         $.ajax({
             type: 'post',
             url: './queries/user/getUsers.php',
-            data: { uFilterUID: uFilterUID.value, uName: uName.value, uEmail: uEmail.value, uPhoneNo: uPhoneNo.value, uAge: uAge.value, uDLicense: uDLicense.value, uRegDate: uRegDate.value, uRentTimes: uRentTimes.value, uPreference: uPreference.value },
+            data: { uFilterUID: uFilterUID.value, uName: uName.value, uEmail: uEmail.value, uPhoneNo: uPhoneNo.value, uAge: uAge.value, uDLicense: uDLicense.value, uRegDate: uRegDate.value, uRentTimes: uRentTimes.value, uSortOrder: uSortOrder.value, uOrderBy: uOrderBy.value },
             success: function(res){
                 $("#usersList").html(res);
+                if(uPreference.value != "") filterPref();
             },
             error: function(){
 
             }
         });
+    }
+
+    function filterPref(){
+        const arr = forFilterPref.children;
+        
+        for(let i = 0; i < arr.length; i++){
+            if(arr[i].lastChild.innerHTML.toLowerCase().includes(uPreference.value.toLowerCase())){
+                arr[i].style.display = "table-row";
+            }else{
+                arr[i].style.display = "none";
+            }
+        }
     }
 
     getUsers();
