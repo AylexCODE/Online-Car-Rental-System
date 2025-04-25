@@ -27,12 +27,12 @@
                                 <th>Voucher ID</th>
                             </thead>
                             <tr class='paymentsFilter'>
-                                <td><input type='number'></td>
-                                <td><input type='number'></td>
-                                <td><input type='search'></td>
-                                <td><input type='number'></td>
+                                <td><input type='number' id='filterPayID' oninput='filterPayments();'></td>
+                                <td><input type='number' id='filterPayRentID' oninput='filterPayments();'></td>
+                                <td><input type='search' id='filterPayName' oninput='filterPayments();'></td>
+                                <td><input type='number' id='filterPayPaid' oninput='filterPayments();'></td>
                                 <td>
-                                    <select>
+                                    <select id='filterPayMethod' onchange='filterPayments();'>
                                         <option value='All'>All</option>
                                         <option value='Credit/Debit Card'>Credit/Debit Card</option>
                                         <option value='PayPal'>PayPal</option>
@@ -42,15 +42,15 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <select>
+                                    <select id='filterPayFreq' onchange='filterPayments();'>
                                         <option value='All'>All</option>
                                         <option value='Daily' id='payDaily'>Daily</option>
                                         <option value='Weekly' id='payWeekly'>Weekly</option>
                                         <option value='Monthly' id='payMonthly'>Monthly</option>
                                     </select>
                                 </td>
-                                <td><input type='datetime-local'></td>
-                                <td><input type='number'></td>
+                                <td><input type='datetime-local' id='filterPayDate' onchange='filterPayments();'></td>
+                                <td><input type='number' id='filterPayVoucherID' oninput='filterPayments();'></td>
                             </tr>
                             <tbody>";
                             $l = 0;
@@ -74,6 +74,31 @@
             </span>
         </div>";
 ?>
+
+<script type="text/javascript">
+    const filterPayId = document.getElementById("filterPayID");
+    const filterPayRentID = document.getElementById("filterPayRentID");
+    const filterPayName = document.getElementById("filterPayName");
+    const filterPayPaid = document.getElementById("filterPayPaid");
+    const filterPayMethod = document.getElementById("filterPayMethod");
+    const filterPayFreq = document.getElementById("filterPayFreq");
+    const filterPayDate = document.getElementById("filterPayDate");
+    const filterPayVoucherID = document.getElementById("filterPayVoucherID");
+    
+    function filterPayments(){
+        $.ajax({
+            type: 'post',
+            url: './queries/rent/getPayments.php',
+            data: { m: 'getPayments', filterPayId: filterPayId.value, filterPayRentID: filterPayRentID.value, filterPayName.value, filterPayPaid: filterPayPaid.value, filterPayMethod: filterPayMethod.value, filterPayFreq: filterPayFreq.value, filterPayDate: filterPayDate.value, filterPayVoucherID: filterPayVoucherID.value },
+            success: function(res){
+                
+            },
+            error: function(){
+                
+            }
+        });
+    }
+</script>
 
 <style type="text/css">
     .payments {
