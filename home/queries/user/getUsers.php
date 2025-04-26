@@ -85,7 +85,7 @@
                 <td>" . $rows["RentTimes"] . "</td>";
         if($rows["RentTimes"] != 0) {
             $preferred = mysqli_fetch_assoc(mysqli_query($conn, "SELECT COUNT(CarID) AS CarCOUNT, (SELECT BrandName FROM brands WHERE BrandID = (SELECT cars.BrandID FROM cars WHERE CarID = rentals.CarID)) AS Preferred FROM rentals WHERE UserID = 2 GROUP BY CarID ORDER BY CarCOUNT DESC LIMIT 1;"));
-            echo "<td>" . $rows["RentTimes"] . "</td>";
+            echo "<td>" . $preferred["Preferred"] . "</td>";
         }else{
             echo "<td>NA</td>";
         }

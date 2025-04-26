@@ -1,7 +1,7 @@
 <?php
     require_once("../../../database/db_conn.php");
 
-    $queryGetLocation = "SELECT * FROM Locations ORDER BY Address";
+    $queryGetLocation = "SELECT * FROM locations ORDER BY Address";
     
     if(isset($_GET)){
         try{
