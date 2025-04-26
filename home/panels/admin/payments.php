@@ -52,22 +52,7 @@
                                 <td><input type='datetime-local' id='filterPayDate' onchange='filterPayments();'></td>
                                 <td><input type='number' id='filterPayVoucherID' oninput='filterPayments();'></td>
                             </tr>
-                            <tbody>";
-                            $l = 0;
-                            while($l < 15){
-                                echo "<tr>
-                                    <td>1</td>
-                                    <td>1</td>
-                                    <td>Ley</td>
-                                    <td>12121</td>
-                                    <td>Cash</td>
-                                    <td>Monthly</td>
-                                    <td>2025-09-12 12:34:50</td>
-                                    <td>None</td>
-                                </tr>";
-                                $l++;
-                            }
-                            echo "</tbody>
+                            <tbody id='paymentsData'></tbody>
                         </table>
                     </span>
                 </span>
@@ -89,15 +74,17 @@
         $.ajax({
             type: 'post',
             url: './queries/rent/getPayments.php',
-            data: { m: 'getPayments', filterPayId: filterPayId.value, filterPayRentID: filterPayRentID.value, filterPayName.value, filterPayPaid: filterPayPaid.value, filterPayMethod: filterPayMethod.value, filterPayFreq: filterPayFreq.value, filterPayDate: filterPayDate.value, filterPayVoucherID: filterPayVoucherID.value },
+            data: { m: 'getPayments', filterPayId: filterPayId.value, filterPayRentID: filterPayRentID.value, filterPayName: filterPayName.value, filterPayPaid: filterPayPaid.value, filterPayMethod: filterPayMethod.value, filterPayFreq: filterPayFreq.value, filterPayDate: filterPayDate.value, filterPayVoucherID: filterPayVoucherID.value },
             success: function(res){
-                
+                $("#paymentsData").html(res);
             },
             error: function(){
                 
             }
         });
     }
+    
+    filterPayments();
 </script>
 
 <style type="text/css">
