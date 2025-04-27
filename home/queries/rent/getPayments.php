@@ -26,7 +26,7 @@
             $filterPaymentRentID = "AND payments.RentalID = $filterPayRentID";
         }
         if($filterPayName != ""){
-           // $filterPaymentName = "AND LIKE '%$filterPayName%'"; // Not Sure!
+            $filterPaymentName = "AND payments.RentalID = (SELECT rentals.RentalID WHERE rentals.UserID = (SELECT UserID FROM users WHERE Name LIKE '%$filterPayName%' LIMIT 1))"; // Not Sure!
         }
         if($filterPayPaid != ""){
             $filterPaymentPaid = "AND payments.AmountPaid LIKE'%$filterPayPaid%'";
@@ -49,19 +49,19 @@
         }
 
         try{
-            $getPaymentsQuery = "SELECT payments.PaymentID, payments.RentalID, payments.AmountPaid, payments.PaymentMethod, payments.PaymentFrequency, payments.PaymentDate, payments.VoucherID FROM payments WHERE $filterPaymentID $filterPaymentRentID $filterPaymentName $filterPaymentPaid $filterPaymentMethod $filterPaymentFreq $filterPaymentDate $filterPaymentVoucherID";
+            $getPaymentsQuery = "SELECT payments.PaymentID, payments.RentalID, payments.AmountPaid, payments.PaymentMethod, payments.PaymentFrequency, payments.PaymentDate, payments.VoucherID, (SELECT users.Name FROM users WHERE UserID = (SELECT rentals.UserID WHERE rentals.RentalID = payments.RentalID) LIMIT 1) AS CusName FROM payments INNER JOIN rentals ON payments.RentalID = rentals.RentalID WHERE $filterPaymentID $filterPaymentRentID $filterPaymentName $filterPaymentPaid $filterPaymentMethod $filterPaymentFreq $filterPaymentDate $filterPaymentVoucherID";
             
             $execGetPayments = mysqli_query($conn, $getPaymentsQuery);
             if(mysqli_num_rows($execGetPayments) > 0){
                 while($rows = mysqli_fetch_assoc($execGetPayments)){
-                    echo "<td>" . $rows["PaymentID"] . "</td>
+                    echo "<tr><td>" . $rows["PaymentID"] . "</td>
                           <td>" . $rows["RentalID"] . "</td>
-                          <td>" . $rows["RentalID"] . "</td>
+                          <td>" . $rows["CusName"] . "</td>
                           <td>" . $rows["AmountPaid"] . "</td>
                           <td>" . $rows["PaymentMethod"] . "</td>
                           <td>" . $rows["PaymentFrequency"] . "</td>
                           <td>" . $rows["PaymentDate"] . "</td>
-                          <td>" . $rows["VoucherID"] . "</td>";
+                          <td>" . $rows["VoucherID"] . "</td></tr>";
                 }
             }else{
                 echo "<td>No Data<td>";
