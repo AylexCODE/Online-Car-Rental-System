@@ -77,8 +77,8 @@
                     <option value='Bank Transfer'>Bank Transfer</option>
                     <option value='Cash-On-Pickup'>Cash-On-Pickup</option>
                 </select>
-                <label>Enter Voucher (optional)</label>
-                <input type='text' id='voucher'>
+                <label>Enter Voucher (optional)&nbsp;<span id='voucherIndicator'></span></label>
+                <input type='text' id='voucher' oninput='checkVoucher(this.value);'>
             </span>
             <span>
                 <p>Fees</p>
@@ -255,7 +255,8 @@
             const dropOffLocationID = dropOffLocation.value.split("|")[0];;
 
             const isAvailable = await checkCarAvailability(carId);
-            if(isAvailable == 1){
+            const isVoucherValid = await checkVoucher(voucher.value);
+            if(isAvailable == 1 && isVoucherValid == true){
                 submitRent(carId, pickUpLocationID, dropOffLocationID, startDateTime, endDateTime, paymentMethod.value, paymentFrequency.value, amountPaid.innerHTML, voucher.value, document.querySelector(".rentCar").title);
             }else{
                 console.log("Car is Unavailable Right Now...");
@@ -283,6 +284,36 @@
         }else{
             document.getElementById("mapSwitch1").classList.add("active");
             document.getElementById("map1").style.display = "block";
+        }
+    }
+    
+    async function checkVoucher(UID){
+        if(UID != ""){
+            await $.ajax({
+                type: 'get',
+                url: `./queries/rent/checkVoucher.php?VoucherUID=${UID}`,
+                success: function(res){
+                    if(res == "invalid"){
+                        $("#voucherIndicator").html("<span style='color: red;'>Invalid Voucher</span>");
+                        return false;
+                    }else if(res == "limitreached") {
+                        $("#voucherIndicator").html("<span style='color: red;'>Voucher Limit Reached</span>");
+                        return false;
+                    }else if(res == "expired") {
+                        $("#voucherIndicator").html("<span style='color: red;'>Expired Voucher</span>");
+                        return false;
+                    }
+                
+                    $("#voucherIndicator").html(`<span style='color: green;'>${res}</span>`);
+                    return true;
+                },
+                error: function(){
+                    
+                }
+            });
+        }else{
+            $("#voucherIndicator").html("");
+            return true;
         }
     }
 
