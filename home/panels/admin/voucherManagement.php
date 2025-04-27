@@ -5,17 +5,17 @@
                 <span>
                     <span onclick='showHideAddVoucher()'>
                         <p>Active Vouchers</p>
-                        <p>12</p>
+                        <p id='activeVouchersCount'>12</p>
                         <p>Tap to add voucher</p>
                     </span>
                     <span onclick='showHideAddVoucher()'>
                         <p>Used Vouchers</p>
-                        <p>12</p>
+                        <p id='usedVouchersCount'>12</p>
                         <p>Tap to add voucher</p>
                     </span>
                     <span onclick='showHideAddVoucher()'>
                         <p>Total Vouchers</p>
-                        <p>12</p>
+                        <p id='allVouchersCount'>12</p>
                         <p>Tap to add voucher</p>
                     </span>
                 </span>
@@ -31,19 +31,7 @@
                                     <th>Used Times</th>
                                     <th>Max Usage</th>
                                 </thead>
-                                <tbody>";
-                                $i = 0;
-                                while($i < 20){
-                                    echo "<tr>
-                                            <td>$i</td>
-                                            <td>21%</td>
-                                            <td>2020-23-23</td>
-                                            <td>3</td>
-                                            <td>10</td>
-                                        </tr>";
-                                    $i++;
-                                }
-                                echo "</tbody>
+                                <tbody id='activeVouchers'></tbody>
                             </table>
                         </span>
                     </span>
@@ -58,19 +46,7 @@
                                     <th>Used Times</th>
                                     <th>Max Usage</th>
                                 </thead>
-                                <tbody>";
-                                $i = 0;
-                                while($i < 20){
-                                    echo "<tr>
-                                            <td>$i</td>
-                                            <td>21%</td>
-                                            <td>2020-23-23</td>
-                                            <td>3</td>
-                                            <td>10</td>
-                                        </tr>";
-                                    $i++;
-                                }
-                                echo "</tbody>
+                                <tbody id='allVouchers'></tbody>
                             </table>
                         </span>
                     </span>
@@ -106,7 +82,7 @@
                 </span>
                 <span class='usedVouchersTable'>
                     <span>
-                        <p>Used Voucher</p>
+                        <p>Used/Expired Vouchers</p>
                         <span class>
                             <table>
                                 <thead>
@@ -116,19 +92,7 @@
                                     <th>Used Times</th>
                                     <th>Max Usage</th>
                                 </thead>
-                                <tbody>";
-                                $i = 0;
-                                while($i < 20){
-                                    echo "<tr>
-                                            <td>$i</td>
-                                            <td>21%</td>
-                                            <td>2020-23-23</td>
-                                            <td>3</td>
-                                            <td>10</td>
-                                        </tr>";
-                                    $i++;
-                                }
-                                echo "</tbody>
+                                <tbody id='usedVouchers'></tbody>
                             </table>
                         </span>
                     </span>
@@ -166,6 +130,76 @@
             });
         }
     }
+    
+    function getVouchers(){
+        $.ajax({
+            type: 'get',
+            url: './queries/rent/getVouchers.php?m=getAll',
+            success: function(res){
+                $("#activeVouchers").html(res);
+            },
+            error: function(){
+                
+            }
+        });
+        
+        $.ajax({
+            type: 'get',
+            url: './queries/rent/getVouchers.php?m=getActive',
+            success: function(res){
+                $("#allVouchers").html(res);
+            },
+            error: function(){
+                
+            }
+        });
+        
+        $.ajax({
+            type: 'get',
+            url: './queries/rent/getVouchers.php?m=getUsed',
+            success: function(res){
+                $("#usedVouchers").html(res);
+            },
+            error: function(){
+                
+            }
+        });
+        
+        $.ajax({
+            type: 'get',
+            url: './queries/rent/getVouchers.php?m=getCountActive',
+            success: function(res){
+                $("#activeVouchersCount").html(res);
+            },
+            error: function(){
+                
+            }
+        });
+        
+        $.ajax({
+            type: 'get',
+            url: './queries/rent/getVouchers.php?m=getCountAll',
+            success: function(res){
+                $("#allVouchersCount").html(res);
+            },
+            error: function(){
+                
+            }
+        });
+        
+        $.ajax({
+            type: 'get',
+            url: './queries/rent/getVouchers.php?m=getCountUsed',
+            success: function(res){
+                $("#usedVouchersCount").html(res);
+            },
+            error: function(){
+                
+            }
+        });
+    }
+    
+    getVouchers();
 </script>
 
 <style type="text/css">
