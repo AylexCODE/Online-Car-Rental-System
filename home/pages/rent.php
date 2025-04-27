@@ -1,5 +1,5 @@
 <?php
-    echo "<div class='rentCar' title='". $_SESSION["UID"] . "'>
+    echo "<div class='rentCar' title='". $_SESSION["userID"] . "'>
         <h2>Rental Form</h2>
         <button class='rentExitButton' onclick='setInitialRentInfo(0, 0, 0, 0, 0, 0, 0);'>Back</button>
         <form>
@@ -86,7 +86,7 @@
                 <input type='text' id='pickUpFuelCost' Value='Pick-Up Cost ₱-, -km' disabled>
                 <input type='text' id='dropOffFuelCost' Value='Drop-Off Cost ₱-, -km' disabled>
             </span>
-            <p id='rentalCost'>Total Rental Cost: ₱<span id='amountPaid'>-</span></p>
+            <p id='rentalCost'>Total Rental Cost: ₱<span id='amountPaid'>-</span><span id='visibleDiscount'></span></p>
         </form>
         <span class='agreementCheck'>
             <span>
@@ -110,7 +110,7 @@
     let carId, startDateTime, endDateTime, rentDuration, initialRentPrice, pickUpCost, dropOffUpCost;
     const paymentMethod = document.getElementById("paymentMethod");
     const amountPaid = document.getElementById("amountPaid");
-    let voucher = document.getElementById("voucher");
+    let voucher = document.getElementById("voucher"), voucherValue = "";
 
     function setInitialRentInfo(carID, brandName, modelName, rentalPrice, transmission, fuelType, imgUrl){
         const homePage = document.querySelector(".homePage");
@@ -255,18 +255,53 @@
             const dropOffLocationID = dropOffLocation.value.split("|")[0];;
 
             const isAvailable = await checkCarAvailability(carId);
-            const isVoucherValid = await checkVoucher(voucher.value);
-            if(isAvailable == 1 && isVoucherValid == true){
-                submitRent(carId, pickUpLocationID, dropOffLocationID, startDateTime, endDateTime, paymentMethod.value, paymentFrequency.value, amountPaid.innerHTML, voucher.value, document.querySelector(".rentCar").title);
+            const isVoucherValid = await checkVoucher(voucher.value.trim());
+            
+            if(isAvailable == 1){
+                if(isVoucherValid == true){
+                    let voucherId = voucher.value.trim();
+                    if(document.getElementById("voucherIndicator").innerHTML.includes("Voucher")){
+                        voucherId = "";
+                    }
+                    
+                    submitRent(carId, pickUpLocationID, dropOffLocationID, startDateTime, endDateTime, paymentMethod.value, paymentFrequency.value, amountPaid.innerHTML, voucherId, document.querySelector(".rentCar").title);
+                }else{
+                    $(".notif").html("<span class='error'>Voucher Maybe Invalid or Expired</span>");
+                    console.log("Voucher Maybe Invalid or Expired");
+                }
             }else{
+                $(".notif").html("<span class='error'>Car is Unavailable Right Now...</span>");
                 console.log("Car is Unavailable Right Now...");
             }
         }
     }
 
     function calcPrice(){
+        document.getElementById("visibleDiscount").innerHTML = "";
+      
         if(initialRentPrice && endDateTime){
-            document.getElementById("amountPaid").innerHTML = (parseFloat(initialRentPrice) + (pickUpCost + dropOffUpCost)).toFixed(2);
+            const payableAmount = (parseFloat(initialRentPrice) + (pickUpCost + dropOffUpCost)).toFixed(2);
+            document.getElementById("amountPaid").innerHTML = payableAmount;
+            
+            if(voucherValue != "" && !document.getElementById("voucherIndicator").innerHTML.includes("Voucher")){
+                let tempDiscount, visibleDiscount;
+                if(voucherValue.includes("%")){
+                    tempDiscount = voucherValue.split(" ")[1].replace("%)", "");
+                    if(tempDiscount.length == 4){
+                        tempDiscount = `0.0${tempDiscount}`;
+                    }else{
+                        tempDiscount = `0.${tempDiscount}`;
+                    }
+                    
+                    document.getElementById("amountPaid").innerHTML = payableAmount - (payableAmount*parseFloat(tempDiscount));
+                    visibleDiscountt = payableAmount*parseFloat(tempDiscount);
+                }else{
+                    tempDiscount = voucherValue.split("₱")[1].replace(")", "");
+                    document.getElementById("amountPaid").innerHTML = payableAmount-tempDiscount;
+                    visibleDiscountt = tempDiscount;
+                }
+                document.getElementById("visibleDiscount").innerHTML = ` | Including Voucher (-₱${visibleDiscountt})`;
+            }
         }else{
             document.getElementById("amountPaid").innerHTML = "-";
         }
@@ -288,24 +323,27 @@
     }
     
     async function checkVoucher(UID){
-        if(UID != ""){
+        voucherValue = "";
+        
+        let returnValidity = true;
+        if(UID.trim() != ""){
             await $.ajax({
                 type: 'get',
                 url: `./queries/rent/checkVoucher.php?VoucherUID=${UID}`,
                 success: function(res){
+                    voucherValue = res;
+                    $("#voucherIndicator").html(`<span style='color: green;'>${res}</span>`);
+                    
                     if(res == "invalid"){
                         $("#voucherIndicator").html("<span style='color: red;'>Invalid Voucher</span>");
-                        return false;
+                        returnValidity = false;
                     }else if(res == "limitreached") {
                         $("#voucherIndicator").html("<span style='color: red;'>Voucher Limit Reached</span>");
-                        return false;
+                        returnValidity = false;
                     }else if(res == "expired") {
                         $("#voucherIndicator").html("<span style='color: red;'>Expired Voucher</span>");
-                        return false;
+                        returnValidity = false;
                     }
-                
-                    $("#voucherIndicator").html(`<span style='color: green;'>${res}</span>`);
-                    return true;
                 },
                 error: function(){
                     
@@ -313,8 +351,10 @@
             });
         }else{
             $("#voucherIndicator").html("");
-            return true;
         }
+        
+        calcPrice();
+        return returnValidity;
     }
 
     document.getElementById("pickUpLocation").onchange = (e) => {updateLocationCost()}

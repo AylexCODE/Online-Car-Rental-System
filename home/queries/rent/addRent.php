@@ -3,7 +3,7 @@
     
     if(isset($_POST)){
         $carID = $_POST["carID"];
-        $UID = $_POST["UID"];
+        $userID = $_POST["userID"];
         $pickUpLocation = $_POST["pickUpLocation"];
         $dropOffLocation = $_POST["dropOffLocation"];
         $startDateTime = $_POST["startDateTime"];
@@ -17,22 +17,43 @@
 
         try{
             if(mysqli_query($conn, $updateCarAvailable)){
-                $addRentalQuery = "INSERT INTO rentals VALUES (null, '$UID', '$carID', '$pickUpLocation', '$dropOffLocation', '$startDateTime', '$endDateTime', 0, 0);";
+                $addRentalQuery = "INSERT INTO rentals VALUES (null, '$userID', '$carID', '$pickUpLocation', '$dropOffLocation', '$startDateTime', '$endDateTime', 0, 0);";
 
                 try{
                     if(mysqli_query($conn, $addRentalQuery)){
-                        $getRentalIDQuery = "SELECT RentalID FROM rentals WHERE UserID = '$UID' ORDER BY RentalID DESC;";
+                        $getRentalIDQuery = "SELECT RentalID FROM rentals WHERE UserID = '$userID' ORDER BY RentalID DESC;";
                        
                         try{
                             if($execQuery = mysqli_query($conn, $getRentalIDQuery)){
                                 $getRentalID = mysqli_fetch_assoc($execQuery);
                                 $rentalID = $getRentalID["RentalID"];
+                                $voucher == "" ? $voucher = "NA" : "";
                                 $addPaymentQuery = "INSERT INTO payments VALUES (null, '$rentalID', NOW(), '$paymentFrequency', '$amountPaid','$paymentMethod', 0, '$voucher');";
 
                                 try {
                                     mysqli_query($conn, $addPaymentQuery);
                                 }catch(mysqli_sql_exception){
                                     echo "Error Add Payment";
+                                }
+                                
+                                if($voucher != "" || $voucher != "NA"){
+                                    $getVoucherInfo = "SELECT UsedTimes FROM vouchers WHERE VoucherUID = '$voucher';";
+                                   
+                                    try{
+                                        $execGetVoucherInfo = mysqli_query($conn, $getVoucherInfo);
+                                        $getUsedTimes = mysqli_fetch_assoc($execGetVoucherInfo);
+                                        $usedTimes = $getUsedTimes["UsedTimes"];
+                                    
+                                        $updateVoucherQuery = "UPDATE vouchers SET UsedTimes = '" . $usedTimes+1 . "' WHERE VoucherUID = '$voucher';";
+                                    
+                                        try{
+                                            mysqli_query($conn, $updateVoucherQuery);
+                                        }catch(mysqli_sql_exception){
+                                            echo "Error Updating Voucher";
+                                        }
+                                    }catch(mysqli_sql_exception){
+                                        echo "Error Getting Voucher Info";
+                                    }
                                 }
                             }
                         }catch(mysqli_sql_exception){

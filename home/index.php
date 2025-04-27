@@ -502,11 +502,11 @@
         return result;
     }
 
-    async function submitRent(carId, pickUpLocation, dropOffLocation, startDateTime, endDateTime, paymentMethod, paymentFrequency, amountPaid, voucher, UID){
+    async function submitRent(carId, pickUpLocation, dropOffLocation, startDateTime, endDateTime, paymentMethod, paymentFrequency, amountPaid, voucher, userID){
         await $.ajax({
             type: 'post',
             url: './queries/rent/addRent.php',
-            data: { carID: carId, pickUpLocation: pickUpLocation, dropOffLocation: dropOffLocation, startDateTime: startDateTime, endDateTime: endDateTime, paymentMethod: paymentMethod, paymentFrequency: paymentFrequency, amountPaid: amountPaid, voucher: voucher, UID: UID },
+            data: { carID: carId, pickUpLocation: pickUpLocation, dropOffLocation: dropOffLocation, startDateTime: startDateTime, endDateTime: endDateTime, paymentMethod: paymentMethod, paymentFrequency: paymentFrequency, amountPaid: amountPaid, voucher: voucher, userID: userID },
             success: function(res){
                 if(!res.includes("Error")){
                     $(".notif").html("<span class='success'>Car Booked</span>");
