@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 20, 2025 at 02:14 PM
--- Server version: 10.4.28-MariaDB
--- PHP Version: 8.2.4
+-- Generation Time: Apr 27, 2025 at 04:22 PM
+-- Server version: 10.4.6-MariaDB
+-- PHP Version: 8.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `brands` (
   `BrandID` int(11) NOT NULL,
   `BrandName` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -47,7 +47,7 @@ CREATE TABLE `cars` (
   `RentalPrice` double(10,2) NOT NULL,
   `Availability` tinyint(1) NOT NULL,
   `ImageName` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -62,7 +62,7 @@ CREATE TABLE `damages` (
   `Scratches` tinyint(1) NOT NULL,
   `ChippedPaint` tinyint(1) NOT NULL,
   `CrackedWindshields` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -75,7 +75,7 @@ CREATE TABLE `locations` (
   `Address` varchar(100) NOT NULL,
   `AddressCode` varchar(100) NOT NULL,
   `DistanceKM` double(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -88,7 +88,7 @@ CREATE TABLE `logs` (
   `UserID` int(11) NOT NULL,
   `DateAndTime` datetime NOT NULL,
   `Activity` varchar(256) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -100,7 +100,7 @@ CREATE TABLE `models` (
   `ModelID` int(11) NOT NULL,
   `BrandID` int(11) NOT NULL,
   `ModelName` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -117,7 +117,7 @@ CREATE TABLE `payments` (
   `PaymentMethod` varchar(24) NOT NULL,
   `PaymentStatus` int(3) NOT NULL,
   `VoucherID` varchar(16) NOT NULL DEFAULT 'None'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -135,7 +135,7 @@ CREATE TABLE `rentals` (
   `EndDate` datetime NOT NULL,
   `Penalty` double(10,2) NOT NULL,
   `Status` int(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -150,7 +150,7 @@ CREATE TABLE `reviews` (
   `CarID` int(11) NOT NULL,
   `UserReview` varchar(255) NOT NULL,
   `Rating` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -163,7 +163,7 @@ CREATE TABLE `tickets` (
   `UserID` int(12) NOT NULL,
   `Conversation` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Conversation`)),
   `Status` tinyint(4) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -181,7 +181,7 @@ CREATE TABLE `users` (
   `Role` varchar(16) NOT NULL,
   `Password` varchar(100) NOT NULL,
   `DateCreated` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -190,13 +190,13 @@ CREATE TABLE `users` (
 --
 
 CREATE TABLE `vouchers` (
-  `VoucherID` varchar(16) NOT NULL,
+  `VoucherUID` varchar(8) NOT NULL,
   `Discount` double(5,2) NOT NULL,
-  `Type` tinyint(4) NOT NULL,
+  `Type` varchar(16) NOT NULL,
   `ExpiryDate` datetime NOT NULL,
   `UsedTimes` int(11) NOT NULL,
   `MaxUsage` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Indexes for dumped tables
@@ -289,7 +289,7 @@ ALTER TABLE `users`
 -- Indexes for table `vouchers`
 --
 ALTER TABLE `vouchers`
-  ADD PRIMARY KEY (`VoucherID`);
+  ADD PRIMARY KEY (`VoucherUID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
