@@ -89,7 +89,7 @@
                                     <label for='voucherType'>Type</label>
                                     <select id='voucherType'>
                                         <option value='Cash'>Cash</option>
-                                        <option value='percentage'>Percent</option>
+                                        <option value='Percentage'>Percent</option>
                                     </select>
                                 </span>
                             </span>
@@ -100,7 +100,7 @@
                             <label for='voucherMaxUsage'>Max Usage</label>
                             <input type='number' id='voucherMaxUsage'>
 
-                            <button>Submit</button>
+                            <button onclick='submitAddVoucher();'>Submit</button>
                         </div>
                     </div>
                 </span>
@@ -138,9 +138,33 @@
 ?>
 
 <script type="text/javascript">
+    const voucherDeduction = document.getElementById("voucherDeduction");
+    const voucherType = document.getElementById("voucherType");
+    const voucherExpiryDate = document.getElementById("voucherExpiryDate");
+    const voucherMaxUsage = document.getElementById("voucherMaxUsage");
+
     function showHideAddVoucher(){
        document.querySelector(".addVoucherCover").classList.toggle("active");
        document.querySelector(".addVoucher").classList.toggle("active");
+    }
+    
+    function submitAddVoucher(){
+        if(voucherDeduction.value == "" || voucherType.value == "" || voucherExpiryDate.value == "" || voucherMaxUsage.value == ""){
+            document.querySelector(".msg").innerHTML = "<p class='error'>Fields Cannot Be Empty!</p>";
+        }else{
+            $.ajax({
+               type: 'post',
+               url: './queries/rent/addVoucher.php',
+               data: { voucherDeduction: voucherDeduction.value, voucherType: voucherType.value, voucherExpiryDate: voucherExpiryDate.value, voucherMaxUsage: voucherMaxUsage.value },
+               success: function(res){
+                  $(".msg").html(res);
+                  showHideAddVoucher();
+               },
+               error: function(){
+                  
+               }
+            });
+        }
     }
 </script>
 
