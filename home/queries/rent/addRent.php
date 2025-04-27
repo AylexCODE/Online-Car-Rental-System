@@ -27,7 +27,7 @@
                             if($execQuery = mysqli_query($conn, $getRentalIDQuery)){
                                 $getRentalID = mysqli_fetch_assoc($execQuery);
                                 $rentalID = $getRentalID["RentalID"];
-                                $addPaymentQuery = "INSERT INTO payments VALUES (null, '$rentalID', NOW(), '$paymentFrequency', '$amountPaid','$paymentMethod', 'Pending', '$voucher');";
+                                $addPaymentQuery = "INSERT INTO payments VALUES (null, '$rentalID', NOW(), '$paymentFrequency', '$amountPaid','$paymentMethod', 0, '$voucher');";
 
                                 try {
                                     mysqli_query($conn, $addPaymentQuery);
