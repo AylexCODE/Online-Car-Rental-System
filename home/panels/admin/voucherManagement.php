@@ -25,7 +25,7 @@
                         <span>
                             <table class='activeVouchersTable'>
                                 <thead>
-                                    <th>ID</th>
+                                    <th>UID</th>
                                     <th>Deduction</th>
                                     <th>Expiry Date</th>
                                     <th>Used Times</th>
@@ -40,7 +40,7 @@
                         <span>
                             <table class='allVouchersTable'>
                                 <thead>
-                                    <th>ID</th>
+                                    <th>UID</th>
                                     <th>Deduction</th>
                                     <th>Expiry Date</th>
                                     <th>Used Times</th>
@@ -75,6 +75,9 @@
 
                             <label for='voucherMaxUsage'>Max Usage</label>
                             <input type='number' id='voucherMaxUsage'>
+                            
+                            <label for='voucherUID'>Voucher UID</label>
+                            <input type='text' id='voucherUID' oninput='checkVoucherUID(this.value  );'>
 
                             <button onclick='submitAddVoucher();'>Submit</button>
                         </div>
@@ -86,7 +89,7 @@
                         <span class>
                             <table>
                                 <thead>
-                                    <th>ID</th>
+                                    <th>UID</th>
                                     <th>Deduction</th>
                                     <th>Expiry Date</th>
                                     <th>Used Times</th>
@@ -102,6 +105,7 @@
 ?>
 
 <script type="text/javascript">
+    const voucherUID = document.getElementById("voucherUID");
     const voucherDeduction = document.getElementById("voucherDeduction");
     const voucherType = document.getElementById("voucherType");
     const voucherExpiryDate = document.getElementById("voucherExpiryDate");
@@ -113,13 +117,13 @@
     }
     
     function submitAddVoucher(){
-        if(voucherDeduction.value == "" || voucherType.value == "" || voucherExpiryDate.value == "" || voucherMaxUsage.value == ""){
+        if(voucherUID.value == "" || voucherDeduction.value == "" || voucherType.value == "" || voucherExpiryDate.value == "" || voucherMaxUsage.value == ""){
             document.querySelector(".msg").innerHTML = "<p class='error'>Fields Cannot Be Empty!</p>";
         }else{
             $.ajax({
                type: 'post',
                url: './queries/rent/addVoucher.php',
-               data: { voucherDeduction: voucherDeduction.value, voucherType: voucherType.value, voucherExpiryDate: voucherExpiryDate.value, voucherMaxUsage: voucherMaxUsage.value },
+               data: { voucherUID: voucherUID.value, voucherDeduction: voucherDeduction.value, voucherType: voucherType.value, voucherExpiryDate: voucherExpiryDate.value, voucherMaxUsage: voucherMaxUsage.value },
                success: function(res){
                   $(".msg").html(res);
                   showHideAddVoucher();
@@ -128,6 +132,12 @@
                   
                }
             });
+        }
+    }
+    
+    function checkVoucherUID(UID){
+        if(UID.length > 4){
+            document.getElementById("voucherUID").value = UID.substr(0, 4);
         }
     }
     

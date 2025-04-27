@@ -11,11 +11,11 @@
         }elseif($_GET["m"] == "getUsed"){
             $getVouchersQuery = "SELECT * FROM vouchers WHERE DATEDIFF(ExpiryDate, NOW()) < 0 OR UsedTimes = MaxUsage;";
         }elseif($_GET["m"] == "getCountAll"){
-            $getVouchersQuery = "SELECT Count(VoucherID) AS VCount FROM vouchers;";
+            $getVouchersQuery = "SELECT Count(VoucherUID) AS VCount FROM vouchers;";
         }elseif($_GET["m"] == "getCountActive"){
-            $getVouchersQuery = "SELECT Count(VoucherID) AS VCount FROM vouchers WHERE DATEDIFF(ExpiryDate, NOW()) >= 0 OR UsedTimes < MaxUsage;";
+            $getVouchersQuery = "SELECT Count(VoucherUID) AS VCount FROM vouchers WHERE DATEDIFF(ExpiryDate, NOW()) >= 0 OR UsedTimes < MaxUsage;";
         }elseif($_GET["m"] == "getCountUsed"){
-            $getVouchersQuery = "SELECT Count(VoucherID) AS VCount FROM vouchers WHERE DATEDIFF(ExpiryDate, NOW()) < 0 OR UsedTimes = MaxUsage;";
+            $getVouchersQuery = "SELECT Count(VoucherUID) AS VCount FROM vouchers WHERE DATEDIFF(ExpiryDate, NOW()) < 0 OR UsedTimes = MaxUsage;";
         }
         
         try{
@@ -30,7 +30,7 @@
                             echo $voucher["VCount"];
                             break;
                         default:
-                            echo "<tr><td>" . $voucher["VoucherID"] . "</td>
+                            echo "<tr><td>" . $voucher["VoucherUID"] . "</td>
                                 <td>" . $voucher["Discount"] . "</td>
                                 <td>" . explode(' ', $voucher["ExpiryDate"])[0] . "</td>
                                 <td>" . $voucher["UsedTimes"] . "</td>
