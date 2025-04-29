@@ -8,7 +8,7 @@
         $rating = $_POST["rating"];
         $userReview = $_POST["userReview"];
 
-        $query = "INSERT INTO reviews VALUE (null, '$rentalID', '" . $_SESSION["UID"] . "', '$carID', '$userReview', '$rating');";
+        $query = "INSERT INTO reviews VALUE (null, '$rentalID', '" . $_SESSION["userID"] . "', '$carID', '$userReview', '$rating');";
         try{
             mysqli_query($conn, $query);
             echo "<span class='success'>Thank You For Leaving A Review!</span>";

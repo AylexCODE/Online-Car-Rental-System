@@ -68,7 +68,7 @@
               mysqli_query($conn, $setCarAvailability);
             }
 
-            echo "<img src='./images/cars/" . $rows["ImageName"] . "' height='180px' width='277px'>
+            echo "<img src='./images/cars/" . $rows["ImageName"] . "' height='180px' width='277px' id='bookingCarStats' class='" . $rows["CarID"] . "'>
                     <p class='carBookingName'>" . $rows["Brand"] . "&nbsp;" . $rows["Model"] . "</p>
                     <span>
                       <span>
