@@ -196,7 +196,7 @@
     function retrieveBookedCar(rentalID, carID, action){
         $("#carCondition").css('display', 'none');
         $(".carConditionCover").css('display', 'none');
-
+        
         if(action == "show"){
             $("#carCondition").css('display', 'flex');
             $(".carConditionCover").css('display', 'flex');
@@ -220,6 +220,7 @@
                 data: { RentalID: rentalID },
                 success: function(res){
                     getUserBookingHistory();
+                    updateCarStatistics("Retrieve");
                 },
                 error: function(error){
     
@@ -259,6 +260,7 @@
                     getUserBookingHistory();
                     document.getElementById("reviewInfo").classList.add(`${rentalID}|${carID}`);
                     reviewBtn("show");
+                    updateCarStatistics("Return");
                 },
                 error: function(error){
     
@@ -360,6 +362,34 @@
                 document.querySelector(".reviewNotif").classList.remove("active");
                 break;
         }
+    }
+    
+    function updateCarStatistics(type){
+        const returnDents = document.getElementById("returnDents").checked == true ? 1 : 0 ;
+        const returnScratches = document.getElementById("returnScratches").checked == true ? 1 : 0 ;
+        const returnChippedPaint = document.getElementById("returnChippedPaint").checked == true ? 1 : 0 ;
+        const returnCrackedWindShields = document.getElementById("returnCrackedWindshields").checked == true ? 1 : 0 ;
+        const bookedCarId = document.getElementById("bookingCarStats").className;
+        
+        let damages = "";
+        if(returnDents == 1) damages += ", Dented";
+        if(returnScratches == 1) damages += ", Scratches";
+        if(returnChippedPaint == 1) damages += ", Chipped Paint";
+        if(returnCrackedWindShields == 1) damages += ", Cracked Windshields";
+        damages = damages.replace(", ", "");
+        
+        console.log("Hey" +damages);
+        $.ajax({
+            type: 'post',
+            url: './queries/car/addCarStatistics.php',
+            data: { CarID: bookedCarId, Damages: damages, Type: type },
+            success: function(res){
+                console.log(res);
+            },
+            error: function(){
+                
+            }
+        });
     }
 
     localStorage.removeItem('carName');
