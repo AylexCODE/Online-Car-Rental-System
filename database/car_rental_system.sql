@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2025 at 04:22 PM
+-- Generation Time: Apr 29, 2025 at 03:14 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 8.3.8
 
@@ -47,6 +47,21 @@ CREATE TABLE `cars` (
   `RentalPrice` double(10,2) NOT NULL,
   `Availability` tinyint(1) NOT NULL,
   `ImageName` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `car_statistics`
+--
+
+CREATE TABLE `car_statistics` (
+  `StatisticsID` int(11) NOT NULL,
+  `CarID` int(11) NOT NULL,
+  `CustomerID` int(11) NOT NULL,
+  `DateTime` datetime NOT NULL,
+  `Type` varchar(50) NOT NULL,
+  `Damages` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -218,6 +233,14 @@ ALTER TABLE `cars`
   ADD KEY `ModelID` (`ModelID`);
 
 --
+-- Indexes for table `car_statistics`
+--
+ALTER TABLE `car_statistics`
+  ADD PRIMARY KEY (`StatisticsID`),
+  ADD KEY `CustomerID` (`CustomerID`),
+  ADD KEY `CarID` (`CarID`);
+
+--
 -- Indexes for table `damages`
 --
 ALTER TABLE `damages`
@@ -308,6 +331,12 @@ ALTER TABLE `cars`
   MODIFY `CarID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `car_statistics`
+--
+ALTER TABLE `car_statistics`
+  MODIFY `StatisticsID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `locations`
 --
 ALTER TABLE `locations`
@@ -365,6 +394,13 @@ ALTER TABLE `users`
 ALTER TABLE `cars`
   ADD CONSTRAINT `cars_ibfk_1` FOREIGN KEY (`BrandID`) REFERENCES `brands` (`BrandID`),
   ADD CONSTRAINT `cars_ibfk_2` FOREIGN KEY (`ModelID`) REFERENCES `models` (`ModelID`);
+
+--
+-- Constraints for table `car_statistics`
+--
+ALTER TABLE `car_statistics`
+  ADD CONSTRAINT `car_statistics_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `users` (`UserID`),
+  ADD CONSTRAINT `car_statistics_ibfk_2` FOREIGN KEY (`CarID`) REFERENCES `users` (`UserID`);
 
 --
 -- Constraints for table `damages`
