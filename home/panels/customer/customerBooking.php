@@ -149,9 +149,7 @@
             success: function(res){
                 $("#rentCarInfo").html(res);
             },
-            error: function(error){
-
-            }
+            error: function(error){}
         });
 
         await $.ajax({
@@ -161,9 +159,7 @@
             success: function(res){
                 $("#bookingHistoryRow").html(res);
             },
-            error: function(error){
-                
-            }
+            error: function(error){}
         });
 
         await $.ajax({
@@ -173,9 +169,7 @@
             success: function(res){
                 $("#bookingPickUp").html(res);
             },
-            error: function(error){
-
-            }
+            error: function(error){}
         });
 
         await $.ajax({
