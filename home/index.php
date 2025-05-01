@@ -193,7 +193,7 @@
                     navIndicator.style.width = contactBtn.clientWidth+8 +"px";
                     contactPage.style.display = "block";
                     
-                    getMessages(document.getElementById("messages").className);
+                    getMessages(document.getElementById("messages").className, "customer");
                     break;
             }
         }else{

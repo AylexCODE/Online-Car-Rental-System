@@ -10,9 +10,7 @@
             $getConvo = mysqli_fetch_assoc($execGetMessages);
             
             if(mysqli_num_rows($execGetMessages) != 0){
-                $result = "{'status': '" . $getConvo["Status"] . "'," . substr($getConvo["Conversation"], 1);
-                
-               echo str_replace("'", "\"", $result);
+                echo $getConvo["Conversation"];
             }else{}
         }catch(mysqli_sql_exception){}
     }

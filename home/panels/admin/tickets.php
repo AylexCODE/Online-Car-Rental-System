@@ -5,12 +5,23 @@
                 <span>
                     <span class='userAccounts'>
                         <span class='userFilterWrapper'>
-                            <p>Sort by: </p>
-                            <select id='userFilter'>
-                                <option value='Newest'>Newest</option>
-                                <option value='Oldest'>Oldest</option>
-                                <option value='Alphabet'>Alphabet</option>
-                            </select>
+                            <span>
+                                <p>Filter by: </p>
+                                <select id='userFilterStatus'>
+                                    <option value='Read'>Read</option>
+                                    <option value='Unread'>Unread</option>
+                                    <option value='Open'>Open</option>
+                                    <option value='Resolved'>Resolved</option>
+                                </select>
+                            </span>
+                            <span>
+                                <p>Sort by: </p>
+                                <select id='userFilter'>
+                                    <option value='Newest'>Newest</option>
+                                    <option value='Oldest'>Oldest</option>
+                                    <option value='Alphabet'>Alphabet</option>
+                                </select>
+                            </span>
                         </span>
                         <span>
                             <label>Customer Name</label>
@@ -18,37 +29,37 @@
                         </span>
                         <span class='userChats'>
                             <button class='newChatsToggle' onclick='toggleNewChats()'><span>&#x290F;</span>&nbsp;New Chats</button>
-                            <span id='newChats'>";
-                                echo "<span onclick='getChats(&#x27;open&#x27;);'>
+                            <span id='newChats'>
+                                <span onclick='getChats(2);'>
                                     <span class='profilePic'>A</span>
                                     <span class='userInfo'>
                                         <p>Lex</p>
                                         <p>Hey</p>
                                     </span>
-                                </span>";
-                            echo "</span>
+                                </span>
+                            </span>
                             <button class='existingChatsToggle' onclick='toggleRecentChats()'><span>&#x290F;</span>&nbsp;Recent Chats</button>
-                            <span id='existingChats'>";
-                                echo "<span onclick='getChats(&#x27;open&#x27;);'>
+                            <span id='existingChats'>
+                                <span onclick='getChats(1);'>
                                     <span class='profilePic'>A</span>
                                     <span class='userInfo'>
                                         <p>Lex</p>
                                         <p>Hey</p>
                                     </span>
-                                </span>";
-                            echo "</span>
+                                </span>
+                            </span>
                         </span>
                     </span>
                     <span class='messagingWrapper'>
                         <div>
                             <span>
-                                <span class='profilePic'>A</span>
-                                <span class='userInfo'>
+                                <span class='currentProfilePic'>A</span>
+                                <span class='currentUserInfo'>
                                     <p>Lex</p>
                                     <p>lex@gmail.com</p>
                                 </span>
                             </span>
-                            <button onclick='getChats(&#x27;close&#x27;);'>
+                            <button id='chatCloseBtn'>
                                 <p style='font-size: 26px;'>&#x27A5;</p>
                             </button>
                         </div>
@@ -58,7 +69,7 @@
                         </div>
                         <div class='messagingActions'>
                             <textarea id='message' spellcheck='false'></textarea>
-                            <button><img src='./images/icons/send-icon.svg' height='16px' width='16px'></button>
+                            <button onclick='sendMsgAdmin(document.getElementById(&#x27;message&#x27;).value);'><img src='./images/icons/send-icon.svg' height='16px' width='16px'></button>
                         </div>
                     </span>
                 </span>
@@ -66,15 +77,31 @@
         </div>";
 ?>
 
+<script type="text/javascript" src="./scripts/messaging.js"></script>
 <script type="text/javascript">
-    function getChats(action){
-        if(action == "close"){
+    let chatToggle = true, currentUser = 0;
+    function getChats(user){
+        if(!chatToggle){
             document.querySelector(".messagingWrapper").style.width = "0%";
             document.querySelector(".userAccounts").style.width = "100%";
+            
+            chatToggle = true;
         }else{
             document.querySelector(".messagingWrapper").style.width = "65%";
             document.querySelector(".userAccounts").style.width = "35%";
+            
+            getMessages(user, "admin");
+            
+            chatToggle = false;
         }
+        
+        if(user != currentUser && chatToggle){
+            setTimeout(() => {
+                getChats(user);
+            }, 500);
+        }
+        currentUser = user;
+        document.getElementById("chatCloseBtn").onclick = () => {getChats(user)}
     }
 
     function toggleNewChats(){
@@ -96,7 +123,63 @@
             document.getElementById("existingChats").style.display = "flex";
         }
     }
+    
+    function getCustomerList(){
+        $.ajax({
+            type: 'get',
+            url: './queries/user/getCustomerSupport.php',
+            success: function(res){
+                sortCustomerChats(JSON.parse(res));
+            },
+            error: function(){}
+        });
+    }
+    
+    function sortCustomerChats(customers){
+        let newChats = "", recentChats = "";
+        
+        const customersArray = Object.entries(customers);
+        for(let i = 1; i < customersArray.length; i++){
+            const msg = Object.entries(customersArray[i][1].convo);
+            const lastMsg = Object.entries(msg[msg.length - 1])[1][1];
 
+            if(JSON.stringify(customersArray[i][1].convo).includes("admin")){
+              recentChats += `<span onclick='getChats(${customersArray[i][1].id}); setCurrentChatInfo(&#x27;${customersArray[i][1].name}&#x27;, &#x27;${customersArray[i][1].email}&#x27;);'>
+                                    <span class='profilePic'>${customersArray[i][1].name.substr(0, 1)}</span>
+                                    <span class='userInfo'>
+                                        <p>${customersArray[i][1].name}</p>
+                                        <p>${lastMsg.m}</p>
+                                    </span>
+                                </span>
+                           </span>`;
+            }else{
+              newChats += `<span onclick='getChats(${customersArray[i][1].id}); setCurrentChatInfo(&#x27;${customersArray[i][1].name}&#x27;, &#x27;${customersArray[i][1].email}&#x27;);'>
+                                    <span class='profilePic'>${customersArray[i][1].name.substr(0, 1)}</span>
+                                    <span class='userInfo'>
+                                        <p>${customersArray[i][1].name}</p>
+                                        <p>${lastMsg.m}</p>
+                                    </span>
+                                </span>
+                           </span>`;
+            }
+        }
+        
+        document.getElementById("existingChats").innerHTML = recentChats;
+        document.getElementById("newChats").innerHTML = newChats;
+    }
+    
+    function sendMsgAdmin(msg){
+        sendMessageAdmin("admin", msg, currentUser);
+    }
+    
+    function setCurrentChatInfo(name, email){
+        document.querySelector(".currentProfilePic").innerHTML = name.substr(0, 1);
+        document.querySelector(".currentUserInfo > p:first-child").innerHTML = name;
+        document.querySelector(".currentUserInfo > p:last-child").innerHTML = email;
+    }
+
+    document.getElementById("newChats").innerHTML = "";
+    document.getElementById("existingChats").innerHTML = "";
     document.getElementById("message").addEventListener('input', () => { if(document.getElementById("message").scrollHeight <= 300){document.getElementById("message").style.height = "36px"; document.getElementById("message").style.height = document.getElementById("message").scrollHeight+2 + "px";}} );
 </script>
 
@@ -128,21 +211,29 @@
         padding: 15px 15px;
         transition: all 1s cubic-bezier(0.215, 0.610, 0.355, 1);
     }
-
+    
     .userFilterWrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: left;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .userFilterWrapper > span {
         display: flex;
         flex-direction: row;
         justify-content: left;
     }
     
-    .userFilterWrapper > p {
+    .userFilterWrapper  p {
         font-size: 15px;
         opacity: 0.8;
     }
     
-    #userFilter {
+    #userFilter, #userFilterStatus {
         font-size: 15px;
-        text-align: center;
+        text-align: left;
         outline: none;
         background-color: transparent;
         border: none;
@@ -151,7 +242,7 @@
         padding-left: 2.5px;
     }
 
-    #userFilter * {
+    #userFilter *, #userFilterStatus * {
         background-color: #294E28;
     }
 
@@ -200,17 +291,20 @@
     .userChats > .newChatsToggle > span, .userChats > .existingChatsToggle > span {
         transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
         transform: rotate(90deg);
-    }
-    
-    .userChats > .newChatsToggle.showing > span, .userChats > .existingChatsToggle.showing > span {
         text-align: center;
         display: block;
         width: fit-content;
+        height: 28px;
+    }
+    
+    .userChats > .newChatsToggle.showing > span, .userChats > .existingChatsToggle.showing > span {
         transform: rotate(0deg);
     }
 
     #newChats, #existingChats {
         display: flex;
+        flex-direction: column;
+        gap: 15px;
         min-height: 0%;
         max-height: 50%;
         width: 100%;
@@ -241,7 +335,7 @@
         align-items: center;
     }
 
-    .profilePic {
+    .profilePic, .currentProfilePic {
         height: 40px;
         width: 40px;
         border-radius: 50%;
@@ -250,14 +344,14 @@
         background-color: #38814a;
     }
     
-    .userInfo {
+    .userInfo, .currentUserInfo {
         padding-left: 10px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
     }
 
-    .userInfo > p:nth-child(2){
+    .userInfo > p:nth-child(2), .currentUserInfo > p:nth-child(2){
         opacity: 0.8;
         font-size: 14px;
     }
@@ -280,7 +374,18 @@
         width: 100%;
         height: calc(100% - 120px);
         align-items: center;
-        padding: 10px 20px;
+        overflow-y: scroll;
+        padding: 10px 15px;
+        
+        &::-webkit-scrollbar {
+          display: block;
+          width: 10px;
+          background-color: #38814a;
+        }
+        
+        &::-webkit-scrollbar-thumb {
+          background: rgb(103, 221, 133);
+        }
     }
 
     #messages > .customerMsg {
@@ -288,6 +393,8 @@
         background-color: #38814a;
         border-radius: 10px 10px 10px 0px;
         padding: 7.5px 15px;
+        margin-bottom: 10px;
+        margin-right: 10px;
     }
 
     #messages > .adminMsg {
@@ -295,6 +402,18 @@
         background-color: #294E28;
         border-radius: 10px 10px 0px 10px;
         padding: 7.5px 15px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+    }
+    
+    #messages > .msgTime {
+        opacity: 0.8;
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+    
+    #messages > .msgTime:not(:first-child) {
+        margin-block: 5px;
     }
 
     .messagingActions {

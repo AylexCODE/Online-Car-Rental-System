@@ -156,6 +156,8 @@
                 adminNavIndicator.style.top = ticketsBtn.offsetTop-5 +"px";
                 ticketsBtn.classList.add("active");
                 adminNavIndicator.style.width = ticketsBtn.offsetWidth+20 +"px";
+                
+                getCustomerList();
                 break;
             case 8:
                 logs.classList.add("active");

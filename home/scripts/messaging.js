@@ -14,7 +14,7 @@ function sendMessage(role, msg) {
     $.ajax({
         type: 'post',
         url: './queries/user/sendMessage.php',
-        data: { ddata: JSON.stringify(jsonMessages) },
+        data: { ddata: JSON.stringify(jsonMessages), role: role },
         success: function(res) {
             getMessages(document.getElementById("messages").className);
             message.value = "";
@@ -24,18 +24,41 @@ function sendMessage(role, msg) {
     });
 }
 
-function getMessages(userID) {
+function sendMessageAdmin(role, msg, userID) {
+    const date = new Date();
+    const now = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " +(date.getHours() > 9 ? date.getHours() : "0"+date.getHours()) + ":" +(date.getMinutes() > 9 ? date.getMinutes() : "0"+date.getMinutes() );
+  
+    jsonMessages['m' + (numberOfMessages + 1)] = {
+                                                     t: role,
+                                                     m: msg.replaceAll('"', "&quot;"),
+                                                     d: now
+                                                 };
+  
+    $.ajax({
+        type: 'post',
+        url: './queries/user/sendMessage.php',
+        data: { ddata: JSON.stringify(jsonMessages), role: role, userID : userID },
+        success: function(res) {
+            getMessages(userID);
+            message.value = "";
+            message.style.height = "36px";
+        },
+        error: function() {}
+    });
+}
+
+function getMessages(userID, type) {
     $.ajax({
         type: 'get',
         url: './queries/user/getMessages.php?userid=' + userID,
         success: function(res) {
-          if (res) formatMessages(res);
+          if (res) formatMessages(res, type);
         },
         error: function(error) {}
     });
 }
 
-function formatMessages(messages) {
+function formatMessages(messages, type) {
     const retrievedMsg = JSON.parse(messages);
     jsonMessages = retrievedMsg;
   
@@ -45,11 +68,11 @@ function formatMessages(messages) {
     const messagesArray = Object.entries(retrievedMsg);
     let prevMsgTime = new Date();
     for (let i = 0; i < messagesArray.length; i++) {
-        if (messagesArray[i][0] == "status") continue;
+        if (messagesArray[i][0] == "status" && type == "") continue;
     
         const currentMsgTime = new Date(messagesArray[i][1].d);
     
-        if (((currentMsgTime.getTime() - prevMsgTime.getTime()) / 1000 / 60) > 10 || i == 1) messagesHtml += `<p class='msgTime'>${formatDateTime(messagesArray[i][1].d)}</p>`;
+        if (((currentMsgTime.getTime() - prevMsgTime.getTime()) / 1000 / 60) > 10 || i == 0) messagesHtml += `<p class='msgTime'>${formatDateTime(messagesArray[i][1].d)}</p>`;
         messagesHtml += `<p class='${messagesArray[i][1].t}Msg'>`;
         messagesHtml += messagesArray[i][1].m;
         messagesHtml += "</p>";
