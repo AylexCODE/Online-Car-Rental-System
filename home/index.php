@@ -192,6 +192,8 @@
                     navIndicator.style.left = contactBtn.offsetLeft-4 +"px";
                     navIndicator.style.width = contactBtn.clientWidth+8 +"px";
                     contactPage.style.display = "block";
+                    
+                    getMessages(document.getElementById("messages").className);
                     break;
             }
         }else{

@@ -5,13 +5,13 @@
                 <span>
                     <p style='font-family: space-grotesk-semibold; font-size: 24px; text-transform: uppercase;'>Chat With Customer Support</p>
                     <span>
-                        <div id='userMessages' class='" . $_SESSION["userID"] . "'>
+                        <div id='messages' class='" . $_SESSION["userID"] . "'>
                             <p class='customerMsg'>Hey</p>
                             <p class='adminMsg'>Bro</p>
                         </div>
                         <div class='messagingActions'>
-                           <textarea id='userMessage' spellcheck='false'></textarea>
-                           <button onclick='sendMessage(&#x27;customer&#x27;);'><img src='./images/icons/send-icon.svg' height='16px' width='16px'></button>
+                           <textarea id='message' spellcheck='false'></textarea>
+                           <button onclick='sendMessage(&#x27;customer&#x27;, document.getElementById(&#x27;message&#x27;).value);'><img src='./images/icons/send-icon.svg' height='16px' width='16px'></button>
                         </div>
                     </span>
                 </span>
@@ -19,79 +19,7 @@
         </div>";
 ?>
 
-<script type="text/javascript">
-    const messageToSend = document.getElementById("userMessage");
-    let jsonMessages = {}, numberOfMessages = 0;
-    
-    function sendMessage(role){
-        const date = new Date();
-        const now = (date.getMonth()+1) +"/" +date.getDate() +"/" +date.getFullYear() +" " +date.getHours() +":" +date.getMinutes();
-        try{
-        jsonMessages['m'+(numberOfMessages+1)] = {
-                                                     t: role,
-                                                     m: messageToSend.value.replaceAll('"', "&quot;"),
-                                                     d: now
-                                                 };
-        
-        $.ajax({
-            type: 'post',
-            url: './queries/user/sendMessage.php',
-            data: { ddata: JSON.stringify(jsonMessages) },
-            success: function(res){
-              console.log(res)
-                getMessages(document.getElementById("userMessages").className);
-                messageToSend.value = "";
-                document.getElementById("userMessage").style.height = "36px";
-            },
-            error: function(){}
-        });
-        }catch(e){
-          console.log(e)
-        }
-    }
-    
-    function getMessages(userID){
-        $.ajax({
-            type: 'get',
-            url: './queries/user/getMessages.php?userid=' +userID,
-            success: function(res){
-              console.log(res)
-                if(res) formatMessages(res);
-            },
-            error: function(error){}
-        });
-    }
-
-    function formatMessages(messages){
-        const retrievedMsg = JSON.parse(messages);
-        jsonMessages = retrievedMsg;
-        
-        numberOfMessages = Object.keys(retrievedMsg).length;
-        
-        let messagesHtml = "";
-        const messagesArray = Object.entries(retrievedMsg);
-        let prevMsgTime = new Date();
-        for(let i = 0; i < messagesArray.length; i++){
-            if(messagesArray[i][0] == "status") continue;
-            
-            const currentMsgTime = new Date(messagesArray[i][1].d);
-            
-            if(((currentMsgTime.getTime() - prevMsgTime.getTime()) / 1000 / 60) > 10 || i == 1) messagesHtml += `<p class='msgTime'>${messagesArray[i][1].d}</p>`;
-            messagesHtml += `<p class='${messagesArray[i][1].t}Msg'>`;
-            messagesHtml += messagesArray[i][1].m;
-            messagesHtml += "</p>";
-            
-            prevMsgTime = currentMsgTime;
-        }
-        
-        document.getElementById("userMessages").innerHTML = messagesHtml;
-    }
-    
-    getMessages(document.getElementById("userMessages").className);
-   
-    document.getElementById("userMessages").innerHTML = "";
-    document.getElementById("userMessage").addEventListener('input', () => { if (document.getElementById("userMessage").scrollHeight <= 300) { document.getElementById("userMessage").style.height = "36px"; document.getElementById("userMessage").style.height = document.getElementById("userMessage").scrollHeight + 2 + "px"; } });
-</script>
+<script src="./scripts/messaging.js"></script>
 
 <style type="text/css">
     .contactPage {
@@ -126,8 +54,8 @@
         justify-content: center;
         align-items: center;
         gap: 10px;
-        width: 60%;
-        height: 70%;
+        width: 50%;
+        height: 70dvh;
     }
     
     .chatWAdmin > span > span {
@@ -139,7 +67,7 @@
         padding: 20px 20px;
     }
     
-    #userMessages {
+    #messages {
         display: flex;
         flex-direction: column;
         width: 100%;
@@ -158,7 +86,7 @@
         }
     }
 
-    #userMessages > .customerMsg {
+    #messages > .customerMsg {
         align-self: flex-start;
         background-color: #38814a;
         border-radius: 10px 10px 10px 0px;
@@ -167,7 +95,7 @@
         margin-right: 10px;
     }
 
-    #userMessages > .adminMsg {
+    #messages > .adminMsg {
         align-self: flex-end;
         background-color: #294E28;
         border-radius: 10px 10px 0px 10px;
@@ -176,13 +104,13 @@
         margin-right: 10px;
     }
     
-    #userMessages > .msgTime {
+    #messages > .msgTime {
         opacity: 0.8;
         font-size: 12px;
         margin-bottom: 5px;
     }
     
-    #userMessages > .msgTime:not(:first-child) {
+    #messages > .msgTime:not(:first-child) {
         margin-block: 5px;
     }
 
@@ -208,7 +136,7 @@
         padding: 8px;
     }
   
-    #userMessage {
+    #message {
         resize: none;
         background-color: #316C40;
         width: 100%;
