@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 29, 2025 at 03:14 AM
+-- Generation Time: May 01, 2025 at 02:17 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 8.3.8
 
@@ -177,7 +177,8 @@ CREATE TABLE `tickets` (
   `TicketID` int(11) NOT NULL,
   `UserID` int(12) NOT NULL,
   `Conversation` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Conversation`)),
-  `Status` tinyint(4) NOT NULL
+  `Status` tinyint(4) NOT NULL,
+  `Date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
