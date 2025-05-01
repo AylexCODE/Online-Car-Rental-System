@@ -3,7 +3,7 @@ let jsonMessages = {}, numberOfMessages = 0;
 
 function sendMessage(role, msg) {
     const date = new Date();
-    const now = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes();
+    const now = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " +(date.getHours() > 9 ? date.getHours() : "0"+date.getHours()) + ":" +(date.getMinutes() > 9 ? date.getMinutes() : "0"+date.getMinutes() );
   
     jsonMessages['m' + (numberOfMessages + 1)] = {
                                                      t: role,
@@ -49,7 +49,7 @@ function formatMessages(messages) {
     
         const currentMsgTime = new Date(messagesArray[i][1].d);
     
-        if (((currentMsgTime.getTime() - prevMsgTime.getTime()) / 1000 / 60) > 10 || i == 1) messagesHtml += `<p class='msgTime'>${messagesArray[i][1].d}</p>`;
+        if (((currentMsgTime.getTime() - prevMsgTime.getTime()) / 1000 / 60) > 10 || i == 1) messagesHtml += `<p class='msgTime'>${formatDateTime(messagesArray[i][1].d)}</p>`;
         messagesHtml += `<p class='${messagesArray[i][1].t}Msg'>`;
         messagesHtml += messagesArray[i][1].m;
         messagesHtml += "</p>";
@@ -59,6 +59,67 @@ function formatMessages(messages) {
   
     document.getElementById("messages").innerHTML = messagesHtml;
     document.getElementById("messages").scrollTop = document.getElementById("messages").scrollHeight;
+}
+
+function formatDateTime(dateTime){
+    const monthYearDay = dateTime.split(" ")[0];
+    const month = monthYearDay.split("/")[0];
+    const year = monthYearDay.split("/")[2];
+    const date = monthYearDay.split("/")[1];
+    
+    const time = dateTime.split(" ")[1];
+    let hour = time.split(":")[0];
+    const minute = time.split(":")[1];
+    
+    let monthInWords, formattedTime, meridiem = "AM";
+
+    switch(month){
+        case "1":
+            monthInWords = "January";
+            break;
+        case "2":
+            monthInWords = "February";
+            break;
+        case "3":
+            monthInWords = "March";
+            break;
+        case "4":
+            monthInWords = "April";
+            break;
+        case "5":
+            monthInWords = "May";
+            break;
+        case "6":
+            monthInWords = "June";
+            break;
+        case "7":
+            monthInWords = "July";
+            break;
+        case "8":
+            monthInWords = "August";
+            break;
+        case "9":
+            monthInWords = "September";
+            break;
+        case "10":
+            monthInWords = "October";
+            break;
+        case "11":
+            monthInWords = "November";
+            break;
+        case "12":
+            monthInWords = "December";
+            break;
+        default:
+            monthInWords = "Error";
+    }
+    
+    if(hour > 12){
+        hour-=12;
+        meridiem = "PM";
+    }
+    
+    return `${monthInWords} ${date}, ${year} ${hour}:${minute}${meridiem}`;
 }
 
 document.getElementById("messages").innerHTML = "";
