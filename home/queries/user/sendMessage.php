@@ -5,13 +5,14 @@
     // Ticket Status: 0 = Open, 1 = Closed, 2 = Resolved
     if(isset($_POST)){
         $data = $_POST["ddata"];
+        $status = $_POST["status"];
         
         $checkUserMessageQuery = "SELECT * FROM tickets WHERE UserID = '" . $_SESSION["userID"] . "';";
         
         try{
             $userMsgExist = mysqli_query($conn, $checkUserMessageQuery);
             if(mysqli_num_rows($userMsgExist) != 0){
-                $sendMessageQuery = "UPDATE tickets SET Conversation = '" . $data . "'";
+                $sendMessageQuery = "UPDATE tickets SET Conversation = '" . $data . "', SET Status = '$status' WHERE UserID = '" . $_SESSION["userID"] . "';";
                 mysqli_query($conn, $sendMessageQuery);
             }else{
                 $sendMessageQuery = "INSERT INTO tickets VALUES (null, '". $_SESSION["userID"] . "', '$data', 0)";
