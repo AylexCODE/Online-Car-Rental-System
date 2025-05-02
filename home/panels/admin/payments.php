@@ -89,6 +89,7 @@
             type: 'get',
             url: './queries/rent/getPaymentStats.php',
             success: function(res){
+              console.log(res)
                 $("#cusCount").html(res.split("|")[0]);
                 $("#totlAmt").html(res.split("|")[1]);
             },

@@ -5,7 +5,7 @@
                 <span>
                     <span class='usersTable'>
                         <div>
-                            <p>Users (12 Total)</p>
+                            <p>Users (<span id='userManageCount'>0</span> Total)</p>
                             <span>
                                 <p>Order by:</p>
                                 <select id='uSortOrder' onchange='getUsers();'>
@@ -75,6 +75,7 @@
             data: { uFilterUID: uFilterUID.value, uName: uName.value, uEmail: uEmail.value, uPhoneNo: uPhoneNo.value, uAge: uAge.value, uDLicense: uDLicense.value, uRegDate: uRegDate.value, uRentTimes: uRentTimes.value, uSortOrder: uSortOrder.value, uOrderBy: uOrderBy.value },
             success: function(res){
                 $("#usersList").html(res);
+                $("#userManageCount").html(document.getElementById("usersList").children.length);
                 if(uPreference.value != "") filterPref();
             },
             error: function(){

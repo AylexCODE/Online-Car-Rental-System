@@ -1,5 +1,5 @@
 <?php
-    require("../database/db_conn.php");
+    require_once("../database/db_conn.php");
     require_once("../home/queries/record_logs.php");
     
     if(isset($_POST["signup"])){
@@ -20,10 +20,15 @@
         // }else{
             $query = "INSERT INTO users (Name, PhoneNumber, Email, DoB, DriversLicense, Role, Password, DateCreated) VALUES ('$fName $lName', '$phoneNumber', '$email', '$doB', '$dLicense', 'Customer', '$hashPassword', NOW());";
             try{
-                recordLog($rows["UserID"], "Signup", $conn);
-
                 header("location: ./login.php?success=accountcreated");
+                
                 mysqli_query($conn, $query);
+                
+                $getUserID = "SELECT UserID FROM users WHERE Name = '$fName $lName';";
+                $execGetUserID = mysqli_query($conn, $getUserID);
+                $userID = mysqli_fetch_assoc($execGetUserID);
+                recordLog($userID["UserID"], "Signup", $conn);
+                
             }catch(mysqli_sql_exception){
                 header("location: ./signup.php?error=accountexist");
             }
