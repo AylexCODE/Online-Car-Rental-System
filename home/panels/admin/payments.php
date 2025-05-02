@@ -5,12 +5,12 @@
                 <span>
                     <span class='paymentStatisticsWrapper'>
                         <span id='paymentCustomerCount'>
-                            <p>Customer Count</p>
-                            <p>192</p>
+                            <p>Payment Count</p>
+                            <p id='cusCount'>192</p>
                         </span>
                         <span id='paymentTotalAmount'>
                             <p>Total Amount</p>
-                            <p>19212.99</p>
+                            <p>₱<span id='totlAmt'>19212.99</p></p>
                         </span>
                     </span>
                     <span class='paymentsTable'>
@@ -83,7 +83,20 @@
             }
         });
     }
+
+    function getPaymentStat(){
+        $.ajax({
+            type: 'get',
+            url: './queries/rent/getPaymentStats.php',
+            success: function(res){
+                $("#cusCount").html(res.split("|")[0]);
+                $("#totlAmt").html(res.split("|")[1]);
+            },
+            error: function(){}
+        });
+    }
     
+    getPaymentStat();
     filterPayments();
 </script>
 

@@ -1,5 +1,5 @@
 <?php
-    require_once("../record_logs.php");
+    require_once("./queries/record_logs.php");
 
     if(isset($_POST["submitCar"])){
         $model = filter_input(INPUT_POST, "carModel", FILTER_SANITIZE_SPECIAL_CHARS);

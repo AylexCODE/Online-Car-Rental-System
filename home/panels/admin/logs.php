@@ -32,19 +32,7 @@
                                 <option value=''>Rent</option>
                             </datalist></td>
                         </tr>
-                        <tbody id='recentLogs'>";
-                        $k = 1;
-                        while($k <15){
-                            echo "<tr>
-                                    <td>$k</td>
-                                    <td>Lex</td>
-                                    <td>Admin</td>
-                                    <td>2025-10-23 12:34:40</td>
-                                    <td>Login</td>
-                                </tr>";
-                            $k++;
-                        }
-                        echo "</tbody>
+                        <tbody id='recentLogs'></tbody>
                     </table>
                 </span>
             </span>
