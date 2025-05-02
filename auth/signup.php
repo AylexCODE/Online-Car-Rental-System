@@ -1,5 +1,6 @@
 <?php
     require("../database/db_conn.php");
+    require_once("../home/queries/record_logs.php");
     
     if(isset($_POST["signup"])){
         $fName = filter_input(INPUT_POST, "FirstName", FILTER_SANITIZE_SPECIAL_CHARS);
@@ -19,6 +20,8 @@
         // }else{
             $query = "INSERT INTO users (Name, PhoneNumber, Email, DoB, DriversLicense, Role, Password, DateCreated) VALUES ('$fName $lName', '$phoneNumber', '$email', '$doB', '$dLicense', 'Customer', '$hashPassword', NOW());";
             try{
+                recordLog($rows["UserID"], "Signup", $conn);
+
                 header("location: ./login.php?success=accountcreated");
                 mysqli_query($conn, $query);
             }catch(mysqli_sql_exception){

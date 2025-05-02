@@ -2,6 +2,7 @@
     session_start();
 
     require("../database/db_conn.php");
+    require_once("../home/queries/record_logs.php");
 
     if(isset($_POST["login"])){
         $contact = filter_input(INPUT_POST, "contact", FILTER_SANITIZE_SPECIAL_CHARS);
@@ -19,6 +20,7 @@
                 $_SESSION["email"] = $rows["Email"];
                 $_SESSION["role"] = $rows["Role"];
                 $_SESSION["userID"] = $rows["UserID"];
+                recordLog($rows["UserID"], "Login", $conn);
                 
                 header("location: ../home/index.php");
             }else{

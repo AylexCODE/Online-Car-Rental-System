@@ -11,7 +11,7 @@
             $userID = $_POST["userID"];
         }
 
-        $checkUserMessageQuery = "SELECT * FROM tickets WHERE UserID = '" . $_SESSION["userID"] . "';";
+        $checkUserMessageQuery = "SELECT * FROM tickets WHERE UserID = '$userID';";
         
         try{
             $userMsgExist = mysqli_query($conn, $checkUserMessageQuery);
@@ -19,7 +19,7 @@
                 $sendMessageQuery = "UPDATE tickets SET Conversation = '" . $data . "', Status = '0', Date = NOW() WHERE UserID = '$userID';";
                 mysqli_query($conn, $sendMessageQuery);
             }else{
-                $sendMessageQuery = "INSERT INTO tickets VALUES (null, '". $_SESSION["userID"] . "', '$data', 0, NOW())";
+                $sendMessageQuery = "INSERT INTO tickets VALUES (null, '$userID', '$data', 0, NOW())";
                 mysqli_query($conn, $sendMessageQuery);
             }
         }catch(mysqli_sql_exception){}

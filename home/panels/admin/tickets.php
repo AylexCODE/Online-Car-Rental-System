@@ -170,6 +170,7 @@
     
     function sendMsgAdmin(msg){
         sendMessageAdmin("admin", msg, currentUser);
+        getCustomerList();
     }
     
     function setCurrentChatInfo(name, email){

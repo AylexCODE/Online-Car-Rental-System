@@ -1,5 +1,6 @@
 <?php
     require_once("../../../database/db_conn.php");
+    require_once("../record_logs.php");
 
     // Rentals status 0 = pending; 1 = confirmed; 2 = ongoing; 3 = completed; 4 = cancelled; 5 = declined
     if(isset($_POST)){
@@ -22,6 +23,7 @@
         $setCarAvailability = "UPDATE cars SET Availability = 1 WHERE CarID = $carID";
         try{
             mysqli_query($conn, $setCarAvailability);
+            recordLog($_SESSION["userID"], "Return Car ID = $carID", $conn);
         }catch(mysqli_sql_exception){
             echo "Error";
         }

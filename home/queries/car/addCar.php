@@ -1,4 +1,6 @@
 <?php
+    require_once("../record_logs.php");
+    
     if(isset($_POST["submitCar"])){
         $model = filter_input(INPUT_POST, "carModel", FILTER_SANITIZE_SPECIAL_CHARS);
         $brandID = filter_input(INPUT_POST, "carBrand", FILTER_SANITIZE_SPECIAL_CHARS);
@@ -36,12 +38,21 @@
                 mysqli_query($conn, $query);
             }catch(mysqli_sql_exception){}
 
+            $query = "SELECT BrandName FROM brands WHERE BrandID = '$brandID';";
+            $execQuery = mysqli_query($conn, $query);
+            $row = mysqli_fetch_assoc($execQuery);
+            $brandName = $row["BrandName"];
+
+            mysqli_query($conn, $query);
+            recordLog($_SESSION["userID"], "Added New Car $brandName $model", $conn);
+
             $query = "SELECT ModelID FROM models WHERE BrandID = '$brandID' ORDER BY ModelID DESC LIMIT 1";
             $execQuery = mysqli_query($conn, $query);
             $row = mysqli_fetch_assoc($execQuery);
             $modelID = $row["ModelID"];
 
             $query = "INSERT INTO cars VALUES (null, '$brandID', '$modelID', '$fuelType', '$transmission', '$rentalPrice', $availability, '$file')";
+
             mysqli_query($conn, $query);
             if(move_uploaded_file($ffile, $path)){
                 echo "<p class=\"msg\"><span class='" . "success" . "'>Vehicle Added</span></p>";
