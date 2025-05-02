@@ -53,7 +53,19 @@
 ?>
 
 <script type="text/javascript">
-    
+    function getLogs(){
+        $.ajax({
+            type: 'post',
+            url: './queries/get_logs.php',
+            data: {},
+            success: function(res){
+                $("#recentLogs").html(res);
+            },
+            error: function(){}
+        });
+    }
+
+    getLogs();  
 </script>
 
 <style type="text/css">
