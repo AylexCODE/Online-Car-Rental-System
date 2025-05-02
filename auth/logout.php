@@ -1,4 +1,6 @@
 <?php
+    session_start();
+
     require_once("../database/db_conn.php");
     require_once("../home/queries/record_logs.php");
 

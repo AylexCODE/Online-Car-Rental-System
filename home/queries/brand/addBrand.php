@@ -1,6 +1,7 @@
 <?php
     require_once("../../../database/db_conn.php");
     require_once("../record_logs.php");
+    session_start();
     
     if(isset($_POST)){
         $brand = filter_var($_POST["brand"], FILTER_SANITIZE_SPECIAL_CHARS);

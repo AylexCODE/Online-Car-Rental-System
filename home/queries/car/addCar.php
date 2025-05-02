@@ -1,6 +1,7 @@
 <?php
     require_once("../record_logs.php");
-    
+    session_start();
+
     if(isset($_POST["submitCar"])){
         $model = filter_input(INPUT_POST, "carModel", FILTER_SANITIZE_SPECIAL_CHARS);
         $brandID = filter_input(INPUT_POST, "carBrand", FILTER_SANITIZE_SPECIAL_CHARS);

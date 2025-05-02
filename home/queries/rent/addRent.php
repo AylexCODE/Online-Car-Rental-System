@@ -1,6 +1,7 @@
 <?php
     require_once("../../../database/db_conn.php");
     require_once("../record_logs.php");
+    session_start();
     
     if(isset($_POST)){
         $carID = $_POST["carID"];
@@ -31,7 +32,7 @@
                                 $voucher == "" ? $voucher = "NA" : "";
                                 $addPaymentQuery = "INSERT INTO payments VALUES (null, '$rentalID', NOW(), '$paymentFrequency', '$amountPaid','$paymentMethod', 0, '$voucher');";
                                 
-                                recordLog($_SESSION["userID"], "Booked Car ID is $carID", $conn);
+                                recordLog($_SESSION["userID"], "Booked Car ID $carID", $conn);
                                 try {
                                     mysqli_query($conn, $addPaymentQuery);
                                 }catch(mysqli_sql_exception){
