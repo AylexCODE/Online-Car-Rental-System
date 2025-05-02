@@ -14,6 +14,27 @@ INSERT INTO `brands` (`BrandID`, `BrandName`) VALUES
 (1, 'WIGO');
 
 --
+-- Dumping data for table `models`
+--
+
+INSERT INTO `models` (`ModelID`, `BrandID`, `ModelName`) VALUES
+(1, 1, 'G CVT'),
+(2, 2, 'CROSS 1.8 GR-S'),
+(3, 3, 'CAMRY'),
+(4, 3, 'COROLLA ATLIS'),
+(5, 3, 'YARIS CROSS'),
+(6, 3, 'FORTUNER'),
+(7, 3, 'LAND CRUISER'),
+(8, 3, 'LAND CRUISER PRADO'),
+(9, 3, 'ZENIX'),
+(10, 3, 'AVANZA'),
+(11, 3, 'TAMARAW'),
+(12, 3, 'COASTER'),
+(13, 3, 'LITE ACE Panel Van'),
+(14, 3, 'HILUX'),
+(15, 3, 'ALPHARD');
+
+--
 -- Dumping data for table `cars`
 --
 
@@ -63,59 +84,4 @@ INSERT INTO `locations` (`LocationID`, `Address`, `AddressCode`, `DistanceKM`) V
 (1, 'Bisu Balilihan Campus', 'PXW6+572, Provincial Road, Balilihan, Bohol', 0.00),
 (2, 'Balilihan Municipal Hall', 'QX3C+WFW, Balilihan, 6342 Bohol', 1.90),
 (3, 'Cabad Barangay Hall', 'QW3V+6VV, Barangay Road (Cabad), Balilihan, Bohol', 4.00);
-
---
--- Dumping data for table `models`
---
-
-INSERT INTO `models` (`ModelID`, `BrandID`, `ModelName`) VALUES
-(1, 1, 'G CVT'),
-(2, 2, 'CROSS 1.8 GR-S'),
-(3, 3, 'CAMRY'),
-(4, 3, 'COROLLA ATLIS'),
-(5, 3, 'YARIS CROSS'),
-(6, 3, 'FORTUNER'),
-(7, 3, 'LAND CRUISER'),
-(8, 3, 'LAND CRUISER PRADO'),
-(9, 3, 'ZENIX'),
-(10, 3, 'AVANZA'),
-(11, 3, 'TAMARAW'),
-(12, 3, 'COASTER'),
-(13, 3, 'LITE ACE Panel Van'),
-(14, 3, 'HILUX'),
-(15, 3, 'ALPHARD');
-
---
--- Dumping data for table `payments`
---
-
-INSERT INTO `payments` (`PaymentID`, `RentalID`, `PaymentDate`, `PaymentFrequency`, `AmountPaid`, `PaymentMethod`, `PaymentStatus`, `VoucherID`) VALUES
-(1, 1, '2025-04-28 10:15:23', 'Weekly', 52010.00, 'PayPal', 0, 'NA'),
-(2, 2, '2025-04-28 10:20:56', 'Monthly', 124284.00, 'PayPal', 0, 'NA'),
-(3, 3, '2025-04-28 10:27:54', 'Daily', 2747.05, 'GCash', 0, '23gh');
-
---
--- Dumping data for table `rentals`
---
-
-INSERT INTO `rentals` (`RentalID`, `UserID`, `CarID`, `PickUpLocationID`, `DropOffLocationID`, `StartDate`, `EndDate`, `Penalty`, `Status`) VALUES
-(1, 2, 1, 2, 2, '2025-04-28 10:14:00', '2025-05-24 10:14:00', 0.00, 4),
-(2, 2, 7, 2, 1, '2025-04-28 10:17:00', '2025-05-29 10:17:00', 0.00, 5),
-(3, 2, 2, 2, 2, '2025-04-28 10:26:00', '2025-04-30 10:27:00', 0.00, 4);
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`UserID`, `Name`, `PhoneNumber`, `Email`, `DoB`, `DriversLicense`, `Role`, `Password`, `DateCreated`) VALUES
-(1, 'James Casol', '09999999999', 'casol@gmail.com', '2004-06-09', '999-99-999999', 'Admin', '$2y$10$TJLEleRqSAxBerrxFNdoMeRcaOrpQ5P1dAxVjdFN8zTZ5lJr8hIgW', '2025-04-28 09:02:20'),
-(2, 'Doe Lee', '09888888888', 'doe@gmail.com', '2004-06-09', '999-99-999888', 'Customer', '$2y$10$TJLEleRqSAxBerrxFNdoMeRcaOrpQ5P1dAxVjdFN8zTZ5lJr8hIgW', '2025-04-28 09:02:20');
-
---
--- Dumping data for table `vouchers`
---
-
-INSERT INTO `vouchers` (`VoucherUID`, `Discount`, `Type`, `ExpiryDate`, `UsedTimes`, `MaxUsage`) VALUES
-('23gh', 7.00, 'Percentage', '2025-04-30 00:00:00', 1, 50);
-COMMIT;
 ```
