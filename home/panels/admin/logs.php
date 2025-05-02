@@ -14,23 +14,17 @@
                             <th>Activity</th>
                         </thead>
                         <tr class='logsSearchBar'>
-                            <td><input type='number' id='logsFilterNo' oninput=''></td>
-                            <td><input type='search' id='logsFilterUser' oninput=''></td>
+                            <td><input type='number' id='logsFilterNo' oninput='getLogs();'></td>
+                            <td><input type='search' id='logsFilterUser' oninput='getLogs();'></td>
                             <td>
-                                <select id='logsFilterRole' onchange=''>
+                                <select id='logsFilterRole' onchange='getLogs();'>
                                     <option value=''>Any</option>
                                     <option value='Customer'>Customer</option>
                                     <option value='Admin'>Admin</option>
-                                </td>
-                            <td><input type='date' id='logsFilterDate' oninput=''></td>
-                            <td><input list='logsFilter' id='logsFilterActivity' onchange=''>
-                            <datalist id='logsFilter' onchange=''>
-                                <option value=''>All</option>
-                                <option value=''>Log in</option>
-                                <option value=''>Sign up</option>
-                                <option value=''>Rent</option>
-                                <option value=''>Rent</option>
-                            </datalist></td>
+                                </select>
+                            </td>
+                            <td><input type='date' id='logsFilterDate' onchange='getLogs();'></td>
+                            <td><input type='search' id='logsFilterActivity' oninput='getLogs();'></td>
                         </tr>
                         <tbody id='recentLogs'></tbody>
                     </table>
@@ -41,11 +35,17 @@
 ?>
 
 <script type="text/javascript">
+    const logsFilterNo = document.getElementById("logsFilterNo");
+    const logsFilterUser = document.getElementById("logsFilterUser");
+    const logsFilterRole = document.getElementById("logsFilterRole");
+    const logsFilteDate = document.getElementById("logsFilterDate");
+    const logsFilterActivity = document.getElementById("logsFilterActivity");
+
     function getLogs(){
         $.ajax({
             type: 'post',
             url: './queries/get_logs.php',
-            data: {},
+            data: { logsFilterNo: logsFilterNo.value, logsFilterUser: logsFilterUser.value, logsFilterRole: logsFilterRole.value, logsFilterDate: logsFilterDate.value, logsFilterActivity: logsFilterActivity.value },
             success: function(res){
                 $("#recentLogs").html(res);
             },
@@ -226,5 +226,11 @@
     .logs th:nth-child(4), .logs td:nth-child(4) {
         min-width: 190px;
         max-width: 190px;
+    }
+    
+    .logs th:nth-child(5), .logs td:nth-child(5) {
+        min-width: 460px;
+        max-width: 460px;
+        overflow-x: scroll;
     }
 </style>

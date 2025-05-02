@@ -226,6 +226,7 @@
         scroll-behavior: smooth;
         scroll-snap-type: y mandatory;
         padding: 0px 25px;
+        height: calc(100% - 85px);
     }
 
     .voucherManagement > span > span:not(:nth-child(2)) {

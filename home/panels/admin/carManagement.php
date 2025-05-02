@@ -326,7 +326,7 @@
     #carManagement > span:nth-child(2) > span > span:nth-child(2){
         border-radius: 5px;
         background-color: #316C40;
-        height: 100%;
+        height: calc(100% - 100px);
     }
     
     #carManagement > span:nth-child(2) > span > span:nth-child(1){

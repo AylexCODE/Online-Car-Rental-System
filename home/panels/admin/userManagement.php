@@ -255,8 +255,8 @@
     }
 
     .usersTable td:nth-child(7){
-        min-width: 180px;
-        max-width: 180px;
+        min-width: 148px;
+        max-width: 148px;
     }
 
     .usersTable td:nth-child(9){
