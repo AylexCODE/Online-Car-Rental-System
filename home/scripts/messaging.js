@@ -24,7 +24,7 @@ function sendMessage(role, msg) {
     });
 }
 
-function sendMessageAdmin(role, msg, userID) {
+async function sendMessageAdmin(role, msg, userID) {
     const date = new Date();
     const now = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear() + " " +(date.getHours() > 9 ? date.getHours() : "0"+date.getHours()) + ":" +(date.getMinutes() > 9 ? date.getMinutes() : "0"+date.getMinutes() );
   
@@ -34,7 +34,7 @@ function sendMessageAdmin(role, msg, userID) {
                                                      d: now
                                                  };
   
-    $.ajax({
+    await $.ajax({
         type: 'post',
         url: './queries/user/sendMessage.php',
         data: { ddata: JSON.stringify(jsonMessages), role: role, userID : userID },

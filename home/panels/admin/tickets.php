@@ -147,9 +147,9 @@
               recentChats += `<span onclick='getChats(${customersArray[i][1].id}); setCurrentChatInfo(&#x27;${customersArray[i][1].name}&#x27;, &#x27;${customersArray[i][1].email}&#x27;);'>
                                     <span class='profilePic'>${customersArray[i][1].name.substr(0, 1)}</span>
                                     <span class='userInfo'>
-                                        <p>${customersArray[i][1].name}</p>
-                                        <p>${lastMsg.m}</p>
-                                    </span>
+                                        <p>${customersArray[i][1].name}</p>`;
+                                        lastMsg.t == "customer" ? recentChats += `<p>${lastMsg.m}</p>` : "";
+              recentChats += `</span>
                                 </span>
                            </span>`;
             }else{
@@ -168,8 +168,8 @@
         document.getElementById("newChats").innerHTML = newChats;
     }
     
-    function sendMsgAdmin(msg){
-        sendMessageAdmin("admin", msg, currentUser);
+    async function sendMsgAdmin(msg){
+        await sendMessageAdmin("admin", msg, currentUser);
         getCustomerList();
     }
     
@@ -367,6 +367,7 @@
     #newChats > span, #existingChats > span {
         display: flex;
         flex-direction: row;
+        align-items: center;
     }
 
     #messages {
