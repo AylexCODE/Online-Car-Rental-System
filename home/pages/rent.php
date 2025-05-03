@@ -265,6 +265,7 @@
                     }
                     
                     submitRent(carId, pickUpLocationID, dropOffLocationID, startDateTime, endDateTime, paymentMethod.value, paymentFrequency.value, amountPaid.innerHTML, voucherId, document.querySelector(".rentCar").title);
+                    getUserBookingHistory();
                 }else{
                     $(".notif").html("<span class='error'>Voucher Maybe Invalid or Expired</span>");
                     console.log("Voucher Maybe Invalid or Expired");

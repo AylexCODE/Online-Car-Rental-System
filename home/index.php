@@ -66,6 +66,14 @@
                 <a href="../auth/login.php">Log In!</a>
             </span>
         </span>
+        <span id='catchDoubleBooking' style="height: 100%; width: 100%; display: none; place-items: center; position: fixed; z-index: 99; pointer-events: none;">
+            <span onclick="document.getElementById('catchDoubleBooking').style.display = 'none';" style="height: 100%; width: 100%; position: absolute; z-index: 100; background-color: #031A0980; pointer-events: all;"></span>
+            <span style="display: flex; flex-direction: column; align-items: center; background-color: #316C40; padding: 15px 20px; pointer-events: all; color: #FDFFF6; z-index: 101; border: 2px solid #E2F87B;">
+                <button onclick="document.getElementById('catchDoubleBooking').style.display = 'none';" style="align-self: end; width: 0px; height: 10px; transform: translateY(-10px); background-color: transparent; outline: none; border: none; color: #E2F87B;">&#215;</button>
+                <p>You already booked a car goblin!</p>
+                <button onclick="setActiveBtn(2); document.getElementById('catchDoubleBooking').style.display = 'none';" style="background-color: #E2F87B; outline: none; border: none; padding: 5px 15px; color: #316C40; font-weight: bold; margin-top: 10px;">SEE MY BOOKING</button>
+            </span>
+        </span>
         <?php
             if(isset($_SESSION["email"])){
                 if($_SESSION["role"] == "Customer"){
@@ -225,6 +233,8 @@
         document.getElementById("bFilter").value = "";
         document.getElementById("fuelFilter").value = "";
         document.getElementById("mFilter").value = "";
+        
+        getCars("", "", "", "", "", "");
     }
 
     // function setActiveBtnAdmin(index){
@@ -523,18 +533,18 @@
             }
         });
 
-        getCars();
+        getCars("", "", "", "", "", "");
     }
 
     async function addCars(){
         
     }
 
-    async function getCars() {
+    async function getCars(transmission, brand, fuelType, model, sort, order) {
         $.ajax({
             type: 'post',
             url: './queries/car/getCars.php',
-            data: {},
+            data: { type: 'getCars', from: 'customer', transmission: transmission,  brand: brand, fuelType: fuelType, model: model, sortBy: sort, orderBy: order },
             success: function(res){
                 $(".scrollCars").html(res);
             },
@@ -812,7 +822,7 @@
     $(document).ready(function(){
         getBrands();
         getLocations();
-        getCars();
+        getCars("", "", "", "", "", );
     });
 
     // async function submitRent(carId, pickUpLocation, dropOffLocation, startDateTime, endDateTime, paymentMethod, amountPaid, voucher, UID){
@@ -867,5 +877,26 @@
     //         }
     //     });
     // }
+</script>
+<script type="text/javascript">
+    async function toggleRentPage(carID, brandName, modelName, rentalPrice, transmission, fuelType, imgUrl){
+        await $.ajax({
+            type: "post",
+            url: "./queries/user/getBooking.php",
+            data: { action: 'getCar' },
+            success: async function(res) {
+                if(res == "No Car Rent"){
+                    await getLocationsForRent();
+                    setInitialRentInfo(carID, brandName, modelName, rentalPrice, transmission, fuelType, "./images/cars/" + imgUrl);
+
+                    document.querySelector(".homePageWrapper").style.display = "none";
+                    document.querySelector(".rentPage").style.display = "block";
+                }else{
+                    document.getElementById('catchDoubleBooking').style.display = 'grid';
+                }
+            },
+            error: function(error) {}
+        });
+    }
 </script>
 </html>

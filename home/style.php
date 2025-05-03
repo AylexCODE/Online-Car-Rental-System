@@ -242,13 +242,13 @@
         gap: 5px;
     }
 
-    .carFilter > span > p {
+    .carFilter > span p {
         font-size: 12px;
         opacity: .8;
         margin-bottom: .5px;
     }
 
-    .carFilter > span > input, .carFilter > span > button, .carFilter > span > select {
+    .carFilter > span > input, .carFilter > span > button, .carFilter > span > span > select {
         border: 1px solid #E2F87B;
         background-color: #316C40;
         color: #FDFFF6;
@@ -264,8 +264,14 @@
         border: none;
         padding-left: unset;
     }
+    
+    .carFilter > span:last-child{
+        display: flex;
+        flex-direction: row;
+        gap: 5px;
+    }
 
-    .carFilter > span > select {
+    .carFilter > span > span > select {
         width: 130px;
     }
 

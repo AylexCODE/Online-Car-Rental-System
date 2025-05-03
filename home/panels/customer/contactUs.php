@@ -5,7 +5,7 @@
                 <span>
                     <p style='font-family: space-grotesk-semibold; font-size: 24px; text-transform: uppercase;'>Chat With Customer Support</p>
                     <span>
-                        <div id='messages' class='" . $_SESSION["userID"] . "'>
+                        <div id='messages' class='"; if(isset($_SESSION["userID"])){ echo $_SESSION["userID"]; } echo"'>
                             <p class='customerMsg'>Hey</p>
                             <p class='adminMsg'>Bro</p>
                         </div>
@@ -14,12 +14,17 @@
                            <button onclick='sendMessage(&#x27;customer&#x27;, document.getElementById(&#x27;message&#x27;).value);'><img src='./images/icons/send-icon.svg' height='16px' width='16px'></button>
                         </div>
                     </span>
-                </span>
-            </span>
+                </span>";
+                if(!isset($_SESSION["userID"])){
+                    echo "<span style='height: calc(70% - 32px); width: 50.7%; position: absolute; backdrop-filter: blur(2.5px); transform: translateY(20px); border-radius: 15px; background-color: #00000020;'>
+                            <p style='opacity: 0.8;'>Log-in to start chatting</p>
+                        </span>";
+                }
+            echo "</span>
         </div>";
 ?>
 
-<script src="./scripts/messaging.js"></script>
+<script  src="./scripts/messaging.js"></script>
 
 <style type="text/css">
     .contactPage {
@@ -86,7 +91,7 @@
         }
     }
 
-    #messages > .customerMsg {
+    #messages > .adminMsg {
         align-self: flex-start;
         background-color: #38814a;
         border-radius: 10px 10px 10px 0px;
@@ -95,7 +100,7 @@
         margin-right: 10px;
     }
 
-    #messages > .adminMsg {
+    #messages > .customerMsg {
         align-self: flex-end;
         background-color: #294E28;
         border-radius: 10px 10px 0px 10px;
