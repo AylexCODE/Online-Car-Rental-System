@@ -6,24 +6,24 @@
             <span>
                 <span id='carStatistics'>
                     <span>
-                        <span>
-                            <p>Total Model/s</p>
-                            <p>12</p>
+                        <span onclick='setInfoTemplate(&#x27;ALL BRANDS&#x27;)'>
+                            <p id='infoBrandLabel'>Total Brands</p>
+                            <p id='infoBrandCount'>56</p>
+                            <button>Tap for more info.</button>
+                        </span>
+                        <span onclick='setInfoTemplate(&#x27;ALL MODELS&#x27;)'>
+                            <p id='infoModelLabel'>Total Models</p>
+                            <p id='infoModelCount'>12</p>
+                            <button>Tap for more info.</button>
+                        </span>
+                        <span onclick='setInfoTemplate(&#x27;ALL CARS&#x27;)'>
+                            <p id='infoCarCountLabel'>Total Cars</p>
+                            <p id='infoCarCount'>128</p>
                             <button>Tap for more info.</button>
                         </span>
                         <span>
-                            <p>Total Brand/s</p>
-                            <p>56</p>
-                            <button>Tap for more info.</button>
-                        </span>
-                        <span>
-                            <p>Total Car/s</p>
-                            <p>128</p>
-                            <button>Tap for more info.</button>
-                        </span>
-                        <span>
-                            <p>Car/s Needs Maintenance</p>
-                            <p>128</p>
+                            <p id='infoMaintenanceLabel'>Cars Needs Maintenance</p>
+                            <p id='infoCarMaintenance'>128</p>
                             <button>Tap for more info.</button>
                         </span>
                     </span>
@@ -215,6 +215,18 @@
                             </span>
                         </div>
                     </span>
+                    <span class='carInfoTemplate' style='position: fixed; top: 0px; left: 0px; height: 100%; width: 100%; background-color: #031A0980; z-index: 100; display: none;'>
+                        <span style='position: fixed; top: 0px; left: 0px; height: 100%; width: 100%; z-index: 101;' onclick='document.querySelector(&#x27;.carInfoTemplate&#x27;).style.display = &#x27;none&#x27;'></span>
+                        <span style='position: fixed; top: 0px; left: 0px; height: 100%; width: 100%; z-index: 102; display: grid; place-items: center; pointer-events: none;'>
+                            <div style='background-color: #38814a; border: 2px solid #E2F87B; border-radius: 5px; padding: 15px 20px; display: flex; flex-direction: column; pointer-events: all;'>
+                                <button style='height: 10px; width: 0px; outline: none; border: none; align-self: flex-end; color: #E2F87B; transform: translateY(-10px);' onclick='document.querySelector(&#x27;.carInfoTemplate&#x27;).style.display = &#x27;none&#x27;'>&#215;</button>
+                                <p id='infoTemplateName' style='width: 100%; text-align: center; font-size: 20px; opacity: 0.8;'>ALL MODELS</p>
+                                <span id='infoTemplateInfos' style='display: flex; flex-direction: column; border-top: 1px solid #FDFFF660; border-bottom: 1px solid #FDFFF660; padding-block: 10px; font-size: 10px; margin-top: 10px; height: 300px; overflow-y: scroll;'>
+                                    <p>TOYOTA</p>
+                                </span>
+                            </div>
+                        </span>
+                    </span>
                 </span>
             </span>
             <canvas id='tempCarImg' style='display: none;'>
@@ -268,6 +280,78 @@
 
         }
     }
+
+    const infoTemplateName = document.getElementById("infoTemplateName");
+    const infoTemplateInfos = document.getElementById("infoTemplateInfos");
+    function setInfoTemplate(name){
+        infoTemplateName.innerHTML = name;
+
+        $.ajax({
+            type: 'get',
+            url: './queries/car/getCarInfo.php?name=' +name,
+            success: function(res){
+                infoTemplateInfos.innerHTML = res;
+            }
+        });
+
+        document.querySelector(".carInfoTemplate").style.display = 'grid';
+    }
+
+    async function setInfos(){
+        await $.ajax({
+            type: 'get',
+            url: './queries/car/getCarInfo.php?name=GetModelCount',
+            success: function(res){
+                $("#infoModelCount").html(res);
+                if(res > 1){
+                    $("#infoModelLabel").html("Total Models");
+                }else{
+                    $("#infoModelLabel").html("Total Model");
+                }
+            }
+        });
+
+        await $.ajax({
+            type: 'get',
+            url: './queries/car/getCarInfo.php?name=GetBrandCount',
+            success: function(res){
+                $("#infoBrandCount").html(res);
+                if(res  > 1){
+                    $("#infoBrandLabel").html("Total Brands");
+                }else{
+                    $("#infoBrandLabel").html("Total Brand");
+                }
+            }
+        });
+
+        await $.ajax({
+            type: 'get',
+            url: './queries/car/getCarInfo.php?name=GetCarCount',
+            success: function(res){
+                $("#infoCarCount").html(res);
+                if(res > 1){
+                    $("#infoCarCountLabel").html("Total Cars");
+                }else{
+                    $("#infoCarCountLabel").html("Total Car");
+                }
+            }
+        });
+
+        $.ajax({
+            type: 'get',
+            url: './queries/car/getCarInfo.php?name=maintenance',
+            success: function(res){
+                $("#infoCarMaintenance").html(res);
+                if(res > 1){
+                    $("#infoMaintenanceLabel").html("Cars Need Maintenance");
+                }else{
+                    $("#infoMaintenanceLabel").html("Car Need Maintenance");
+                }
+            }
+        });
+    }
+
+    setInfos();
 
     const recentFilterId = document.getElementById("recentFilterId");    
     const recentFilterBrandModel = document.getElementById("recentFilterBrandModel");
@@ -548,6 +632,14 @@
 
     #recentFilterDmg {
         width: 100%;
+    }
+
+    #infoTemplateInfos > p {
+        padding: 10px 5px;
+    }
+
+    #infoTemplateInfos > p:nth-child(even){
+        background-color: #316C40;
     }
     
     input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
