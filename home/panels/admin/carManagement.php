@@ -378,19 +378,15 @@
     }
 
     function fixCar(carID, dent, Scratches, Chipped, Cracked){
-        console.log(carID, dent, Scratches, Chipped, Cracked);
         $.ajax({
             type: 'post',
             url: './queries/car/fixCar.php',
             data: { carID: carID, dents: dent ? 0 : 1, scratches: Scratches ? 0 : 1, chippedPaint: Chipped ? 0 : 1, crackedWindshields: Cracked ? 0 : 1 },
             success: function(res){
-                console.log(carID, dent, Scratches, Chipped, Cracked, res)
                 $(".msg").html("<p class='success'>Car Fixed</p>");
                 getCarNeedsMaintenance();
             },
-            error: function(res){
-                console.log(carID, dent, Scratches, Chipped, Cracked, res)
-            }
+            error: function(){}
         });
     }
 
