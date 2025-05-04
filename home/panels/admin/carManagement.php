@@ -21,7 +21,7 @@
                             <p id='infoCarCount'>128</p>
                             <button>Tap for more info.</button>
                         </span>
-                        <span>
+                        <span onclick='getCarNeedsMaintenance();'>
                             <p id='infoMaintenanceLabel'>Cars Needs Maintenance</p>
                             <p id='infoCarMaintenance'>128</p>
                             <button>Tap for more info.</button>
@@ -227,6 +227,18 @@
                             </div>
                         </span>
                     </span>
+                    <span class='carMaintenancePanel' style='position: fixed; top: 0px; left: 0px; height: 100%; width: 100%; background-color: #031A0980; z-index: 100; display: none;'>
+                        <span style='position: fixed; top: 0px; left: 0px; height: 100%; width: 100%; z-index: 101;' onclick='document.querySelector(&#x27;.carMaintenancePanel&#x27;).style.display = &#x27;none&#x27;'></span>
+                        <span style='position: fixed; top: 0px; left: 0px; height: 100%; width: 100%; z-index: 102; display: grid; place-items: center; pointer-events: none;'>
+                            <div style='background-color: #38814a; border: 2px solid #E2F87B; border-radius: 5px; padding: 15px 20px; display: flex; flex-direction: column; pointer-events: all; width: 70%; height: 80%;'>
+                                <button style='height: 10px; width: 0px; outline: none; border: none; align-self: flex-end; color: #E2F87B; transform: translateY(-10px);' onclick='document.querySelector(&#x27;.carMaintenancePanel&#x27;).style.display = &#x27;none&#x27;'>&#215;</button>
+                                <p id='infoTemplateName' style='width: 100%; text-align: left; font-size: 20px; opacity: 0.8;'>Needs Maintenance</p>
+                                <input type='text' id='filterCarMaintenance' oninput='getCarNeedsMaintenance();' placeholder='Search Car Name' style='background-color: transparent; border: 1px solid ##E2F87B; border-radius: 5px; padding: 5px 10px; color: #FDFFF6; border: 1px solid #E2F87B;'>
+                                <span id='carMaintenanceCard' style='display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; overflow-y: scroll; margin-top: 10px;'>
+                                </span>
+                            </div>
+                        </span>
+                    </span>
                 </span>
             </span>
             <canvas id='tempCarImg' style='display: none;'>
@@ -347,6 +359,37 @@
                 }else{
                     $("#infoMaintenanceLabel").html("Car Need Maintenance");
                 }
+            }
+        });
+    }
+
+    const filterCarMaintenance = document.getElementById("filterCarMaintenance");
+    function getCarNeedsMaintenance(){
+        $.ajax({
+            type: 'get',
+            url: './queries/car/getCarMaintenance.php?filterCarName=' +filterCarMaintenance.value,
+            success: function(res){
+                $("#carMaintenanceCard").html(res);
+            },
+            error: function(){}
+        });
+
+        $(".carMaintenancePanel").css('display', 'grid');
+    }
+
+    function fixCar(carID, dent, Scratches, Chipped, Cracked){
+        console.log(carID, dent, Scratches, Chipped, Cracked);
+        $.ajax({
+            type: 'post',
+            url: './queries/car/fixCar.php',
+            data: { carID: carID, dents: dent ? 0 : 1, scratches: Scratches ? 0 : 1, chippedPaint: Chipped ? 0 : 1, crackedWindshields: Cracked ? 0 : 1 },
+            success: function(res){
+                console.log(carID, dent, Scratches, Chipped, Cracked, res)
+                $(".msg").html("<p class='success'>Car Fixed</p>");
+                getCarNeedsMaintenance();
+            },
+            error: function(res){
+                console.log(carID, dent, Scratches, Chipped, Cracked, res)
             }
         });
     }
@@ -640,6 +683,52 @@
 
     #infoTemplateInfos > p:nth-child(even){
         background-color: #316C40;
+    }
+
+    .carMaintenancePanel > span > div > input::placeholder {
+        color: #FDFFF680;
+    }
+
+    #carMaintenanceCard img {
+        height: 123px;
+        width: 185px;
+    }
+
+    #carMaintenanceCard p {
+        width: 178px;
+        overflow-x: scroll;
+        text-wrap: nowrap;
+        padding: 5px;
+    }
+
+    #carMaintenanceCard > span {
+        border: 1px solid #FDFFF6;
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    #carMaintenanceCard > span > span {
+        display: flex;
+        flex-direction: row;
+        justify-content: left;
+        padding: 0px 5px;
+    }
+
+    #carMaintenanceCard > span > span input, #carMaintenanceCard > span > span label {
+        padding: 0px;
+    }
+
+    #carMaintenanceCard > span > button {
+        width: 80%;
+        background-color: #E2F87B;
+        color: #031A09;
+        padding: 2.5px;
+        margin-block: 5px;
+        border: none;
+        border-radius: 5px;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
     }
     
     input[type="number"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button {
