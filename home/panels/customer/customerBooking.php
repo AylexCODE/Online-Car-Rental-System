@@ -330,6 +330,7 @@
                 success: function(res){
                     $(".notif").html(res);
                     socket.emit('update_user', 'Ok');
+                    // socket.emit('update_admin', 'Ok');
                 },
                 error: function(error){
                     $(".notif").html(error);
@@ -383,6 +384,7 @@
             data: { CarID: bookedCarId, Damages: damages, Type: type },
             success: function(res){
                 console.log(res);
+                socket.emit('update_admin', 'Ok');
             },
             error: function(){
                 

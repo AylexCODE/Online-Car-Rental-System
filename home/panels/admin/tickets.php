@@ -5,27 +5,28 @@
                 <span>
                     <span class='userAccounts'>
                         <span class='userFilterWrapper'>
-                            <span>
+                            <!--<span>
                                 <p>Filter by: </p>
-                                <select id='userFilterStatus'>
+                                <select id='userFilterStatus' onchange=''>
+                                    <option value='All'>All</option>
                                     <option value='Read'>Read</option>
                                     <option value='Unread'>Unread</option>
                                     <option value='Open'>Open</option>
                                     <option value='Resolved'>Resolved</option>
                                 </select>
-                            </span>
+                            </span>-->
                             <span>
                                 <p>Sort by: </p>
-                                <select id='userFilter'>
-                                    <option value='Newest'>Newest</option>
-                                    <option value='Oldest'>Oldest</option>
+                                <select id='userFilter' onchange='getCustomerList();'>
                                     <option value='Alphabet'>Alphabet</option>
+                                    <option value='ASC'>Newest</option>
+                                    <option value='DESC'>Oldest</option>
                                 </select>
                             </span>
                         </span>
                         <span>
                             <label>Customer Name</label>
-                            <input type='text'>
+                            <input type='text' id='tFilterName' oninput='getCustomerList();'>
                         </span>
                         <span class='userChats'>
                             <button class='newChatsToggle' onclick='toggleNewChats()'><span>&#x290F;</span>&nbsp;New Chats</button>
@@ -79,6 +80,10 @@
 
 <script type="text/javascript" src="./scripts/messaging.js"></script>
 <script type="text/javascript">
+    const userFilterStatus = document.getElementById("userFilterStatus");
+    const userFilter = document.getElementById("userFilter");
+    const tFilterName = document.getElementById("tFilterName");    
+    
     let chatToggle = true, currentUser = 0;
     function getChats(user){
         if(!chatToggle){
@@ -127,7 +132,7 @@
     function getCustomerList(){
         $.ajax({
             type: 'get',
-            url: './queries/user/getCustomerSupport.php',
+            url: './queries/user/getCustomerSupport.php?sort=' +userFilter.value +"&name=" +tFilterName.value,
             success: function(res){
                 sortCustomerChats(JSON.parse(res));
             },
@@ -162,6 +167,11 @@
                                 </span>
                            </span>`;
             }
+
+            if(JSON.stringify(customersArray[i][1].noresult)) {
+                recentChats = "";
+                newChats = "";
+            };
         }
         
         document.getElementById("existingChats").innerHTML = recentChats;
@@ -194,7 +204,7 @@
     }
 
     .tickets > span {
-        height: 100%;
+        height: calc(100% - 80px);
         padding: 0px 25px 10px 25px;
     }
 
