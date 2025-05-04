@@ -32,8 +32,7 @@
                         <table>
                             <thead>
                                 <th>No.</th>
-                                <th>Brand</th>
-                                <th>Model</th>
+                                <th>Car</th>
                                 <th>Customer Name</th>
                                 <th>Cutomer Email</th>
                                 <th>Date & Time</th>
@@ -41,29 +40,28 @@
                                 <th>Damages</th>
                             <thead>
                             <tr class='recentCarActivityySearchBar'>
-                                <td><input type='number'></td>
-                                <td><input type='search'></td>
-                                <td><input type='search'></td>
-                                <td><input type='search'></td>
-                                <td><input type='search'></td>
-                                <td><input type='date' id='recentFilterDate'></td>
+                                <td><input type='number' id='recentFilterId' oninput='getCarStats()'></td>
+                                <td><input type='search' id='recentFilterBrandModel' oninput='getCarStats()'></td>
+                                <td><input type='search' id='recentFilterName' oninput='getCarStats()'></td>
+                                <td><input type='search' id='recentFilterEmail' oninput='getCarStats()'></td>
+                                <td><input type='date' id='recentFilterDate' onchange='getCarStats()'></td>
                                 <td>
-                                    <select>
-                                        <option>Return</option>
-                                        <option>Take</option>
+                                    <select id='recentFilterType' onchange='getCarStats()'>
+                                        <option value='All'>All</option>
+                                        <option value='Return'>Return</option>
+                                        <option value='Retrieve'>Retrieve</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <select id='recentFilterDmg'>
-                                        <option>No</option>
-                                        <option>Yes</option>
+                                    <select id='recentFilterDmg' onchange='getCarStats()'>
+                                        <option value='All'>All</option>
+                                        <option value='No'>No</option>
+                                        <option value='Yes'>Yes</option>
                                     </select>
                                 </td>
                             </tr>
-                            <tbody id='carStats'>";
-                            $j = 0;
-                            while($j < 15){
-                            echo "<tr>
+                            <tbody id='carStats'>
+                                <tr>
                                     <td>1</td>
                                     <td>Ford    </td>
                                     <td>Ranger</td>
@@ -72,10 +70,8 @@
                                     <td>Sept 16, 2025</td>
                                     <td>Return</td>
                                     <td>Scratches</td>
-                                  </tr>";
-                                  $j++;
-                            }
-                          echo "</tbody>
+                                </tr>
+                            </tbody>
                         </table>
                     </span>
                 </span>
@@ -272,6 +268,28 @@
 
         }
     }
+
+    const recentFilterId = document.getElementById("recentFilterId");    
+    const recentFilterBrandModel = document.getElementById("recentFilterBrandModel");
+    const recentFilterName = document.getElementById("recentFilterName");
+    const recentFilterEmail = document.getElementById("recentFilterEmail");
+    const recentFilterDate = document.getElementById("recentFilterDate");
+    const recentFilterType = document.getElementById("recentFilterType");
+    const recentFilterDmg = document.getElementById("recentFilterDmg");
+
+    function getCarStats(){
+        $.ajax({
+            type: 'post',
+            url: './queries/car/getCarStatistics.php',
+            data: { recentFilterId: recentFilterId.value, recentFilterBrandModel: recentFilterBrandModel.value, recentFilterName: recentFilterName.value, recentFilterEmail: recentFilterEmail.value, recentFilterDate: recentFilterDate.value, recentFilterType: recentFilterType.value, recentFilterDmg: recentFilterDmg.value },
+            success: function(res){
+                $("#carStats").html(res);
+            },
+            error: function(){}
+        });
+    }
+
+    getCarStats();
 </script>
 
 <style type="text/css">
