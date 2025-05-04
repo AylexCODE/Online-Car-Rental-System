@@ -171,6 +171,7 @@
     async function sendMsgAdmin(msg){
         await sendMessageAdmin("admin", msg, currentUser);
         getCustomerList();
+        socket.emit('message', 'from_admin');
     }
     
     function setCurrentChatInfo(name, email){
@@ -182,6 +183,9 @@
     document.getElementById("newChats").innerHTML = "";
     document.getElementById("existingChats").innerHTML = "";
     document.getElementById("message").addEventListener('input', () => { if(document.getElementById("message").scrollHeight <= 300){document.getElementById("message").style.height = "36px"; document.getElementById("message").style.height = document.getElementById("message").scrollHeight+2 + "px";}} );
+</script>
+<script type="text/javascript">
+    
 </script>
 
 <style type="text/css">

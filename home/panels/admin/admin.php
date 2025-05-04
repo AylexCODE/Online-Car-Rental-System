@@ -197,4 +197,14 @@
         getVouchers();
         console.log("Admin updated: " +msg);
     });
+
+    socket.on('message', (msg) => {
+        if(msg.includes("from_user")){
+            document.querySelector(".messagingWrapper").style.width = "65%";
+            document.querySelector(".userAccounts").style.width = "35%";
+            
+            getMessages(JSON.stringify(msg).split("|")[1], "admin");
+            $(".msg").html("<p class='success'>New Message</p>");
+        }
+    });
 </script>

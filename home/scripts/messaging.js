@@ -16,9 +16,10 @@ function sendMessage(role, msg) {
         url: './queries/user/sendMessage.php',
         data: { ddata: JSON.stringify(jsonMessages), role: role },
         success: function(res) {
-            getMessages(document.getElementById("messages").className);
+            getMessages(document.getElementById("messages").className, "customer");
             message.value = "";
             message.style.height = "36px";
+            socket.emit('message', 'from_user|' +document.getElementById("messages").className);
         },
         error: function() {}
     });

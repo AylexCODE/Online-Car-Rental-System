@@ -915,5 +915,12 @@
             getUserBookingHistory();
             console.log("User updated: " +msg)
         });
+
+        socket.on('message', (msg) => {
+            if(msg == "from_admin"){
+                $(".notif").html("<p class='success'>New Message From Admin</p>");
+                getMessages(document.getElementById("messages").className, "customer");
+            }
+        });
     }
 </script>
