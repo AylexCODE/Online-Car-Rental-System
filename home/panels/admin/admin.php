@@ -183,3 +183,18 @@
         }
     }*/
 </script>
+<script src="./scripts/realtime.js"></script>
+<script type="text/javascript">
+    socket.on('update_admin', (msg) => {
+        getPaymentStat();
+        filterPayments();
+
+        getActiveRentals();
+        getRentalsHistory();
+
+        getLogs();
+
+        getVouchers();
+        console.log("Admin updated: " +msg);
+    });
+</script>

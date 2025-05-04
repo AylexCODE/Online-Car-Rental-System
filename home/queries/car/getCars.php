@@ -59,6 +59,9 @@
                             <span>
                                 <img src='./images/icons/availability-icon.svg' height='14px' width='14px'><p id='availabilityStatus'>"; echo $rows["Availability"] == 0 ? "Available in: " . substr($rows["RentalStatus"], 0, 10) . "&nbsp;(Estimate)" : "Available";  echo "</p>
                             </span>
+                            <span>
+                                <img src='./images/icons/availability-icon.svg' height='14px' width='14px'><p id='availabilityStatus'>"; echo $rows["Availability"] == 0 ? "Available in: " . substr($rows["RentalStatus"], 0, 10) . "&nbsp;(Estimate)" : "Available";  echo "</p>
+                            </span>
                             <span>";
                             if(isset($_SESSION["role"])){
                                 if($_SESSION["role"] == "Customer"){

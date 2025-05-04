@@ -1,5 +1,6 @@
 <?php
   session_start();
+  //header('Access-Control-Allow-Origin: *');
   require("../database/db_conn.php");
 
   include_once("./style.php");
@@ -11,6 +12,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./vendor/jquery-3.7.1.min.js"></script>
+    <script src="./vendor/socketio-4.8.1.min.js"></script>
     <style type="text/css">
         *{
             margin: 0;
@@ -103,6 +105,7 @@
                     include_once("./panels/customer/customerBooking.php");
                     include_once("./panels/customer/aboutUs.php");
                     include_once("./panels/customer/contactUs.php");
+                    echo "<script src='./scripts/realtime.js'></script>";
                 }
             }else{
                 echo "<span class='navIndicator'></span>";
@@ -524,6 +527,8 @@
                     $(".notif").html("<span class='success'>Car Booked</span>");
                     document.querySelector(".homePageWrapper").style.display = "block";
                     document.querySelector(".rentPage").style.display = "none";
+
+                    socket.emit('update_admin', 'Ok');
                 }else{
                     $(".notif").html("<span class='error'>Something Went Wrong</span>");
                 }
@@ -900,3 +905,15 @@
     }
 </script>
 </html>
+<script type="text/javascript">
+    if(document.querySelector(".guestBG")) {
+        socket.on('update_user', (msg) => {
+            getFilterBrand();
+            getFilterModel();
+            getCarsWFilter();
+
+            getUserBookingHistory();
+            console.log("User updated: " +msg)
+        });
+    }
+</script>

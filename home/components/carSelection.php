@@ -57,17 +57,19 @@
     const fSort = document.getElementById("fSort");
     const fOrder = document.getElementById("fOrder");
     
-    $.ajax({
-        type: 'post',
-        url: './queries/car/getCars.php',
-        data: { type: 'getFilterBrand' },
-        success: function(res) {
-            $("#brandsFilter").html(res);
-        },
-        error: function() {
-            $(".msg").html("Error Pre");
-        }
-    });
+    function getFilterBrand(){
+        $.ajax({
+            type: 'post',
+            url: './queries/car/getCars.php',
+            data: { type: 'getFilterBrand' },
+            success: function(res) {
+                $("#brandsFilter").html(res);
+            },
+            error: function() {
+                $(".msg").html("Error Pre");
+            }
+        });
+    }
     
     function getFilterModel(){
         $.ajax({
@@ -96,5 +98,6 @@
         getCars(tFilter.value, bFilter.value, fuelFilter.value, mFilter.value, fSort.value, fOrder.value);
     }
     
+    getFilterBrand();
     getFilterModel();
 </script>

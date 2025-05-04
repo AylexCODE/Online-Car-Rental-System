@@ -173,7 +173,7 @@
     const agreement = document.getElementById("agreement");
 
     agreement.addEventListener('scroll', () => {
-        if(agreement.scrollTop >= agreement.scrollHeight - agreement.clientHeight){
+        if(agreement.scrollTop+100 >= agreement.scrollHeight - agreement.clientHeight){
             document.querySelector(".acceptButton").disabled = false;
         }
     });

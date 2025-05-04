@@ -122,6 +122,7 @@
             success: function(res){
                 getActiveRentals();
                 getRentalsHistory();
+                socket.emit('update_user', 'Ok');
             },
             error: function(error){
                 console.log(error);

@@ -215,6 +215,7 @@
                 success: function(res){
                     getUserBookingHistory();
                     updateCarStatistics("Retrieve");
+                    socket.emit('update_admin', 'Ok');
                 },
                 error: function(error){
     
@@ -255,6 +256,8 @@
                     document.getElementById("reviewInfo").classList.add(`${rentalID}|${carID}`);
                     reviewBtn("show");
                     updateCarStatistics("Return");
+                    socket.emit('update_user', 'Ok');
+                    socket.emit('update_admin', 'Ok');
                 },
                 error: function(error){
     
@@ -326,6 +329,7 @@
                 data: { rentalID: rentalID, carId: carId, rating: rating, userReview: $("#review").val() },
                 success: function(res){
                     $(".notif").html(res);
+                    socket.emit('update_user', 'Ok');
                 },
                 error: function(error){
                     $(".notif").html(error);
