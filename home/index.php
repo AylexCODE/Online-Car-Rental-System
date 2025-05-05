@@ -151,6 +151,7 @@
             include("./pages/rent.php");
         ?>
     </section>
+    <span id="notifTemplate" style="visibility: hidden; position: fixed; top:0px; left: 0px; height: 0px; width: 0px;"></span>
 </body>
 <script type="text/javascript">
     const homeBtn = document.getElementById("homeBtn");
@@ -437,8 +438,12 @@
             url: './queries/rent/sendNotif.php',
             data: { carID: carID, userID: userID },
             success: function(res){
-                const infos = JSON.parse(res);
-                emailjs.sendForm("service_8wbtzic", "template_vtcgf5n", res, "KWKPCF1CO6sgvP5m4");
+                $("#notifTemplate").html(res);
+                try{
+                    emailjs.sendForm("service_8wbtzic", "template_vtcgf5n", "#notifData", "KWKPCF1CO6sgvP5m4");
+                }catch(error){
+                    console.log(error);
+                }
             },
             error: function(){}
         });

@@ -11,13 +11,16 @@
             $execGetUserInfoQuery = mysqli_query($conn, $getUserInfoQuery);
             if(mysqli_num_rows($execGetUserInfoQuery)){
                 $rentalInfo = mysqli_fetch_assoc($execGetUserInfoQuery);
-                echo json_encode("{Name: \"" . $rentalInfo["Name"] . "\",
-                        Email: \"" . $rentalInfo["Email"] . "\",
-                        Car: \"" . $rentalInfo["Car"] . "\",
-                        PickupLocation: \"" . $rentalInfo["PickupLocation"] . "\",
-                        StartDate: \"" . $rentalInfo["StartDate"] . "\",
-                        DropoffLocation: \"" . $rentalInfo["DropoffLocation"] . "\",
-                        EndDate: \"" . $rentalInfo["EndDate"] . "\"}");
+                echo "<form id='notifData'>
+                        <input type='hidden' name='name' value = '" . $rentalInfo["Name"] . "'>
+                        <input type='hidden' name='email' value = '" . $rentalInfo["Email"] . "'>
+                        <input type='hidden' name='car_name' value = '" . $rentalInfo["Car"] . "'>
+                        <input type='hidden' name='pickup_location' value = '" . $rentalInfo["PickupLocation"] . "'>
+                        <input type='hidden' name='pickup_time' value = '" . $rentalInfo["StartDate"] . "'>
+                        <input type='hidden' name='dropoff_location' value = '" . $rentalInfo["DropoffLocation"] . "'>
+                        <input type='hidden' name='dropoff_time' value = '" . $rentalInfo["EndDate"] . "'>
+                        <input type='hidden' name='subject' value='Rental Receipt'>
+                      </form>";
             }
         }catch(mysqli_sql_exception $e){
             echo $e;
