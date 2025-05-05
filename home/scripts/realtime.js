@@ -1,4 +1,4 @@
-const socket = io('http://localhost:3000');
+const socket = io('https://socketio-f317.onrender.com');
 
 socket.on('connect', () => {
     console.log('Realtime Update is Active');

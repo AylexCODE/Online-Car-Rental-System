@@ -13,6 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./vendor/jquery-3.7.1.min.js"></script>
     <script src="./vendor/socketio-4.8.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style type="text/css">
         *{
             margin: 0;
@@ -430,6 +431,19 @@
         const editCar = document.getElementById("addCars"); addCars.style.display = "block";
     }
 
+    function sendNotification(carID, userID){
+        $.ajax({
+            type: 'post',
+            url: './queries/rent/sendNotif.php',
+            data: { carID: carID, userID: userID },
+            success: function(res){
+                const infos = JSON.parse(res);
+                emailjs.sendForm("service_8wbtzic", "template_vtcgf5n", res, "KWKPCF1CO6sgvP5m4");
+            },
+            error: function(){}
+        });
+    }
+
     let imgFakePath = "";
     window.onload = () => {
         if(document.querySelector(".guestBG")){
@@ -527,6 +541,8 @@
                     $(".notif").html("<span class='success'>Car Booked</span>");
                     document.querySelector(".homePageWrapper").style.display = "block";
                     document.querySelector(".rentPage").style.display = "none";
+
+                    sendNotification(carId, userID);
 
                     socket.emit('update_admin', 'Ok');
                 }else{
