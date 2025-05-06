@@ -39,7 +39,7 @@
                     $fSortOrder = "ORDER BY car.$filterSort $filterOrder";
                 }
                 
-                $carsQuery = "SELECT car.CarID, (SELECT brands.BrandName from brands WHERE brands.BrandID = car.BrandID) AS BrandName, (SELECT models.ModelName from models WHERE models.ModelID = car.ModelID) AS Model, car.FuelType, car.Transmission, car.RentalPrice, (SELECT rentals.EndDate FROM rentals WHERE rentals.carID = car.carID ORDER BY rentals.RentalID DESC LIMIT 1) RentalStatus, car.Availability, car.ImageName FROM cars car INNER JOIN brands ON car.BrandID = brands.BrandID WHERE $fBrand $fTransmission $fModel $fFuelType $fSortOrder";
+                $carsQuery = "SELECT car.CarID, (SELECT brands.BrandName from brands WHERE brands.BrandID = car.BrandID) AS BrandName, (SELECT models.ModelName from models WHERE models.ModelID = car.ModelID) AS Model, car.FuelType, car.Transmission, car.RentalPrice, (SELECT rentals.EndDate FROM rentals WHERE rentals.carID = car.carID ORDER BY rentals.RentalID DESC LIMIT 1) RentalStatus, car.Availability, (SELECT AVG(Rating) FROM reviews WHERE CarID = car.CarID) AS Rating, (SELECT COUNT(ReviewID) FROM reviews WHERE CarID = car.CarID) AS RatingCount, car.ImageName FROM cars car INNER JOIN brands ON car.BrandID = brands.BrandID WHERE $fBrand $fTransmission $fModel $fFuelType $fSortOrder";
             }
             // Image Dimensions height: 180px | width: 277.5px;
             try{
@@ -60,7 +60,58 @@
                                 <img src='./images/icons/availability-icon.svg' height='14px' width='14px'><p id='availabilityStatus'>"; echo $rows["Availability"] == 0 ? "Available in: " . substr($rows["RentalStatus"], 0, 10) . "&nbsp;(Estimate)" : "Available";  echo "</p>
                             </span>
                             <span>
-                                <img src='./images/icons/availability-icon.svg' height='14px' width='14px'><p id='availabilityStatus'>"; echo $rows["Availability"] == 0 ? "Available in: " . substr($rows["RentalStatus"], 0, 10) . "&nbsp;(Estimate)" : "Available";  echo "</p>
+                                <img src='./images/icons/rating-icon.svg' height='14px' width='14px'><p id='carRatings'>";
+                                if($rows["RatingCount"] == 0){
+                                    echo "<img src='./images/icons/starHollow-icon.svg' height='12px' width='12px'>
+                                          <img src='./images/icons/starHollow-icon.svg' height='12px' width='12px'>
+                                          <img src='./images/icons/starHollow-icon.svg' height='12px' width='12px'>
+                                          <img src='./images/icons/starHollow-icon.svg' height='12px' width='12px'>
+                                          <img src='./images/icons/starHollow-icon.svg' height='12px' width='12px'>
+                                          <span style='font-size: 12px; opacity: 0.7;'>&nbsp;( 0 Reviews )</span>";
+                                }else{
+                                    if($rows["Rating"] >= 1){
+                                        echo "<img src='./images/icons/star-icon.svg' height='12px' width='12px'>";
+                                    }elseif($rows["Rating"] >= 0.5){
+                                        echo "<img src='./images/icons/starHalf-icon.svg' height='12px' width='12px'>";
+                                    }else{
+                                        echo "<img src='./images/icons/starHollow-icon.svg' height='12px' width='12px'>";
+                                    }
+                                    
+                                    if($rows["Rating"] >= 2){
+                                        echo "<img src='./images/icons/star-icon.svg' height='12px' width='12px'>";
+                                    }elseif($rows["Rating"] >= 1.5){
+                                        echo "<img src='./images/icons/starHalf-icon.svg' height='12px' width='12px'>";
+                                    }else{
+                                        echo "<img src='./images/icons/starHollow-icon.svg' height='12px' width='12px'>";
+                                    }
+                                    
+                                    if($rows["Rating"] >= 3){
+                                        echo "<img src='./images/icons/star-icon.svg' height='12px' width='12px'>";
+                                    }elseif($rows["Rating"] >= 2.5){
+                                        echo "<img src='./images/icons/starHalf-icon.svg' height='12px' width='12px'>";
+                                    }else{
+                                        echo "<img src='./images/icons/starHollow-icon.svg' height='12px' width='12px'>";
+                                    }
+                                    
+                                    if($rows["Rating"] >= 4){
+                                        echo "<img src='./images/icons/star-icon.svg' height='12px' width='12px'>";
+                                    }elseif($rows["Rating"] >= 3.5){
+                                        echo "<img src='./images/icons/starHalf-icon.svg' height='12px' width='12px'>";
+                                    }else{
+                                        echo "<img src='./images/icons/starHollow-icon.svg' height='12px' width='12px'>";
+                                    }
+                                    
+                                    if($rows["Rating"] >= 5){
+                                        echo "<img src='./images/icons/star-icon.svg' height='12px' width='12px'>";
+                                    }elseif($rows["Rating"] >= 4.5){
+                                        echo "<img src='./images/icons/starHalf-icon.svg' height='12px' width='12px'>";
+                                    }else{
+                                        echo "<img src='./images/icons/starHollow-icon.svg' height='12px' width='12px'>";
+                                    }
+                                    
+                                    echo "<span style='font-size: 12px; opacity: 0.7;'>&nbsp;( " . $rows["RatingCount"] . " Reviews )</span>";
+                                }
+                                echo "</p>
                             </span>
                             <span>";
                             if(isset($_SESSION["role"])){

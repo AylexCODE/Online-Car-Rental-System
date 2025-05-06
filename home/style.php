@@ -359,10 +359,13 @@
         margin-block: 1px;
     }
     
-    #availabilityStatus {
+    #availabilityStatus, #carRatings {
         text-wrap: nowrap;
         overflow-x: scroll;
         width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
     }
 
     .car > span > button {
