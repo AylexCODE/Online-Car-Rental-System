@@ -40,51 +40,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        * {
+        *{
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
+        
+        @font-face{
+            font-family: space-grotesk-regular;
+            url: ("../fonts/SpaceGrotesk-Regular.otf");
+            src: url("../fonts/SpaceGrotesk-Regular.otf");
+        }
+        
         body {
-            background: url('your-background-image-url') no-repeat center center fixed;
+            background-image: url("../home/images/backgrounds/loginBG.jpeg");
             background-size: cover;
-            font-family: Arial, sans-serif;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-repeat: no-repeat;
+            background-position: center;
+            font-family: space-grotesk-regular;
+            color: #FDFFF6;
+            display: grid;
+            place-items: center;
             height: 100vh;
         }
 
-        .login-container {
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-            padding: 40px;
+        .loginWrapper {
+            background-color: #031A0965;
+            padding: 40px 50px 30px 50px;
             border-radius: 10px;
-            width: 300px;
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(5px);
+        }
+        
+        .loginWrapper form {
+            display: flex;
+            flex-direction: column;
         }
 
-        .login-container h2 {
+        .loginWrapper h2 {
             margin-bottom: 20px;
+            align-self: center;
         }
 
-        .login-container p {
-            margin-bottom: 10px;
-        }
-
-        .login-container input {
-            width: 100%;
+        .loginWrapper input {
+            color: #E2F87B;
             padding: 10px;
-            margin-bottom: 15px;
-            border: none;
+            border: 1px solid #E2F87B70;
             border-radius: 5px;
             font-size: 16px;
+            margin-bottom: 15px;
+            background-color: #FFFFFF30;
+            border-bottom: 2px solid #316C40;
+            border-right: 2px solid #316C40;
         }
+        
+        .loginWrapper #password {
+            padding-inline: 10px 30px;
+        }
+        
+        .loginWrapper label {
+            margin-bottom: 2.5px;
+        }
+        
+        .loginWrapper span {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        
+        .loginWrapper span img {
+            margin-right: 15px;
+            transform: translateY(34px);
+        }
+        
+        .animationForIcon {
+            height: 16px;
+            width: 16px;
+            transform: translate(16px, 34px);
+            z-index: 10;
+            display: grid;
+            place-items: center;
+            pointer-events: none;
+        }
+        
+        #animateIcon {
+            border-radius: 50%;
+            display: block;
+            height: 16px;
+            width: 16px;
+            scale: 0;
+            background-color: #FDFFF6;
+            border: 1px solid #E2F87B;
+            opacity: 1;
+            transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        /*
+        .animateIconn {
+            animation: scaleUp 1s 
+        }
+        
+        .animateIconn.reverse {
+            animation: scaleUp 1s cubic-bezier(0.25, 0.8, 0.25, 1);
+            animation-direction: reverse;
+        }*/
 
-        .login-container button {
+        .loginWrapper button {
             width: 100%;
             padding: 10px;
-            background-color: #4CAF50; /* Green background */
+            background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 5px;
@@ -93,55 +156,97 @@
             transition: background-color 0.3s;
         }
 
-        .login-container button:hover {
-            background-color: #45a049; /* Darker green */
+        .loginWrapper button:hover {
+            background-color: #45a049;
         }
 
-        .login-container a {
+        .loginWrapper a {
             color: #4CAF50;
             text-decoration: none;
+            align-self: center;
         }
 
-        .login-container a:hover {
+        .loginWrapper a:hover {
             text-decoration: underline;
         }
 
-        .error-msg {
+        .errorMsg {
             color: #f44336;
-            margin-top: 10px;
+            margin-block: 5px 10px;
+            align-self: center;
         }
-    </style>
-    <style type="text/css">
-        *{
-            margin: 0;
-            padding: 0;
+        
+        @keyframes scaleUp {
+            0%{
+              scale: 0;
+              background-color: #FDFFF6;
+              border: 1px solid #E2F87B;
+              opacity: 1;
+            }
+            90%{
+              background-color: #FDFFF6;
+              border: 1px solid #E2F87B;
+            }
+            100%{
+              scale: 2;
+              background-color: transparent;
+              border: 1px solid #E2F87B;
+              opacity: 0;
+            }
         }
     </style>
     <title>Car Rental</title>
 </head>
 <body>
-     <div class="login-container">
+     <div class="loginWrapper">
         <h2>Login</h2>
         <form method="post">
-            <p>Email or Phone</p>
-            <input type="text" name="contact" value="<?php if(isset($_SESSION["TempEmail"])) echo $_SESSION["TempEmail"]; ?>" required>
+            <label for="contact">Email or Phone</label>
+            <input type="text" name="contact" id="contact" spellcheck="false" value="<?php if(isset($_SESSION["TempEmail"])) echo $_SESSION["TempEmail"]; ?>" required>
 
-            <p>Password</p>
-            <input type="password" name="password" required>
-
-            <br>
+            <span>
+                <label for="password">Password</label>
+                <span>
+                    <span class="animationForIcon">
+                        <span id="animateIcon"></span>
+                    </span>
+                    <img src="../home/images/icons/hidePassword-icon.svg" onclick="togglePassword();" id="passwordToggleIcon" height="16px" width="16px">
+                </span>
+            </span>
+            <input type="password" name="password" id="password" required>
+            
             <button type="submit" name="login">Login</button>
-
+            
+            <?php
+                if(isset($_GET["authfailed"])){
+                    echo "<p class='error-msg'>Invalid Credentials</p>";
+                }elseif(isset($_GET['accountnotfound'])){
+                    echo "<p class='errorMsg'>Account Not Found</p>";
+                }else{
+                    echo "<p class='errorMsg' style='visibility: hidden;'>No Error</p>";
+                }
+            ?>
+        
             <p>Don't have an account? <a href="./signup.php">Signup</a></p>
         </form>
-
-        <?php
-            if(isset($_GET['authfailed'])){
-                echo '<p class="error-msg">Invalid login credentials.</p>';
-            } elseif(isset($_GET['accountnotfound'])){
-                echo '<p class="error-msg">Account not found. Please sign up.</p>';
-            }
-        ?>
     </div>
 </body>
+<script type="text/javascript">
+    const pwd = document.getElementById("password");
+    const passwordToggleIcon = document.getElementById("passwordToggleIcon");
+
+    function togglePassword(){
+        if(pwd.type == "password"){
+            pwd.type = "text";
+            passwordToggleIcon.src = "../home/images/icons/showPassword-icon.svg";
+            document.getElementById("animateIcon").style.scale = "2";
+            document.getElementById("animateIcon").style.opacity = "0";
+        }else{
+            pwd.type = "password";
+            passwordToggleIcon.src = "../home/images/icons/hidePassword-icon.svg";
+            document.getElementById("animateIcon").style.scale = "0";
+            document.getElementById("animateIcon").style.opacity = "1";
+        }
+    }
+</script>
 </html>
