@@ -292,6 +292,14 @@
 
         }
     }
+    
+    function setRepairCost(cost, operation, carID){
+      if(operation == true){
+        document.getElementById("repairCost"+carID).innerHTML = parseInt(document.getElementById("repairCost"+carID).innerHTML) + cost;
+      }else{
+        document.getElementById("repairCost"+carID).innerHTML = parseInt(document.getElementById("repairCost"+carID).innerHTML) - cost;
+      }
+    }
 
     const infoTemplateName = document.getElementById("infoTemplateName");
     const infoTemplateInfos = document.getElementById("infoTemplateInfos");
@@ -381,8 +389,9 @@
         $.ajax({
             type: 'post',
             url: './queries/car/fixCar.php',
-            data: { carID: carID, dents: dent ? 0 : 1, scratches: Scratches ? 0 : 1, chippedPaint: Chipped ? 0 : 1, crackedWindshields: Cracked ? 0 : 1 },
+            data: { carID: carID, repairCost: parseInt($("#repairCost"+carID).html()), dents: dent ? 0 : 1, scratches: Scratches ? 0 : 1, chippedPaint: Chipped ? 0 : 1, crackedWindshields: Cracked ? 0 : 1 },
             success: function(res){
+              console.log(res +"eye")
                 $(".msg").html("<p class='success'>Car Fixed</p>");
                 getCarNeedsMaintenance();
             },

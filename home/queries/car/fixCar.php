@@ -3,6 +3,7 @@
 
     if(isset($_POST)){
         $carID = $_POST["carID"];
+        $repairCost = $_POST["repairCost"];
         $dents = $_POST["dents"];
         $scratches = $_POST["scratches"];
         $chippedPaint = $_POST["chippedPaint"];
@@ -13,10 +14,15 @@
             $isDamaged = 0;
         }
 
-        $setCarDamages = "UPDATE damages SET isDamaged = '$isDamaged', Dents = '$dents', Scratches = '$scratches', ChippedPaint = '$chippedPaint', CrackedWindshields = '$crackedWindshields' WHERE CarID = '$carID';";
+        $getAccumulatedCost = "SELECT AccumulatedCost FROM damages WHERE CarID = '$carID';";
         try{
-            mysqli_query($conn, $setCarDamages);
-            echo "EY";
+            $execAccumulatedCostQuery = mysqli_query($conn, $getAccumulatedCost);
+            $accumulatedCost = mysqli_fetch_assoc($execAccumulatedCostQuery);
+            
+            try{
+                $setCarDamages = "UPDATE damages SET isDamaged = '$isDamaged', Dents = '$dents', Scratches = '$scratches', ChippedPaint = '$chippedPaint', CrackedWindshields = '$crackedWindshields', AccumulatedCost = " . intval($accumulatedCost["AccumulatedCost"])+intval($repairCost) . " WHERE CarID = '$carID';";
+                mysqli_query($conn, $setCarDamages);
+            }catch(mysqli_sql_exception){}
         }catch(mysqli_sql_exception $e){echo $e;}
     }
 ?>
