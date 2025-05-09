@@ -1,40 +1,4 @@
 <?php
-    require_once("../database/db_conn.php");
-    require_once("../home/queries/record_logs.php");
-    
-    if(isset($_POST["signup"])){
-        $fName = filter_input(INPUT_POST, "FirstName", FILTER_SANITIZE_SPECIAL_CHARS);
-        $lName = filter_input(INPUT_POST, "LastName", FILTER_SANITIZE_SPECIAL_CHARS);
-        $phoneNumber = $_POST["PhoneNumber"];
-        $email = strtolower(filter_input(INPUT_POST, "Email", FILTER_SANITIZE_SPECIAL_CHARS));
-
-        // $checkAccount = mysqli_query($conn, "SELECT * FROM users WHERE Name = '$fName $lname' OR PhoneNumber = '$phoneNumber' OR Email = '$email';");
-
-        $doB = $_POST["DoB"];
-        $dLicense = filter_input(INPUT_POST, "DriversLicense", FILTER_SANITIZE_SPECIAL_CHARS);
-        $password = filter_input(INPUT_POST, "Password", FILTER_SANITIZE_SPECIAL_CHARS);
-        
-        $hashPassword = password_hash($password, PASSWORD_DEFAULT);
-        // if(mysqli_num_rows($checkAccount) != 0){
-        //     header("location: ./signup.php?accountexist");
-        // }else{
-            $query = "INSERT INTO users (Name, PhoneNumber, Email, DoB, DriversLicense, Role, Password, DateCreated) VALUES ('$fName $lName', '$phoneNumber', '$email', '$doB', '$dLicense', 'Customer', '$hashPassword', NOW());";
-            try{
-                header("location: ./login.php?success=accountcreated");
-                
-                mysqli_query($conn, $query);
-                
-                $getUserID = "SELECT UserID FROM users WHERE Name = '$fName $lName';";
-                $execGetUserID = mysqli_query($conn, $getUserID);
-                $userID = mysqli_fetch_assoc($execGetUserID);
-                recordLog($userID["UserID"], "Signup", $conn);
-                
-            }catch(mysqli_sql_exception){
-                header("location: ./signup.php?error=accountexist");
-            }
-        // }
-    }
-    
     include_once("./style.php");
 ?>
 
@@ -66,7 +30,59 @@
             font-size: 12px;
             transform: translate(5.9px, -38px);
         }
+        /*
+        .msg {
+            position: fixed;
+            top: -100px;
+            /* left: 50%; *//*
+            z-index: 999;
+            width: 100vw;
+            height: fit-content;
+            right: 0px;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+        
+        .msg > .error, .msg > .success, .notif > .success, .notif > .error {
+            position: relative;
+            color: rgb(255, 100, 100);
+            /* right: 2.5%; *//*
+            top: 50px;
+            text-wrap: nowrap;
+            border: 2px solid #F77;
+            padding: 5px 10px;
+            background-color: #38814a;
+            font-weight: bold;
+            border-radius: 5px;
+            animation: msgSlideDown 5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+    
+        .msg > .success, {
+            color: #E2F87B;
+            border: 2px solid #E2F87B;
+        }
+    
+        @keyframes msgSlideDown {
+            0%{
+                opacity: 0;
+            }
+            30%{
+                opacity: 1;
+                top: 150px;
+            }
+            70%{
+                opacity: 1;
+                top: 150px;
+            }
+            100%{
+                opacity: 0;
+                top: 0px;
+            }
+        }
+        */
     </style>
+    <script src="../../home/vendor/jquery-3.7.1.min.js"></script>
     <title>Car Rental</title>
 </head>
 <body>
@@ -127,7 +143,7 @@
         <div class="progress">
             <span class="progressBar"></span>
         </div>
-        <p id="errorMsg"><?php if(isset($_GET["error"])){ if($_GET["error"] == "accountexist"){echo "Account Already Exist";} }?></p>
+        <p id="errorMsg"><?/*php if(isset($_GET["error"])){ if($_GET["error"] == "accountexist"){echo "Account Already Exist";} }*/?></p>
         <section class="navigation">
             <div class="previousButton" onclick="confirmStep('subtract')">Previous</div>
             <button type="submit" name="signup" class="nextButton" onclick="confirmStep('add')">Next</buttonu>
@@ -138,6 +154,7 @@
         <p>Already have an account?&nbsp;</p>
         <a href="./login.php">login</a>
     </div>
+    <!--<p class="msg"><span class="success">Hello World!</span></p>-->
 </body>
 <script type="text/javascript">
     const stepWrapper = document.querySelector(".stepsWrapper");
@@ -161,23 +178,37 @@
     let steps = 1;
     
     function confirmStep(step){
+        event.preventDefault();
         setConfirmation();
         if(step == "subtract") setStep(step);
         
         if(steps == 1){
-            event.preventDefault();
+            //event.preventDefault();
             if(checkFirstStep()){
                 if(step != "subtract") setStep(step);
                 setShowingForms();
             }
         }else if(steps == 2){
-            event.preventDefault();
+            //event.preventDefault();
             if(checkSecondStep()){
                 if(step != "subtract") setStep(step);
                 setShowingForms();
             }
         }else if(confirmPass()){
-            console.log("Signed Up Successfully");
+            //event.preventDefault();
+            $.ajax({
+                type: 'post',
+                url: './handler/signupHandler.php',
+                data: { type: 'register', FirstName: fname.value, LastName: lname.value, PhoneNumber: phoneNo.value, Email: email.value, DriversLicense: dLicense.value, Password: password.value, DoB: dob.value },
+                success: function(res){
+                    if(res == "accountcreated"){
+                        window.location.replace = "./login.php?accountcreated";
+                    }else{
+                        
+                    }
+                },
+                error: function(){}
+            });
         }else{
             event.preventDefault();
         }
@@ -357,10 +388,10 @@
     
     fname.oninput = (event) => { resetEverything(); if(fname.value != ""){fname.style.borderColor = "green"}else{fname.style.borderColor = "#00000000"} }
     lname.oninput = (event) => { resetEverything(); if(lname.value != ""){lname.style.borderColor = "green"}else{lname.style.borderColor = "#00000000"} }
-    email.oninput = (event) => { resetEverything(); if(!emailRegex.test(email.value) && email.value != ""){email.style.borderColor = "red"}else{email.style.borderColor = "green"} if(email.value == "")email.style.borderColor = "#00000000" }
-    phoneNo.oninput = (event) => { resetEverything(); if(phoneNo.value.length < 11 && phoneNo.value != "" && !phoneNo.value.startsWith("09")){phoneNo.style.borderColor = "red"}else{phoneNo.value = phoneNo.value.slice(0, 11);if(phoneNo.value.startsWith("09")){phoneNo.style.borderColor = "green";if(phoneNo.value.length < 11 && phoneNo.value.length > 2){phoneNo.style.borderColor = "red";}} }if(phoneNo.value == ""){phoneNo.style.borderColor = "#00000000"} }
+    email.oninput = async (event) => { resetEverything(); if(!emailRegex.test(email.value) && email.value != "" || await checkExist(event.target.value, "checkemail") == false){email.style.borderColor = "red"}else{email.style.borderColor = "green"} if(email.value == "")email.style.borderColor = "#00000000" }
+    phoneNo.oninput = async (event) => { resetEverything(); if(phoneNo.value.length < 11 && phoneNo.value != "" && !phoneNo.value.startsWith("09")){phoneNo.style.borderColor = "red"}else{phoneNo.value = phoneNo.value.slice(0, 11);if(phoneNo.value.startsWith("09")){phoneNo.style.borderColor = "green";if(phoneNo.value.length < 11 && phoneNo.value.length > 2 || await checkExist(event.target.value, "checkphone") == false){phoneNo.style.borderColor = "red";}} }if(phoneNo.value == ""){phoneNo.style.borderColor = "#00000000"} }
     dob.onchange = (event) => { resetEverything(); checkDriveAge(); if(dob.value != ""){dob.classList.add("dobNotEmpty"); dob.style.borderColor = "green";}else{dob.classList.remove("dobNotEmpty"); dob.style.borderColor = "#00000000"} checkDriveAge(); }
-    dLicense.oninput = (event) => { resetEverything(); formatDLicense(); if(dLicense.value == ""){dLicense.style.borderColor = "#00000000"} if(!dLicenseRegex.test(dLicense.value) && dLicense.value != ""){dLicense.style.borderColor = "red"}else{dLicense.style.borderColor = "green"} }
+    dLicense.oninput = async (event) => { resetEverything(); formatDLicense(); if(dLicense.value == ""){dLicense.style.borderColor = "#00000000"} if(!dLicenseRegex.test(dLicense.value) && dLicense.value != "" || await checkExist(event.target.value, "checklicense") == false){dLicense.style.borderColor = "red"}else{dLicense.style.borderColor = "green"} }
     password.oninput = (event) => { if(steps != 2){return 0} resetEverything(); checkPass(); if(password.value == ""){password.style.borderColor = "#00000000"} }
     confirmPassword.oninput = (event) => { resetEverything(); confirmPass(); if(confirmPassword.value == "") confirmPassword.style.borderColor = "#00000000" }
     /*
@@ -425,5 +456,25 @@
     phoneNo.oninput = (event) => { checkRequired(); if(phoneNo.value.length < 11 && phoneNo.value != ""){errorMsg.innerHTML="Invalid Phone Number!"}else{phoneNo.value = phoneNo.value.slice(0, 11)} }
     dLicense.oninput = (event) => { checkRequired(); if(!dLicenseRegex.test(dLicense.value) && dLicense.value != ""){errorMsg.innerHTML="Invalid Driver's License!"} }
     */
+    async function checkExist(value, type){
+       let isOk = false;
+       await $.ajax({
+         type: 'post',
+         url: './handler/signupHandler.php',
+         data: { value, value, type: type },
+         success: function(res){
+           if(res == "OK"){
+             $("#errorMsg").html('');
+             isOk = true;
+           }else{
+             $("#errorMsg").html(res);
+           }
+           console.log(res)
+         },
+         error: function(){}
+       });
+       
+       return isOk;
+    }
 </script>
 </html>

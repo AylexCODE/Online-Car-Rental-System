@@ -160,8 +160,8 @@
             background-color: #45a049;
         }
 
-        .loginWrapper a {
-            color: #4CAF50;
+        .loginWrapper a, .loginWrapper:visited {
+            color: #E2F87B;
             text-decoration: none;
             align-self: center;
         }
@@ -170,10 +170,14 @@
             text-decoration: underline;
         }
 
-        .errorMsg {
+        .errorMsg, .successMsg {
             color: #f44336;
             margin-block: 5px 10px;
             align-self: center;
+        }
+        
+        .successMsg {
+            color: #E2F87B;
         }
         
         @keyframes scaleUp {
@@ -219,9 +223,11 @@
             
             <?php
                 if(isset($_GET["authfailed"])){
-                    echo "<p class='error-msg'>Invalid Credentials</p>";
+                    echo "<p class='errorMsg'>Invalid Credentials</p>";
                 }elseif(isset($_GET['accountnotfound'])){
                     echo "<p class='errorMsg'>Account Not Found</p>";
+                }elseif(isset($_GET['accountcreated'])){
+                    echo "<p class='successMsg'>Account Created</p>";
                 }else{
                     echo "<p class='errorMsg' style='visibility: hidden;'>No Error</p>";
                 }
@@ -230,6 +236,7 @@
             <p>Don't have an account? <a href="./signup.php">Signup</a></p>
         </form>
     </div>
+    <p class='msg'>Hello World!</p>
 </body>
 <script type="text/javascript">
     const pwd = document.getElementById("password");
