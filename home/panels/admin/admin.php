@@ -33,7 +33,7 @@
             <button onclick='setActiveBtnAdmin(8)' id='logsBtn'><img src='./images/icons/logs-icon.svg' height='16px' width='16px'>Logs</button>
         </span>
         <span>
-            <a href='../auth/logout.php'><img src='./images/icons/logout-icon.svg' height='16px' width='16px'>Log out</a>
+            <a href='../auth/logout.php' onclick='logout();'><img src='./images/icons/logout-icon.svg' height='16px' width='16px'>Log out</a>
         </span>";
     echo "</nav>";
     echo "<div class='adminBody'>
@@ -167,6 +167,10 @@
                 adminNavIndicator.style.width = logsBtn.offsetWidth+20 +"px";
                 break;
         }
+    }
+    
+    function logout(){
+        localStorage.removeItem("user");
     }
 
     /*function setActiveAdminSettings(name){

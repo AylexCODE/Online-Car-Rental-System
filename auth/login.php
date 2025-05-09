@@ -7,6 +7,7 @@
     if(isset($_POST["login"])){
         $contact = filter_input(INPUT_POST, "contact", FILTER_SANITIZE_SPECIAL_CHARS);
         $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
+        $rememberMe = filter_input(INPUT_POST, "rememberMe", FILTER_SANITIZE_SPECIAL_CHARS);
 
         $query = "SELECT * FROM users WHERE Email = '$contact' OR PhoneNumber = '$contact'";
         $execQuery = mysqli_query($conn, $query);
@@ -169,7 +170,36 @@
         .loginWrapper a:hover {
             text-decoration: underline;
         }
-
+        
+        .utilityWrapper {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+        }
+        
+        .utilityWrapper > span {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            height: 20px;
+        }
+        
+        .utilityWrapper > span:nth-child(1){
+            gap: 3px;
+        }
+        
+        .utilityWrapper input {
+            transform: translateY(7px);
+        }
+        
+        .utilityWrapper a, utilityWrapper a:visited {
+          color: #4CAF50;
+          transform: translateY(-1.4px);
+        }
+        
         .errorMsg, .successMsg {
             color: #f44336;
             margin-block: 5px 10px;
@@ -218,8 +248,16 @@
                 </span>
             </span>
             <input type="password" name="password" id="password" required>
-            
-            <button type="submit" name="login">Login</button>
+            <span class="utilityWrapper">
+                <span>
+                    <input type="checkbox" id="rememberMeBtn" name="rememberMe" onchange="rememberMe(this.value);">
+                    <label for="rememberMeBtn">Remember Me</label>
+                </span>
+                <span>
+                    <a href="./forgotPassword.php">Forgot Password</a>
+                </span>
+            </span>
+            <button type="submit" name="login" onclick="setRemembered();" id="submitBtn">Login</button>
             
             <?php
                 if(isset($_GET["authfailed"])){
@@ -229,7 +267,7 @@
                 }elseif(isset($_GET['accountcreated'])){
                     echo "<p class='successMsg'>Account Created</p>";
                 }else{
-                    echo "<p class='errorMsg' style='visibility: hidden;'>No Error</p>";
+                    echo "<p class='successMsg' style='visibility: hidden;'>No Error</p>";
                 }
             ?>
         
@@ -239,6 +277,8 @@
     <p class='msg'>Hello World!</p>
 </body>
 <script type="text/javascript">
+    const contact = document.getElementById("contact");
+    const rememberMeBtn = document.getElementById("rememberMeBtn");
     const pwd = document.getElementById("password");
     const passwordToggleIcon = document.getElementById("passwordToggleIcon");
 
@@ -255,5 +295,30 @@
             document.getElementById("animateIcon").style.opacity = "1";
         }
     }
+    
+    function rememberMe(isRemembered){
+        if(!isRemembered){
+            localStorage.removeItem("user");
+        }
+    }
+    
+    function setRemembered(){
+        if(rememberMeBtn.checked){
+            localStorage.setItem("user", `${contact.value}&nbsp;${pwd.value}`);
+        }else{
+            localStorage.removeItem("user");
+        }
+    }
+    
+    function getRemembered(){
+        if(localStorage.getItem("user")){
+            contact.value = localStorage.getItem("user").split("&nbsp;")[0];
+            password.value = localStorage.getItem("user").split("&nbsp;")[1];
+            
+            document.getElementById("submitBtn").click();
+        }
+    }
+    
+    getRemembered();
 </script>
 </html>

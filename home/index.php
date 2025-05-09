@@ -91,7 +91,7 @@
                                 <button onclick='setActiveBtn(4)' id='contactBtn'>Contact</button>
                             </span>
                             <span class='logout'>
-                                <a href='../auth/logout.php'>logout</a>
+                                <a href='../auth/logout.php' onclick='logout()'>logout</a>
                             </span>
                         </nav>";
                     echo "<div class='homePage'>";
@@ -850,6 +850,10 @@
         getLocations();
         getCars("", "", "", "", "", );
     });
+    
+    function logout() {
+        localStorage.removeItem("user");
+    }
 
     // async function submitRent(carId, pickUpLocation, dropOffLocation, startDateTime, endDateTime, paymentMethod, amountPaid, voucher, UID){
     //     await $.ajax({
