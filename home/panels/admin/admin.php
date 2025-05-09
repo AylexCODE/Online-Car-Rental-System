@@ -182,6 +182,7 @@
                 break;
         }
     }*/
+    setActiveBtnAdmin(1);
 </script>
 <script src="./scripts/realtime.js"></script>
 <script type="text/javascript">
