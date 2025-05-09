@@ -202,7 +202,7 @@
                 data: { type: 'register', FirstName: fname.value, LastName: lname.value, PhoneNumber: phoneNo.value, Email: email.value, DriversLicense: dLicense.value, Password: password.value, DoB: dob.value },
                 success: function(res){
                     if(res == "accountcreated"){
-                        window.location.replace = "./login.php?accountcreated";
+                        window.location.replace("./login.php?accountcreated");
                     }else{
                         
                     }
