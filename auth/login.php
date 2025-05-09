@@ -254,7 +254,7 @@
                     <label for="rememberMeBtn">Remember Me</label>
                 </span>
                 <span>
-                    <a href="./forgotPassword.php">Forgot Password</a>
+                    <a href="./passwordReset.php">Forgot Password</a>
                 </span>
             </span>
             <button type="submit" name="login" onclick="setRemembered();" id="submitBtn">Login</button>
