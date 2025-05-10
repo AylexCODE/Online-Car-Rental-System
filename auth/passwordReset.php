@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script src="../home/vendor/jquery-3.7.1.min.js"></script>
+        <script src="../home/vendor/emailjs-3.0.0.min.js"></script>
         <style type="text/css">
             *{
               padding: 0px;
@@ -120,6 +121,7 @@
             <span class="msg"></span>
         </form>
         <a href="./login.php">Back to login?</a>
+        <span id="dummy" style="visibility: hidden; position: fixed; top: 0px; left: 0px; pointer-events: none;"></span>
     </body>
 </html>
 <script type="text/javascript">
@@ -161,7 +163,9 @@
             randomCode += chars[rng];
             console.log(rng);
         }
+        $("#verificationCode").val(randomCode);
         
+        emailjs.sendForm("service_8wbtzic", "template_ij1wq5c", "#userInfo", "KWKPCF1CO6sgvP5m4");
         localStorage.setItem("verificationCode", randomCode);
         localStorage.setItem("contact", contact.value);
     }
@@ -171,8 +175,10 @@
             type: 'get',
             url: `./handler/passwordResetHandler.php?contact=${contact.value}`,
             success: function(res){
-                if(res == "Ok"){
+                if(res != "Account is not registered"){
                     $(".msg").html("<p class='success'>Verification code sent!</p>");
+                    $("#dummy").html(res);
+                    
                     sendCode();
                 }else{
                     $(".msg").html(`<p class='error'>${res}</p>`);

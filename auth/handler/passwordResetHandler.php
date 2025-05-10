@@ -5,12 +5,17 @@
     if(isset($_GET["contact"])){
         $contact = $_GET["contact"];
         
-        $query = "SELECT UserID FROM users WHERE Email = '$contact' OR PhoneNumber = '$contact';";
+        $query = "SELECT Name, Email FROM users WHERE Email = '$contact' OR PhoneNumber = '$contact';";
         try{
             $execQuery = mysqli_query($conn, $query);
             
             if(mysqli_num_rows($execQuery) != 0){
-                echo "Ok";
+                $result = mysqli_fetch_assoc($execQuery);
+                echo "<form id='userInfo'>
+                        <input type='hidden' name='email' value='" . $result["Email"] . "'>
+                        <input type='hidden' name='name' value='" . $result["Name"] . "'>
+                        <input type='hidden' name='passcode' id='verificationCode'>
+                      </form>";
             }else{
                 echo "Account is not registered";
             }
