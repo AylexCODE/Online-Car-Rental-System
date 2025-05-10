@@ -254,7 +254,7 @@
                     <label for="rememberMeBtn">Remember Me</label>
                 </span>
                 <span>
-                    <a href="./passwordReset.php">Forgot Password</a>
+                    <a href="./passwordReset.php">Forgot Password?</a>
                 </span>
             </span>
             <button type="submit" name="login" onclick="setRemembered();" id="submitBtn">Login</button>
@@ -266,6 +266,10 @@
                     echo "<p class='errorMsg'>Account Not Found</p>";
                 }elseif(isset($_GET['accountcreated'])){
                     echo "<p class='successMsg'>Account Created</p>";
+                }elseif(isset($_GET['passwordchanged'])){
+                    echo "<p class='successMsg'>Password Changed Successfully</p>";
+                }elseif(isset($_GET['errorpasswordchange'])){
+                    echo "<p class='errorMsg'>Error Changing Password</p>";
                 }else{
                     echo "<p class='successMsg' style='visibility: hidden;'>No Error</p>";
                 }
