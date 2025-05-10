@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./vendor/jquery-3.7.1.min.js"></script>
     <script src="./vendor/socketio-4.8.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="./vendor/emailjs-3.0.0.min.js"></script>
     <style type="text/css">
         *{
             margin: 0;
