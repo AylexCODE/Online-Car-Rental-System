@@ -29,6 +29,8 @@
                     }
                     
                     echo $amounts . "|" . $dates;
+                }else{
+                    echo "0 0|0&nbsp;0";
                 }
             }catch(mysqli_sql_exception){}
         }elseif($_GET["type"] == "repairs"){
@@ -55,6 +57,8 @@
                     }
                     
                     echo $amounts . "|" . $dates;
+                }else{
+                    echo "0 0|0&nbsp;0";
                 }
             }catch(mysqli_sql_exception){}
         }

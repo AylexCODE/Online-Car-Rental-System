@@ -17,16 +17,18 @@
         $rentalRetriveCar = "UPDATE rentals SET Status = 3, Penalty = '$penalty' WHERE RentalID = $rentalID";
         try{
             mysqli_query($conn, $rentalRetriveCar);
-        }catch(mysqli_sql_exception){
+        }catch(mysqli_sql_exception $e){
             echo "Error";
+            echo $e;
         }
 
         $setCarAvailability = "UPDATE cars SET Availability = 1 WHERE CarID = $carID";
         try{
             mysqli_query($conn, $setCarAvailability);
             recordLog($_SESSION["userID"], "Return Car ID $carID", $conn);
-        }catch(mysqli_sql_exception){
+        }catch(mysqli_sql_exception $e){
             echo "Error";
+            echo $e;
         }
 
         $isDamaged = 0;

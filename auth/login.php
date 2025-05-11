@@ -196,8 +196,13 @@
         }
         
         .utilityWrapper a, utilityWrapper a:visited {
-          color: #4CAF50;
-          transform: translateY(-1.4px);
+            color: #4CAF50;
+            transform: translateY(-1.4px);
+        }
+        
+        form > p {
+            width: 100%;
+            text-align: center;
         }
         
         .errorMsg, .successMsg {

@@ -245,13 +245,15 @@
             const returnScratches = document.getElementById("returnScratches").checked == true ? 1 : 0 ;
             const returnChippedPaint = document.getElementById("returnChippedPaint").checked == true ? 1 : 0 ;
             const returnCrackedWindshields = document.getElementById("returnCrackedWindshields").checked == true ? 1 : 0 ;
-            const totalPenalty = (parseFloat($("#lateReturn").html()) * lateReturnCostHour) + totalDamageCost;
-
+            let totalPenalty = (parseFloat($("#lateReturn").html()) * lateReturnCostHour) + totalDamageCost;
+            
+            if(isNaN(totalPenalty)) totalPenalty = totalDamageCost;
             $.ajax({
                 type: "post",
                 url: "./queries/rent/returnBookedCar.php",
                 data: { RentalID: rentalID, CarID: carID, dents: returnDents, scratches: returnScratches, chippedPaint: returnChippedPaint, crackedWindshields: returnCrackedWindshields, penalty: totalPenalty },
                 success: function(res){
+                  console.log("retu", res)
                     getUserBookingHistory();
                     document.getElementById("reviewInfo").classList.add(`${rentalID}|${carID}`);
                     reviewBtn("show");

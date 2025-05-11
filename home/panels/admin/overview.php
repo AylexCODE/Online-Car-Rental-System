@@ -279,7 +279,18 @@
     }
     
     function filterPeakRentals(filter){
-      
+        $.ajax({
+            type: 'get',
+            url: './queries/overview/getPeakRentalPeriods.php?filter=' +filter,
+            success: function(res){
+                const rentCount = res.split("|")[0];
+                let rentCountArray = rentCount.split(" ").reverse();
+                
+                const rentDates = res.split("|")[1];
+                let rentDatesArray = rentDates.split("&nbsp;").reverse();
+            },
+            error: function(){}
+        });
     }
     
     function getMonthWord(month){

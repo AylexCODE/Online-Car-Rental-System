@@ -401,7 +401,7 @@ ALTER TABLE `cars`
 --
 ALTER TABLE `car_statistics`
   ADD CONSTRAINT `car_statistics_ibfk_1` FOREIGN KEY (`CustomerID`) REFERENCES `users` (`UserID`),
-  ADD CONSTRAINT `car_statistics_ibfk_2` FOREIGN KEY (`CarID`) REFERENCES `users` (`UserID`);
+  ADD CONSTRAINT `car_statistics_ibfk_2` FOREIGN KEY (`CarID`) REFERENCES `cars` (`CarID`);
 
 --
 -- Constraints for table `damages`
