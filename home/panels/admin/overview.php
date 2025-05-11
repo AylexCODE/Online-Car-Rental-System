@@ -1,4 +1,5 @@
 <?php
+    // revenue, total rentals, peak rentals period
     echo "<div class='overview'>
             <h4>Overview</h4>
             <span>
@@ -40,8 +41,14 @@
               </span>
               <span>
                 <span class='oActiveRentals'>
-                  <p id='oRentalsLabel'>Active Rentals</p>
-                  <p id='oRentalsCount'>0</p>
+                  <p id='oActiveRentalsLabel'>Active Rentals</p>
+                  <p id='oActiveRentalsCount'>0</p>
+                </span>
+              </span>
+              <span>
+                <span class='oAllRentals'>
+                  <p id='oAllRentalsLabel'>Total Rentals</p>
+                  <p id='oAllRentalsCount'>0</p>
                 </span>
               </span>
             </span>
@@ -127,6 +134,38 @@
                     $("#oVouchersLabel").html("Active Vouchers");
                 }else{
                     $("#oVouchersLabel").html("Active Voucher");
+                }
+            },
+            error: function(){
+                
+            }
+        });
+        
+        $.ajax({
+            type: 'get',
+            url: './queries/overview/getInitialOverview.php?type=getActiveRentals',
+            success: function(res){
+                $("#oActiveRentalsCount").html(res);
+                if(res > 1){
+                    $("#oActiveRentalsLabel").html("Active Rentals");
+                }else{
+                    $("#oActiveRentalsLabel").html("Active Rental");
+                }
+            },
+            error: function(){
+                
+            }
+        });
+        
+        $.ajax({
+            type: 'get',
+            url: './queries/overview/getInitialOverview.php?type=getTotalRentals',
+            success: function(res){
+                $("#oAllRentalsCount").html(res);
+                if(res > 1){
+                    $("#oAllRentalsLabel").html("Total Rentals");
+                }else{
+                    $("#oAllRentalsLabel").html("Total Rental");
                 }
             },
             error: function(){
