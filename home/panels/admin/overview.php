@@ -51,6 +51,9 @@
                   <p id='oAllRentalsCount'>0</p>
                 </span>
               </span>
+              <span class='revenueWrapper'>
+                <canvas id='revenueDisplay'></canvas>
+              </span>
             </span>
         </div>";
 ?>
@@ -176,6 +179,24 @@
     
     setOverviewInfo();
 </script>
+<script type="text/javascript">
+    const revenue = document.getElementById("revenueDisplay");
+
+    const revenueChart = new Chart(revenue, {
+        type: 'bar',
+        data: {
+            labels: ["hey", "bro"],
+            datasets: [1, 2]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
 <style type="text/css">
     .overview {
         height: 100%;
@@ -219,5 +240,10 @@
         width: 20vw;
         height: fit-content;
         text-align: center;
+    }
+    
+    .revenueWrapper {
+        width: 100%;
+        background-color: red;
     }
 </style>

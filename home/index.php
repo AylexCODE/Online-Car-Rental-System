@@ -14,6 +14,7 @@
     <script src="./vendor/jquery-3.7.1.min.js"></script>
     <script src="./vendor/socketio-4.8.1.min.js"></script>
     <script src="./vendor/emailjs-3.0.0.min.js"></script>
+    <script src="./vendor/chartjs-4.4.1.min.js"></script>
     <style type="text/css">
         *{
             margin: 0;
