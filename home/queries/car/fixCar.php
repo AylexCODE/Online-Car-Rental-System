@@ -1,5 +1,7 @@
 <?php
+    session_start();
     require_once("../../../database/db_conn.php");
+    require_once("../record_logs.php");
 
     if(isset($_POST)){
         $carID = $_POST["carID"];
@@ -22,6 +24,8 @@
             try{
                 $setCarDamages = "UPDATE damages SET isDamaged = '$isDamaged', Dents = '$dents', Scratches = '$scratches', ChippedPaint = '$chippedPaint', CrackedWindshields = '$crackedWindshields', AccumulatedCost = " . intval($accumulatedCost["AccumulatedCost"])+intval($repairCost) . " WHERE CarID = '$carID';";
                 mysqli_query($conn, $setCarDamages);
+                
+                recordLog($_SESSION["userID"], "Repaired CarID $carID COST ₱$repairCost", $conn);
             }catch(mysqli_sql_exception){}
         }catch(mysqli_sql_exception $e){echo $e;}
     }

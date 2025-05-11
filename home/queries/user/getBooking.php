@@ -66,6 +66,9 @@
               
               $setCarAvailability = "UPDATE cars SET Availability = 1 WHERE CarID = '" . $rows["CarID"] . "'";
               mysqli_query($conn, $setCarAvailability);
+              
+              $cancelPayment = "UPDATE payments SET PaymentStatus = 2 WHERE RentalID = '" . $rows["RentalID"] . "'";
+              mysqli_query($conn, $cancelPayment);
             }
 
             echo "<img src='./images/cars/" . $rows["ImageName"] . "' height='180px' width='277px' id='bookingCarStats' class='" . $rows["CarID"] . "'>

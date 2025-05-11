@@ -24,6 +24,7 @@
                                 <th>Pay Method</th>
                                 <th>Pay Frequency</th>
                                 <th>Payment Date</th>
+                                <th>Status</th>
                                 <th>Voucher ID</th>
                             </thead>
                             <tr class='paymentsFilter'>
@@ -50,6 +51,14 @@
                                     </select>
                                 </td>
                                 <td><input type='datetime-local' id='filterPayDate' onchange='filterPayments();'></td>
+                                <td>
+                                    <select id='filterPayStatus' onchange='filterPayments();'>
+                                        <option value='All'>All</option>
+                                        <option value='0'>Pending</option>
+                                        <option value='1'>Processed</option>
+                                        <option value='2'>Cancelled</option>
+                                    </select>
+                                </td>
                                 <td><input type='number' id='filterPayVoucherID' oninput='filterPayments();'></td>
                             </tr>
                             <tbody id='paymentsData'></tbody>
