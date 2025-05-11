@@ -322,7 +322,7 @@
             type: 'get',
             url: './queries/car/getCarInfo.php?name=GetModelCount',
             success: function(res){
-                $("#infoModelCount").html(res);
+                $("#infoModelCount").html("<p>" +res +"</p>");
                 if(res > 1){
                     $("#infoModelLabel").html("Total Models");
                 }else{
@@ -335,7 +335,7 @@
             type: 'get',
             url: './queries/car/getCarInfo.php?name=GetBrandCount',
             success: function(res){
-                $("#infoBrandCount").html(res);
+                $("#infoBrandCount").html("<p>" +res +"</p>");
                 if(res  > 1){
                     $("#infoBrandLabel").html("Total Brands");
                 }else{
@@ -348,7 +348,7 @@
             type: 'get',
             url: './queries/car/getCarInfo.php?name=GetCarCount',
             success: function(res){
-                $("#infoCarCount").html(res);
+                $("#infoCarCount").html("<p>" +res +"</p>");
                 if(res > 1){
                     $("#infoCarCountLabel").html("Total Cars");
                 }else{
@@ -361,7 +361,7 @@
             type: 'get',
             url: './queries/car/getCarInfo.php?name=maintenance',
             success: function(res){
-                $("#infoCarMaintenance").html(res);
+                $("#infoCarMaintenance").html("<p>" +res +"</p>");
                 if(res > 1){
                     $("#infoMaintenanceLabel").html("Cars Need Maintenance");
                 }else{

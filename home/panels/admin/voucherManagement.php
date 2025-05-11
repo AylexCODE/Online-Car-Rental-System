@@ -126,6 +126,7 @@
                data: { voucherUID: voucherUID.value, voucherDeduction: voucherDeduction.value, voucherType: voucherType.value, voucherExpiryDate: voucherExpiryDate.value, voucherMaxUsage: voucherMaxUsage.value },
                success: function(res){
                   $(".msg").html(res);
+                  getVouchers();
                   showHideAddVoucher();
                },
                error: function(){

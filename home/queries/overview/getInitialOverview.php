@@ -9,6 +9,8 @@
             $getQuery = "SELECT COUNT(BrandID) AS Count FROM brands;";
         }elseif($type == "getModels"){
             $getQuery = "SELECT COUNT(ModelID) AS Count FROM models";
+        }elseif($type == "getUsers"){
+            $getQuery = "SELECT COUNT(UserID) AS Count FROM users";
         }else{
             $getQuery = "SELECT COUNT(CarID) AS Count FROM cars;";
         }

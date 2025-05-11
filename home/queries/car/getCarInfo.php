@@ -23,10 +23,10 @@
             $execGetCarInfo = mysqli_query($conn, $getCarInfoQuery);
             if(mysqli_num_rows($execGetCarInfo) > 0){
                 while($rows = mysqli_fetch_assoc($execGetCarInfo)){
-                    echo "<p>" . $rows["Data"] . "</p>";
+                    echo $rows["Data"];
                 }
             }else{
-                echo "<p>No data yet...";
+                echo "<p>No data yet...</p>";
             }
         }catch(mysqli_sql_exception $e){echo $e;}
     }

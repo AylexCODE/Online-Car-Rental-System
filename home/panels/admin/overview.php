@@ -21,9 +21,27 @@
                 </span>
               </span>
               <span>
+                <span class='oCarMaintenance'>
+                  <p id='oCarMaintenanceLabel'>Car Need Maintenance</p>
+                  <p id='oCarMaintenanceCount'>0</p>
+                </span>
+              </span>
+              <span>
                 <span class='regUsers'>
-                  <p>Registered Users</p>
-                  <p>0</p>
+                  <p id='oTotalUsersLabel'>Registered Users</p>
+                  <p id='oTotalUsersCount'>0</p>
+                </span>
+              </span>
+              <span>
+                <span class='oActiveVouchers'>
+                  <p id='oVouchersLabel'>Active Vouchers</p>
+                  <p id='oVouchersCount'>0</p>
+                </span>
+              </span>
+              <span>
+                <span class='oActiveRentals'>
+                  <p id='oRentalsLabel'>Active Rentals</p>
+                  <p id='oRentalsCount'>0</p>
                 </span>
               </span>
             </span>
@@ -72,6 +90,49 @@
             },
             error: function(){}
         });
+        
+        $.ajax({
+            type: 'get',
+            url: './queries/car/getCarInfo.php?name=maintenance',
+            success: function(res){
+                $("#oCarMaintenanceCount").html(res);
+                if(res > 1){
+                    $("#oCarMaintenanceLabel").html("Cars Need Maintenance");
+                }else{
+                    $("#oCarMaintenanceLabel").html("Car Need Maintenance");
+                }
+            }
+        });
+        
+        $.ajax({
+            type: 'get',
+            url: './queries/overview/getInitialOverview.php?type=getUsers',
+            success: function(res){
+                $("#oTotalUsersCount").html(res);
+                if(res > 1){
+                    $("#oTotalUsersLabel").html("Registered Users");
+                }else{
+                    $("#oTotalUsersLabel").html("Registered User");
+                }
+            },
+            error: function(){}
+        });
+        
+        $.ajax({
+            type: 'get',
+            url: './queries/rent/getVouchers.php?m=getCountActive',
+            success: function(res){
+                $("#oVouchersCount").html(res);
+                if(res > 1){
+                    $("#oVouchersLabel").html("Active Vouchers");
+                }else{
+                    $("#oVouchersLabel").html("Active Voucher");
+                }
+            },
+            error: function(){
+                
+            }
+        });
     }
     
     setOverviewInfo();
@@ -93,6 +154,16 @@
         flex-direction: row;
         flex-wrap: wrap;
         gap: 10px;
+        height: fit-content;
+    }
+    
+    .overview > span:nth-child(2) > span {
+        display: grid;
+        place-items: center;
+        height: 100px;
+        background-color: #316C40;
+        border-radius: 10px;
+        border-top: 5px solid #E2F87B;
     }
     
     .overview > span:nth-child(2) > span > span > p:nth-child(1){
@@ -105,12 +176,9 @@
     
     .overview > span:nth-child(2) > span > span {
         display: block;
-        background-color: #316C40;
         padding: 15px 20px;
         width: 20vw;
         height: fit-content;
         text-align: center;
-        border-radius: 10px;
-        border-top: 5px solid #E2F87B;
     }
 </style>

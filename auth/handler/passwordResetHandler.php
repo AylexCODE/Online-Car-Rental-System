@@ -1,11 +1,12 @@
 <?php
     session_start();
     require_once("../../database/db_conn.php");
+    require_once("../../home/queries/record_logs.php");
 
     if(isset($_GET["contact"])){
         $contact = $_GET["contact"];
         
-        $query = "SELECT Name, Email FROM users WHERE Email = '$contact' OR PhoneNumber = '$contact';";
+        $query = "SELECT UserID, Name, Email FROM users WHERE Email = '$contact' OR PhoneNumber = '$contact';";
         try{
             $execQuery = mysqli_query($conn, $query);
             
@@ -16,6 +17,7 @@
                         <input type='hidden' name='name' value='" . $result["Name"] . "'>
                         <input type='hidden' name='passcode' id='verificationCode'>
                       </form>";
+                $_SESSION["tempUserID"] = $result["UserID"];
             }else{
                 echo "Account is not registered";
             }
@@ -31,6 +33,8 @@
         $query = "UPDATE users SET password = '$encryptedPassword' WHERE Email = '$contact' OR PhoneNumber = '$contact';";
         try{
             mysqli_query($conn, $query);
+            
+            recordLog($_SESSION["tempUserID"], "Changed Password", $conn);
             echo "Ok";
         }catch(mysqli_sql_exception){
           echo "Error";
