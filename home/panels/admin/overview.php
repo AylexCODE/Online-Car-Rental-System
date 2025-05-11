@@ -288,6 +288,21 @@
                 
                 const rentDates = res.split("|")[1];
                 let rentDatesArray = rentDates.split("&nbsp;").reverse();
+                
+                if(filter == "month"){
+                    for(let i = 0; i < rentDatesArray.length; i++){
+                        rentDatesArray[i] = getMonthWord(rentDatesArray[i]);
+                    }
+                }else{
+                    for(let i = 0; i < rentDatesArray.length; i++){
+                        rentDatesArray[i] = getMonthWord(rentDatesArray[i].split(" ")[0]) +rentDatesArray[i].substring(2, 11);
+                    }
+                }
+                
+                rentDatesArray.length = rentDatesArray.length-1;
+                peakRentalsChart.data.labels = rentDatesArray;
+                peakRentalsChart.data.datasets[0].data = rentCountArray;
+                peakRentalsChart.update();
             },
             error: function(){}
         });
@@ -336,6 +351,7 @@
     Chart.defaults.color = '#FDFFF6';
     
     const revenue = document.getElementById("revenueDisplay");
+    const peakRentals = document.getElementById("peakRentalsDisplay");
     
     const revenueChart = new Chart(revenue, {
         type: 'bar',
@@ -379,7 +395,40 @@
             indexAxis: 'x',
         }
     });
+    
+    const peakRentalsChart = new Chart(peakRentals, {
+        type: 'line',
+        data: {
+            labels: [],
+            datasets: [{
+                label: "Peak Rentals Period",
+                data: [],
+                borderColor: ['#E2F87B'],
+                backgroundColor: ['#38814A80'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    grid: {
+                        color: '#FFFFFF40'
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: '#FFFFFF40'
+                    }
+                }
+            },
+            indexAxis: 'x',
+        }
+    });
+    
     filterRevenue("month");
+    filterPeakRentals("month");
 </script>
 <style type="text/css">
     .overview {

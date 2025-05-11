@@ -12,7 +12,7 @@
             $groupBy = "GROUP BY Date DESC LIMIT 10";
         }else{
             $getDate = "DATE_FORMAT(StartDate, '%m %d, %Y')";
-            $groupBy = "GROUP BY Date DESC LIMIT 24";
+            $groupBy = "GROUP BY Date DESC LIMIT 6";
         }
         
         try{

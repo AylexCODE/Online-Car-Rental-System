@@ -10,10 +10,10 @@
             $groupBy = "";
             if($filter == "month"){
                 $getDate = "MONTH(PaymentDate)";
-                $groupBy = "GROUP BY Date DESC LIMIT 6";
+                $groupBy = "GROUP BY Date DESC LIMIT 10";
             }else{
                 $getDate = "DATE_FORMAT(PaymentDate, '%m %d, %Y')";
-                $groupBy = "GROUP BY Date DESC LIMIT 12";
+                $groupBy = "GROUP BY Date DESC LIMIT 6";
             }
           
             $query = "SELECT SUM(AmountPaid) AS AmountPaid, $getDate AS Date FROM payments WHERE PaymentStatus = 1 $groupBy;";
