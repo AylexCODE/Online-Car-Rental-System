@@ -146,7 +146,7 @@
             type: 'get',
             url: './queries/rent/getVouchers.php?m=getAll',
             success: function(res){
-                $("#activeVouchers").html(res);
+                $("#allVouchers").html(res);
             },
             error: function(){
                 
@@ -157,7 +157,7 @@
             type: 'get',
             url: './queries/rent/getVouchers.php?m=getActive',
             success: function(res){
-                $("#allVouchers").html(res);
+                $("#activeVouchers").html(res);
             },
             error: function(){
                 

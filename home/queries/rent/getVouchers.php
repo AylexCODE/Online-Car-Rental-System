@@ -7,7 +7,7 @@
         if($_GET["m"] == "getAll"){
             $getVouchersQuery = "SELECT * FROM vouchers";
         }elseif($_GET["m"] == "getActive"){
-            $getVouchersQuery = "SELECT * FROM vouchers WHERE DATEDIFF(ExpiryDate, NOW()) >= 0 OR UsedTimes < MaxUsage;";
+            $getVouchersQuery = "SELECT * FROM vouchers WHERE DATEDIFF(ExpiryDate, NOW()) >= 0 AND UsedTimes < MaxUsage;";
         }elseif($_GET["m"] == "getUsed"){
             $getVouchersQuery = "SELECT * FROM vouchers WHERE DATEDIFF(ExpiryDate, NOW()) < 0 OR UsedTimes = MaxUsage;";
         }elseif($_GET["m"] == "getCountAll"){

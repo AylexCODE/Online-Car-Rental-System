@@ -20,6 +20,12 @@
                   <p id='oTotalCarsCount'>0</p>
                 </span>
               </span>
+              <span>
+                <span class='regUsers'>
+                  <p>Registered Users</p>
+                  <p>0</p>
+                </span>
+              </span>
             </span>
         </div>";
 ?>
