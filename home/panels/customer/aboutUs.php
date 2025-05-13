@@ -1,6 +1,8 @@
 <?php
     echo "<div class='aboutPage'>
         </div>";
+        
+    include_once("./animations.php");
 ?>
 
 <style type="text/css">

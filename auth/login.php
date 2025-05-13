@@ -33,6 +33,8 @@
             header("location: ./login.php?accountnotfound");
         }
     }
+    
+    include_once("../home/animations.php");
 ?>
 
 <!DOCTYPE html>
@@ -262,7 +264,7 @@
                     <a href="./passwordReset.php">Forgot Password?</a>
                 </span>
             </span>
-            <button type="submit" name="login" onclick="setRemembered();" id="submitBtn">Login</button>
+            <button type="submit" name="login" onclick="setRemembered();" id="loginBtn">Login</button>
             
             <?php
                 if(isset($_GET["authfailed"])){
@@ -324,7 +326,7 @@
             contact.value = localStorage.getItem("user").split("&nbsp;")[0];
             password.value = localStorage.getItem("user").split("&nbsp;")[1];
             
-            document.getElementById("submitBtn").click();
+            document.getElementById("loginBtn").click();
         }
     }
     

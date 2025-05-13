@@ -49,6 +49,7 @@
     include_once("./panels/admin/voucherManagement.php");
     include_once("./panels/admin/tickets.php");
     include_once("./panels/admin/logs.php");
+    include_once("./animations.php");
 
     echo "</section>
         <p class='msg'>Hello World!</p>

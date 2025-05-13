@@ -22,6 +22,8 @@
                 }
             echo "</span>
         </div>";
+        
+        include_once("./animations.php");
 ?>
 
 <script  src="./scripts/messaging.js"></script>

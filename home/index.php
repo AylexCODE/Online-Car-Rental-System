@@ -4,6 +4,7 @@
   require("../database/db_conn.php");
 
   include_once("./style.php");
+  include_once("./animations.php");
 ?>
 
 <!DOCTYPE html>

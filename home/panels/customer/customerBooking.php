@@ -130,6 +130,8 @@
             <button onclick='reviewBtn(&#x27;hide&#x27;);'>NO</button>
         </div>
     </div>";
+    
+    include_once("./animations.php");
 ?>
 
 <script type="text/javascript">
