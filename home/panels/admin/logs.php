@@ -1,6 +1,11 @@
 <?php
   echo "<div class='logs'>
           <h4>Logs</h4>
+          <span id='backupRestoreWrapper'>
+              <button onclick='backupRestore(&#x27;start&#x27;);'>Start</button>
+              <button onclick='backupRestore(&#x27;backup&#x27;);'>Backup</button>
+              <button onclick='backupRestore(&#x27;restore&#x27;);'>Restore</button>
+          </span>
           <span>
             <span>
                 <span>
@@ -52,6 +57,29 @@
             error: function(){}
         });
     }
+    
+    function backupRestore(mode){
+        $.ajax({
+            type: 'post',
+            url: './queries/backupRestore.php',
+            data: { type: mode },
+            success: function(res){
+                let message = "Backup";
+                if(mode == "restore"){
+                    message = "Restore";
+                }else if(mode == "start"){
+                    message = "Start Backup"
+                }
+                console.log(res)
+                if(res == "Ok"){
+                    $(".msg").html(`<p class='success'>${message} Successful</p>`);
+                }else{
+                    $(".msg").html(`<p class='error'>${message} Error</p>`);
+                }
+            },
+            error: function(){}
+        });
+    }
 
     getLogs();  
 </script>
@@ -66,7 +94,7 @@
     
     .logs > span {
         padding: 0px 25px;
-        height: calc(100% - 75px);
+        height: calc(100% - 125px);
         display: block;
     }
     
@@ -232,5 +260,20 @@
         min-width: 460px;
         max-width: 460px;
         overflow-x: scroll;
+    }
+    
+    #backupRestoreWrapper {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+    
+    #backupRestoreWrapper > button {
+        background-color: #316C40;
+        padding: 10px 20px;
+        color: #FDFFF6;
+        border: none;
+        height: fit-content;
+        border-radius: 5px;
     }
 </style>
