@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2025 at 12:24 PM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 8.3.8
+-- Generation Time: May 16, 2025 at 07:05 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `brands` (
   `BrandID` int(11) NOT NULL,
   `BrandName` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -47,7 +47,7 @@ CREATE TABLE `cars` (
   `RentalPrice` double(10,2) NOT NULL,
   `Availability` tinyint(1) NOT NULL,
   `ImageName` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -62,7 +62,7 @@ CREATE TABLE `car_statistics` (
   `DateTime` datetime NOT NULL,
   `Type` varchar(50) NOT NULL,
   `Damages` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -77,7 +77,7 @@ CREATE TABLE `damages` (
   `Scratches` tinyint(1) NOT NULL,
   `ChippedPaint` tinyint(1) NOT NULL,
   `CrackedWindshields` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -90,7 +90,7 @@ CREATE TABLE `locations` (
   `Address` varchar(100) NOT NULL,
   `AddressCode` varchar(100) NOT NULL,
   `DistanceKM` double(10,2) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -103,7 +103,7 @@ CREATE TABLE `logs` (
   `UserID` int(11) NOT NULL,
   `DateAndTime` datetime NOT NULL,
   `Activity` varchar(256) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -115,7 +115,7 @@ CREATE TABLE `models` (
   `ModelID` int(11) NOT NULL,
   `BrandID` int(11) NOT NULL,
   `ModelName` varchar(128) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -131,8 +131,8 @@ CREATE TABLE `payments` (
   `AmountPaid` double(10,2) NOT NULL,
   `PaymentMethod` varchar(24) NOT NULL,
   `PaymentStatus` int(3) NOT NULL,
-  `VoucherID` varchar(16) NOT NULL DEFAULT 'None'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `VoucherUID` varchar(16) NOT NULL DEFAULT 'None'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -150,7 +150,7 @@ CREATE TABLE `rentals` (
   `EndDate` datetime NOT NULL,
   `Penalty` double(10,2) NOT NULL,
   `Status` int(3) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -165,7 +165,7 @@ CREATE TABLE `reviews` (
   `CarID` int(11) NOT NULL,
   `UserReview` varchar(255) NOT NULL,
   `Rating` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -179,7 +179,7 @@ CREATE TABLE `tickets` (
   `Conversation` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`Conversation`)),
   `Status` tinyint(4) NOT NULL,
   `Date` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -197,7 +197,7 @@ CREATE TABLE `users` (
   `Role` varchar(16) NOT NULL,
   `Password` varchar(100) NOT NULL,
   `DateCreated` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -212,7 +212,7 @@ CREATE TABLE `vouchers` (
   `ExpiryDate` datetime NOT NULL,
   `UsedTimes` int(11) NOT NULL,
   `MaxUsage` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Indexes for dumped tables
@@ -274,7 +274,8 @@ ALTER TABLE `models`
 --
 ALTER TABLE `payments`
   ADD PRIMARY KEY (`PaymentID`),
-  ADD KEY `RentalID` (`RentalID`);
+  ADD KEY `RentalID` (`RentalID`),
+  ADD KEY `VoucherUID` (`VoucherUID`);
 
 --
 -- Indexes for table `rentals`
@@ -282,7 +283,9 @@ ALTER TABLE `payments`
 ALTER TABLE `rentals`
   ADD PRIMARY KEY (`RentalID`),
   ADD KEY `UserID` (`UserID`),
-  ADD KEY `CarID` (`CarID`);
+  ADD KEY `CarID` (`CarID`),
+  ADD KEY `PickUpLocationID` (`PickUpLocationID`),
+  ADD KEY `DropOffLocationID` (`DropOffLocationID`);
 
 --
 -- Indexes for table `reviews`
@@ -425,14 +428,17 @@ ALTER TABLE `models`
 -- Constraints for table `payments`
 --
 ALTER TABLE `payments`
-  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`RentalID`) REFERENCES `rentals` (`RentalID`);
+  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`RentalID`) REFERENCES `rentals` (`RentalID`),
+  ADD CONSTRAINT `payments_ibfk_2` FOREIGN KEY (`VoucherUID`) REFERENCES `vouchers` (`VoucherUID`);
 
 --
 -- Constraints for table `rentals`
 --
 ALTER TABLE `rentals`
   ADD CONSTRAINT `rentals_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `users` (`UserID`),
-  ADD CONSTRAINT `rentals_ibfk_2` FOREIGN KEY (`CarID`) REFERENCES `cars` (`CarID`);
+  ADD CONSTRAINT `rentals_ibfk_2` FOREIGN KEY (`CarID`) REFERENCES `cars` (`CarID`),
+  ADD CONSTRAINT `rentals_ibfk_3` FOREIGN KEY (`PickUpLocationID`) REFERENCES `locations` (`LocationID`),
+  ADD CONSTRAINT `rentals_ibfk_4` FOREIGN KEY (`DropOffLocationID`) REFERENCES `locations` (`LocationID`);
 
 --
 -- Constraints for table `reviews`
