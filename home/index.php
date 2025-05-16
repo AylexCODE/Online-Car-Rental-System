@@ -21,6 +21,7 @@
             margin: 0;
             padding: 0;
         }
+
         .loginUserConfirmationWrapper, .loginUserConfirmationBG {
             position: fixed;
             top: 0px;
@@ -31,20 +32,24 @@
             place-items: center;
             z-index: 999;
         }
+
         .loginUserConfirmationBG {
             background-color: #031A0980;
             display: block;
         }
+
         .loginUserConfirmation {
             background-color: #38814a;
             color: #FDFFF6;
             z-index: 1000;
         }
+
         .homePage {
             height: 100%;
             width: 100%;
             display: block;
         }
+
         .rentPage {
             display: none;
         }
@@ -92,9 +97,12 @@
                                 <button onclick='setActiveBtn(3)' id='aboutBtn'>About</button>
                                 <button onclick='setActiveBtn(4)' id='contactBtn'>Contact</button>
                             </span>
-                            <span class='logout'>
-                                <a href='../auth/logout.php' onclick='logout()'>logout</a>
-                            </span>
+                            <span class='account' onclick='toggleAccountSettings();'>" . $_SESSION["name"][0] . "</span>
+                            <div class='accountSettingsWrapper'>
+                                <a href='./panels/customer/account.php' target='_blank' onclick='toggleAccountSettings();' class='accountSettings'><img src='./images/icons/accountSettings-icon.svg' height='16px' width='16px'>My Account</a>
+                                <a href='../auth/logout.php' onclick='logout()' class='logout'><img src='./images/icons/logout-icon2.svg' height='16px' width='16px'>Logout</a>
+                            </div>
+                            <span class='accountSettingsDetector' onclick='toggleAccountSettings();'></span>
                         </nav>";
                     echo "<div class='homePage'>";
                     include_once("./panels/customer/rentStatus.php");
@@ -355,6 +363,12 @@
 
     //     }
     // }
+
+    function toggleAccountSettings(){
+        document.querySelector(".account").classList.toggle("active");
+        document.querySelector(".accountSettingsWrapper").classList.toggle("active");
+        document.querySelector(".accountSettingsDetector").classList.toggle("active");
+    }
 
     let carImage = false;
     function submitAddCar(event){

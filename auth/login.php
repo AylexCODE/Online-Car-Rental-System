@@ -9,7 +9,7 @@
         $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
         $rememberMe = filter_input(INPUT_POST, "rememberMe", FILTER_SANITIZE_SPECIAL_CHARS);
 
-        $query = "SELECT * FROM users WHERE Email = '$contact' OR PhoneNumber = '$contact'";
+        $query = "SELECT UserID, Name, Email, Role, Password FROM users WHERE Email = '$contact' OR PhoneNumber = '$contact'";
         $execQuery = mysqli_query($conn, $query);
 
         if(mysqli_num_rows($execQuery) != 0){
@@ -18,6 +18,7 @@
             $_SESSION["TempEmail"] = $rows["Email"];
             if(password_verify($password, $rows["Password"])){
                 unset($_SESSION["TempEmail"]);
+                $_SESSION["name"] = $rows["Name"];
                 $_SESSION["email"] = $rows["Email"];
                 $_SESSION["role"] = $rows["Role"];
                 $_SESSION["userID"] = $rows["UserID"];
@@ -66,6 +67,12 @@
             height: 100vh;
         }
 
+        input:-webkit-autofill {
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: #ffffff;
+            box-shadow: inset 0 0 20px 20px #FDFFF615;
+        }
+
         .loginWrapper {
             background-color: #031A0965;
             padding: 40px 50px 30px 50px;
@@ -93,8 +100,8 @@
             font-size: 16px;
             margin-bottom: 15px;
             background-color: #FFFFFF30;
-            border-bottom: 2px solid #316C40;
-            border-right: 2px solid #316C40;
+            border-bottom: 2px solid #45a049;
+            border-right: 2px solid #45a049;
         }
         
         .loginWrapper #password {

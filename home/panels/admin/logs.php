@@ -97,6 +97,10 @@
         height: calc(100% - 125px);
         display: block;
     }
+
+    .logs > span:nth-child(2) {
+        height: fit-content;
+    }
     
     .logs > span > span {
         display: block;

@@ -49,7 +49,7 @@
         }
 
         try{
-            $getPaymentsQuery = "SELECT payments.PaymentID, payments.RentalID, payments.AmountPaid, payments.PaymentStatus, payments.PaymentMethod, payments.PaymentFrequency, payments.PaymentDate, payments.VoucherID, (SELECT users.Name FROM users WHERE UserID = (SELECT rentals.UserID WHERE rentals.RentalID = payments.RentalID) LIMIT 1) AS CusName FROM payments INNER JOIN rentals ON payments.RentalID = rentals.RentalID WHERE $filterPaymentID $filterPaymentRentID $filterPaymentName $filterPaymentPaid $filterPaymentMethod $filterPaymentFreq $filterPaymentDate $filterPaymentVoucherID ORDER BY PaymentID DESC";
+            $getPaymentsQuery = "SELECT payments.PaymentID, payments.RentalID, payments.AmountPaid, payments.PaymentStatus, payments.PaymentMethod, payments.PaymentFrequency, payments.PaymentDate, payments.VoucherUID, (SELECT users.Name FROM users WHERE UserID = (SELECT rentals.UserID WHERE rentals.RentalID = payments.RentalID) LIMIT 1) AS CusName FROM payments INNER JOIN rentals ON payments.RentalID = rentals.RentalID WHERE $filterPaymentID $filterPaymentRentID $filterPaymentName $filterPaymentPaid $filterPaymentMethod $filterPaymentFreq $filterPaymentDate $filterPaymentVoucherID ORDER BY PaymentID DESC";
             
             $execGetPayments = mysqli_query($conn, $getPaymentsQuery);
             if(mysqli_num_rows($execGetPayments) > 0){
@@ -70,7 +70,7 @@
                               echo "Pending";
                             }
                           echo "</td>
-                          <td>" . $rows["VoucherID"] . "</td></tr>";
+                          <td>" . $rows["VoucherUID"] . "</td></tr>";
                 }
             }else{
                 echo "<td>No Data<td>";

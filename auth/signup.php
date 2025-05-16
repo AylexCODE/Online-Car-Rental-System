@@ -82,7 +82,7 @@
         }
         */
     </style>
-    <script src="../../home/vendor/jquery-3.7.1.min.js"></script>
+    <script src="../home/vendor/jquery-3.7.1.min.js"></script>
     <title>Car Rental</title>
 </head>
 <body>
@@ -108,7 +108,7 @@
         <section class="secondStep">
             <h4>Personal Info</h4>
             <input type="date" name="DoB" id="doB" class="dob" style="width: 275px;">
-            <label for="dob">Date of Birth</label>
+            <label for="doB">Date of Birth</label>
 
             <input type="text" name="DriversLicense" id="dLicense" maxlength="13" placeholder=" " style="width: 275px;">
             <label for="dLicense">Drivers License</label>

@@ -23,6 +23,7 @@
         background-image: url("../home/images/backgrounds/signupBG.jpg");
         background-size: cover;
         background-position: center;
+        overflow: hidden;
     }
     
     body > h2 {

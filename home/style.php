@@ -86,7 +86,7 @@
         justify-content: right;
     }
 
-    .authGuest > a, .logout > a {
+    .authGuest > a{
         border: 1px solid #FDFFF6;
         background-color: #FDFFF620;
         border-radius: 8px;
@@ -101,6 +101,25 @@
         font-weight: 700;
     }
 
+    .logout, .logout:visited, .accountSettings {
+        background-color: #031A09;
+        padding: 5px 10px;
+        border-radius: 5px;
+        text-decoration: none;
+        color: #FDFFF6;
+        display: flex;
+        flex-direction: row;
+        justify-content: left;
+        align-items: center;
+        gap: 5px;
+    }
+
+    .accountSettings {
+        background-color: #FDFFF6;
+        border: 1px solid #031A09;
+        color: #031A09;
+    }
+
     nav > span > h3, nav > span > p, nav > span > button, nav > span > a, nav > span > a:visited {
         color: #FDFFF6;
         text-decoration: none;
@@ -108,9 +127,72 @@
         border: none;
     }
 
-    .logout {
-        display: block;
-        text-align: right;
+    .account {
+        display: grid;
+        width:  26px;
+        height:  26px;
+        border-radius: 5px;
+        place-items: center;
+        color: #031A09;
+        background-color: #FDFFF6;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .account:after {
+        content: '';
+        position: absolute;
+        border: 1px solid #FDFFF6;
+        height: 26px;
+        width: 26px;
+        border-radius: 5px;
+        scale: 0.5;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .account.active {
+        scale: 0.8;
+    }
+    
+    .account.active:after{
+        scale: 1.4;
+    }
+    
+    .accountSettingsWrapper {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 40px;
+        right: 0px;
+        height: 0px;
+        padding: 0px;
+        background-color: #FDFFF6;
+        border-radius: 0px 0px 0px 5px;
+        gap: 5px;
+        border: none;
+        overflow: hidden;
+        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        z-index: 999;
+    }
+    
+    .accountSettingsWrapper.active {
+        height: fit-content;
+        padding: 10px 20px;
+        border-left: 2px solid #031A09;
+        border-bottom: 2px solid #031A09;
+    }
+
+    .accountSettingsDetector {
+        position: fixed;
+        top: 0px;
+        left: -27.5px;
+        width: 100dvw;
+        height: 0dvh;
+        z-index: 998;
+        position: all;
+    }
+
+    .accountSettingsDetector.active {
+        height: 100dvh;
     }
 
     @keyframes fade {
@@ -290,7 +372,7 @@
         width: 100%;
         height: 100%;
         padding-top: 7.5px;
-        padding-bottom: 25px;
+        padding-bottom: 50px;
         overflow-y: scroll;
         display: flex;
         flex-direction: row;

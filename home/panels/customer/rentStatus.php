@@ -1,7 +1,7 @@
 <?php
     echo "<section class='rentStatusWrapper guestBG'>
             <span style='background-image: url( &#x27;./images/backgrounds/homeBG.jpg &#x27;); background-repeat: no-repeat; background-size: cover; background-position: top;'>
-                <div class='userRentStatus'>
+                <!--<div class='userRentStatus'>
                     <span>
                         <span class='pickupLocation'>
                             <p>Pick Location</p>
@@ -24,7 +24,7 @@
                             <p>Jun 19, 2022</p>
                         </span>
                     </span>
-                </div>
+                </div>-->
             </span>
         </section>
         ";
