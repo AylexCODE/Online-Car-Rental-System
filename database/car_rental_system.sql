@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
--- 
+--
 -- Host: 127.0.0.1
--- Generation Time: May 01, 2025 at 02:17 PM
+-- Generation Time: May 16, 2025 at 12:24 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 8.3.8
 
@@ -238,8 +238,8 @@ ALTER TABLE `cars`
 --
 ALTER TABLE `car_statistics`
   ADD PRIMARY KEY (`StatisticsID`),
-  ADD KEY `CustomerID` (`CustomerID`),
-  ADD KEY `CarID` (`CarID`);
+  ADD KEY `car_statistics_ibfk_1` (`CustomerID`),
+  ADD KEY `car_statistics_ibfk_2` (`CarID`);
 
 --
 -- Indexes for table `damages`
