@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 16, 2025 at 07:05 PM
+-- Generation Time: May 18, 2025 at 09:48 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -76,7 +76,8 @@ CREATE TABLE `damages` (
   `Dents` tinyint(1) NOT NULL,
   `Scratches` tinyint(1) NOT NULL,
   `ChippedPaint` tinyint(1) NOT NULL,
-  `CrackedWindshields` tinyint(1) NOT NULL
+  `CrackedWindshields` tinyint(1) NOT NULL,
+  `AccumulatedCost` double(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
