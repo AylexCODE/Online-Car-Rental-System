@@ -275,8 +275,7 @@ ALTER TABLE `models`
 --
 ALTER TABLE `payments`
   ADD PRIMARY KEY (`PaymentID`),
-  ADD KEY `RentalID` (`RentalID`),
-  ADD KEY `VoucherUID` (`VoucherUID`);
+  ADD KEY `RentalID` (`RentalID`);
 
 --
 -- Indexes for table `rentals`
@@ -429,8 +428,7 @@ ALTER TABLE `models`
 -- Constraints for table `payments`
 --
 ALTER TABLE `payments`
-  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`RentalID`) REFERENCES `rentals` (`RentalID`),
-  ADD CONSTRAINT `payments_ibfk_2` FOREIGN KEY (`VoucherUID`) REFERENCES `vouchers` (`VoucherUID`);
+  ADD CONSTRAINT `payments_ibfk_1` FOREIGN KEY (`RentalID`) REFERENCES `rentals` (`RentalID`);
 
 --
 -- Constraints for table `rentals`
