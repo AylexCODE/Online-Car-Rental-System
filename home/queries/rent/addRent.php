@@ -39,7 +39,7 @@
                                     echo "Error Add Payment" . $e;
                                 }
                                 
-                                if($voucher != "NA"){
+                                if($voucher != "" || $voucher != "NA"){
                                     $getVoucherInfo = "SELECT UsedTimes FROM vouchers WHERE VoucherUID = '$voucher';";
                                    
                                     try{
