@@ -1,6 +1,32 @@
 <?php
     echo "<div class='contactPage'>
-            <span class='contactInfo'></span>
+            <span class='contactInfo' style='display: flex; flex-direction: column; justify-content: center; align-items: center; color: #FDFFF6;'>
+                <div style='padding: 20px;'>
+                    <h2 style='font-size: 32px; margin-top: 20px; margin-bottom: 10px; width: 100%; text-align: center;'>Contact Us</h2>
+                    <p style='width: 100%; text-align: center;'>Have questions or need assistance? We're here to help! Reach out to our team through any of the channels below, and we'll get back to you as soon as possible.</p>
+
+                    <div style='display: flex; flex-direction: column; gap: 10px; margin-top: 40px; margin-bottom: 30px;'>
+                        <div style='background-color: #38814a; padding: 20px; display: flex; flex-direction: column;'>
+                            <strong style='font-size: 16px;'>Customer Support</strong>
+                            <p style='margin-top: 5px; margin-bottom: 2.5px;'>📧 Email: <a href='mailto:car.rental.system.g8@gmail.com' style='color: #FDFFF6;'>car.rental.system.g8@gmail.com</a></p>
+                            <p>🕒 Operating Hours: Monday–Sunday, 7:30 AM – 6:30 PM (GMT+8)</p>
+                        </div>
+                        <!--<div style='background-color: #38814a;'>
+                            <p>Visit Our Office</p>
+                            <strong>📍 Address:</strong>
+                                <p style='margin-left: 20px;'>Quick Ride,<br></p>
+                                <p style='margin-left: 20px;'>Balilihan Bohol,<br></p>
+                                <p style='margin-left: 20px;'>Philippines</p>
+                        </div>-->
+                        <div style='background-color: #38814a; display: flex; flex-direction: column; gap: 10px; margin-block: 10px; padding: 20px;'>
+                            <p>Connect With Us</p>
+                            <p>💬 Live Chat: Available on our website during operating hours.</p>
+                        </div>
+                    </div>
+                    <p style='text-align: center;'>We value your feedback and look forward to serving you!</p>
+                </div>
+                <span class='arrowDown'>&#x2304;</span>
+            </span>
             <span class='chatWAdmin' >
                 <span>
                     <p style='font-family: space-grotesk-semibold; font-size: 24px; text-transform: uppercase;'>Chat With Customer Support</p>
@@ -40,6 +66,25 @@
         overflow-y: scroll;
         scroll-behavior: smooth;
         scroll-snap-type: y mandatory;
+    }
+
+    .arrowDown {
+        font-size: 30px;
+        opacity: 0.6;
+        animation: jumpInfinite 1.5s infinite;
+        animation-delay: 5s;
+    }
+
+    @keyframes jumpInfinite {
+        0% {
+            transform: translateY(0px);
+        }
+        50% {
+            transform: translateY(10px);
+        }
+        100% {
+            transform: translateY(0px);
+        }
     }
     
     .contactInfo, .chatWAdmin {

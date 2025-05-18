@@ -208,7 +208,7 @@
                     aboutBtn.classList.add("active");
                     navIndicator.style.left = aboutBtn.offsetLeft-4 +"px";
                     navIndicator.style.width = aboutBtn.clientWidth+8 +"px";
-                    aboutPage.style.display = "block";
+                    aboutPage.style.display = "grid";
                     break;
                 case 4:
                     contactBtn.classList.add("active");
@@ -231,7 +231,7 @@
                     aboutBtn.classList.add("active");
                     navIndicator.style.left = aboutBtn.offsetLeft-4 +"px";
                     navIndicator.style.width = aboutBtn.clientWidth+8 +"px";
-                    aboutPage.style.display = "block";
+                    aboutPage.style.display = "grid";
                     break;
                 case 3:
                     contactBtn.classList.add("active");
