@@ -63,8 +63,8 @@
                             echo "Error Getting Rental ID";
                         }
                     }
-                }catch(mysqli_sql_exception){
-                    echo "Error Add Rental";
+                }catch(mysqli_sql_exception $e){
+                    echo "Error Add Rental" . $e;
                 }
             }
         }catch(mysqli_sql_exception){
