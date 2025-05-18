@@ -512,6 +512,10 @@
     .revenueFilter > p, .peakRentalsFilter > p {
         opacity: 0.8;
     }
+
+    .revenueFilter > select *, .peakRentalsFilter > select * {
+        background-color: #031A09;
+    }
     
     .revenueFilter > select, .peakRentalsFilter > select {
         color: #FDFFF6;
