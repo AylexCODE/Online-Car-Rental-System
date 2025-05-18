@@ -292,7 +292,7 @@
             <p>Don't have an account? <a href="./signup.php">Signup</a></p>
         </form>
     </div>
-    <p class='msg'>Hello World!</p>
+    <p class='msg'> </p>
 </body>
 <script type="text/javascript">
     const contact = document.getElementById("contact");
