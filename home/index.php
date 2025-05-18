@@ -569,6 +569,7 @@
                 }else{
                     $(".notif").html("<span class='error'>Something Went Wrong</span>");
                 }
+                console.log(res)
             },
             error: function(){
                 $(".msg").html("Error Pre");

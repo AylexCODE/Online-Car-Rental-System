@@ -35,11 +35,11 @@
                                 recordLog($_SESSION["userID"], "Booked Car ID $carID", $conn);
                                 try {
                                     mysqli_query($conn, $addPaymentQuery);
-                                }catch(mysqli_sql_exception){
-                                    echo "Error Add Payment";
+                                }catch(mysqli_sql_exception $e){
+                                    echo "Error Add Payment" . $e;
                                 }
                                 
-                                if($voucher != "" || $voucher != "NA"){
+                                if($voucher != "NA"){
                                     $getVoucherInfo = "SELECT UsedTimes FROM vouchers WHERE VoucherUID = '$voucher';";
                                    
                                     try{
