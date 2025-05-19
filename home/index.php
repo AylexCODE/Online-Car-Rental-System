@@ -564,6 +564,7 @@
                     document.querySelector(".rentPage").style.display = "none";
 
                     sendNotification(carId, userID);
+                    getUserBookingHistory();
 
                     socket.emit('update_admin', 'Ok');
                 }else{
