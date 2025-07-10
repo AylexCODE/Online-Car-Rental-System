@@ -65,3 +65,122 @@
 [![ChartJS](https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=Chart.js&logoColor=white)](https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js)
 
 [EmailJS](https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js)
+
+<br />
+
+## File Structure
+```
+.
+├── auth
+│   ├── handler
+│   │   ├── passwordResetHandler.php
+│   │   └── signupHandler.php
+│   ├── login.php
+│   ├── logout.php
+│   ├── passwordReset.php
+│   ├── signup.php
+│   ├── style.php
+│   └── testAdmin.php
+├── database
+│   ├── car_rental_system.sql
+│   ├── db_conn.php
+│   └── test_data.sql
+├── fonts
+│   ├── SpaceGrotesk-Bold.otf
+│   ├── SpaceGrotesk-Light.otf
+│   ├── SpaceGrotesk-Medium.otf
+│   ├── SpaceGrotesk-Regular.otf
+│   └── SpaceGrotesk-SemiBold.otf
+├── home
+│   ├── components
+│   │   ├── carSelection.php
+│   │   └── cars.php
+│   ├── images
+│   │   ├── backgrounds ──
+│   │   ├── cars ──
+│   │   └── icons ──
+│   ├── pages
+│   │   ├── agreement.php
+│   │   └── rent.php
+│   ├── panels
+│   │   ├── admin
+│   │   │   ├── admin.php
+│   │   │   ├── carManagement.php
+│   │   │   ├── logs.php
+│   │   │   ├── overview.php
+│   │   │   ├── payments.php
+│   │   │   ├── rentals.php
+│   │   │   ├── tickets.php
+│   │   │   ├── userManagement.php
+│   │   │   └── voucherManagement.php
+│   │   └── customer
+│   │       ├── aboutUs.php
+│   │       ├── account.php
+│   │       ├── contactUs.php
+│   │       ├── customerBooking.php
+│   │       └── rentStatus.php
+│   ├── queries
+│   │   ├── brand
+│   │   │   ├── addBrand.php
+│   │   │   ├── deleteBrand.php
+│   │   │   ├── editBrand.php
+│   │   │   ├── getBrands.php
+│   │   │   └── getBrandsList.php
+│   │   ├── car
+│   │   │   ├── addCar.php
+│   │   │   ├── addCarStatistics.php
+│   │   │   ├── checkCarAvailability.php
+│   │   │   ├── fixCar.php
+│   │   │   ├── getCarCondition.php
+│   │   │   ├── getCarInfo.php
+│   │   │   ├── getCarMaintenance.php
+│   │   │   ├── getCarStatistics.php
+│   │   │   └── getCars.php
+│   │   ├── location
+│   │   │   ├── addLocation.php
+│   │   │   ├── deleteLocation.php
+│   │   │   ├── editLocation.php
+│   │   │   ├── getLocations.php
+│   │   │   └── getLocationsList.php
+│   │   ├── overview
+│   │   │   ├── getInitialOverview.php
+│   │   │   ├── getPeakRentalPeriods.php
+│   │   │   └── getRevenue.php
+│   │   ├── rent
+│   │   │   ├── activeRentAction.php
+│   │   │   ├── addRent.php
+│   │   │   ├── addVoucher.php
+│   │   │   ├── checkVoucher.php
+│   │   │   ├── getPaymentStats.php
+│   │   │   ├── getPayments.php
+│   │   │   ├── getRentals.php
+│   │   │   ├── getReturnPenalty.php
+│   │   │   ├── getVouchers.php
+│   │   │   ├── retrieveBookedCar.php
+│   │   │   ├── returnBookedCar.php
+│   │   │   └── sendNotif.php
+│   │   └── user
+│   │   │   ├── getBooking.php
+│   │   │   ├── getCustomerSupport.php
+│   │   │   ├── getMessages.php
+│   │   │   ├── getUsers.php
+│   │   │   ├── leaveReview.php
+│   │   │   └── sendMessage.php
+│   │   ├── backupRestore.php
+│   │   ├── get_logs.php
+│   │   ├── record_logs.php
+│   ├── scripts
+│   │   ├── messaging.js
+│   │   └── realtime.js
+│   ├── vendor
+│   │   ├── chartjs-4.4.1.min.js
+│   │   ├── emailjs-3.0.0.min.js
+│   │   ├── jquery-3.7.1.min.js
+│   │   └── socketio-4.8.1.min.js
+│   ├── animations.php
+│   ├── index.php
+│   └── style.php
+├── README.md
+├── index.php
+└── style.php
+```
